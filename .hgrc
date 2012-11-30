@@ -1,0 +1,16 @@
+[ui]
+username=goobsoft@gmail.com
+
+[extensions]
+hgext.mq=
+hgk=
+
+[hgk]
+#path=/usr/local/bin/hgk
+path=/opt/local/share/mercurial/contrib/hgk
+
+[diff]
+git=1
+
+[defaults]
+revert=--no-backup

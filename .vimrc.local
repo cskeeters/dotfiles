@@ -1,0 +1,55 @@
+set shiftwidth=2 tabstop=2 softtabstop=2
+"set shiftwidth=4 tabstop=4 softtabstop=4
+
+set formatprg=par\ -jw60 " gqG
+":.!par -jw80
+
+" vi-compatible sentances have two spaces after them.
+set cpo+=J
+
+ino jk <esc>
+cno jk <c-c>
+vno v <esc>
+inoremap <esc> <nop>
+
+iab #i #include
+iab teh the
+iab adn and
+iab waht what
+iab tehn then
+iab @@ goobsoft@gmail.com
+iab ccopy Copyright 2012 Chad Skeeters, all rights reserved.
+
+iab AlP ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab MoN January February March April May June July August September October November December
+iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
+iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
+
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
+let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairo'
+let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairomm-1.0'
+
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+nnoremap R "_d
+nnoremap <Leader>h :noh<CR>
+
+nmap <C-PageDown> :bn<CR>
+nmap <C-PageUp> :bp<CR>
+nmap <C-j> :bn<CR>
+nmap <C-k> :bp<CR>
+nnoremap <S-j> <C-e>
+nnoremap <S-k> <C-y>
+nnoremap <Leader>mw :bd!<CR>
+nnoremap <Leader>w :bd<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>el :e $MYVIMRC.local<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
