@@ -1,12 +1,14 @@
 [user]
-    name = Chad Skeeters
-    email = chad.skeeters@gmail.com
+  name = Chad Skeeters
+  email = chad.skeeters@gmail.com
 [credential]
-    helper = osxkeychain
+  helper = osxkeychain
 [alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    df = diff
-    lg = log -p
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
+[core]
+  editor = /usr/bin/vim

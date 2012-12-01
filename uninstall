@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function die()
+{
+    echo "${@}"
+    exit 1
+}
+
+function erun()
+{
+  echo "Running: ${@}"
+  ${@} || die "Error running ${@}"
+}
+
+cd ~/dotfiles
+
+if [ ! -d backup ]; then
+  die "Backup files don't exist"
+fi
+
+for dotfile in `find backup -type f -name ".*" | cut -c8-99`
+do
+  if [ -L ~/$dotfile ]; then
+    erun rm $dotfile
+    erun mv backup/$dotfile ~/
+  fi
+done
+
+cd ~
+for dotfile in `find . -maxdepth 1 -type l -name ".*" | cut -c3-99`
+do
+  if [ -f dotfiles/$dotfile ]; then
+    erun rm $dotfile
+    erun cp dotfiles/$dotfile ~/
+  fi
+done

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+function die()
+{
+    echo "${@}"
+    exit 1
+}
+
+function erun()
+{
+  echo "Running: ${@}"
+  ${@} || die "Error running ${@}"
+}
+
+cd ~
+if [ ! -e dotfiles ]; then
+  hg clone -u tip ssh://hg@bitbucket.org/cskeeters/dotfiles
+  else 
+  cd dotfiles
+  hg pull -u
+  cd ~
+fi
+
+#date=$(date +"%m_%d_%Y")
+
+if [ ! -e dotfiles/backup ]; then
+  mkdir dotfiles/backup
+fi
+
+for dotfile in `find dotfiles -type f -name ".*" | cut -c10-99`
+do
+  if [[ "$dotfile" != *backup* ]]; then
+    if [ -L $dotfile ]; then
+      erun rm $dotfile
+    else
+      if [ -f $dotfile ]; then
+        erun mv $dotfile dotfiles/backup
+      fi
+    fi
+    erun ln -s dotfiles/$dotfile $dotfile
+  fi
+done
+
