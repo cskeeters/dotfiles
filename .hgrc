@@ -1,11 +1,12 @@
 [ui]
-username=goobsoft@gmail.com
+username=chad.skeeters@gmail.com
 
 [extensions]
 hgext.mq=
 hgk=
 graphlog=
 color=
+pager=
 
 [hgk]
 #path=/usr/local/bin/hgk
@@ -19,7 +20,9 @@ revert=--no-backup
 
 [alias]
 slog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.slog
-show = log -pr
 nlog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.nlog
 sglog = glog --style=/home/chad/mercurial-cli-templates/map-cmdline.sglog
 , = sglog -l15
+
+[pager]
+pager = LESS='FRX' less
