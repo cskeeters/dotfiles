@@ -113,7 +113,12 @@
 " Vim UI {
     if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
-        color solarized                 " load a colorscheme
+
+        if has('gui_running')
+          color solarized                 " load a colorscheme
+        else
+          color default
+        endif
     endif
         let g:solarized_termtrans=1
         let g:solarized_contrast="high"
