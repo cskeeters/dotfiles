@@ -12,3 +12,11 @@ if has("gui_macvim")
 else
     set guifont=Monospace\ 13
 endif
+
+color solarized
+"color default
+"color desertEx
+"color eclipse
+"color fruit
+"color kate
+"color lightcolors
