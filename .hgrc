@@ -4,6 +4,8 @@ username=goobsoft@gmail.com
 [extensions]
 hgext.mq=
 hgk=
+graphlog=
+color=
 
 [hgk]
 #path=/usr/local/bin/hgk
@@ -14,3 +16,10 @@ git=1
 
 [defaults]
 revert=--no-backup
+
+[alias]
+slog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.slog
+show = log -pr
+nlog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.nlog
+sglog = glog --style=/home/chad/mercurial-cli-templates/map-cmdline.sglog
+, = sglog -l15
