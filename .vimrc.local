@@ -44,11 +44,13 @@ nmap <C-j> :bn<CR>
 nmap <C-k> :bp<CR>
 nnoremap <S-j> <C-e>
 nnoremap <S-k> <C-y>
+nnoremap <Leader>a :A<CR>
 nnoremap <Leader>mw :bd!<CR>
 nnoremap <Leader>w :bd<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>el :e $MYVIMRC.local<cr>
+nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 let g:tagbar_autoclose = 1

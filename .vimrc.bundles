@@ -78,10 +78,12 @@
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
+            Bundle 'tpope/vim-repeat'
             "Bundle 'AutoClose'
             Bundle 'kien/ctrlp.vim'
             Bundle 'vim-scripts/sessionman.vim'
             Bundle 'matchit.zip'
+            Bundle 'vim-scripts/a.vim'
             Bundle 'Lokaltog/vim-powerline'
             Bundle 'godlygeek/csapprox'
             Bundle 'Lokaltog/vim-easymotion'
@@ -154,6 +156,7 @@
         if count(g:spf13_bundle_groups, 'html')
             Bundle 'amirh/HTML-AutoCloseTag'
             Bundle 'hail2u/vim-css3-syntax'
+            Bundle 'tpope/vim-ragtag'
         endif
 
     " Ruby
