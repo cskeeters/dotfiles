@@ -64,7 +64,8 @@
     " In your .vimrc.bundles.local file"
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'scala']
+        "let g:spf13_bundle_groups=['general', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'scala']
+        let g:spf13_bundle_groups=['general', 'snipmate', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'scala']
     endif
 
     " To override all the included bundles, put
@@ -94,6 +95,7 @@
             Bundle 'nathanaelkane/vim-indent-guides'
             Bundle 'vim-scripts/restore_view.vim'
             Bundle 'tpope/vim-abolish.git'
+            "Bundle 'mbbill/code_complete'
         endif
 
     " General Programming

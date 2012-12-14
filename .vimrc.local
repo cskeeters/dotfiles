@@ -9,6 +9,8 @@ set cpo+=J
 
 ino jk <esc>
 cno jk <c-c>
+ino fd <esc>
+cno fd <c-c>
 vno v <esc>
 inoremap <esc> <nop>
 
@@ -35,6 +37,8 @@ let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairomm-1.
 "let g:syntastic_cpp_compiler = 'clang++'
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+noremap! <c-space> <C-p>
+
 nnoremap R "_d
 nnoremap <Leader>h :noh<CR>
 
@@ -44,9 +48,11 @@ nmap <C-j> :bn<CR>
 nmap <C-k> :bp<CR>
 nnoremap <S-j> <C-e>
 nnoremap <S-k> <C-y>
+nnoremap <Leader>d istd::<ESC>
 nnoremap <Leader>a :A<CR>
 nnoremap <Leader>mw :bd!<CR>
 nnoremap <Leader>w :bd<CR>
+inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>el :e $MYVIMRC.local<cr>
