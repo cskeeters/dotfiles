@@ -1,5 +1,6 @@
 export CLICOLOR=1
 alias ll="ls -lah"
+alias d=ll
 
 #MacPorts
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
