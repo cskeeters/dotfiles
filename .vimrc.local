@@ -2,6 +2,7 @@ set shiftwidth=2 tabstop=2 softtabstop=2
 "set shiftwidth=4 tabstop=4 softtabstop=4
 set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.d,*.class,*.pyc
 set wildignore+=rcmp,sr_editor
+noremap <leader>k :make -j4 \| cwindow<CR>
 
 " convert signature to method in cpp
 " Class name needs to be saved in c register
@@ -37,6 +38,7 @@ iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7--
 
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
+"autocmd FocusLost * :wa
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
 let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairo'
@@ -64,6 +66,7 @@ nnoremap <Leader>mw :bd!<CR>
 nnoremap <Leader>w :bd<CR>
 inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> :w<CR>
+nnoremap <leader>r :RainbowParenthesesToggle<cr>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>el :e $MYVIMRC.local<cr>
 nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
