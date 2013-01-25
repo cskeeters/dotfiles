@@ -110,6 +110,7 @@
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
+            Bundle 'kien/rainbow_parentheses.vim'
         endif
 
     " Snippets & AutoComplete
