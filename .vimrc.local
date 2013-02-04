@@ -1,11 +1,12 @@
 set shiftwidth=2 tabstop=2 softtabstop=2
 "set shiftwidth=4 tabstop=4 softtabstop=4
 set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.d,*.class,*.pyc
+
 set wildignore+=rcmp,sr_editor
 
 " convert signature to method in cpp
 " Class name needs to be saved in c register
-let @m = "^d0w\"cPa::f;xi{}j"
+let @m = "^d0w\"cPa::f;xi{}j"
 let @s = "^f:dwdF i A;"
 
 set formatprg=par\ -jw60 " gqG
@@ -21,22 +22,10 @@ cno fd <c-c>
 vno v <esc>
 inoremap <esc> <nop>
 
-iab #i #include
-iab teh the
-iab adn and
-iab waht what
-iab tehn then
-iab @@ goobsoft@gmail.com
-iab ccopy Copyright 2012 Chad Skeeters, all rights reserved.
-
-iab AlP ABCDEFGHIJKLMNOPQRSTUVWXYZ
-iab MoN January February March April May June July August September October November December
-iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
-iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
-
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
+autocmd BufNewFile,BufRead *.asciidoc setfiletype asciidoc
+autocmd BufNewFile,BufRead *.adoc setfiletype asciidoc
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
 let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairo'
@@ -47,8 +36,18 @@ let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairomm-1.
 
 noremap! <c-space> <C-p>
 
+nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
+nnoremap <leader>nW :set nowrap<cr>
 nnoremap R "_d
 nnoremap <Leader>h :noh<CR>
+nnoremap <leader>p :!a2x -v -f pdf -L --asciidoc-opts='-b docbook -darticle' --dblatex-opts='-T db2latex' '%' && open '%:r'.pdf<cr>
+nnoremap <leader>p :!asciidoc -b docbook -darticle %'<cr>:!dblatex -T db2latex' '%' && open '%:r'.pdf<cr>
+"a2x --no-xmllint -fpdf documentation.asciidoc
+"a2x --no-xmllint --fop documentation.asciidoc
+"fop % %:r.pdf
+"a2x --no-xmllint -fpdf documentation.asciidoc
+"nnoremap <leader>5 :!a2x -v -f xhtml -L --asciidoc-opts='-b html5 -darticle' '%'<cr>
+nnoremap <leader>5 :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 
 nmap <C-PageDown> :bn<CR>
 nmap <C-PageUp> :bp<CR>
@@ -67,8 +66,31 @@ nnoremap <C-s> :w<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>el :e $MYVIMRC.local<cr>
 nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
-nnoremap <leader>sv :source $MYVIMRC.local<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" markdown bold and italic
+map <leader>mb ysiw*lysiw*
+map <leader>mi ysiw*
+
+" Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
+nnoremap <silent> <C-j> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent> <C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent> <A-k> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent> <A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 
+
+iab #i #include
+iab teh the
+iab adn and
+iab waht what
+iab tehn then
+iab @@ goobsoft@gmail.com
+iab ccopy Copyright 2012 Chad Skeeters, all rights reserved.
+
+iab AlP ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab MoN January February March April May June July August September October November December
+iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
+iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
