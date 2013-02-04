@@ -7,7 +7,7 @@ noremap <leader>k :make -j4 \| cwindow<CR>
 " convert signature to method in cpp
 " Class name needs to be saved in c register
 let @m = "^d0w\"cPa::f;xi{}j"
-let @s = "^f:dwdF i A;"
+let @s = "^f:dwdF i A;0j"
 
 set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
