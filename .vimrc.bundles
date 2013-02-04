@@ -43,6 +43,7 @@
         Bundle 'gmarik/vundle'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         Bundle 'tomtom/tlib_vim'
+        Bundle 'vim-scripts/L9'
         if executable('ack-grep')
             let g:ackprg="ack-grep -H --nocolor --nogroup --column"
             Bundle 'mileszs/ack.vim'
@@ -96,6 +97,13 @@
             Bundle 'vim-scripts/restore_view.vim'
             Bundle 'tpope/vim-abolish.git'
             "Bundle 'mbbill/code_complete'
+            Bundle 'dagwieers/asciidoc-vim'
+            Bundle 'vim-scripts/rest.vim'
+            "reStructuredText
+            "Bundle 'vim-scripts/VST' 
+            Bundle 'flomotlik/vim-livereload'
+            Bundle 'cskeeters/vim-outdatable-taskjuggler'
+            Bundle 'adogear/vim-blockdiag-series'
         endif
 
     " General Programming
