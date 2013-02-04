@@ -2,17 +2,20 @@ export CLICOLOR=1
 alias ll="ls -lah"
 alias d=ll
 
-#MacPorts
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+if [ "Darwin" == "$(uname)" ]; then
+  #homebrew path first
+  export PATH=/usr/local/bin:$PATH
+  export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
 
-#OSX method to rename windows
-function tabname {
-		  printf "\e]1;$1\a"
-}
- 
-function winname {
-		  printf "\e]2;$1\a"
-}
+  function tabname {
+    printf "\e]1;$1\a"
+  }
+
+  function winname {
+    printf "\e]2;$1\a"
+  }
+fi
 
 bitb() {
     local P="$(hg paths 2>/dev/null | grep 'bitbucket.org' | head -1)"
