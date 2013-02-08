@@ -22,20 +22,6 @@ cno fd <c-c>
 vno v <esc>
 inoremap <esc> <nop>
 
-iab #i #include
-iab teh the
-iab adn and
-iab waht what
-iab tehn then
-iab @@ goobsoft@gmail.com
-iab ccopy Copyright 2012 Chad Skeeters, all rights reserved.
-
-iab AlP ABCDEFGHIJKLMNOPQRSTUVWXYZ
-iab MoN January February March April May June July August September October November December
-iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
-iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
-iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
-
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
 "autocmd FocusLost * :wa
@@ -48,6 +34,9 @@ let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairomm-1.
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 noremap! <c-space> <C-p>
+nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
+nnoremap <leader>nW :set nowrap<cr>
+nnoremap <leader>5 :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 
 nnoremap R "_d
 nnoremap <Leader>h :noh<CR>
@@ -72,6 +61,28 @@ nnoremap <leader>el :e $MYVIMRC.local<cr>
 nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
 nnoremap <leader>sv :source $MYVIMRC.local<cr>
 
+" markdown bold and italic
+map <leader>mb ysiw*lysiw*
+map <leader>mi ysiw*
+
+" Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
+nnoremap <silent> <C-j> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent> <C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent> <A-k> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent> <A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 
+iab teh the
+iab adn and
+iab waht what
+iab tehn then
+iab @@ goobsoft@gmail.com
+iab ccopy Copyright 2013 Chad Skeeters, all rights reserved.
+
+iab AlP ABCDEFGHIJKLMNOPQRSTUVWXYZ
+iab MoN January February March April May June July August September October November December
+iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
+iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
