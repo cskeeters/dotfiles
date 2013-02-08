@@ -7,6 +7,9 @@ if [ "Darwin" == "$(uname)" ]; then
   export PATH=/usr/local/bin:$PATH
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
+  export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+  source /Users/chad/.rvm/scripts/rvm
+
 
   function tabname {
     printf "\e]1;$1\a"
