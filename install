@@ -29,15 +29,17 @@ fi
 
 for dotfile in `find dotfiles -type f -name ".*" | cut -c10-99`
 do
-  if [[ "$dotfile" != *backup* ]]; then
-    if [ -L $dotfile ]; then
-      erun rm $dotfile
-    else
-      if [ -f $dotfile ]; then
-        erun mv $dotfile dotfiles/backup
+  if [[ "$dotfile" != .hg/* ]]; then
+    if [[ "$dotfile" != *backup* ]]; then
+      if [ -L $dotfile ]; then
+        erun rm $dotfile
+      else
+        if [ -f $dotfile ]; then
+          erun mv $dotfile dotfiles/backup
+        fi
       fi
+      erun ln -s dotfiles/$dotfile $dotfile
     fi
-    erun ln -s dotfiles/$dotfile $dotfile
   fi
 done
 
