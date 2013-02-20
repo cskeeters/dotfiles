@@ -4,6 +4,9 @@ if has("gui_macvim")
 
   macmenu File.Print key=<nop>
   map <D-p> :CtrlP<CR>
+  imap <D-p> <C-p>
+  macmenu File.New\ Window key=<nop>
+  imap <D-n> <C-n>
 
   macmenu File.Save key=<nop>
   imap <D-s> fd:w<CR>
