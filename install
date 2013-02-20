@@ -43,3 +43,5 @@ do
   fi
 done
 
+echo "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
+echo "vim +BundleInstall +q +q"
