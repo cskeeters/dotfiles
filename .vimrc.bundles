@@ -40,6 +40,7 @@
 
 " Bundles {
     " Deps
+        Bundle 'bufkill.vim'
         Bundle 'gmarik/vundle'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         Bundle 'tomtom/tlib_vim'
@@ -104,6 +105,7 @@
             Bundle 'flomotlik/vim-livereload'
             Bundle 'cskeeters/vim-outdatable-taskjuggler'
             Bundle 'adogear/vim-blockdiag-series'
+            Bundle 'cskeeters/vim-command-w'
         endif
 
     " General Programming
