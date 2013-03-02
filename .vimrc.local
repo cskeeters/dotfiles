@@ -6,8 +6,8 @@ noremap <leader>k :make -j4 \| cwindow<CR>
 
 " convert signature to method in cpp
 " Class name needs to be saved in c register
-let @m = "^d0w\"cPa::f;xi{}j"
-let @s = "^f:dwdF i A;0j"
+let @m = "^d0W\"cPa::f;xi{}j"
+let @s = "^Wf:dwdF i A;0j"
 
 set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
@@ -24,7 +24,18 @@ inoremap <esc> <nop>
 
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
-"autocmd FocusLost * :wa
+autocmd BufNewFile,BufRead *.sr setfiletype sr
+autocmd BufEnter * call FixKeys()
+function! FixKeys()
+  if expand("%") == ""
+    " Allows enter to work with quickfix
+    "echom "unmapping"
+    silent! nunmap <enter>
+  else
+    "echom "mapping"
+    nnoremap <enter> <S-o><esc>j
+  endif
+endfunction
 
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
 let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairo'
