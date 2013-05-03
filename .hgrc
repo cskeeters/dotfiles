@@ -1,6 +1,14 @@
 [ui]
 username=chad.skeeters@gmail.com
 
+[merge-tools]
+meld.priority = 1
+meld.premerge = False
+meld.args = $local $other $base 
+
+[merge-patterns]
+** = meld
+
 [extensions]
 hgext.mq=
 hgk=
@@ -19,9 +27,9 @@ git=1
 revert=--no-backup
 
 [alias]
-slog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.slog
-nlog = log --style=/home/chad/mercurial-cli-templates/map-cmdline.nlog
-sglog = glog --style=/home/chad/mercurial-cli-templates/map-cmdline.sglog
+slog = log --style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
+nlog = log --style=/Users/chad/mercurial-cli-templates/map-cmdline.nlog
+sglog = glog --style=/Users/chad/mercurial-cli-templates/map-cmdline.sglog
 , = sglog -l15
 
 [pager]
