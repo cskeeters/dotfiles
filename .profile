@@ -5,10 +5,13 @@ alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 
+export HISTCONTROL=erasedups
+
 if [ "Darwin" == "$(uname)" ]; then
   #homebrew path first
   export PATH=/usr/local/bin:$PATH
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  export PATH=~/bin:$PATH
   export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
   export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
