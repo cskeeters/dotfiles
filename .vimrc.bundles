@@ -88,7 +88,7 @@
             Bundle 'matchit.zip'
             Bundle 'vim-scripts/a.vim'
             Bundle 'Lokaltog/vim-powerline'
-            Bundle 'godlygeek/csapprox'
+            "Bundle 'godlygeek/csapprox'
             Bundle 'Lokaltog/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
