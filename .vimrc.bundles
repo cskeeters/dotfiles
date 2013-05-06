@@ -15,27 +15,11 @@
 "   You can find me at http://spf13.com
 " }
 
-" Environment {
-    " Basics {
-        set nocompatible        " must be first line
-        set background=dark     " Assume a dark background
-    " }
-
-    " Windows Compatible {
-        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-        " across (heterogeneous) systems easier.
-        if has('win32') || has('win64')
-          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-        endif
-    " }
-    "
-    " Setup Bundle Support {
-    " The next three lines ensure that the ~/.vim/bundle/ system works
-        filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
-    " }
-
+" Setup Bundle Support {
+" The next three lines ensure that the ~/.vim/bundle/ system works
+    filetype off
+    set rtp+=~/.vim/bundle/vundle
+    call vundle#rc()
 " }
 
 " Bundles {
@@ -55,11 +39,6 @@
     " Use local bundles if available {
         if filereadable(expand("~/.vimrc.bundles.local"))
             source ~/.vimrc.bundles.local
-        endif
-    " }
-    " Use fork bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.fork"))
-            source ~/.vimrc.bundles.fork
         endif
     " }
 
@@ -126,7 +105,7 @@
     " Snippets & AutoComplete
         if count(g:spf13_bundle_groups, 'snipmate')
             Bundle 'garbas/vim-snipmate'
-            Bundle 'honza/snipmate-snippets'
+            Bundle 'honza/vim-snippets'
             " Source support_function.vim to support snipmate-snippets.
             if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
                 source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
