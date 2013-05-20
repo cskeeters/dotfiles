@@ -76,12 +76,6 @@ nnoremap <leader>sv :source $MYVIMRC.local<cr>
 map <leader>mb ysiw*lysiw*
 map <leader>mi ysiw*
 
-" Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
-nnoremap <silent> <C-j> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <silent> <C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent> <A-k> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent> <A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 
