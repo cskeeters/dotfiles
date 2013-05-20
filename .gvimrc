@@ -9,7 +9,7 @@ if has("gui_macvim")
   imap <D-n> <C-n>
 
   macmenu File.Save key=<nop>
-  imap <D-s> fd:w<CR>
+  imap <D-s> <esc>:w<CR>
   map <D-s> :w<CR>
 
   macmenu &File.Close key=<nop>
