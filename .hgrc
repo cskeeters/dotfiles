@@ -15,6 +15,7 @@ hgk=
 graphlog=
 color=
 pager=
+record=
 
 [hgk]
 #path=/usr/local/bin/hgk
