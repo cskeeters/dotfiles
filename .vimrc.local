@@ -49,7 +49,7 @@ nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
 nnoremap <leader>nW :set nowrap<cr>
 nnoremap <leader>5 :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 
-nnoremap R "_d
+nnoremap <leader>d "_d
 nnoremap <Leader>h :noh<CR>
 
 nmap <C-PageDown> :bn<CR>
@@ -91,3 +91,4 @@ iab MoN January February March April May June July August September October Nove
 iab MoO Jan Feb Mar Apr May Jun Jul Aug Sep Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 iab NuM 12345678901234567890123456789012345678901234567890123456789012345678901234567890 
 iab RuL ----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+iab <expr> dts strftime("%FT%T%z")
