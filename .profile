@@ -35,3 +35,7 @@ bitb() {
       [[ -n $URL ]] && open $URL || echo "No BitBucket path found!"
     fi
 }
+
+# for shared user repositories
+umask 002
+
