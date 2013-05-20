@@ -81,7 +81,7 @@
             Bundle 'vim-scripts/rest.vim'
             "reStructuredText
             "Bundle 'vim-scripts/VST' 
-            Bundle 'flomotlik/vim-livereload'
+            "Bundle 'flomotlik/vim-livereload'
             Bundle 'cskeeters/vim-outdatable-taskjuggler'
             Bundle 'adogear/vim-blockdiag-series'
             Bundle 'cskeeters/vim-command-w'
