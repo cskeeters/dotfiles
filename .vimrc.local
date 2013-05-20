@@ -8,6 +8,12 @@ noremap <leader>k :make -j4 \| cwindow<CR>
 let @m = "^d0W\"cPa::f;xi{}j"
 let @s = "^Wf:dwdF i A;0j"
 
+"Make underlines for headings in reStructuredText format
+let @y = "yypv$r=ji"
+let @u = "yypv$r-ji"
+let @i = "yypv$r^ji"
+let @o = "yypv$r~ji"
+
 set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
 
