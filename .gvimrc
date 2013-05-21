@@ -17,8 +17,8 @@ if has("gui_macvim")
   imap <D-w> <Esc>:CommandW<CR>
   map <A-D-Right> :bn<CR>
   map <A-D-Left> :bp<CR>
-  map <D-j> :bn<CR>
-  map <D-k> :bp<CR>
+  imap <D-j> :bn<CR>
+  imap <D-k> :bp<CR>
 else
   set guifont=Monospace\ 13
 endif
