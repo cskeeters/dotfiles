@@ -22,6 +22,8 @@ set cpo+=J
 
 vno v <esc>
 
+imap <S-Insert> <MiddleMouse>
+
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
 autocmd BufNewFile,BufRead *.sr setfiletype sr
