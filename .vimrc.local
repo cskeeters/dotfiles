@@ -17,7 +17,23 @@ let @o = "yypv$r~ji"
 set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
 
-" vi-compatible sentances have two spaces after them.
+" Hex and Dec line transformations
+nmap gd :.,.!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"
+nmap gh :.,.!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"
+vmap gd :!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"gv
+vmap gh :!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"gv
+
+" handles 0x
+nmap gxd :.,.!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"
+nmap gxh :.,.!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""
+vmap gxd :!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"gv
+vmap gxh :!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""gv
+
+" Changes single word to hex or dec
+let @h = 'yiwmwjkpgxhD"0dd`wviwpb'
+let @d = 'yiwmwjkpgxdD"0dd`wviwpb'
+
+" vi-compatible sentences have two spaces after them.
 set cpo+=J
 
 vno v <esc>

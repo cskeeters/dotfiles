@@ -5,6 +5,13 @@ alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 
+h2d(){
+  echo "ibase=16; $@"|bc
+}
+d2h(){
+  echo "obase=16; $@"|bc
+}
+
 export HISTCONTROL=erasedups
 
 if [ "Darwin" == "$(uname)" ]; then
