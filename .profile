@@ -16,6 +16,11 @@ if [ "Darwin" == "$(uname)" ]; then
   export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+  # use gnu versions of these tools.  Must be installed with
+  # brew install findutils gnu-sed
+  alias find=gfind
+  alias sed=gsed
+
 
   function tabname {
     printf "\e]1;$1\a"
