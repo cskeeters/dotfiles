@@ -38,10 +38,6 @@ if [ "Darwin" == "$(uname)" ]; then
   }
 fi
 
-if [ "Linux" == "$(uname)" ]; then # for the linux only stuff
-  xmodmap .Xmodmap
-fi
-
 bitb() {
     local P="$(hg paths 2>/dev/null | grep 'bitbucket.org' | head -1)"
     local URL="$(echo $P | sed -e's|.*\(bitbucket.org.*\)|http://\1|')"
