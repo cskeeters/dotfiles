@@ -1,6 +1,6 @@
 set shiftwidth=2 tabstop=2 softtabstop=2
 "set shiftwidth=4 tabstop=4 softtabstop=4
-set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.d,*.class,*.pyc
+set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.d,*.class,*.pyc,*.dep
 noremap <leader>k :make -j4 \| cwindow<CR>
 
 " convert signature to method in cpp
