@@ -1,0 +1,6 @@
+[restructuredtext parser]
+syntax_highlight=short
+
+[html4css1 writer]
+stylesheet_path: .rst2html/styles/syntax.css,
+                 .rst2html/styles/rst.css

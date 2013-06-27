@@ -45,5 +45,7 @@ done
 
 echo "mv ~/.rst2pdf backup/"
 echo "ln ~/dotfiles/.rst2pdf ~/.rst2pdf"
+echo "mv ~/.rst2html backup/"
+echo "ln ~/dotfiles/.rst2html ~/.rst2html"
 echo "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
 echo "vim +BundleInstall +q +q"
