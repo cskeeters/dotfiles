@@ -66,9 +66,9 @@ function! ReStructuredText()
   nnoremap <leader>v :update<cr>:!rst2html.py --stylesheet=/Users/chad/syntax.css,/Users/chad/rst.css '%' > %:r.html && open %:r.html<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf -s letter,friendly,margins,baskerville '%' && open %:r.pdf<cr>
   if has("gui_macvim")
-    nnoremap <leader>p :update<cr>:!cat '%' \| gsed -nr -f ~/.rst2pdf/rst.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+    nnoremap <leader>p :update<cr>:!cat '%' \| gsed -nr -f ~/.rst2pdf/fb.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
   else
-    nnoremap <leader>p :update<cr>:!cat '%' \| sed -nr -f ~/.rst2pdf/rst.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+    nnoremap <leader>p :update<cr>:!cat '%' \| sed -nr -f ~/.rst2pdf/fb.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
   endif
 endfunction
 
