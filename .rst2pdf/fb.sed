@@ -1,3 +1,7 @@
+  #This sed file adds in FrameBreak pdf options so that when pdfs are generated,
+  #it headings won't start towards the bottom of pages
+  #Usage: cat rst | sed -nr -f ~/.rst2pdf/fb.sed | rst2pdf > rst.pdf
+
   #Skip a few lines so we exclude the title
   N;N;N
 :skip
