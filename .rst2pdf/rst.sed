@@ -16,14 +16,10 @@
   # H1 
   /^=+/{
     i\
-
-    i\
-.. raw:: pdf
-    i\
-
-    i\
-  FrameBreak 250
-    i\
+\
+.. raw:: pdf\
+\
+  FrameBreak 250\
 
     # print header
     x;p;
@@ -35,14 +31,10 @@
   # H2 
   /^-+/{
     i\
-
-    i\
-.. raw:: pdf
-    i\
-
-    i\
-  FrameBreak 200
-    i\
+\
+.. raw:: pdf\
+\
+  FrameBreak 200\
 
     # print header
     x;p;
