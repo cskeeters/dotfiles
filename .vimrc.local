@@ -1,6 +1,6 @@
 set shiftwidth=2 tabstop=2 softtabstop=2
 "set shiftwidth=4 tabstop=4 softtabstop=4
-set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.d,*.class,*.pyc,*.dep
+set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
 noremap <leader>k :make -j4 \| cwindow<CR>
 
 " convert signature to method in cpp
@@ -8,11 +8,7 @@ noremap <leader>k :make -j4 \| cwindow<CR>
 let @m = "^d0W\"cPa::f;xi{}j"
 let @s = "^Wf:dwdF i A;0j"
 
-"Make underlines for headings in reStructuredText format
-let @y = "yypv$r=ji"
-let @u = "yypv$r-ji"
-let @i = "yypv$r^ji"
-let @o = "yypv$r~ji"
+nnoremap <leader>5 :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 
 set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
@@ -39,6 +35,46 @@ set cpo+=J
 vno v <esc>
 
 imap <S-Insert> <MiddleMouse>
+
+autocmd BufNewFile,BufRead *.md call Markdown()
+autocmd BufNewFile,BufRead *.txt call ReStructuredText()
+autocmd BufNewFile,BufRead *.rst call ReStructuredText()
+
+function! Markdown()
+  " markdown bold and italic
+  let @b = "ysiw*lysiw*"
+  let @i = "ysiw*"
+  let @t = "ysiw`"
+  nmap <leader>b ysiw*lysiw*
+  nmap <leader>i ysiw*
+  nmap <leader>t ysiw`
+  vnoremap <leader>b ysiw*lysiw*
+  vnoremap <leader>i ysiw*
+  vnoremap <leader>t ysiw`
+endfunction
+
+function! ReStructuredText()
+  "Make underlines for headings in reStructuredText format
+  let @b = "ysiw*lysiw*"
+  let @i = "ysiw*"
+  let @t = "ysiw`lysiw`"
+  let @y = "yypv$r=j"
+  let @u = "yypv$r-j"
+  let @i = "yypv$r^j"
+  let @o = "yypv$r~j"
+  set filetype=rst
+  nnoremap <leader>v :update<cr>:!rst2html.py --stylesheet=/Users/chad/syntax.css,/Users/chad/rst.css '%' > %:r.html && open %:r.html<cr>
+  "nnoremap <leader>p :update<cr>:!rst2pdf -s letter,friendly,margins,baskerville '%' && open %:r.pdf<cr>
+  if has("gui_macvim")
+    nnoremap <leader>p :update<cr>:!cat '%' \| gsed -nr -f ~/.rst2pdf/rst.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  else
+    nnoremap <leader>p :update<cr>:!cat '%' \| sed -nr -f ~/.rst2pdf/rst.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  endif
+endfunction
+
+function! Asciidoc()
+  nnoremap <leader>v :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
+endfunction
 
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 autocmd BufNewFile,BufRead *.sr setfiletype sr
@@ -74,7 +110,7 @@ endif
 noremap! <c-space> <C-p>
 nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
 nnoremap <leader>nW :set nowrap<cr>
-nnoremap <leader>5 :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
+nnoremap <leader>y :YRShow<cr>
 
 nnoremap <leader>d "_d
 nnoremap <Leader>h :noh<CR>
@@ -83,10 +119,10 @@ nmap <C-PageDown> :bn<CR>
 nmap <C-PageUp> :bp<CR>
 nmap <C-j> :bn<CR>
 nmap <C-k> :bp<CR>
+nmap <D-j> :bn<CR>
+nmap <D-k> :bp<CR>
 nnoremap gb ^
 nnoremap ge $
-nnoremap <S-j> <C-e>
-nnoremap <S-k> <C-y>
 nnoremap <Leader>d istd::<ESC>
 nnoremap <Leader>a :A<CR>
 nnoremap <Leader>mw :bd!<CR>
@@ -99,9 +135,7 @@ nnoremap <leader>el :e $MYVIMRC.local<cr>
 nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
 nnoremap <leader>sv :source $MYVIMRC.local<cr>
 
-" markdown bold and italic
-map <leader>mb ysiw*lysiw*
-map <leader>mi ysiw*
+map <leader>en :e ~/Dropbox/notes/README.md<cr>:CtrlP<CR><F5>
 
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1

@@ -1,0 +1,31 @@
+pageSetup :
+  size: letter
+  margin-top: 2cm
+  margin-bottom: 2cm
+  margin-left: 1cm
+  margin-right: 1cm
+  margin-gutter: 0cm
+  firstTemplate: oneColumn
+
+pageTemplates:
+  oneColumn:
+    frames: []
+        [0%, 0%, 100%, 100%]
+    showHeader : false
+    showFooter : true
+    defaultFooter : ###Page###
+    defaultHeader : ###Section###
+
+styles: 
+
+  title:
+    spaceBefore: 0
+    spaceAfter: 20
+
+  heading1:
+    underline: true
+    spaceBefore: 20
+    spaceAfter: -10
+  
+  bullet-list:
+    spaceAfter:10

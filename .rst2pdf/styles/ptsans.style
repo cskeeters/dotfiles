@@ -1,0 +1,32 @@
+fontsAlias : 
+  stdFont: PT Sans
+  stdBold: PT Sans
+  stdItalic: PT Sans
+  stdBoldItalic: PT Sans
+  stdSans: PT Sans
+  stdSansBold: PT Sans
+  stdSansBoldItalic: PT Sans
+  stdSansItalic: PT Sans
+  stdMono: DejaVu Sans Mono
+  stdMonoBold: DejaVu Sans Mono-Bold
+  stdMonoBoldItalic: DejaVu Sans Mono-BoldOblique
+  stdMonoItalic: DejaVu Sans Mono-Oblique
+  stdSerif: DejaVu Serif
+
+styles: 
+  normal :
+    fontSize: 10
+
+  title :
+    fontSize: 250%
+    fontName: PT Sans Narrow
+
+  heading1:
+    fontName: PT Sans Narrow
+    fontSize: 200%
+  
+  heading2:
+    fontName: PT Sans Narrow
+
+  heading3:
+    fontName: PT Sans Narrow
