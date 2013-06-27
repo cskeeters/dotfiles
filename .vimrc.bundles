@@ -82,8 +82,12 @@
             "reStructuredText
             "Bundle 'vim-scripts/VST' 
             "Bundle 'flomotlik/vim-livereload'
-            Bundle 'cskeeters/vim-outdatable-taskjuggler'
             Bundle 'adogear/vim-blockdiag-series'
+            Bundle 'vim-scripts/VisIncr'
+            Bundle 'cskeeters/vim-calutil'
+            Bundle 'vim-scripts/indent-motion'
+            Bundle 'vim-scripts/YankRing.vim'
+            Bundle 'cskeeters/vim-outdatable-taskjuggler'
             Bundle 'cskeeters/vim-command-w'
         endif
 
@@ -164,6 +168,7 @@
     " Misc
         if count(g:spf13_bundle_groups, 'misc')
             Bundle 'tpope/vim-markdown'
+            Bundle 'itspriddle/vim-marked'
             Bundle 'spf13/vim-preview'
             Bundle 'tpope/vim-cucumber'
             Bundle 'quentindecock/vim-cucumber-align-pipes'
