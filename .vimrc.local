@@ -54,6 +54,7 @@ function! Markdown()
   vnoremap <leader>b ysiw*lysiw*
   vnoremap <leader>i ysiw*
   vnoremap <leader>t ysiw`
+  nnoremap <leader>v :MarkedOpen<cr>
 endfunction
 
 function! ReStructuredText()
