@@ -45,6 +45,9 @@ function! Markdown()
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
   let @t = "ysiw`"
+  set wrap
+  set linebreak
+  set nolist
   nmap <leader>b ysiw*lysiw*
   nmap <leader>i ysiw*
   nmap <leader>t ysiw`
@@ -62,6 +65,9 @@ function! ReStructuredText()
   let @u = "yypv$r-j"
   let @i = "yypv$r^j"
   let @o = "yypv$r~j"
+  set wrap
+  set linebreak
+  set nolist
   set filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.html && open %:r.html<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf -s letter,friendly,margins,baskerville '%' && open %:r.pdf<cr>
