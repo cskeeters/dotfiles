@@ -6,13 +6,13 @@
   N;N;N
 :skip
   #Did we get the title yet?
-  /=+\n.*\n=+/{p;b s}
+  /=+\n.*\n=+/{p;b start}
   N
   b skip
 
-:s
+:start
   n;h
-:r
+:rep
   n
   # Should always have one line in holding and ready to test the next line
 
@@ -29,7 +29,7 @@
     x;p;
     # print underline
     x;p;
-    b s
+    b start
   }
 
   # H2 
@@ -44,12 +44,15 @@
     x;p;
     # print underline
     x;p;
-    b s
+    b start
   }
 
   # No headings
   # print non-header
   x;p;
   # put eval line back in hold
-  x;h;
-  b r
+  x;
+  # if it's the last line, print it
+  $p
+  # else put it in the hold buffer and go back through
+  $!{h;b rep}
