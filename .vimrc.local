@@ -72,11 +72,8 @@ function! ReStructuredText()
   set filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.html && open %:r.html<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf -s letter,friendly,margins,baskerville '%' && open %:r.pdf<cr>
-  if has("gui_macvim")
-    nnoremap <leader>p :update<cr>:silent !cat '%' \| gsed -nrf ~/.rst2pdf/fb.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
-  else
-    nnoremap <leader>p :update<cr>:silent !cat '%' \| sed -nrf ~/.rst2pdf/fb.sed \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
-  endif
+  nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  nnoremap <leader><s-p> :update<cr>:!sed -nf ~/.rst2pdf/fb.sed '%' \| less<cr>
 endfunction
 
 function! Asciidoc()
