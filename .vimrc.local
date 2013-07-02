@@ -39,6 +39,18 @@ imap <S-Insert> <MiddleMouse>
 autocmd BufNewFile,BufRead *.md call Markdown()
 autocmd BufNewFile,BufRead *.txt call ReStructuredText()
 autocmd BufNewFile,BufRead *.rst call ReStructuredText()
+autocmd BufNewFile,BufRead *.htm call Html()
+autocmd BufNewFile,BufRead *.html call Html()
+
+function! Html()
+  let @b = "diwi<b>\"</b>"
+  let @i = "diwi<i>\"</i>"
+  let @t = "diwi<tt>\"</tt>"
+  set wrap
+  set linebreak
+  set nolist
+  nnoremap <leader>v :open '%'<cr>
+endfunction
 
 function! Markdown()
   " markdown bold and italic
