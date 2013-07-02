@@ -11,11 +11,8 @@ load_correction
 
 prompts '%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}%n@%m%{$reset_color%}'
 
-if is_mac; then
-    export EDITOR='mvim'
-else
-    export EDITOR='vim'
-fi
+# Not graphical or hg ci will abort
+export EDITOR='vim'
 
 alias -s h=$EDITOR
 alias -s cpp=$EDITOR
