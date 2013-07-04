@@ -92,7 +92,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
   # brew install findutils gnu-sed
   alias find=gfind
   alias sed=gsed
-
+  alias vless=/Applications/MacVim.app/Contents/Resources/vim/runtime/macros/less.sh
 
   function tabname {
     printf "\e]1;$1\a"
