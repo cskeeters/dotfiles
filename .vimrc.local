@@ -44,7 +44,7 @@ autocmd BufNewFile,BufRead *.html call Html()
 
 function! Html()
   let @b = "diwi<b>\"</b>"
-  let @i = "diwi<i>\"</i>"
+  let @i = "diwi<i>\"</i>["
   let @t = "diwi<tt>\"</tt>"
   set wrap
   set linebreak
@@ -57,6 +57,9 @@ function! Markdown()
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
   let @t = "ysiw`"
+  let @h = "0i# "
+  let @j = "0i## "
+  let @k = "0i### "
   set wrap
   set linebreak
   set nolist
@@ -74,18 +77,20 @@ function! ReStructuredText()
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
   let @t = "ysiw`lysiw`"
-  let @y = "yypv$r=j"
-  let @u = "yypv$r-j"
-  let @i = "yypv$r^j"
-  let @o = "yypv$r~j"
+  let @h = "yypv$r=j"
+  let @j = "yypv$r-j"
+  let @k = "yypv$r^j"
+  let @l = "yypv$r~j"
   set wrap
   set linebreak
   set nolist
   set filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.html && open %:r.html<cr>
-  "nnoremap <leader>p :update<cr>:!rst2pdf -s letter,friendly,margins,baskerville '%' && open %:r.pdf<cr>
-  nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
+  "nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  "For sed script debugging
   nnoremap <leader><s-p> :update<cr>:!sed -nf ~/.rst2pdf/fb.sed '%' \| less<cr>
+  nnoremap <leader>p :update<cr>:silent !perl -0pe 's/\n\n(.*\n=+)/\n\n.. raw:: pdf\n\n  FrameBreak 250\n\n\1/g;s/\n\n(.*\n-+)/\n\n.. raw:: pdf\n\n  FrameBreak 200\n\n\1/g' '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
 endfunction
 
 function! Asciidoc()
