@@ -3,6 +3,12 @@ set shiftwidth=2 tabstop=2 softtabstop=2
 set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
 noremap <leader>k :make -j4 \| cwindow<CR>
 
+" Handy places to go
+map <leader>en :e ~/Dropbox/notes/README.md<cr>:CtrlP<CR><F5>
+map <leader>er :e ~/rcmp/rcmp_main.cpp<cr>:CtrlP<CR><F5>
+map <leader>ep :e ~/tcp_playback/tcp_playback.cpp<cr>:CtrlP<CR><F5>
+map <leader>eo :e ~/mts/rcmp/RCMPsrvrDlg.cpp<cr>:CtrlP<CR><F5>
+
 " convert signature to method in cpp
 " Class name needs to be saved in c register
 let @m = "^d0W\"cPa::f;xi{}j"
@@ -24,6 +30,11 @@ nmap gxd :.,.!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>
 nmap gxh :.,.!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""
 vmap gxd :!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"gv
 vmap gxh :!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""gv
+
+" vimdiff stuff
+" unmap ]c from python.vim
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+nnoremap <leader>dg :diffget 2<cr>
 
 " Changes single word to hex or dec
 let @h = 'yiwmwjkpgxhD"0dd`wviwpb'
@@ -57,6 +68,7 @@ function! Markdown()
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
   let @t = "ysiw`"
+  let @l = "i<lxA>"
   let @h = "0i# "
   let @j = "0i## "
   let @k = "0i### "
@@ -155,8 +167,6 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>el :e $MYVIMRC.local<cr>
 nnoremap <leader>eb :e $MYVIMRC.bundles<cr>
 nnoremap <leader>sv :source $MYVIMRC.local<cr>
-
-map <leader>en :e ~/Dropbox/notes/README.md<cr>:CtrlP<CR><F5>
 
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
