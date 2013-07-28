@@ -1,13 +1,6 @@
 [ui]
 username=chad.skeeters@gmail.com
-
-[merge-tools]
-meld.priority = 1
-meld.premerge = False
-meld.args = $local $other $base 
-
-[merge-patterns]
-** = meld
+editor=vi
 
 [extensions]
 hgext.mq=
@@ -16,6 +9,7 @@ graphlog=
 color=
 pager=
 record=
+purge=
 
 [hgk]
 #path=/usr/local/bin/hgk
