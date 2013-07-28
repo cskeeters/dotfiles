@@ -9,6 +9,7 @@ load_correction
 #autoload -Uz vcs_info
 #zstyle ':vcs_info:*' enable hg git bzr svn
 
+# supplied by zshuery, set left, then right prompt
 prompts '%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}%n@%m%{$reset_color%}'
 
 # Not graphical or hg ci will abort
@@ -38,6 +39,29 @@ bindkey -e
 
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+bindkey "^]"   vi-find-next-char
+bindkey "]" vi-find-prev-char
+bindkey "^U" backward-kill-line
+
+#bindkey -v
+# 10ms for key sequences
+#KEYTIMEOUT=1
+#bindkey -rpM viins '^['
+
+#prompts "%{$terminfo_down_sc$PS1_2$terminfo[rc]%}%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[yellow]%}$(prompt_char)%{$reset_color%} "
+
+##Vim Mode Status Line
+#terminfo_down_sc=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
+#function zle-line-init zle-keymap-select {
+    #PS1_2="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    #PS1="%{$terminfo_down_sc$PS1_2$terminfo[rc]%}%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[yellow]%}$(prompt_char)%{$reset_color%} "
+    #prompts "%{$terminfo_down_sc$PS1_2$terminfo[rc]%}%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%} %{$fg[yellow]%}$(prompt_char)%{$reset_color%} "
+    #zle reset-prompt
+#}
+#preexec () { print -rn -- $terminfo[el]; }
+#zle -N zle-line-init
+#zle -N zle-keymap-select
+
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/chad/.zshrc'
@@ -49,6 +73,9 @@ function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return
     hg root >/dev/null 2>/dev/null && echo '☿' && return
     echo '○'
+}
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
 }
 
 s() {
@@ -84,6 +111,7 @@ if [[ "Darwin" == "$(uname)" ]]; then
   export PATH=/usr/local/bin:$PATH
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export PATH=~/bin:$PATH
+  /bin/launchctl setenv PATH $PATH
   export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
   export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
@@ -116,6 +144,9 @@ bitb() {
       [[ -n $URL ]] && open $URL || echo "No BitBucket path found!"
     fi
 }
+alias hgrmc="hg sta | sed -n 's/? //p' | xargs rm"
+alias webshare='python -m SimpleHTTPServer'
+alias doeach="xargs -n1 -I {}"
 
 alias -g ll='ls -la'
 alias -g d="dirs -v"
