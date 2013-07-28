@@ -1,0 +1,24 @@
+fontsAlias : 
+  stdFont: Lucida Bright
+  stdBold: Lucida Bright-Bold
+  stdItalic: Lucida Bright-Italic
+  stdBoldItalic: Lucida Bright-BoldItalic
+
+styles: 
+  normal:
+    fontSize: 11
+    leading: 17
+    kerning: true
+
+  title :
+    fontSize: 250%
+    fontName: stdBoldItalic
+
+  heading1:
+    fontName: stdBold
+  
+  heading2:
+    fontName: stdFont
+
+  heading3:
+    fontName: stdItalic

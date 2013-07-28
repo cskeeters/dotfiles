@@ -1,5 +1,5 @@
 [general]
-stylesheets="letter.style,friendly.style,margins.style,baskerville.style"
+stylesheets="letter.style,friendly.style,margins.style,droid_serif.style"
 
 # Create a compressed PDF
 # Use true/false (lower case) or 1/0
