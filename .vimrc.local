@@ -47,11 +47,18 @@ vno v <esc>
 
 imap <S-Insert> <MiddleMouse>
 
+autocmd BufNewFile,BufRead *.tjp call TaskJuggler()
 autocmd BufNewFile,BufRead *.md call Markdown()
 autocmd BufNewFile,BufRead *.txt call ReStructuredText()
 autocmd BufNewFile,BufRead *.rst call ReStructuredText()
 autocmd BufNewFile,BufRead *.htm call Html()
 autocmd BufNewFile,BufRead *.html call Html()
+
+function! TaskJuggler()
+  set ft=tjp
+  nnoremap <leader>v :update<cr>:silent !tj3 '%' && open %:r.html<cr>
+endfunction
+
 
 function! Html()
   let @b = "diwi<b>\"</b>"
