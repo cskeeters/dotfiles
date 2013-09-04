@@ -1,6 +1,8 @@
 set shiftwidth=2 tabstop=2 softtabstop=2
 "set shiftwidth=4 tabstop=4 softtabstop=4
 set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.o', '\.dep', '\.class']
+
 noremap <leader>k :make -j4 \| cwindow<CR>
 
 " Handy places to go
