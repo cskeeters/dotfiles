@@ -106,7 +106,7 @@ function! ReStructuredText()
   set linebreak
   set nolist
   set filetype=rst
-  nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.html && open %:r.html<cr>
+  nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
   "nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
   "For sed script debugging
