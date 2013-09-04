@@ -1,22 +1,23 @@
-fontsAlias : 
+fontsAlias :
   stdFont: Droid Serif
   stdBold: Droid Serif-Bold
   stdItalic: Droid Serif-Italic
   stdBoldItalic: Droid Serif-Italic
 
-styles: 
+styles:
   normal:
-    fontSize: 11
+    fontSize: 10
     leading: 17
     kerning: true
 
   title :
+
     fontSize: 250%
     fontName: stdBoldItalic
 
   heading1:
     fontName: stdBold
-  
+
   heading2:
     fontName: stdFont
 
