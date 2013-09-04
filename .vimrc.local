@@ -97,7 +97,7 @@ function! ReStructuredText()
   "Make underlines for headings in reStructuredText format
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
-  let @t = "ysiw`lysiw`"
+  let @t = "ysiW`lysiW`"
   let @h = "yypv$r=j"
   let @j = "yypv$r-j"
   let @k = "yypv$r^j"
