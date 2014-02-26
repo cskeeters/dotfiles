@@ -201,8 +201,8 @@
     map <C-H> <C-W>h<C-W>_
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
-    nnoremap j gj
-    nnoremap k gk
+    "nnoremap j gj
+    "nnoremap k gk
 
     " The following two lines conflict with moving to top and bottom of the
     " screen
