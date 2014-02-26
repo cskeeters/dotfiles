@@ -110,7 +110,7 @@
         if count(g:spf13_bundle_groups, 'snipmate')
             "Bundle 'garbas/vim-snipmate'
             "Bundle 'MarcWeber/ultisnips'
-            Bundle 'SirVer/ultisnips'
+            "Bundle 'SirVer/ultisnips'
             Bundle 'cskeeters/vim-snippets'
             " Source support_function.vim to support snipmate-snippets.
             if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
