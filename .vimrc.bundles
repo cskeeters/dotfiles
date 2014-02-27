@@ -66,7 +66,9 @@
             Bundle 'vim-scripts/sessionman.vim'
             Bundle 'matchit.zip'
             Bundle 'vim-scripts/a.vim'
-            Bundle 'Lokaltog/vim-powerline'
+            "Bundle 'Lokaltog/vim-powerline'
+            "Bundle 'Lokaltog/powerline'
+            Bundle 'bling/vim-airline'
             "Bundle 'godlygeek/csapprox'
             Bundle 'Lokaltog/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
@@ -95,7 +97,7 @@
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             "Bundle 'scrooloose/syntastic' #makes vim return 1
-            Bundle 'tpope/vim-fugitive'
+            "Bundle 'tpope/vim-fugitive'
             Bundle 'mattn/webapi-vim'
             Bundle 'mattn/gist-vim'
             Bundle 'scrooloose/nerdcommenter'

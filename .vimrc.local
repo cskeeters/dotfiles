@@ -11,6 +11,9 @@ map <leader>em :e ~/Documents/nci/bcst/sccb-minutes.md<cr>:CtrlP<CR><F5>
 map <leader>er :e ~/rcmp/rcmp_main.cpp<cr>:CtrlP<CR><F5>
 map <leader>ep :e ~/tcp_playback/tcp_playback.cpp<cr>:CtrlP<CR><F5>
 map <leader>eo :e ~/mts/rcmp/RCMPsrvrDlg.cpp<cr>:CtrlP<CR><F5>
+map <leader>g ,,W
+
+let g:airline#extensions#tabline#enabled = 1
 
 " convert signature to method in cpp
 " Class name needs to be saved in c register
