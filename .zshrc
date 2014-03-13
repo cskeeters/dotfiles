@@ -12,6 +12,9 @@ load_correction
 # supplied by zshuery, set left, then right prompt
 prompts '%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}%n@%m%{$reset_color%}'
 
+# for vim in iterm with base16-default with 256 colors
+. ~/.color_setup
+
 # Not graphical or hg ci will abort
 export EDITOR='vim'
 
