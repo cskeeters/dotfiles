@@ -1,5 +1,5 @@
 " Modeline and Notes {
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" vim: set foldmarker={,} foldmethod=marker spell:
 "
 "                    __ _ _____              _
 "         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
@@ -58,7 +58,15 @@
         if count(g:spf13_bundle_groups, 'general')
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
-            Bundle 'spf13/vim-colors'
+
+            " colorscheme for console
+            Bundle 'chriskempson/base16-vim'
+
+            let g:signify_vcs_list = ['hg']
+            let g:signify_difftool = 'diff'
+            ",gj ,gk to move between changes
+            Bundle 'mhinz/vim-signify'
+
             Bundle 'tpope/vim-surround'
             Bundle 'tpope/vim-repeat'
             "Bundle 'AutoClose'
@@ -66,20 +74,20 @@
             Bundle 'vim-scripts/sessionman.vim'
             Bundle 'matchit.zip'
             Bundle 'vim-scripts/a.vim'
-            "Bundle 'Lokaltog/vim-powerline'
-            "Bundle 'Lokaltog/powerline'
             Bundle 'bling/vim-airline'
             "Bundle 'godlygeek/csapprox'
             Bundle 'Lokaltog/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
-            Bundle 'flazz/vim-colorschemes'
             Bundle 'mbbill/undotree'
             Bundle 'myusuf3/numbers.vim'
-            Bundle 'nathanaelkane/vim-indent-guides'
-            Bundle 'vim-scripts/restore_view.vim'
+            "Bundle 'nathanaelkane/vim-indent-guides'
+            "Bundle 'vim-scripts/restore_view.vim'
+            " snake_case MixedCase camelCase UPPER_CASE
             Bundle 'tpope/vim-abolish.git'
             "Bundle 'mbbill/code_complete'
+            " asciidoc highlighting
             Bundle 'dagwieers/asciidoc-vim'
+            " reStructuredText highlighting
             Bundle 'vim-scripts/rest.vim'
             "reStructuredText
             "Bundle 'vim-scripts/VST' 
@@ -88,7 +96,7 @@
             Bundle 'vim-scripts/VisIncr'
             Bundle 'cskeeters/vim-calutil'
             Bundle 'vim-scripts/indent-motion'
-            Bundle 'vim-scripts/YankRing.vim'
+            "Bundle 'vim-scripts/YankRing.vim'
             Bundle 'cskeeters/vim-outdatable-taskjuggler'
             Bundle 'cskeeters/vim-command-w'
         endif
@@ -136,6 +144,7 @@
             Bundle 'python.vim'
             Bundle 'python_match.vim'
             Bundle 'pythoncomplete'
+            Bundle 'davidhalter/jedi-vim'
         endif
 
     " Javascript
