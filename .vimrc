@@ -1,37 +1,29 @@
-" Modeline and Notes {
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
-"
-"                    __ _ _____              _
-"         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
-"        / __| '_ \| |_| | |_ \ _____\ \ / /| | '_ ` _ \
-"        \__ \ |_) |  _| |___) |_____|\ V / | | | | | | |
-"        |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
-"            |_|
-"
-"   This is the personal .vimrc file of Steve Francia.
-"   While much of it is beneficial for general use, I would
-"   recommend picking out the parts you want and understand.
-"
-"   You can find me at http://spf13.com
-" }
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldmethod=marker spell:
 
 " Environment {
-    " Basics {
+
+    " Identify platform {
+        silent function! OSX()
+            return has('macunix')
+        endfunction
+        silent function! LINUX()
+            return has('unix') && !has('macunix') && !has('win32unix')
+        endfunction
+        silent function! WINDOWS()
+            return  (has('win16') || has('win32') || has('win64'))
+        endfunction
+    " }
+
+    " General {
         set nocompatible        " must be first line
-        if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
-          " on Linux use + register for copy-paste
-          set clipboard=unnamedplus
-        else
-          " one mac and windows, use * register for copy-paste
-          set clipboard=unnamed
-        endif
+
     " }
 
     " Windows Compatible {
         " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
         " across (heterogeneous) systems easier.
         if has('win32') || has('win64')
-          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+          set runtimepath=$HOME/.vim,$VIMRUNTIME
         endif
     " }
 
@@ -64,22 +56,22 @@
 " }
 
 " General {
-    set background=dark         " Assume a dark background
-    if !has('gui')
-        "set term=$TERM          " Make arrow and other keys work
-    endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " syntax highlighting
     set mouse=a                 " automatically enable mouse usage
+    set mousehide               " Hides the mouse while typing
     scriptencoding utf-8
 
-    " Most prefer to automatically switch to the current file directory when
-    " a new buffer is opened; to prevent this behavior, add
-    " let g:spf13_no_autochdir = 1 to your .vimrc.bundles.local file
-    if !exists('g:spf13_no_autochdir')
-        autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-        " always switch to the current file directory.
+    if has('clipboard')
+      if has('unnamedplus') " When possible, use + register
+        set clipboard=unnamedplus
+      else
+        set clipboard=unnamed
+      endif
     endif
+
+    " automatically switch to the current file's basedir when a new buffer is opened
+    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
     " set autowrite                  " automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
@@ -89,44 +81,63 @@
     set spell                       " spell checking on
     set hidden                      " allow buffer switching without saving
 
-    " Setting up the directories {
-        set backup                      " backups are nice ...
-        if has('persistent_undo')
-            set undofile                "so is persistent undo ...
-            set undolevels=1000         "maximum number of changes that can be undone
-            set undoreload=10000        "maximum number lines to save for undo on a buffer reload
-        endif
+    " Instead of reverting the cursor to the last position in the buffer, we
+    " set it to the first line when editing a git commit message
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
-    " To disable views set
-    " g:spf13_no_views = 1
-    " in your .vimrc.bundles.local file"
-    if !exists('g:spf13_no_views')
-        " Add exclusions to mkview and loadview
-        " eg: *.*, svn-commit.tmp
-        let g:skipview_files = [
-            \ '[example pattern]'
-            \ ]
-    endif
+    " Cursor restoring {
+      function! ResCur()
+        if line("'\"") <= line("$")
+          normal! g`"
+          return 1
+        endif
+      endfunction
+
+      augroup resCur
+        autocmd!
+        autocmd BufWinEnter * call ResCur()
+      augroup END
+    " }
+
+    " Setting up the directories {
+      set backup                      " backups are nice ...
+      if has('persistent_undo')
+        set undofile                "so is persistent undo ...
+        set undolevels=1000         "maximum number of changes that can be undone
+        set undoreload=10000        "maximum number lines to save for undo on a buffer reload
+      endif
     " }
 " }
 
 " Vim UI {
+    set background=dark
+    color default
     if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-
         if has('gui_running')
-          color solarized                 " load a colorscheme
+            set background=dark
+            color solarized                 " load a colorscheme
         else
-          color default
+            "let g:hybrid_use_Xresources = 1
+            "let g:hybrid_use_iTerm_colors = 1
+            "color hybrid
+
+            "to keep base colors the same, must 
+            " * correspond to iTerm's color preset being set to a base16...256 AND
+            " the base16-shell script must have been run
+            let base16colorspace=256
+            color base16-default
+            "color base16-solarized
         endif
     endif
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="high"
-        let g:solarized_visibility="high"
     set tabpagemax=15               " only show 15 tabs
     set showmode                    " display the current mode
 
     set cursorline                  " highlight current line
+
+    "highlight clear SignColumn      " SignColumn should match background
+    "highlight clear LineNr          " Current line number row will have same background color in relative mode
+    "let g:CSApprox_hook_post = ['hi clear SignColumn']
+    "highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
         set ruler                   " show the ruler
@@ -399,7 +410,9 @@
         if has("gui_gtk2")
             set guifont=DejaVu\ Sans\ Mono\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         else
-            set guifont=Menlo:h15,DejaVu\ Sans\ Mono:h15,Consolas:h16,Courier\ New:h18
+            "set guifont=Menlo:h15,DejaVu\ Sans\ Mono:h15,Consolas:h16,Courier\ New:h18
+            let g:airline_powerline_fonts = 1
+            set guifont=Meslo\ LG\ S\ for\ Powerline:h15
         endif
         if has('gui_macvim')
             set transparency=5          " Make the window slightly transparent
