@@ -1,491 +1,439 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldmethod=marker spell:
-
-" Environment {
-
-    " Identify platform {
-        silent function! OSX()
-            return has('macunix')
-        endfunction
-        silent function! LINUX()
-            return has('unix') && !has('macunix') && !has('win32unix')
-        endfunction
-        silent function! WINDOWS()
-            return  (has('win16') || has('win32') || has('win64'))
-        endfunction
-    " }
-
-    " General {
-        set nocompatible        " must be first line
-
-    " }
-
-    " Windows Compatible {
-        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-        " across (heterogeneous) systems easier.
-        if has('win32') || has('win64')
-          set runtimepath=$HOME/.vim,$VIMRUNTIME
-        endif
-    " }
-
-    " Setup Bundle Support {
-    " The next three lines ensure that the ~/.vim/bundle/ system works
-        filetype on
-        filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
-    " }
-
-" }
-
-" Bundles {
-    " Use local bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.local"))
-            source ~/.vimrc.bundles.local
-        endif
-    " }
-    " Use fork bundles if available {
-        if filereadable(expand("~/.vimrc.bundles.fork"))
-            source ~/.vimrc.bundles.fork
-        endif
-    " }
-    " Use bundles config {
-        if filereadable(expand("~/.vimrc.bundles"))
-            source ~/.vimrc.bundles
-        endif
-    " }
-" }
-
-" General {
-    filetype plugin indent on   " Automatically detect file types.
-    syntax on                   " syntax highlighting
-    set mouse=a                 " automatically enable mouse usage
-    set mousehide               " Hides the mouse while typing
-    scriptencoding utf-8
-
-    if has('clipboard')
-      if has('unnamedplus') " When possible, use + register
-        set clipboard=unnamedplus
-      else
-        set clipboard=unnamed
-      endif
-    endif
-
-    " automatically switch to the current file's basedir when a new buffer is opened
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-
-    " set autowrite                  " automatically write a file when leaving a modified buffer
-    set shortmess+=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
-    set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
-    set virtualedit=onemore         " allow for cursor beyond last character
-    set history=1000                " Store a ton of history (default is 20)
-    set spell                       " spell checking on
-    set hidden                      " allow buffer switching without saving
-
-    " Instead of reverting the cursor to the last position in the buffer, we
-    " set it to the first line when editing a git commit message
-    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-    " Cursor restoring {
-      function! ResCur()
-        if line("'\"") <= line("$")
-          normal! g`"
-          return 1
-        endif
-      endfunction
-
-      augroup resCur
-        autocmd!
-        autocmd BufWinEnter * call ResCur()
-      augroup END
-    " }
-
-    " Setting up the directories {
-      set backup                      " backups are nice ...
-      if has('persistent_undo')
-        set undofile                "so is persistent undo ...
-        set undolevels=1000         "maximum number of changes that can be undone
-        set undoreload=10000        "maximum number lines to save for undo on a buffer reload
-      endif
-    " }
-" }
-
-" Vim UI {
-    set background=dark
-    color default
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-        if has('gui_running')
-            set background=dark
-            color solarized                 " load a colorscheme
-        else
-            "let g:hybrid_use_Xresources = 1
-            "let g:hybrid_use_iTerm_colors = 1
-            "color hybrid
-
-            "to keep base colors the same, must 
-            " * correspond to iTerm's color preset being set to a base16...256 AND
-            " the base16-shell script must have been run
-            let base16colorspace=256
-            color base16-default
-            "color base16-solarized
-        endif
-    endif
-    set tabpagemax=15               " only show 15 tabs
-    set showmode                    " display the current mode
-
-    set cursorline                  " highlight current line
-
-    "highlight clear SignColumn      " SignColumn should match background
-    "highlight clear LineNr          " Current line number row will have same background color in relative mode
-    "let g:CSApprox_hook_post = ['hi clear SignColumn']
-    "highlight clear CursorLineNr    " Remove highlight color from current line number
-
-    if has('cmdline_info')
-        set ruler                   " show the ruler
-        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
-        set showcmd                 " show partial commands in status line and
-                                    " selected characters/lines in visual mode
-    endif
-
-    if has('statusline')
-        set laststatus=2
-
-        " Broken down into easily includeable segments
-        set statusline=%<%f\    " Filename
-        set statusline+=%w%h%m%r " Options
-        set statusline+=\ [%{&ff}/%Y]            " filetype
-        set statusline+=\ [%{getcwd()}]          " current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    endif
-
-    set backspace=indent,eol,start  " backspace for dummies
-    set linespace=0                 " No extra spaces between rows
-    set nu                          " Line numbers on
-    set showmatch                   " show matching brackets/parenthesis
-    set incsearch                   " find as you type search
-    set hlsearch                    " highlight search terms
-    set winminheight=0              " windows can be 0 line high
-    set ignorecase                  " case insensitive search
-    set smartcase                   " case sensitive when uc present
-    set wildmenu                    " show list instead of just completing
-    set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
-    set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
-    set scrolljump=5                " lines to scroll when cursor leaves screen
-    set scrolloff=3                 " minimum lines to keep above and below cursor
-    set foldenable                  " auto fold code
-    set list
-    set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
-
-
-" }
-
-" Formatting {
-    set nowrap                      " wrap long lines
-    set autoindent                  " indent at the same level of the previous line
-    set shiftwidth=4                " use indents of 4 spaces
-    set expandtab                   " tabs are spaces, not tabs
-    set tabstop=4                   " an indentation every four columns
-    set softtabstop=4               " let backspace delete indent
-    "set matchpairs+=<:>                " match, to be used with %
-    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
-    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
-    " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-" }
-
-" Key (re)Mappings {
-
-    "The default leader is '\', but many people prefer ',' as it's in a standard
-    "location. To override this behavior and set it back to '\' (or any other
-    "character) add let g:spf13_leader='\' in your .vimrc.bundles.local file
-    if !exists('g:spf13_leader')
-        let mapleader = ','
-    else
-        let mapleader=g:spf13_leader
-    endif
-
-    " Easier moving in tabs and windows
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
-
-    " Wrapped lines goes down/up to next row, rather than next line in file.
-    "nnoremap j gj
-    "nnoremap k gk
-
-    " The following two lines conflict with moving to top and bottom of the
-    " screen
-    " If you prefer that functionality, add let g:spf13_no_fastTabs = 1 in
-    " your .vimrc.bundles.local file
-
-    if !exists('g:spf13_no_fastTabs')
-        map <S-H> gT
-        map <S-L> gt
-    endif
-
-    " Stupid shift key fixes
-    if !exists('g:spf13_no_keyfixes')
-        if has("user_commands")
-            command! -bang -nargs=* -complete=file E e<bang> <args>
-            command! -bang -nargs=* -complete=file W w<bang> <args>
-            command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-            command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-            command! -bang Wa wa<bang>
-            command! -bang WA wa<bang>
-            command! -bang Q q<bang>
-            command! -bang QA qa<bang>
-            command! -bang Qa qa<bang>
-        endif
-
-        cmap Tabe tabe
-    endif
-
-    " Yank from the cursor to the end of the line, to be consistent with C and D.
-    nnoremap Y y$
-
-    """ Code folding options
-    nmap <leader>f0 :set foldlevel=0<CR>
-    nmap <leader>f1 :set foldlevel=1<CR>
-    nmap <leader>f2 :set foldlevel=2<CR>
-    nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
-    nmap <leader>f5 :set foldlevel=5<CR>
-    nmap <leader>f6 :set foldlevel=6<CR>
-    nmap <leader>f7 :set foldlevel=7<CR>
-    nmap <leader>f8 :set foldlevel=8<CR>
-    nmap <leader>f9 :set foldlevel=9<CR>
-
-    "clearing highlighted search
-    nmap <silent> <leader>/ :nohlsearch<CR>
-
-    " Shortcuts
-    " Change Working Directory to that of the current file
-    cmap cwd lcd %:p:h
-    cmap cd. lcd %:p:h
-
-    " visual shifting (does not exit Visual mode)
-    vnoremap < <gv
-    vnoremap > >gv
-
-    " For when you forget to sudo.. Really Write the file.
-    cmap w!! w !sudo tee % >/dev/null
-
-    " Some helpers to edit mode
-    " http://vimcasts.org/e/14
-    cnoremap %% <C-R>=expand('%:h').'/'<cr>
-    map <leader>ew :e %%
-    map <leader>es :sp %%
-    map <leader>ev :vsp %%
-    map <leader>et :tabe %%
-
-    " Adjust viewports to the same size
-    map <Leader>= <C-w>=
-
-    " map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-    " Easier horizontal scrolling
-    map zl zL
-    map zh zH
-" }
-
-" Plugins {
-
-    " PIV {
-        let g:DisableAutoPHPFolding = 0
-        let g:PIVAutoClose = 0
-    " }
-
-    " Misc {
-        let g:NERDShutUp=1
-        let b:match_ignorecase = 1
-    " }
-
-    " Ctags {
-        set tags=./tags;/,~/.vimtags
-    " }
-
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-    " }
-
-    " SnipMate {
-        " Setting the author var
-        " If forking, please overwrite in your .vimrc.local file
-        let g:snips_author = 'Steve Francia <steve.francia@gmail.com>'
-    " }
-
-    " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
-    " }
-
-    " Tabularize {
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
-        nmap <Leader>a:: :Tabularize /:\zs<CR>
-        vmap <Leader>a:: :Tabularize /:\zs<CR>
-        nmap <Leader>a, :Tabularize /,<CR>
-        vmap <Leader>a, :Tabularize /,<CR>
-        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-     " }
-
-     " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        nmap <leader>sl :SessionList<CR>
-        nmap <leader>ss :SessionSave<CR>
-     " }
-
-     " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-     " }
-
-     " PyMode {
-        let g:pymode_lint_checker = "pyflakes"
-     " }
-
-     " ctrlp {
-        let g:ctrlp_working_path_mode = 2
-        nnoremap <silent> <D-t> :CtrlP<CR>
-        nnoremap <silent> <D-r> :CtrlPMRU<CR>
-        let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$' }
-     "}
-
-     " TagBar {
-        nnoremap <silent> <leader>tt :TagbarToggle<CR>
-     "}
-
-     " PythonMode {
-     " Disable if python support not present
-        if !has('python')
-           let g:pymode = 1
-        endif
-     " }
-
-     " UndoTree {
-        nnoremap <Leader>u :UndotreeToggle<CR>
-        let g:undotree_SetFocusWhenToggle=1 " if undotree is opened, it is likely one wants to interact with it.
-     " }
-
-     " indent_guides {
-        if !exists('g:spf13_no_indent_guides_autocolor')
-            let g:indent_guides_auto_colors = 1
-        else
-            " for some colorscheme ,autocolor will not work,like 'desert','ir_black'.
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121   ctermbg=3
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        endif
-        "set ts=4 sw=4 et
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-        let g:indent_guides_enable_on_vim_startup = 1
-     " }
-
-" }
-
-" GUI Settings {
-    " GVIM- (here instead of .gvimrc)
-    if has('gui_running')
-        set guioptions-=T           " remove the toolbar
-        set lines=40                " 40 lines of text instead of 24,
-        if has("gui_gtk2")
-            set guifont=DejaVu\ Sans\ Mono\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-        else
-            "set guifont=Menlo:h15,DejaVu\ Sans\ Mono:h15,Consolas:h16,Courier\ New:h18
-            let g:airline_powerline_fonts = 1
-            set guifont=Meslo\ LG\ S\ for\ Powerline:h15
-        endif
-        if has('gui_macvim')
-            set transparency=5          " Make the window slightly transparent
-        endif
-    else
-        if &term == 'xterm' || &term == 'screen'
-            set t_Co=256                 " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        endif
-        "set term=builtin_ansi       " Make arrow and other keys work
-    endif
-" }
-
- " Functions {
-
-function! InitializeDirectories()
-    let separator = "."
-    let parent = $HOME
-    let prefix = '.vim'
-    let dir_list = {
-                \ 'backup': 'backupdir',
-                \ 'views': 'viewdir',
-                \ 'swap': 'directory' }
-
-    if has('persistent_undo')
-        let dir_list['undo'] = 'undodir'
-    endif
-
-    for [dirname, settingname] in items(dir_list)
-        let directory = parent . '/' . prefix . dirname . "/"
-        if exists("*mkdir")
-            if !isdirectory(directory)
-                call mkdir(directory)
-            endif
-        endif
-        if !isdirectory(directory)
-            echo "Warning: Unable to create backup directory: " . directory
-            echo "Try: mkdir -p " . directory
-        else
-            let directory = substitute(directory, " ", "\\\\ ", "g")
-            exec "set " . settingname . "=" . directory
-        endif
-    endfor
+" vim: set ft=vim:
+
+set nocompatible
+" vi-compatible sentences have two spaces after them.
+set cpo+=J " Recognize sentences by two spaces after punctuation
+
+scriptencoding utf-8
+set encoding=utf-8
+set fileencoding=utf-8
+
+set expandtab                   " tabs are spaces, not tabs (et)
+set shiftwidth=4                " use indents of 4 spaces (sw)
+set tabstop=4                   " an indentation every four columns (ts)
+set softtabstop=4               " let backspace delete indent (sts)
+" See Keyboard shortcuts to quicly change
+
+let g:ack_wildignore=0 " Otherwise error ack.vim line 31
+let g:ackprg = 'ag'
+set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.o', '\.dep', '\.class']
+
+set hidden                      " Allow buffers (unsaved) in the background (like tabs)
+
+set autoindent                  " indent at the same level of the previous line
+set nowrap                      " wrap long lines
+
+" iTerm2 in osx likes unnamed, not unnamedplus
+set clipboard=unnamed
+
+set textwidth=80                " Used in autoformatting
+
+"set comments=sl:/*,mr:*,elx:*/  " auto format comment blocks with gq see help format-comments
+set comments=n:\"
+set comments=n:>
+set comments=n://
+set comments=sr:/***,m:*,elx:***/
+" set formatoptions+=a " to get format as you type in comments (fo)
+" set formatoptions-=a " to disable
+
+set formatprg=par\ -jw60 " gqG
+":.!par -jw80
+
+
+" works for normal and insert.  I want insert to work
+set backspace=indent,eol,start
+
+set incsearch                   " find as you type search
+set hlsearch                    " highlight search terms
+set ignorecase                  " case insensitive search
+set smartcase                   " case sensitive when upper is present in search
+
+set number
+set relativenumber
+
+set showcmd " Shows partial key sequences
+
+set scrolloff=3                 " minimum lines to keep above and below cursor
+set scrolljump=5                " lines to scroll when cursor leaves screen
+
+
+" Highlight problematic whitespace
+set list
+set listchars=tab:,.,trail:.,extends:#,nbsp:.
+if has('multi_byte')
+    set listchars=trail:·,precedes:«,extends:»,tab:▸·
+    set listchars+=nbsp:·
+    "set listchars+=eol:↲
+endif
+
+
+set noshowmatch                   " Use pi_paren plugin instead
+set matchtime=5
+"let loaded_matchparen = 1       " Disable pi_paren plugin
+" see guicursor, cpoptions
+"disable/enable with NoMatchParen/DoMatchParen
+"highlight MatchParen cterm=lightblue guibg=lightblue
+"highlight MatchParen guibg=lightred
+set matchpairs=(:),{:},[:]
+
+set wildmenu                    " show list instead of just completing
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+
+" Status {
+set laststatus=2
+
+" Broken down into easily includeable segments
+set statusline=%<%f\    " Filename
+set statusline+=%w%h%m%r " Options
+set statusline+=\ [%{&ff}/%Y]            " filetype
+set statusline+=\ [%{getcwd()}]          " current dir
+set statusline+=%=%-14.(%l,%c%)\ %p%%  " Right aligned file nav info
+
+" show the ruler (only if statusline isn't shown - laststatus=0 or 1
+set ruler                   
+set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
+
+filetype indent plugin on
+syntax on
+
+" Help escape take effect immediately
+" If on MAC, may need to 
+" mv /etc/vimrc /etc/vimrc.disabled
+set timeoutlen=1000 ttimeoutlen=0
+
+""""""""""""""""""""""""""""""""""""""""""""""""" Keyboard Shortcuts
+let mapleader = ','
+
+" Bookmarks
+nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
+
+
+" Wrapped lines goes down/up to next row, rather than next line in file.
+"nnoremap j gj
+"nnoremap k gk
+
+nnoremap <leader>2 :set sw=2 ts=2 sts=2<cr>
+nnoremap <leader>3 :set sw=3 ts=3 sts=3<cr>
+nnoremap <leader>4 :set sw=4 ts=4 sts=4<cr>
+nnoremap <leader>t :setlocal noexpandtab<cr>
+":set et
+":set noet
+":retab to convert
+
+nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
+nnoremap <leader>nW :set nowrap<cr>
+
+
+noremap <Leader>s :update<CR>
+noremap <Leader>q :q<CR>
+nnoremap <leader>mw :bd!<cr>
+nnoremap <leader>w :bd<cr>
+nmap <C-j> :bn<CR>
+nmap <C-k> :bp<CR>
+
+nnoremap <leader>h :noh<cr>
+nnoremap <C-l> :noh<cr>
+
+set pastetoggle=<F10>           " pastetoggle (sane indentation on pastes)
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+" Shortcuts
+" Change Working Directory to that of the current file
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
+noremap gcd :lcd %:p:h<cr>
+
+nnoremap gb ^
+nnoremap ge $
+
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+vno v <esc>
+
+"Paste helper
+imap <S-Insert> <MiddleMouse>
+
+
+iab @@ goobsoft@gmail.com
+iab ccopy Copyright 2014 Chad Skeeters, all rights reserved.
+
+iab <expr> dts strftime("%FT%T%z")
+iab <expr> ds strftime("%Y-%b-%d")
+
+noremap <leader>k :make -j4 \| cwindow<CR>
+noremap <leader>/ :Ack 
+
+" C++ helper
+nnoremap <Leader>d istd::<ESC>
+
+" need to 'set clipboard=' when copy and pasting control characters
+" convert signature to method in cpp
+" Class name needs to be saved in c register
+let @m = "^d0W\"cPa::f;xi{}j"
+let @s = "^Wf:dwdF i A;0j"
+
+" vimdiff stuff
+" unmap ]c from python.vim
+autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+nnoremap <leader>dg :diffget 2<cr>
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
+" Some helpers to edit mode
+" http://vimcasts.org/e/14
+" Chad: this is not used when CtrlP is available
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>ew :e %%
+
+" Like * but with choices
+" map <Leader>ff to display all lines with keyword under cursor
+" and ask which one to jump to
+nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+" Easier horizontal scrolling
+map zl zL
+map zh zH
+
+" Number Base translations with 0x notation for hex
+nmap gd :.,.!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"
+nmap gh :.,.!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"
+vmap gd :!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"gv
+vmap gh :!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"gv
+
+" Number Base translations with 0x notation for hex
+nmap gxd :.,.!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"
+nmap gxh :.,.!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""
+vmap gxd :!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"gv
+vmap gxh :!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""gv
+
+autocmd BufEnter * call FixKeys()
+function! FixKeys()
+  if expand("%") == ""
+    " Allows enter to work with quickfix
+    "echom "unmapping"
+    silent! nunmap <enter>
+  else
+    "echom "mapping"
+    nnoremap <enter> <S-o><esc>j
+  endif
 endfunction
-call InitializeDirectories()
 
-function! NERDTreeInitAsNeeded()
-    redir => bufoutput
-    buffers!
-    redir END
-    let idx = stridx(bufoutput, "NERD_tree")
-    if idx > -1
-        NERDTreeMirror
-        NERDTreeFind
-        wincmd l
-    endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
+" Checkout repositories with
+" cat ~/vt | sed -nre 's/.*PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
+" Download archives of plugins with:
+" cat ~/vt | sed -nre 's/.*PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
+" ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
+
+" This is like a plugin
+" Remove trailing whitespaces and ^M chars
+autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+"PLUGIN: https://github.com/mileszs/ack.vim
+if executable('ag')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+    set runtimepath+=$HOME/.vim/bundle/ack.vim
+elseif executable('ack')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+    set runtimepath+=$HOME/.vim/bundle/ack.vim
+elseif executable('ack-grep')
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    set runtimepath+=$HOME/.vim/bundle/ack.vim
+endif
+
+"PLUGIN: https://github.com/kien/ctrlp.vim
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_max_files = 4000
+set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
+"PLUGIN: https://github.com/chriskempson/base16-vim
+set runtimepath+=$HOME/.vim/bundle/base16-vim
+
+set background=dark
+let base16colorspace=256
+colorscheme base16-default
+
+"LUGIN: https://github.com/vim-scripts/rest.vim
+"set runtimepath+=$HOME/.vim/bundle/rest.vim " reStructuredText highlighting
+"PLUGIN: https://github.com/tpope/vim-abolish
+set runtimepath+=$HOME/.vim/bundle/vim-abolish " snake_case MixedCase camelCase UPPER_CASE
+
+"PLUGIN: https://github.com/mbbill/undotree
+nnoremap <Leader>u :UndotreeToggle<CR>
+set runtimepath+=$HOME/.vim/bundle/undotree
+
+"PLUGIN: https://github.com/Lokaltog/vim-easymotion
+set runtimepath+=$HOME/.vim/bundle/vim-easymotion
+
+"PLUGIN: https://github.com/bling/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set runtimepath+=$HOME/.vim/bundle/vim-airline
+
+"PLUGIN: https://github.com/tpope/vim-surround
+" change 'hi' to (hi) with cs')
+set runtimepath+=$HOME/.vim/bundle/vim-surround
+
+
+"PLUGIN: https://github.com/mhinz/vim-signify
+" Show diff in gutter
+",gj ,gk to move between changes
+let g:signify_vcs_list = ['hg']
+let g:signify_difftool = 'diff'
+set runtimepath+=$HOME/.vim/bundle/vim-signify
+
+"PLUGIN: https://github.com/scrooloose/nerdtree
+" reads bookmarks from ~/.NERDTreeBookmarks
+" shortcut /path
+" Reopen with :NERDTree
+map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+set runtimepath+=$HOME/.vim/bundle/nerdtree
+
+
+"PLUGIN: https://github.com/godlygeek/tabular
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a:: :Tabularize /:\zs<CR>
+vmap <Leader>a:: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+set runtimepath+=$HOME/.vim/bundle/tabular
+
+"PLUGIN: https://github.com/scrooloose/nerdcommenter
+"<leader>c<space>
+set runtimepath+=$HOME/.vim/bundle/nerdcommenter
+
+"PLUGIN: https://github.com/majutsushi/tagbar
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+set runtimepath+=$HOME/.vim/bundle/tagbar
+
+
+"PLUGIN: https://github.com/kien/rainbow_parentheses.vim
+nnoremap <leader>r :RainbowParenthesesToggle<cr>
+let g:rbpt_colorpairs = [
+    \ ['3',         '808000'],
+    \ ['6',         '008080'],
+    \ ['202',       'ff5f00'],
+    \ ['11',        'ffff00'],
+    \ ['13',        'ff00ff'],
+    \ ['10',        '00ff00'],
+    \ ['45',        '00dfff'],
+    \ ['9',         'ff0000'],
+    \ ]
+set runtimepath+=$HOME/.vim/bundle/rainbow_parentheses.vim
+
+
+"PLUGIN: https://github.com/SirVer/ultisnips
+let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
+if has("gui_macvim")
+  let g:UltiSnipsJumpForwardTrigger="<d-j>"
+  let g:UltiSnipsJumpBackwardTrigger="<d-k>"
+  "let g:UltiSnipsExpandTrigger="<tab>"
+  "let g:UltiSnipsJumpForwardTrigger="<tab>"
+  "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
+set runtimepath+=$HOME/.vim/bundle/ultisnips
+"PLUGIN: https://github.com/cskeeters/vim-snippets
+set runtimepath+=$HOME/.vim/bundle/vim-snippets
+
+
+" IF syntastic is used
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
+"let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairo'
+"let g:syntastic_cpp_compiler_options .= ' `pkg-config --cflags --libs cairomm-1.0'
+
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""" Dynamic Keyboard Mapping
+
+autocmd BufNewFile,BufRead *.tjp call TaskJuggler()
+autocmd BufNewFile,BufRead *.md call Markdown()
+autocmd BufNewFile,BufRead *.txt call ReStructuredText()
+autocmd BufNewFile,BufRead *.rst call ReStructuredText()
+autocmd BufNewFile,BufRead *.htm call Html()
+autocmd BufNewFile,BufRead *.html call Html()
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
+
+function! TaskJuggler()
+  set ft=tjp
+  nnoremap <leader>v :update<cr>:silent !tj3 '%' && open %:r.html<cr>
 endfunction
-" }
 
-" Use fork vimrc if available {
-    if filereadable(expand("~/.vimrc.fork"))
-        source ~/.vimrc.fork
-    endif
-" }
-" Use local vimrc if available {
-    if filereadable(expand("~/.vimrc.local"))
-        source ~/.vimrc.local
-    endif
-" }
 
-" Use local gvimrc if available and gui is running {
-    if has('gui_running')
-        if filereadable(expand("~/.gvimrc.local"))
-            source ~/.gvimrc.local
-        endif
-    endif
-" }
+function! Html()
+  let @b = "diwi<b>\"</b>"
+  let @i = "diwi<i>\"</i>["
+  let @t = "diwi<tt>\"</tt>"
+  set wrap
+  set linebreak
+  set nolist
+  nnoremap <leader>v :open '%'<cr>
+endfunction
+
+function! Markdown()
+  " markdown bold and italic
+  let @b = "ysiw*lysiw*"
+  let @i = "ysiw*"
+  let @t = "ysiw`"
+  let @l = "i<lxA>"
+  let @h = "0i# "
+  let @j = "0i## "
+  let @k = "0i### "
+  set wrap
+  set linebreak
+  set nolist
+  nmap <leader>b ysiw*lysiw*
+  nmap <leader>i ysiw*
+  nmap <leader>t ysiw`
+  vnoremap <leader>b ysiw*lysiw*
+  vnoremap <leader>i ysiw*
+  vnoremap <leader>t ysiw`
+  nnoremap <leader>v :MarkedOpen<cr>
+  nnoremap <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block '%' -o %:r.docx && open %:r.docx<cr>
+endfunction
+
+function! ReStructuredText()
+  "Make underlines for headings in reStructuredText format
+  let @b = "ysiw*lysiw*"
+  let @i = "ysiw*"
+  let @t = "ysiW`lysiW`"
+  let @h = "yypv$r=j"
+  let @j = "yypv$r-j"
+  let @k = "yypv$r^j"
+  let @l = "yypv$r~j"
+  set wrap
+  set linebreak
+  set nolist
+  set filetype=rst
+  nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
+  "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
+  "nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  "For sed script debugging
+  nnoremap <leader><s-p> :update<cr>:!sed -nf ~/.rst2pdf/fb.sed '%' \| less<cr>
+  nnoremap <leader>p :update<cr>:silent !perl -0pe 's/\n\n(.*\n=+)/\n\n.. raw:: pdf\n\n  FrameBreak 250\n\n\1/g;s/\n\n(.*\n-+)/\n\n.. raw:: pdf\n\n  FrameBreak 200\n\n\1/g' '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+endfunction
+
+function! Asciidoc()
+  nnoremap <leader>v :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
+endfunction
+
