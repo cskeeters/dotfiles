@@ -152,7 +152,7 @@ alias webshare='python -m SimpleHTTPServer'
 alias doeach="xargs -n1 -I {}"
 
 alias -g ll='ls -la'
-alias -g d="dirs -v"
+#alias -g d="dirs -v" # prevents find . -type d from working
 #alias -g s="hg sta"
 alias -g ...='../..'
 alias -g ....='../../..'
