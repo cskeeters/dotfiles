@@ -2,6 +2,9 @@ if has("gui_macvim")
   " allows option to be used as alt with <M>
   set macmeta
 
+  let g:airline_powerline_fonts = 1
+  set guifont=Meslo\ LG\ S\ for\ Powerline:h15
+
   macmenu File.Print key=<nop>
   map <D-p> :CtrlP<CR>
   imap <D-p> <C-p>
@@ -22,11 +25,3 @@ if has("gui_macvim")
 else
   set guifont=Monospace\ 13
 endif
-
-color solarized
-"color default
-"color desertEx
-"color eclipse
-"color fruit
-"color kate
-"color lightcolors
