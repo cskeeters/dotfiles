@@ -118,6 +118,7 @@ nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
 nnoremap <leader>2 :set sw=2 ts=2 sts=2<cr>
 nnoremap <leader>3 :set sw=3 ts=3 sts=3<cr>
 nnoremap <leader>4 :set sw=4 ts=4 sts=4<cr>
+nnoremap <leader>8 :set sw=8 ts=8 sts=8<cr>
 nnoremap <leader>t :setlocal noexpandtab<cr>
 ":set et
 ":set noet
@@ -159,6 +160,7 @@ vno v <esc>
 
 "Paste helper
 imap <S-Insert> <MiddleMouse>
+set mouse=a
 
 
 iab @@ goobsoft@gmail.com
@@ -236,6 +238,10 @@ endfunction
 " This is like a plugin
 " Remove trailing whitespaces and ^M chars
 autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+"PLUGIN: https://github.com/cskeeters/javadoc.vim
+let g:javadoc_path="/Users/chad/java7_doc/api"
+set runtimepath+=$HOME/.vim/bundle/javadoc.vim
 
 "PLUGIN: https://github.com/mileszs/ack.vim
 if executable('ag')
@@ -352,6 +358,12 @@ set runtimepath+=$HOME/.vim/bundle/ultisnips
 "PLUGIN: https://github.com/cskeeters/vim-snippets
 set runtimepath+=$HOME/.vim/bundle/vim-snippets
 
+
+"PLUGIN: https://github.com/tpope/vim-markdown
+set runtimepath+=$HOME/.vim/bundle/vim-markdown
+
+"PLUGIN: https://github.com/itspriddle/vim-marked
+set runtimepath+=$HOME/.vim/bundle/vim-marked
 
 " IF syntastic is used
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
