@@ -10,6 +10,7 @@ color=
 pager=
 record=
 purge=
+rebase=
 
 [hgk]
 #path=/usr/local/bin/hgk
