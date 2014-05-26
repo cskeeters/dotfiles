@@ -22,12 +22,14 @@ let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn'
 set hidden                      " Allow buffers (unsaved) in the background (like tabs)
 
 set autoindent                  " indent at the same level of the previous line
+set cindent
+set smartindent
 set nowrap                      " wrap long lines
 
 " iTerm2 in osx likes unnamed, not unnamedplus
 set clipboard=unnamed
 
-set textwidth=80                " Used in autoformatting
+"set textwidth=80                " Used in autoformatting
 
 "set comments=sl:/*,mr:*,elx:*/  " auto format comment blocks with gq see help format-comments
 set comments=n:\"
@@ -37,7 +39,7 @@ set comments=sr:/***,m:*,elx:***/
 " set formatoptions+=a " to get format as you type in comments (fo)
 " set formatoptions-=a " to disable
 
-set formatprg=par\ -jw60 " gqG
+"set formatprg=par\ -jw60 " gqG
 ":.!par -jw80
 
 
@@ -91,14 +93,25 @@ set statusline+=\ [%{getcwd()}]          " current dir
 set statusline+=%=%-14.(%l,%c%)\ %p%%  " Right aligned file nav info
 
 " show the ruler (only if statusline isn't shown - laststatus=0 or 1
-set ruler                   
+set ruler
 set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
 
-filetype indent plugin on
-syntax on
+set nobackup
+set backupdir=~/.vim/backup
+set directory=~/.vim/tmp
+"set noswapfile
+"
+"set undofile                " Save undo's after file closes
+"set undodir=$HOME/.vim/undo " where to save undo histories
+"set undolevels=1000         " How many undos
+"set undoreload=10000        " number of lines to save for undo
+
+set dictionary=/usr/share/dict/words
+set thesaurus=~/dotfiles/mthesaur.txt
+set spell spelllang=en_us
 
 " Help escape take effect immediately
-" If on MAC, may need to 
+" If on MAC, may need to
 " mv /etc/vimrc /etc/vimrc.disabled
 set timeoutlen=1000 ttimeoutlen=0
 
@@ -107,7 +120,9 @@ let mapleader = ','
 
 " Bookmarks
 nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
+nnoremap <leader>es :e ~/Documents/nci/bcst/sccb-minutes.md<cr>:lcd %:p:h<cr>
 nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap gsv :source $MYVIMRC<cr>
 nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
 
 
@@ -124,7 +139,7 @@ nnoremap <leader>t :setlocal noexpandtab<cr>
 ":set noet
 ":retab to convert
 
-nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
+nnoremap <leader>W :set wrap<cr>:set linebreak<cr>
 nnoremap <leader>nW :set nowrap<cr>
 
 
@@ -170,7 +185,7 @@ iab <expr> dts strftime("%FT%T%z")
 iab <expr> ds strftime("%Y-%b-%d")
 
 noremap <leader>k :make -j4 \| cwindow<CR>
-noremap <leader>/ :Ack 
+noremap <leader>/ :Ack
 
 " C++ helper
 nnoremap <Leader>d istd::<ESC>
@@ -230,18 +245,75 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
 " Checkout repositories with
-" cat ~/vt | sed -nre 's/.*PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
+" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
 " Download archives of plugins with:
-" cat ~/vt | sed -nre 's/.*PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
+" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
 " ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
+" Generate helptags
+" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: [^ "]*\/([^ "]*)/helptags ~\/.vim\/bundle\/\1\/doc/p' | vim -e -s -
 
 " This is like a plugin
 " Remove trailing whitespaces and ^M chars
 autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
+function! GrepWord(word)
+    execute ':vimgrep '.a:word.' **/*.cpp **/*.c++ **/*.h **/*.java'
+    copen
+endfunction
+nmap <leader>g :call GrepWord(expand('<cword>'))<cr>
+
+function! GrepWordInFile(word)
+    execute ':vimgrep '.a:word.' '.expand('%:p')
+    copen
+endfunction
+nmap <leader>ig :call GrepWordInFile(expand('<cword>'))<cr>
+
+function! Alt(filename)
+    if stridx(a:filename, '.h') == -1
+        execute 'edit '.fnamemodify(a:filename, ':r').'.h'
+    else
+        let cppexts = ['.cpp', '.c++', '.cc']
+        for cppext in cppexts
+            let cpp = fnamemodify(a:filename, ':r').cppext
+            if len(glob(cpp)) > 0
+                execute 'edit '.cpp
+            endif
+        endfor
+    endif
+endfunction
+nmap <leader>l :call Alt(expand('%:p'))<cr>
+
+"Test
+"set runtimepath+=$HOME/.vim/bundle/Vim-JDE
+
 "PLUGIN: https://github.com/cskeeters/javadoc.vim
 let g:javadoc_path="/Users/chad/java7_doc/api"
 set runtimepath+=$HOME/.vim/bundle/javadoc.vim
+
+"PLUGIN: https://github.com/cskeeters/jcall.vim
+let g:jcall_debug = 1
+let g:jcall_src_build_pairs = [
+            \ ['/Users/chad/jcall_test/src', '/Users/chad/jcall_test/build'],
+            \ ]
+set runtimepath+=$HOME/.vim/bundle/jcall.vim
+nmap <leader>ch <Plug>JCallOpen
+nmap <f3> <Plug>JCallJump
+nmap <leader>cch <Plug>JCallClear
+
+
+"PLUGIN: https://github.com/cskeeters/sr.vim
+set runtimepath+=$HOME/.vim/bundle/sr.vim
+
+
+"PLUGIN: https://github.com/vim-scripts/restore_view.vim
+set runtimepath+=$HOME/.vim/bundle/restore_view.vim
+
+"LUGIN: https://github.com/vim-scripts/restore_view.vim
+set runtimepath+=$HOME/.vim/bundle/session.vim
+
+"PLUGIN: https://github.com/beloglazov/vim-online-thesaurus
+" <localleader>K to activate
+set runtimepath+=$HOME/.vim/bundle/vim-online-thesaurus
 
 "PLUGIN: https://github.com/mileszs/ack.vim
 if executable('ag')
@@ -261,7 +333,12 @@ let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_max_files = 4000
 set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
+
 "PLUGIN: https://github.com/chriskempson/base16-vim
+let g:load_base16_shell = 1
+let g:base16_shell_path = $HOME."/base16-builder-konsole/output/shell"
+"autocmd QuitPre * execute "silent !bash ".g:base16_shell_path."/base16-default.dark.sh"
+autocmd QuitPre * colorscheme base16-default
 set runtimepath+=$HOME/.vim/bundle/base16-vim
 
 set background=dark
@@ -374,6 +451,9 @@ set runtimepath+=$HOME/.vim/bundle/vim-marked
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 
+" must be after plugins for ftdetect folders in runtimepaths to be used
+filetype indent plugin on
+syntax on
 
 
 """""""""""""""""""""""""""""""""""""""""" Dynamic Keyboard Mapping
@@ -398,7 +478,6 @@ function! Html()
   let @t = "diwi<tt>\"</tt>"
   set wrap
   set linebreak
-  set nolist
   nnoremap <leader>v :open '%'<cr>
 endfunction
 
@@ -413,7 +492,6 @@ function! Markdown()
   let @k = "0i### "
   set wrap
   set linebreak
-  set nolist
   nmap <leader>b ysiw*lysiw*
   nmap <leader>i ysiw*
   nmap <leader>t ysiw`
@@ -435,7 +513,6 @@ function! ReStructuredText()
   let @l = "yypv$r~j"
   set wrap
   set linebreak
-  set nolist
   set filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
@@ -448,4 +525,3 @@ endfunction
 function! Asciidoc()
   nnoremap <leader>v :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 endfunction
-
