@@ -272,7 +272,7 @@ function! Alt(filename)
     if stridx(a:filename, '.h') == -1
         execute 'edit '.fnamemodify(a:filename, ':r').'.h'
     else
-        let cppexts = ['.cpp', '.c++', '.cc']
+        let cppexts = ['.cpp', '.c++', '.cc', '.c']
         for cppext in cppexts
             let cpp = fnamemodify(a:filename, ':r').cppext
             if len(glob(cpp)) > 0
@@ -338,7 +338,9 @@ set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 let g:load_base16_shell = 1
 let g:base16_shell_path = $HOME."/base16-builder-konsole/output/shell"
 "autocmd QuitPre * execute "silent !bash ".g:base16_shell_path."/base16-default.dark.sh"
-autocmd QuitPre * colorscheme base16-default
+if version > 704
+    autocmd QuitPre * colorscheme base16-default
+endif
 set runtimepath+=$HOME/.vim/bundle/base16-vim
 
 set background=dark
