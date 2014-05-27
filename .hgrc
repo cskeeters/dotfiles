@@ -1,6 +1,6 @@
 [ui]
 username=chad.skeeters@gmail.com
-editor=vi
+editor=vim
 
 [extensions]
 hgext.mq=
