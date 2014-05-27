@@ -247,8 +247,10 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
 " Checkout repositories with
+" cd ~/.vim/bundle
 " cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
 " Download archives of plugins with:
+" cd ~/.vim/bundle
 " cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
 " ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
 " Generate helptags
