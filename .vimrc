@@ -98,7 +98,9 @@ set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
 
 set nobackup
 set backupdir=~/.vim/backup
+call mkdir(&backupdir, "p")
 set directory=~/.vim/tmp
+call mkdir(&directory, "p")
 "set noswapfile
 "
 "set undofile                " Save undo's after file closes
