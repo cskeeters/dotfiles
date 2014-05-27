@@ -6,6 +6,11 @@ load_lol_aliases
 load_completion $yourdotfiles/.zshuery/completion
 load_correction
 
+which ruby > /dev/null 2>&1
+if [ "$?" -eq "0" ]; then
+    source ~/.fzf.zsh
+fi
+
 #autoload -Uz vcs_info
 #zstyle ':vcs_info:*' enable hg git bzr svn
 
@@ -151,6 +156,7 @@ alias hgrmc="hg sta | sed -n 's/? //p' | xargs rm"
 alias webshare='python -m SimpleHTTPServer'
 alias doeach="xargs -n1 -I {}"
 
+alias -g vi='vim'
 alias -g ll='ls -la'
 #alias -g d="dirs -v" # prevents find . -type d from working
 #alias -g s="hg sta"
