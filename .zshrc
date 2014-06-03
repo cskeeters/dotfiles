@@ -113,12 +113,12 @@ d2h(){
 
 export HISTCONTROL=erasedups
 
+export PATH=~/bin:$PATH
 
 if [[ "Darwin" == "$(uname)" ]]; then
   #homebrew path first
   export PATH=/usr/local/bin:$PATH
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-  export PATH=~/bin:$PATH
   /bin/launchctl setenv PATH $PATH
   export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
   export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
