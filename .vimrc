@@ -97,10 +97,17 @@ set ruler
 set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
 
 set nobackup
+
 set backupdir=~/.vim/backup
-call mkdir(&backupdir, "p")
+if !isdirectory(&backupdir)
+    call mkdir(&backupdir, "p")
+endif
+
 set directory=~/.vim/tmp
-call mkdir(&directory, "p")
+if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+endif
+
 "set noswapfile
 "
 "set undofile                " Save undo's after file closes
@@ -201,7 +208,7 @@ let @s = "^Wf:dwdF i A;0j"
 " vimdiff stuff
 " unmap ]c from python.vim
 autocmd BufWritePost * if &diff == 1 | diffupdate | endif
-nnoremap <leader>dg :diffget 2<cr>
+"nnoremap <leader>dg :diffget 2<cr>
 
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
@@ -295,7 +302,7 @@ let g:javadoc_path="/Users/chad/java7_doc/api"
 set runtimepath+=$HOME/.vim/bundle/javadoc.vim
 
 "PLUGIN: https://github.com/cskeeters/jcall.vim
-let g:jcall_debug = 1
+let g:jcall_debug = 0
 let g:jcall_src_build_pairs = [
             \ ['/Users/chad/jcall_test/src', '/Users/chad/jcall_test/build'],
             \ ]
@@ -303,7 +310,6 @@ set runtimepath+=$HOME/.vim/bundle/jcall.vim
 nmap <leader>ch <Plug>JCallOpen
 nmap <f3> <Plug>JCallJump
 nmap <leader>cch <Plug>JCallClear
-
 
 "PLUGIN: https://github.com/cskeeters/sr.vim
 set runtimepath+=$HOME/.vim/bundle/sr.vim
@@ -340,7 +346,7 @@ set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 
 "PLUGIN: https://github.com/chriskempson/base16-vim
 let g:load_base16_shell = 1
-let g:base16_shell_path = $HOME."/base16-builder-konsole/output/shell"
+let g:base16_shell_path = $HOME."/base16-builder/output/shell"
 "autocmd QuitPre * execute "silent !bash ".g:base16_shell_path."/base16-default.dark.sh"
 if version > 704
     autocmd QuitPre * colorscheme base16-default
@@ -365,6 +371,8 @@ set runtimepath+=$HOME/.vim/bundle/vim-easymotion
 
 "PLUGIN: https://github.com/bling/vim-airline
 let g:airline#extensions#tabline#enabled = 1
+"iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
+let g:airline_powerline_fonts = 1
 set runtimepath+=$HOME/.vim/bundle/vim-airline
 
 "PLUGIN: https://github.com/tpope/vim-surround
@@ -430,16 +438,22 @@ set runtimepath+=$HOME/.vim/bundle/rainbow_parentheses.vim
 
 "PLUGIN: https://github.com/SirVer/ultisnips
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
-if has("gui_macvim")
-  let g:UltiSnipsJumpForwardTrigger="<d-j>"
-  let g:UltiSnipsJumpBackwardTrigger="<d-k>"
-  "let g:UltiSnipsExpandTrigger="<tab>"
-  "let g:UltiSnipsJumpForwardTrigger="<tab>"
-  "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-b>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 set runtimepath+=$HOME/.vim/bundle/ultisnips
 "PLUGIN: https://github.com/cskeeters/vim-snippets
 set runtimepath+=$HOME/.vim/bundle/vim-snippets
+
+
+"PLUGIN: https://github.com/Valloric/YouCompleteMe
+"Disable signs so that signify can work
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_extra_conf_globlist = ['~/rcmp/*','!~/*']
+set runtimepath+=$HOME/.vim/bundle/YouCompleteMe
 
 
 "PLUGIN: https://github.com/tpope/vim-markdown
