@@ -15,7 +15,6 @@ cmake
 coreutils
 cscope
 ctags
-dblatex
 docbook
 dos2unix
 enchant
