@@ -317,6 +317,12 @@ endif
 "Test
 "set runtimepath+=$HOME/.vim/bundle/Vim-JDE
 
+"PLUGIN: https://github.com/vim-scripts/argtextobj.vim
+set runtimepath+=$HOME/.vim/bundle/argtextobj.vim
+
+"PLUGIN: https://github.com/michaeljsmith/vim-indent-object
+set runtimepath+=$HOME/.vim/bundle/vim-indent-object
+
 "PLUGIN: https://github.com/cskeeters/javadoc.vim
 let g:javadoc_path="/Users/chad/java7_doc/api"
 set runtimepath+=$HOME/.vim/bundle/javadoc.vim
