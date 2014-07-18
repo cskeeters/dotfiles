@@ -133,7 +133,7 @@ let mapleader = ','
 
 " Bookmarks
 nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
-nnoremap <leader>es :e ~/Documents/nci/bcst/sccb-minutes.md<cr>:lcd %:p:h<cr>
+nnoremap <leader>gb :CtrlP ~/Documents/nci/bcst<CR><F5>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap gsv :source $MYVIMRC<cr>
 nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
