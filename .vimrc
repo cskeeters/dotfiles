@@ -8,6 +8,10 @@ scriptencoding utf-8
 set encoding=utf-8
 set fileencoding=utf-8
 
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
 set expandtab                   " tabs are spaces, not tabs (et)
 set shiftwidth=4                " use indents of 4 spaces (sw)
 set tabstop=4                   " an indentation every four columns (ts)
