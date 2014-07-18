@@ -152,7 +152,7 @@ nnoremap <leader>t :setlocal noexpandtab<cr>
 ":set noet
 ":retab to convert
 
-nnoremap <leader>W :set wrap<cr>:set linebreak<cr>
+nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
 nnoremap <leader>nW :set nowrap<cr>
 
 
@@ -532,6 +532,7 @@ function! Markdown()
   let @k = "0i### "
   set wrap
   set linebreak
+  set nolist
   nmap <leader>b ysiw*lysiw*
   nmap <leader>i ysiw*
   nmap <leader>t ysiw`
@@ -553,6 +554,7 @@ function! ReStructuredText()
   let @l = "yypv$r~j"
   set wrap
   set linebreak
+  set nolist
   set filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
