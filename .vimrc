@@ -24,7 +24,7 @@ set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.o', '\.dep', '\.class']
 
 set hidden                      " Allow buffers (unsaved) in the background (like tabs)
-
+set virtualedit=block           " Block mode allows cursor to go where spaces don't exist
 set autoindent                  " indent at the same level of the previous line
 set cindent
 set smartindent
