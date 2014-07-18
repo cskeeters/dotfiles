@@ -539,7 +539,7 @@ function! Markdown()
   vnoremap <leader>i ysiw*
   vnoremap <leader>t ysiw`
   nnoremap <leader>v :MarkedOpen<cr>
-  nnoremap <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block '%' -o %:r.docx && open %:r.docx<cr>
+  nnoremap <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o %:r.docx && open %:r.docx<cr>
 endfunction
 
 function! ReStructuredText()
