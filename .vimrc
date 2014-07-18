@@ -298,6 +298,17 @@ function! Alt(filename)
 endfunction
 nmap <leader>l :call Alt(expand('%:p'))<cr>
 
+function! HandleURL()
+  let uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+  echo uri
+  if uri != ""
+    exec "!open ".shellescape(uri, 1)
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+map gx :call HandleURL()<cr>
+
 "Test
 "set runtimepath+=$HOME/.vim/bundle/Vim-JDE
 
