@@ -30,6 +30,8 @@ alias -s html=$EDITOR
 alias -s css=$EDITOR
 alias -s js=$EDITOR
 
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 chpwd() {
   update_terminal_cwd
 }
