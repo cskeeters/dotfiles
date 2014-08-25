@@ -480,7 +480,8 @@ set runtimepath+=$HOME/.vim/bundle/vim-snippets
 "Disable signs so that signify can work
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_extra_conf_globlist = ['~/rcmp/*','!~/*']
-set runtimepath+=$HOME/.vim/bundle/YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"set runtimepath+=$HOME/.vim/bundle/YouCompleteMe
 
 
 "PLUGIN: https://github.com/tpope/vim-markdown
