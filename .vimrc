@@ -132,8 +132,9 @@ set timeoutlen=1000 ttimeoutlen=0
 let mapleader = ','
 
 " Bookmarks
-nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
-nnoremap <leader>gb :CtrlP ~/Documents/nci/bcst<CR><F5>
+"nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
+nnoremap <leader>gn :CtrlP ~/Dropbox/notes<CR>
+nnoremap <leader>gb :CtrlP ~/Documents/nci/bcst<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap gsv :source $MYVIMRC<cr>
 nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
