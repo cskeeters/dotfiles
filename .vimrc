@@ -31,6 +31,8 @@ set smartindent
 set nowrap                      " wrap long lines
 
 " iTerm2 in osx likes unnamed, not unnamedplus
+" NOTE: FormatMatch osx application prevents visual block selections from being
+" yanked and pasted
 set clipboard=unnamed
 
 "set textwidth=80                " Used in autoformatting
