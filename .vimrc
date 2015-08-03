@@ -179,8 +179,9 @@ nnoremap Y y$
 
 " Shortcuts
 " Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
+cnoremap Gb ~/Documents/nci/bcst/
+cnoremap Gn ~/Dropbox/notes/
+cnoremap Gv ~/.vim/bundle
 noremap gcd :lcd %:p:h<cr>
 
 nnoremap gb ^
