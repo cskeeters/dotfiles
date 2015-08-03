@@ -176,6 +176,9 @@ set pastetoggle=<F10>           " pastetoggle (sane indentation on pastes)
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
+" Put all lines selected on one line and then format that line
+vnoremap <localleader>f Jgqj
+nnoremap <localleader>w :%s/\s\+$//<cr>
 
 " Shortcuts
 " Change Working Directory to that of the current file
