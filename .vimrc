@@ -291,6 +291,9 @@ function! SwapShort()
 endfunction
 
 
+let g:netrw_liststyle=1
+"let g:netrw_keepdir=0
+
 function! GrepWord(word)
     execute ':vimgrep '.a:word.' **/*.cpp **/*.c++ **/*.h **/*.java'
     copen
