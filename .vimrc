@@ -337,8 +337,8 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-"Test
-"set runtimepath+=$HOME/.vim/bundle/Vim-JDE
+"PLUGIN: https://github.com/alvan/vim-closetag
+set runtimepath+=$HOME/.vim/bundle/vim-closetag
 
 "PLUGIN: https://github.com/vim-scripts/argtextobj.vim
 set runtimepath+=$HOME/.vim/bundle/argtextobj.vim
@@ -365,10 +365,19 @@ set runtimepath+=$HOME/.vim/bundle/sr.vim
 
 
 "PLUGIN: https://github.com/vim-scripts/restore_view.vim
+"Uses mkview to save cursor position and folds
 set runtimepath+=$HOME/.vim/bundle/restore_view.vim
 
-"LUGIN: https://github.com/vim-scripts/restore_view.vim
-set runtimepath+=$HOME/.vim/bundle/session.vim
+"PLUGIN: https://github.com/vim-scripts/visualrepeat
+set runtimepath+=$HOME/.vim/bundle/visualrepeat
+
+"PLUGIN: https://github.com/junegunn/vim-easy-align
+set runtimepath+=$HOME/.vim/bundle/vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+
+"PLUGIN: https://github.com/tpope/vim-repeat
+set runtimepath+=$HOME/.vim/bundle/vim-repeat
 
 "PLUGIN: https://github.com/beloglazov/vim-online-thesaurus
 " <localleader>K to activate
@@ -426,6 +435,10 @@ set runtimepath+=$HOME/.vim/bundle/vim-airline
 
 "PLUGIN: https://github.com/tpope/vim-surround
 " change 'hi' to (hi) with cs')
+" change hi chad to (hi chad) with ys2w)
+
+" Disable mappings in insert mode (CTRL+S)
+let g:surround_no_insert_mappings = 1
 set runtimepath+=$HOME/.vim/bundle/vim-surround
 
 
@@ -433,8 +446,11 @@ set runtimepath+=$HOME/.vim/bundle/vim-surround
 " Show diff in gutter
 ",gj ,gk to move between changes
 let g:signify_vcs_list = ['hg']
-let g:signify_difftool = 'diff'
+"let g:signify_diffoptions = {'hg': '--color never --pager never' }
+"let g:signify_difftool = 'diff'
+let g:signify_disable_by_default = 1
 set runtimepath+=$HOME/.vim/bundle/vim-signify
+nmap <leader>+ :SignifyToggle<cr>
 
 "PLUGIN: https://github.com/scrooloose/nerdtree
 " reads bookmarks from ~/.NERDTreeBookmarks
@@ -480,9 +496,9 @@ let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsExpandTrigger="<c-b>"
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 set runtimepath+=$HOME/.vim/bundle/ultisnips
 "PLUGIN: https://github.com/cskeeters/vim-snippets
 set runtimepath+=$HOME/.vim/bundle/vim-snippets
