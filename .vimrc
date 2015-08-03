@@ -235,11 +235,6 @@ cmap w!! w !sudo tee % >/dev/null
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>ew :e %%
 
-" Like * but with choices
-" map <Leader>ff to display all lines with keyword under cursor
-" and ask which one to jump to
-nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
 " Easier horizontal scrolling
 map zl zL
 map zh zH
