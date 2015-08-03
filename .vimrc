@@ -60,6 +60,7 @@ set smartcase                   " case sensitive when upper is present in search
 
 set number
 set relativenumber
+set printoptions=left:3pc,right:3pc,number:n,header:0
 
 set showcmd " Shows partial key sequences
 
