@@ -125,7 +125,7 @@ endif
 
 set dictionary=/usr/share/dict/words
 set thesaurus=~/dotfiles/mthesaur.txt
-set spell spelllang=en_us
+set spelllang=en_us
 
 " Help escape take effect immediately
 " If on MAC, may need to
@@ -159,6 +159,7 @@ nnoremap <leader>t :setlocal noexpandtab<cr>
 
 nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
 nnoremap <leader>nW :set nowrap<cr>
+nnoremap <leader>p :set spell!<cr>
 
 
 noremap <Leader>s :update<CR>
