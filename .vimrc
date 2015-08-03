@@ -266,6 +266,9 @@ function! FixKeys()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
+" Update Plugins with
+" cd ~/.vim/bundle
+" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | sed -re 's/.*\/(.*)/\1/' | xargs -I {} bash -c "cd {}; git pull"
 " Checkout repositories with
 " cd ~/.vim/bundle
 " cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
