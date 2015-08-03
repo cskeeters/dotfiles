@@ -36,6 +36,7 @@ set nowrap                      " wrap long lines
 set clipboard=unnamed
 
 "set textwidth=80                " Used in autoformatting
+set colorcolumn=+0              " Use textwidth variable
 
 "set comments=sl:/*,mr:*,elx:*/  " auto format comment blocks with gq see help format-comments
 set comments=n:\"
