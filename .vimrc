@@ -456,7 +456,14 @@ nmap <leader>+ :SignifyToggle<cr>
 " reads bookmarks from ~/.NERDTreeBookmarks
 " shortcut /path
 " Reopen with :NERDTree
-map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+"map <C-e> :NERDTreeToggle<CR>
+"nmap <silent> <C-e> :call g:WorkaroundNERDTreeToggle()<CR>
+
+function! g:WorkaroundNERDTreeToggle()
+  try | :NERDTreeToggle | catch | :NERDTree | endtry
+endfunction
+
+":NERDTreeMirror<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 set runtimepath+=$HOME/.vim/bundle/nerdtree
