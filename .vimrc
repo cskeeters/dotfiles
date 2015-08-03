@@ -519,12 +519,11 @@ let g:ycm_extra_conf_globlist = ['~/rcmp/*','!~/*']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "set runtimepath+=$HOME/.vim/bundle/YouCompleteMe
 
-
-"PLUGIN: https://github.com/tpope/vim-markdown
-set runtimepath+=$HOME/.vim/bundle/vim-markdown
-
 "PLUGIN: https://github.com/itspriddle/vim-marked
+" Use Marked (version 1)
+let g:marked_app = "Marked"
 set runtimepath+=$HOME/.vim/bundle/vim-marked
+"Open in Marked with <leader>v
 
 " IF syntastic is used
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
