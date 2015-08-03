@@ -281,6 +281,16 @@ endfunction
 " Remove trailing whitespaces and ^M chars
 autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
+"swap word with ves
+vnoremap s :call SwapShort()<cr>
+function! SwapShort()
+	let l:tmp = @"
+	normal! gv"0d
+	let @" = l:tmp
+	normal! P
+endfunction
+
+
 function! GrepWord(word)
     execute ':vimgrep '.a:word.' **/*.cpp **/*.c++ **/*.h **/*.java'
     copen
