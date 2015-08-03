@@ -161,7 +161,7 @@ nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
 nnoremap <leader>nW :set nowrap<cr>
 nnoremap <leader>p :set spell!<cr>
 
-
+inoremap <C-s> <esc>:update<CR>
 noremap <Leader>s :update<CR>
 noremap <Leader>q :q<CR>
 nnoremap <leader>mw :bd!<cr>
