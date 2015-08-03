@@ -551,7 +551,8 @@ autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
 
 function! TaskJuggler()
   set ft=tjp
-  nnoremap <leader>v :update<cr>:silent !tj3 '%' && open %:r.html<cr>
+  "nnoremap <leader>v :update<cr>:silent !tj3 '%' && open %:r.html<cr>
+  nnoremap <leader>v :update<cr>:!tj3 --no-color '%' && open %:r.html<cr>
 endfunction
 
 
