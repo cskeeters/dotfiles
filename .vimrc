@@ -541,13 +541,13 @@ syntax on
 
 """""""""""""""""""""""""""""""""""""""""" Dynamic Keyboard Mapping
 
-autocmd BufNewFile,BufRead *.tjp call TaskJuggler()
-autocmd BufNewFile,BufRead *.md call Markdown()
-autocmd BufNewFile,BufRead *.txt call ReStructuredText()
-autocmd BufNewFile,BufRead *.rst call ReStructuredText()
-autocmd BufNewFile,BufRead *.htm call Html()
-autocmd BufNewFile,BufRead *.html call Html()
-autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -s4pb
+autocmd BufEnter *.tjp call TaskJuggler()
+autocmd BufEnter *.md call Markdown()
+"autocmd BufEnter *.txt call ReStructuredText()
+autocmd BufEnter *.rst call ReStructuredText()
+autocmd BufEnter *.htm call Html()
+autocmd BufEnter *.html call Html()
+autocmd BufEnter *.cpp set formatprg=astyle\ -s4pb
 
 function! TaskJuggler()
   set ft=tjp
@@ -560,8 +560,8 @@ function! Html()
   let @b = "diwi<b>\"</b>"
   let @i = "diwi<i>\"</i>["
   let @t = "diwi<tt>\"</tt>"
-  set wrap
-  set linebreak
+  setlocal wrap
+  setlocal linebreak
   nnoremap <leader>v :open '%'<cr>
 endfunction
 
@@ -570,19 +570,21 @@ function! Markdown()
   let @b = "ysiw*lysiw*"
   let @i = "ysiw*"
   let @t = "ysiw`"
-  let @l = "i<lxA>"
+  let @l = "Bi<Ea>"
   let @h = "0i# "
   let @j = "0i## "
   let @k = "0i### "
-  set wrap
-  set linebreak
-  set nolist
+  setlocal wrap
+  setlocal linebreak
+  setlocal nolist
+  setf markdown
   nmap <leader>b ysiw*lysiw*
   nmap <leader>i ysiw*
   nmap <leader>t ysiw`
   vnoremap <leader>b ysiw*lysiw*
   vnoremap <leader>i ysiw*
   vnoremap <leader>t ysiw`
+  "vim-marked command
   nnoremap <leader>v :MarkedOpen<cr>
   nnoremap <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o %:r.docx && open %:r.docx<cr>
 endfunction
@@ -596,10 +598,11 @@ function! ReStructuredText()
   let @j = "yypv$r-j"
   let @k = "yypv$r^j"
   let @l = "yypv$r~j"
-  set wrap
-  set linebreak
-  set nolist
-  set filetype=rst
+  setlocal textwidth=80
+  setlocal wrap
+  setlocal linebreak
+  setlocal nolist
+  setlocal filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
   "nnoremap <leader>p :update<cr>:silent !sed -nf ~/.rst2pdf/fb.sed '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
