@@ -193,6 +193,8 @@ vnoremap > >gv
 
 vno v <esc>
 
+nnoremap <leader>. z=1<cr><cr>
+
 "Paste helper
 imap <S-Insert> <MiddleMouse>
 set mouse=a
