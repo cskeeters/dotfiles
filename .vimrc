@@ -452,21 +452,22 @@ let g:signify_disable_by_default = 1
 set runtimepath+=$HOME/.vim/bundle/vim-signify
 nmap <leader>+ :SignifyToggle<cr>
 
-"PLUGIN: https://github.com/scrooloose/nerdtree
-" reads bookmarks from ~/.NERDTreeBookmarks
-" shortcut /path
-" Reopen with :NERDTree
-"map <C-e> :NERDTreeToggle<CR>
-"nmap <silent> <C-e> :call g:WorkaroundNERDTreeToggle()<CR>
 
-function! g:WorkaroundNERDTreeToggle()
-  try | :NERDTreeToggle | catch | :NERDTree | endtry
-endfunction
+"PLUGIN: https://github.com/tpope/vim-vinegar
+set runtimepath+=$HOME/.vim/bundle/vim-vinegar
 
-":NERDTreeMirror<CR>
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-set runtimepath+=$HOME/.vim/bundle/nerdtree
+
+"PLUGIN: https://github.com/troydm/easytree.vim
+let g:easytree_hijack_netrw = 0
+nmap <silent> <Leader>f :EasyTree<CR>
+" C/u - cd into/..
+" cd - set cwd to folder
+" f - find file
+" O - open all subdirs
+" X - Close all subdirs
+" r/R - refresh from cursor/root
+set runtimepath+=$HOME/.vim/bundle/easytree.vim
+
 
 
 "PLUGIN: https://github.com/godlygeek/tabular
