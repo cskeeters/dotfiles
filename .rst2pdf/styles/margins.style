@@ -1,7 +1,7 @@
 pageSetup :
   size: letter
-  margin-top: 2cm
-  margin-bottom: 2cm
+  margin-top: 1.5cm
+  margin-bottom: 1.5cm
   margin-left: 1cm
   margin-right: 1cm
   margin-gutter: 0cm

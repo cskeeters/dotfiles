@@ -6,13 +6,12 @@ fontsAlias :
 
 styles:
   normal:
-    fontSize: 10
+    fontSize: 9
     leading: 17
     kerning: true
 
   title :
-
-    fontSize: 250%
+    fontSize: 200%
     fontName: stdBoldItalic
 
   heading1:
