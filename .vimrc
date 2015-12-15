@@ -337,6 +337,20 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
+"PLUGIN: https://github.com/cskeeters/closer.vim
+set runtimepath+=$HOME/.vim/bundle/closer.vim
+nmap <silent> <localleader>c <Plug>OpenCloser
+
+"PLUGIN: https://github.com/plasticboy/vim-markdown
+set runtimepath+=$HOME/.vim/bundle/vim-markdown
+
+"Universal Text Linking (like text wiki)
+"PLUGIN: https://github.com/vim-scripts/utl.vim
+set runtimepath+=$HOME/.vim/bundle/utl.vim
+"Open file and move cursor to first match of search text
+"<url:file#search>
+nmap <Leader>ge :Utl openLink underCursor edit<CR>
+
 "PLUGIN: https://github.com/alvan/vim-closetag
 set runtimepath+=$HOME/.vim/bundle/vim-closetag
 
