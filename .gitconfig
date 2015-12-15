@@ -5,12 +5,14 @@
   helper = osxkeychain
 [alias]
   st = status
+  sta = status
   ci = commit
   br = branch
   co = checkout
   df = diff
+  ds = diff --staged
   lg = log -p
-[core]
-  editor = /usr/bin/vim
+  gr = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+  l = log --graph --oneline
 [push]
 	default = simple
