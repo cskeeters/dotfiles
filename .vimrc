@@ -401,6 +401,7 @@ let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_max_files = 4000
 set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
+nnoremap <leader>b :CtrlPBuffer<cr>
 
 "PLUGIN: https://github.com/chriskempson/base16-vim
 let g:load_base16_shell = 1
