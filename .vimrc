@@ -494,6 +494,36 @@ let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
 set runtimepath+=$HOME/.vim/bundle/tagbar
 
+" Add support for markdown files in tagbar.
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '~/bin/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+let g:tagbar_type_mkdc = {
+    \ 'ctagstype': 'mkdc',
+    \ 'ctagsbin' : '~/bin/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+
 
 "PLUGIN: https://github.com/kien/rainbow_parentheses.vim
 nnoremap <leader>r :RainbowParenthesesToggle<cr>
