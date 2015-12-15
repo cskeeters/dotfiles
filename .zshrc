@@ -2,7 +2,6 @@ yourdotfiles=/Users/chad
 source $yourdotfiles/.zshuery/zshuery.sh
 load_defaults
 load_aliases
-load_lol_aliases
 load_completion $yourdotfiles/.zshuery/completion
 load_correction
 
