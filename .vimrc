@@ -590,6 +590,7 @@ autocmd BufEnter *.tjp call TaskJuggler()
 autocmd BufEnter *.md call Markdown()
 "autocmd BufEnter *.txt call ReStructuredText()
 autocmd BufEnter *.rst call ReStructuredText()
+autocmd BufEnter *.twig setf php
 autocmd BufEnter *.htm call Html()
 autocmd BufEnter *.html call Html()
 autocmd BufEnter *.cpp set formatprg=astyle\ -s4pb
