@@ -63,6 +63,10 @@ echo "mv ~/.rst2html backup/"
 echo "ln ~/dotfiles/.rst2html ~/.rst2html"
 echo
 
+echo "Setting up Keyboard bindings"
+mkdir -p ~/Library/KeyBindings
+~/Library/KeyBindings/DefaultKeyBinding.dict
+
 echo "Setup vundle for vim"
 echo "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
 echo "vim +BundleInstall +q +q"
