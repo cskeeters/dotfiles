@@ -608,7 +608,7 @@ function! Html()
   let @t = "diwi<tt>\"</tt>"
   setlocal wrap
   setlocal linebreak
-  nnoremap <leader>v :open '%'<cr>
+  nnoremap <leader>v :!open '%'<cr>
 endfunction
 
 function! Markdown()
