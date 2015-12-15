@@ -1,0 +1,359 @@
+#!/bin/bash
+
+_BASH_COMP_DEBUG=1
+
+log() {
+    if [[ $_BASH_COMP_DEBUG -eq 1 ]]; then
+        logger -t BASH_COMP "$@"
+    fi
+}
+
+# This is 3-4x faster than starting the basename processes
+_basename() {
+    if [[ "$1" =~ '.*/([^/]+)$' ]]; then
+        echo "${BASH_REMATCH[1]}"
+    else
+        echo "$1"
+    fi
+}
+
+_split() {
+    local string="$1"
+    local IFS="${2:=:}"
+
+    SPLIT_RESULT=()
+    for path in $string; do
+        SPLIT_RESULT+=("$path")
+    done
+}
+
+_FIGNORE_filter() {
+    FILTERED_RESULTS=()
+    local arr=( "${!1}" )
+
+    log "Filtering with $FIGNORE"
+
+    _split "$FIGNORE" ":"
+    local endings=( "${SPLIT_RESULT[@]}" )
+
+    for element in "${arr[@]}"; do
+        local filter=0
+        for end in "${endings[@]/./\.}"; do
+            if [[ "$element" =~ ".*$end$" ]]; then
+                printf -v log_output "Filtering %s from rule %s\n" "$element" "$end"
+                log "$log_output"
+                filter=1
+            fi
+        done
+        if [[ $filter -eq 0 ]]; then
+            FILTERED_RESULTS+=( $element )
+        fi
+    done
+}
+
+fuzzy_matches() {
+    query=$1
+    data=$2
+
+    qlen=${#query}
+    len=${#data}
+
+    qi=0
+    qchar=${query:$qi:1}
+    for ((i=0; i<$len; i++)); do
+        char=${data:$i:1}
+        if [[ "$char" == "$qchar" ]]; then
+            qi=$((qi+1))
+            if [[ $qi -ge $qlen ]]; then
+                return 1
+            fi
+            qchar=${query:$qi:1}
+        fi
+    done
+    return 0
+}
+
+fuzzy_search() {
+    RESULTS=()
+    query=$1
+    for option in ${FUZZY_OPTIONS[@]}; do
+        fuzzy_matches "$query" "$option"
+        if [[ $? -eq 1 ]]; then
+            #need to append to RESULTS
+            RESULTS+=("$option")
+        fi
+    done
+}
+
+test_fuzzy() {
+    FUZZY_OPTIONS=(chad charley david)
+    fuzzy_search "$1"
+    for match in ${RESULTS[@]}; do
+        echo $match
+    done
+}
+
+_fuzzy_get_names() {
+    local base="$1"
+    local path="$2"
+    local query="$3"
+
+    FUZZY_OPTIONS=()
+    # Using glob to list files
+    # doesn't iterate over dot files
+    for name in "${path}${base}"* ; do
+        # this returns a string (with a * at the end) if no files match the glob pattern
+        # that's why testing -d or -f is important
+        # using -e because file_type f means files or folders
+        if [[ "$file_type" = "d" && -d "$name" || $file_type = "f" && -e $name ]]; then
+            # return just the last name
+            local dn="$(_basename "$name")"
+            FUZZY_OPTIONS+=($dn)
+        fi
+    done
+
+    for opt in "${FUZZY_OPTIONS[@]}"; do
+        log "Fuzzy Option: $opt"
+    done
+    fuzzy_search "$query"
+
+    for match in ${RESULTS[@]}; do
+        printf -v log_output "Adding Option: %s\n" ${match}
+        log "$log_output"
+        if [[ -d "${path}${base}${match}" ]]; then
+            OPTIONS+=("${base}${match}/") #Why would I need a trailing slash here? PATH is in CDPATH
+        else
+            OPTIONS+=("${base}${match}")
+        fi
+    done
+}
+
+_get_names() {
+    local base="$1"
+    local query="$2"
+    local path=""
+
+    if [[ "$base" =~ '^\.?/' || $file_type = "f" || "$CDPATH" = "" ]]; then
+        # if $base starts with /, then no CDPATH
+        log "No CDPATH"
+        _fuzzy_get_names "$base" "" "$query"
+    else
+        # iterate through elements in CDPATH looking for first path with one return
+        _split "$CDPATH" ":"
+        paths=("${SPLIT_RESULT[@]}")
+        for path in "${paths[@]}"; do
+            log "Searching $path"
+            _fuzzy_get_names "$base" "$path/" "$query"
+        done
+    fi
+}
+
+# no argument looks for single directory in PWD
+# ** argument uses fzf if ruby is installed
+# if cmd is cd
+#     if _cd returns single match with CDPATH=".", return
+#     if _cd returns matches, return all
+
+# if fuzzy returns matches with CDPATH=".", return all
+# if fuzzy returns one match, return it with option (to kill space) #nospace?
+# return fuzzy matches
+
+_fuzzy_search() {
+    log "_fuzzy_search"
+# Have to assign CDPATH to igself in order to keep global value
+    local CDPATH=$CDPATH
+    local file_type="$1"
+    log "COMP_CWORD: $COMP_CWORD"
+    log "COMP_WORDS: ${COMP_WORDS[@]}"
+    local cur="${COMP_WORDS[$COMP_CWORD]}"
+    local prev="${COMP_WORDS[$COMP_CWORD-1]}"
+    
+    log "${#COMP_WORDS[@]}"
+    log "1 ${COMP_WORDS[1]}"
+    log "2 ${COMP_WORDS[2]}"
+
+    if [[ "${COMP_WORDS[0]}" = "rm" ]]; then
+        log "Unsetting FIGNORE"
+        local unset FIGNORE
+    fi
+
+    # Check for single directory if no argument given
+    if [[ $file_type = "d" && ${#COMP_WORDS[@]} -eq 2 && "${COMP_WORDS[1]}" = '' ]]; then
+        log "looking for single directory in cwd only"
+        folders=()
+        for f in *; do
+            if [[ -d "$f" ]]; then
+                folders+=("$f")
+            fi
+        done
+        if [[ ${#folders[@]} -eq 1 ]]; then
+            log "returning ${folders[0]}"
+            COMPREPLY=("${folders[0]}/")
+            return 0
+        fi
+    fi
+
+    if [[ -n "$HAS_RUBY" && "$cur" = "**" ]]; then
+        log "Returning result of fzf"
+        if [[ $file_type = "d" ]]; then
+            _fzf_dir_completion
+            return $?
+        else
+            _fzf_file_completion
+            return $?
+        fi
+    fi
+
+    if [[ "${COMP_WORDS[0]}" = "cd" ]]; then
+        log "Command is cd"
+        log "Backing up CDPATH $(CDPATH)"
+        CDPATH_bak="$CDPATH"
+        CDPATH=""
+        # call completion function from /etc/bash_complete
+        # (loaded from /etc/profile.d/bash_completion.sh)
+        log "Calling _cd from bash_completion.sh"
+        _cd
+        #log "_cd with . CDPATH returned ${COMPREPLY[*]}"
+        CDPATH="${CDPATH_bak}"
+        if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
+            log "returning ${COMPREPLY[0]} (from _cd with CDPATH=.)"
+            return 1
+        fi
+
+        log "Calling compgen with full CDPATH=$CDPATH"
+        _cd
+        log "DEBUG: ${COMPREPLY[*]}"
+        if [[ ${#COMPREPLY[@]} -gt 0 ]]; then
+            log "Returning _cd with full CDPATH"
+            return 0
+        fi
+
+    else
+        log "Command is not cd"
+        CDPATH_bak="$CDPATH"
+        CDPATH=""
+
+        local IFS=$'\n'
+        log "cur: $cur"
+        COMPREPLY=( $(compgen -f -- "$cur") )
+
+        log "Pre-filtered COMPREPLY ${COMPREPLY[@]}"
+
+        CDPATH="${CDPATH_bak}"
+
+        _FIGNORE_filter "COMPREPLY[@]"
+        COMPREPLY=( "${FILTERED_RESULTS[@]}" )
+
+        log "Post-filtered COMPREPLY ${COMPREPLY[@]}"
+        
+        if [[ ${#COMPREPLY[@]} -eq 1 ]]; then
+            log "Returning compgen with CDPATH=."
+            return 0
+        fi
+
+        log "Calling compgen with full CDPATH=$CDPATH"
+        local IFS=$'\n'
+        COMPREPLY=( $(compgen -f -- "$cur") )
+        log "Compgen returned ${COMPREPLY[*]}"
+
+        _FIGNORE_filter "COMPREPLY[@]"
+        COMPREPLY=( "${FILTERED_RESULTS[@]}" )
+
+        log "filtered results ${COMPREPLY[*]}"
+
+        if [[ ${#COMPREPLY[@]} -gt 0 ]]; then
+            log "Returning compgen with full CDPATH"
+            return 0
+        fi
+    fi
+
+    # May need to return above with trailing / or use -o filenames
+        # take the traditional result and return add endings #TODO: respect mark shopt
+        #for i in ${!COMPREPLY[@]}; do
+           #if [[ -d "${COMPREPLY[i]}" ]]; then
+               #COMPREPLY[i]="${COMPREPLY[i]}/"
+           #fi
+        #done
+
+    if [[ ${COMPREPLY[@]} -eq 0 ]]; then
+        log "Running fuzzy"
+        COMPREPLY=()
+
+        if [[ "$cur" =~ '(.*)/([^/]*)$' ]]; then
+            base="${BASH_REMATCH[1]}"/
+            query="${BASH_REMATCH[2]}"
+        else
+            base=""
+            query="$cur"
+        fi
+
+        CDPATH_bak="$CDPATH"
+        CDPATH=""
+
+        OPTIONS=()
+        _get_names "$base" "$query"
+
+        _FIGNORE_filter "OPTIONS[@]"
+
+        OPTIONS=( "${FILTERED_RESULTS[@]}" )
+
+        CDPATH="$CDPATH_bak"
+
+        if [[ ${#OPTIONS[@]} -gt 0 ]]; then
+            printf -v log_output "Fuzzy match: %s\n" "${OPTIONS[@]}"
+            log "$log_output"
+            COMPREPLY=("${OPTIONS[@]}")
+            return 0
+        fi
+
+        OPTIONS=()
+        _get_names "$base" "$query"
+
+        _FIGNORE_filter "OPTIONS[@]"
+        OPTIONS=( "${FILTERED_RESULTS[@]}" )
+
+        if [[ ${#OPTIONS[@]} -gt 0 ]]; then
+            printf -v log_output "Fuzzy match: %s\n" "${OPTIONS[@]}"
+            log "$log_output"
+            COMPREPLY=("${OPTIONS[@]}")
+            return 0
+        fi
+
+        log "No matches"
+        if [[ "$cur" =~ '\:' ]]; then
+            log "has colon, returning nothing so file can complete"
+            COMPREPLY=()
+        else
+            # Keep what we have since we could not find a match, and the user
+            # may want to change the fuzzy search without this function changing it.
+            log "Cur: $cur"
+            printf -v log_output "COMP_WORD: %s\n" "${COMP_WORDS[@]}"
+            log "$log_output"
+            COMPREPLY=("${cur}" "${cur}a")
+            printf -v log_output "COMPREPLY: %s\n" "${COMPREPLY[@]}"
+            log "$log_output"
+        fi
+    fi
+}
+
+_fuzzy_cd() {
+    _fuzzy_search "d"
+    log "Returning ${#COMPREPLY[@]} ${COMPREPLY[*]}"
+}
+
+_fuzzy_file() {
+    _fuzzy_search "f"
+}
+
+# NOTE: using -o filenames means that the results are automatically filtered through FIGNORE
+# This may not be good if rm needs to ignore FIGNORE.  See force_fignore
+
+for cmd in cd pushd rmdir; do
+    complete -o filenames -o nospace -F _fuzzy_cd -o default -o bashdefault $cmd
+done
+
+for cmd in awk cat diff diff3 emacs ex file g++ gcc gvim head hg java javac ld less \
+           more mvim patch perl python ruby sed sftp sort source tail tee uniq vi view vim wc; do
+    complete -o filenames -o nospace -F _fuzzy_file -o default -o bashdefault $cmd
+done
+
