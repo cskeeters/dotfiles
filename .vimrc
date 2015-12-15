@@ -655,6 +655,8 @@ function! ReStructuredText()
   "For sed script debugging
   nnoremap <leader><s-p> :update<cr>:!sed -nf ~/.rst2pdf/fb.sed '%' \| less<cr>
   nnoremap <leader>p :update<cr>:silent !perl -0pe 's/\n\n(.*\n=+)/\n\n.. raw:: pdf\n\n  FrameBreak 250\n\n\1/g;s/\n\n(.*\n-+)/\n\n.. raw:: pdf\n\n  FrameBreak 200\n\n\1/g' '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
+  "No page breaks
+  nnoremap <leader>p :update<cr>cat '%' \| rst2pdf > %:r.pdf && open %:r.pdf<cr>
 endfunction
 
 function! Asciidoc()
