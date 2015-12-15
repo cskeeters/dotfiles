@@ -509,6 +509,7 @@ let g:tagbar_autofocus = 1
 set runtimepath+=$HOME/.vim/bundle/tagbar
 
 " Add support for markdown files in tagbar.
+" https://github.com/majutsushi/tagbar/wiki#markdown
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
     \ 'ctagsbin' : '~/bin/markdown2ctags.py',
