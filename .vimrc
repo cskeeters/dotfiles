@@ -603,47 +603,48 @@ endfunction
 
 
 function! Html()
-  let @b = "diwi<b>\"</b>"
-  let @i = "diwi<i>\"</i>["
-  let @t = "diwi<tt>\"</tt>"
+  "With vim-closetag don't need the end tag
+  nmap <buffer> <localleader>b diwi<strong>p
+  nmap <buffer> <localleader>i diwi<em>p
+  nmap <buffer> <localleader>t diwi<tt>p
   setlocal wrap
   setlocal linebreak
   nnoremap <leader>v :!open '%'<cr>
 endfunction
 
 function! Markdown()
-  " markdown bold and italic
-  let @b = "ysiw*lysiw*"
-  let @i = "ysiw*"
-  let @t = "ysiw`"
-  let @l = "Bi<Ea>"
-  let @h = "0i# "
-  let @j = "0i## "
-  let @k = "0i### "
   setlocal wrap
   setlocal linebreak
   setlocal nolist
   setf markdown
-  nmap <leader>b ysiw*lysiw*
-  nmap <leader>i ysiw*
-  nmap <leader>t ysiw`
-  vnoremap <leader>b ysiw*lysiw*
-  vnoremap <leader>i ysiw*
-  vnoremap <leader>t ysiw`
+  set conceallevel=2
+
+  nmap <buffer> <localleader>h yypVr=
+  nmap <buffer> <localleader>j yypVr-
+
+  nmap <buffer> <localleader>b ysiw*lysiw*
+  nmap <buffer> <localleader>i ysiw*
+  nmap <buffer> <localleader>t ysiw`
+  "Make Link
+  nmap <buffer> <localleader>l lBi<Ea>
+  vnoremap <buffer> <localleader>b ysiw*lysiw*
+  vnoremap <buffer> <localleader>i ysiw*
+  vnoremap <buffer> <localleader>t ysiw`
   "vim-marked command
-  nnoremap <leader>v :MarkedOpen<cr>
-  nnoremap <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o %:r.docx && open %:r.docx<cr>
+  nnoremap <buffer> <leader>v :MarkedOpen<cr>
+  nnoremap <buffer> <leader>r :silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>
+  nnoremap <buffer> <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o %:r.docx && open %:r.docx<cr>
 endfunction
 
 function! ReStructuredText()
   "Make underlines for headings in reStructuredText format
-  let @b = "ysiw*lysiw*"
-  let @i = "ysiw*"
-  let @t = "ysiW`lysiW`"
-  let @h = "yypv$r=j"
-  let @j = "yypv$r-j"
-  let @k = "yypv$r^j"
-  let @l = "yypv$r~j"
+  nmap <buffer> <localleader>b ysiw*lysiw*
+  nmap <buffer> <localleader>i ysiw*
+  nmap <buffer> <localleader>t ysiW`lysiW`
+  nmap <buffer> <localleader>h yypv$r=j
+  nmap <buffer> <localleader>j yypv$r-j
+  nmap <buffer> <localleader>k yypv$r^j
+  nmap <buffer> <localleader>l yypv$r~j
   setlocal textwidth=80
   setlocal wrap
   setlocal linebreak
