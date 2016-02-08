@@ -651,3 +651,10 @@ endfunction
 function! Asciidoc()
   nnoremap <leader>v :update<cr>:!asciidoc -b html5 -a icons -a toc2 -a theme=flask '%'<cr>
 endfunction
+
+if has("windows")
+  if has("gui")
+    set guifont=Consolas:h13
+    set guioptions=rLt
+  endif
+endif
