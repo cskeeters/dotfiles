@@ -568,6 +568,8 @@ set runtimepath+=$HOME/.vim/bundle/vim-marked
 " must be after plugins for ftdetect folders in runtimepaths to be used
 filetype indent plugin on
 syntax on
+"syntax sync minlines=500
+syntax sync fromstart
 
 
 """""""""""""""""""""""""""""""""""""""""" Dynamic Keyboard Mapping
