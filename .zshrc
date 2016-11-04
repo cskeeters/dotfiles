@@ -115,6 +115,7 @@ d2h(){
 export HISTCONTROL=erasedups
 
 export PATH=~/bin:$PATH
+export GREP_OPTIONS="--color --exclude-dir=.hg --exclude-dir=.git"
 
 if [[ "Darwin" == "$(uname)" ]]; then
   #homebrew path first
