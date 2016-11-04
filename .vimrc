@@ -239,6 +239,11 @@ map <leader>ew :e %%
 map zl zL
 map zh zH
 
+nnoremap ]t :tabnext<cr>
+nnoremap [t :tabprevious<cr>
+nnoremap ]w :wincmd l<cr>
+nnoremap [w :wincmd h<cr>
+
 " Number Base translations with 0x notation for hex
 nmap gd :.,.!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"
 nmap gh :.,.!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"
@@ -279,7 +284,7 @@ endfunction
 
 " This is like a plugin
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+" autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 "swap word with ves
 vnoremap s :call SwapShort()<cr>
@@ -356,9 +361,19 @@ set runtimepath+=$HOME/.vim/bundle/vim-closetag
 
 "PLUGIN: https://github.com/vim-scripts/argtextobj.vim
 set runtimepath+=$HOME/.vim/bundle/argtextobj.vim
+" via (visual, in, argument)
+" cia (change, in, argument)
+" dia (delete, in, argument)
 
 "PLUGIN: https://github.com/michaeljsmith/vim-indent-object
 set runtimepath+=$HOME/.vim/bundle/vim-indent-object
+" vii (visual, in, indent)
+" cii (change, in, indent)
+" dii (delete, in, indent)
+
+"PLUGIN: https://github.com/rizzatti/dash.vim
+set runtimepath+=$HOME/.vim/bundle/dash.vim
+nmap <silent> <leader>d <Plug>DashSearch
 
 "PLUGIN: https://github.com/cskeeters/javadoc.vim
 let g:javadoc_path="/Users/chad/java7_doc/api"
@@ -378,6 +393,9 @@ nmap <leader>cch <Plug>JCallClear
 set runtimepath+=$HOME/.vim/bundle/sr.vim
 
 
+"If airline/powerline is removed, run the following command to remove startup
+"errors:
+"    rm -f ~/.vim/view/*
 "PLUGIN: https://github.com/vim-scripts/restore_view.vim
 "Uses mkview to save cursor position and folds
 set runtimepath+=$HOME/.vim/bundle/restore_view.vim
@@ -418,17 +436,17 @@ set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 "PLUGIN: https://github.com/chriskempson/base16-vim
-let g:load_base16_shell = 1
-let g:base16_shell_path = $HOME."/base16-builder/output/shell"
+"let g:load_base16_shell = 1
+"let g:base16_shell_path = $HOME."/base16-builder/output/shell"
 "autocmd QuitPre * execute "silent !bash ".g:base16_shell_path."/base16-default.dark.sh"
 if version > 704
-    autocmd QuitPre * colorscheme base16-default
+    autocmd QuitPre * colorscheme base16-default-dark
 endif
 set runtimepath+=$HOME/.vim/bundle/base16-vim
 
 set background=dark
 let base16colorspace=256
-colorscheme base16-default
+colorscheme base16-default-dark
 
 "LUGIN: https://github.com/vim-scripts/rest.vim
 "set runtimepath+=$HOME/.vim/bundle/rest.vim " reStructuredText highlighting
@@ -443,10 +461,14 @@ set runtimepath+=$HOME/.vim/bundle/undotree
 set runtimepath+=$HOME/.vim/bundle/vim-easymotion
 
 "PLUGIN: https://github.com/bling/vim-airline
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 "iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
 let g:airline_powerline_fonts = 1
-set runtimepath+=$HOME/.vim/bundle/vim-airline
+"set runtimepath+=$HOME/.vim/bundle/vim-airline
+
+
+"PLUGIN: https://github.com/vim-airline/vim-airline-themes
+"set runtimepath+=$HOME/.vim/bundle/vim-airline-themes
 
 "PLUGIN: https://github.com/tpope/vim-surround
 " change 'hi' to (hi) with cs')
@@ -464,7 +486,7 @@ let g:signify_vcs_list = ['hg']
 "let g:signify_diffoptions = {'hg': '--color never --pager never' }
 "let g:signify_difftool = 'diff'
 let g:signify_disable_by_default = 1
-set runtimepath+=$HOME/.vim/bundle/vim-signify
+"set runtimepath+=$HOME/.vim/bundle/vim-signify
 nmap <leader>+ :SignifyToggle<cr>
 
 
@@ -610,14 +632,14 @@ function! Markdown()
   nmap <buffer> <localleader>h yypVr=
   nmap <buffer> <localleader>j yypVr-
 
-  nmap <buffer> <localleader>b ysiw*lysiw*
-  nmap <buffer> <localleader>i ysiw*
-  nmap <buffer> <localleader>t ysiw`
+  nmap <buffer> <localleader>b ysiW*lysiW*
+  nmap <buffer> <localleader>i ysiW*
+  nmap <buffer> <localleader>t ysiW`
   "Make Link
   nmap <buffer> <localleader>l lBi<Ea>
-  vnoremap <buffer> <localleader>b ysiw*lysiw*
-  vnoremap <buffer> <localleader>i ysiw*
-  vnoremap <buffer> <localleader>t ysiw`
+  vnoremap <buffer> <localleader>b ysiW*lysiW*
+  vnoremap <buffer> <localleader>i ysiW*
+  vnoremap <buffer> <localleader>t ysiW`
   "vim-marked command
   nnoremap <buffer> <leader>v :MarkedOpen<cr>
   nnoremap <buffer> <leader>r :silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>
