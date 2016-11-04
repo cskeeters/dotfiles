@@ -142,7 +142,6 @@ nnoremap <leader>en :CtrlP ~/Dropbox/notes<CR>
 nnoremap <leader>eb :CtrlP ~/Documents/nci/bcst<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap gsv :source $MYVIMRC<cr>
-nnoremap <leader>eb :e $MYVIMRC.plugins<cr>
 
 
 " Wrapped lines goes down/up to next row, rather than next line in file.
