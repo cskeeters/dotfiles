@@ -3,7 +3,8 @@ if has("gui_macvim")
   set macmeta
 
   let g:airline_powerline_fonts = 1
-  set guifont=Meslo\ LG\ S\ for\ Powerline:h15
+  "set guifont=Meslo\ LG\ S\ for\ Powerline:h15
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h15
 
   macmenu File.Print key=<nop>
   map <D-p> :CtrlP<CR>
