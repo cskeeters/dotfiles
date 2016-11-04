@@ -31,6 +31,9 @@ alias -s js=$EDITOR
 
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+# for Asciidoc
+export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+
 chpwd() {
   update_terminal_cwd
 }
