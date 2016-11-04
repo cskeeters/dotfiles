@@ -16,6 +16,7 @@ set expandtab                   " tabs are spaces, not tabs (et)
 set shiftwidth=4                " use indents of 4 spaces (sw)
 set tabstop=4                   " an indentation every four columns (ts)
 set softtabstop=4               " let backspace delete indent (sts)
+set shiftround                  " >> and << will round to the nearest shiftwidth
 " See Keyboard shortcuts to quicly change
 
 let g:ack_wildignore=0 " Otherwise error ack.vim line 31
