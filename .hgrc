@@ -21,6 +21,8 @@ git=1
 
 [defaults]
 revert=--no-backup
+log=--style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
+glog=--style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
 
 [alias]
 slog = log --style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
