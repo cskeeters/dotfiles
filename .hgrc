@@ -2,6 +2,18 @@
 username=chad.skeeters@gmail.com
 editor=vim
 
+# See hg help merge-tools
+merge=tabsplice
+
+[merge-tools]
+tabsplice.executable = tabsplice
+tabsplice.premerge = keep
+tabsplice.args = $base $local $other $output
+
+vim.executable = vim
+vim.premerge = keep-merge3
+vim.args = $output
+
 [extensions]
 hgext.mq=
 hgk=
