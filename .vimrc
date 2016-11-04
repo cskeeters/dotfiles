@@ -26,6 +26,7 @@ let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn'
 
 set hidden                      " Allow buffers (unsaved) in the background (like tabs)
 set virtualedit=block           " Block mode allows cursor to go where spaces don't exist
+"set virtualedit+=onemore        " Allow cursor to stay one character past the end of the line
 set autoindent                  " indent at the same level of the previous line
 set cindent
 set smartindent
