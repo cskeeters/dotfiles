@@ -210,10 +210,6 @@ iab <expr> dts strftime("%FT%T%z")
 iab <expr> ds strftime("%Y-%b-%d")
 
 noremap <leader>k :make -j4 \| cwindow<CR>
-noremap <leader>/ :Ack
-
-" C++ helper
-nnoremap <Leader>d istd::<ESC>
 
 " need to 'set clipboard=' when copy and pasting control characters
 " convert signature to method in cpp
@@ -426,6 +422,7 @@ elseif executable('ack-grep')
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
     set runtimepath+=$HOME/.vim/bundle/ack.vim
 endif
+noremap <leader>/ :Ack <cword><cr>
 
 "PLUGIN: https://github.com/kien/ctrlp.vim
 "let g:ctrlp_working_path_mode = 'ra'
