@@ -29,7 +29,7 @@ alias -s html=$EDITOR
 alias -s css=$EDITOR
 alias -s js=$EDITOR
 
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 chpwd() {
   update_terminal_cwd
