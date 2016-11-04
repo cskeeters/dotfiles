@@ -1,7 +1,18 @@
 #!/bin/zsh
 
-#For less querying, set the follow to assume that `hg pull` pulls everything and `hg push` pushes everthing
-# HG_APROX=1
+# Written by Chad Skeeters 2016
+# License: MIT License http://choosealicense.com/licenses/mit/
+
+# Adapted from Michael Jakl, Austria
+# https://blog.interlinked.org/tutorials/zsh_mercurial_notifier.html
+
+# Configuration
+# =============
+# For less querying, set the follow to assume that `hg pull` pulls everything and `hg push` pushes everthing
+#   HG_RPROMPT_APPROX=1
+
+# For info messages when querying, set
+#   HG_RPROMPT_INFO=1
 
 # zsh hook - executed before prompt is drawn
 precmd() {
@@ -18,6 +29,7 @@ precmd() {
 
 # zsh hook - executed when directory has changed
 chpwd() { 
+    # TODO: Don't wipe data if we CD to subdir, test if we are in the same hg root
     RPROMPT=""
     HG_INCOMING=""
     HG_OUTGOING=""
@@ -40,7 +52,7 @@ handle_last_command() {
 
     # pull only affects HG_INCOMING
     if [[ $last_cmd =~ ^hg\ pull? ]]; then
-        if [[ $HG_APPROX == 1 ]]; then
+        if [[ $HG_RPROMPT_APPROX == 1 ]]; then
             HG_INCOMING="0"
         else
             hg_query_incoming
@@ -49,7 +61,7 @@ handle_last_command() {
 
     # push only affects HG_OUTGOING
     if [[ $last_cmd =~ ^hg\ push? ]]; then
-        if [[ $HG_APPROX == 1 ]]; then
+        if [[ $HG_RPROMPT_APPROX == 1 ]]; then
             HG_OUTGOING="0"
         else
             hg_query_outgoing
@@ -63,7 +75,7 @@ handle_last_command() {
 
 
 hg_query_incoming() {
-    echo "...Updating incomming for RPROMPT"
+    [[ $HG_RPROMPT_INFO == 1 ]] && echo "...Updating incomming for RPROMPT"
 
     output="$(hg incoming -q 2> /dev/null)"
     if [[ $? -eq 0 ]]; then
@@ -74,7 +86,7 @@ hg_query_incoming() {
 }
 
 hg_query_outgoing() {
-    echo "...Updating outgoing for RPROMPT"
+    [[ $HG_RPROMPT_INFO == 1 ]] && echo "...Updating outgoing for RPROMPT"
 
     output="$(hg outgoing -q 2> /dev/null)"
     if [[ $? -eq 0 ]]; then
