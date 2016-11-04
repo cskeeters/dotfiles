@@ -1,0 +1,99 @@
+# Generic bash/zsh Initialization
+
+umask 002
+
+ismac() {
+    [[ "Darwin" == "$(uname)" ]]
+}
+
+islinux() {
+    [[ "Linux" == "$(uname)" ]]
+}
+
+# Path
+[[ -d ~/bin ]] && export PATH=~/bin:$PATH
+
+# Homebrew path first
+export PATH=/usr/local/bin:$PATH
+
+# Finder launched programs need this path ?
+/bin/launchctl setenv PATH $PATH
+
+
+#Bash
+export HISTCONTROL=erasedups
+
+
+#Common Shell tools
+export LANG=en_US.UTF-8
+export LESS="FRX"
+export GREP_OPTIONS="--color --exclude-dir=.hg --exclude-dir=.git"
+# Not graphical or hg ci will abort without -f or --remote-wait
+export EDITOR='vim'
+# Enable colors in ls on Mac/BSD
+export CLICOLOR=1
+
+#pkg-config path
+#pkg-config --cflags cairo
+#pkg-config --libs cairo
+export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
+
+islinux && xmodmap .Xmodmap
+
+if ismac; then
+  # use gnu versions of these tools.  Must be installed with
+  # brew install findutils gnu-sed coreutils
+  alias find=gfind
+  alias sed=gsed
+  alias mktemp=gmktemp
+fi
+
+# Ruby Version Manager
+## Add RVM to PATH for scripting
+[[ -d "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Python
+#export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+# autojump
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+# Asciidoc
+export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+
+# iterm
+if ismac; then
+    function tabname {
+        printf "\e]1;$1\a"
+    }
+
+    function winname {
+        printf "\e]2;$1\a"
+    }
+fi
+
+# Aliases
+alias vi='vim'
+alias gvim='mvim'
+alias ll='ls -la'
+
+# Commands
+_open() {
+    type xdg-open > /dev/null 2>&1 && xdg-open $1
+    type gnome-open > /dev/null 2>&1 && gnome-open $1
+
+    # Mac
+    type open > /dev/null 2>&1 && open $1
+}
+
+openbb() {
+    # Form URL from user and repository name from default path
+    local URL=$(gsed -nre 's;.*bitbucket.org/([a-z][-_a-z0-9]*)/([a-z][-_a-z0-9]+)$;http://bitbucket.org/\1/\2;p' <(hg paths))
+    if [[ -n $URL ]]; then
+        _open $URL
+    else
+        echo "No BitBucket path found!"
+    fi
+}
