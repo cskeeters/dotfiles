@@ -434,16 +434,14 @@ set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 "PLUGIN: https://github.com/chriskempson/base16-vim
-"let g:load_base16_shell = 1
-"let g:base16_shell_path = $HOME."/base16-builder/output/shell"
-"autocmd QuitPre * execute "silent !bash ".g:base16_shell_path."/base16-default.dark.sh"
-if version > 704
-    autocmd QuitPre * colorscheme base16-default-dark
-endif
 set runtimepath+=$HOME/.vim/bundle/base16-vim
-
-set background=dark
+" In order to use base16 in the terminal without blue or green lines
+" You must checkout base16-shell and set g:base16_shell_path
+let g:base16_shell = $HOME."/base16-shell"
+" This shouldn't change, comment out when terminal is loaded with 16 colors
+let g:base16_shell_path = g:base16_shell."/scripts"
 let base16colorspace=256
+set background=dark
 colorscheme base16-default-dark
 
 "LUGIN: https://github.com/vim-scripts/rest.vim
