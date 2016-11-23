@@ -59,7 +59,7 @@ update_vim_plugins() {
             base=${BASH_REMATCH[1]}
             if [[ -e ~/.vim/bundle/$base ]]; then
                 echo Updating $url
-                git -C ~/.vim/bundle/$base pull
+                ( cd ~/.vim/bundle/$base; git pull )
             else
                 echo Cloning $url
                 ( cd ~/.vim/bundle; git clone $url )
