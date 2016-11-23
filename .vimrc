@@ -548,9 +548,11 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
-"PLUGIN: https://github.com/kien/rainbow_parentheses.vim
-nnoremap <leader>r :RainbowParenthesesToggle<cr>
+"PLUGIN: https://github.com/junegunn/rainbow_parentheses.vim
+nnoremap <leader>r :RainbowParentheses!!<cr>
 set runtimepath+=$HOME/.vim/bundle/rainbow_parentheses.vim
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 
 "PLUGIN: https://github.com/SirVer/ultisnips
