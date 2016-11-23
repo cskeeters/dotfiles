@@ -74,9 +74,11 @@ install_rst() {
 
 install_rst
 
-if [[ ! -d ~/.oh-my-zsh ]]; then
-    prompt_install "Install Oh-My-Zsh? ->" install_oh_my_zsh
-    # NOTE: oh-my-zsh auto updates
+if [[ $SHELL =~ .*zsh ]]; then
+    if [[ ! -d ~/.oh-my-zsh ]]; then
+        prompt_install "Install Oh-My-Zsh? ->" install_oh_my_zsh
+        # NOTE: oh-my-zsh auto updates
+    fi
 fi
 
 
