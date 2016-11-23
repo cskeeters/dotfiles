@@ -179,6 +179,7 @@ set pastetoggle=<F10>           " pastetoggle (sane indentation on pastes)
 nnoremap Y y$
 " Put all lines selected on one line and then format that line
 vnoremap <localleader>f Jgqj
+" Remove trailing whitespace in current buffer
 nnoremap <localleader>w :%s/\s\+$//<cr>
 
 " Shortcuts
