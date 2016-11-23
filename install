@@ -79,12 +79,12 @@ if [[ ! -d ~/.oh-my-zsh ]]; then
     # NOTE: oh-my-zsh auto updates
 fi
 
-if [[ -f /etc/vimrc ]]; then
-    prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
-fi
-
 
 if [[ $(uname) == Darwin ]]; then
+    if [[ -f /etc/vimrc ]]; then
+        prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
+    fi
+
     echo "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
     mkdir -p ~/Library/KeyBindings
     cp ~/dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
