@@ -13,15 +13,6 @@ function erun()
 }
 
 cd ~
-if [ ! -e dotfiles ]; then
-  hg clone -u tip ssh://hg@bitbucket.org/cskeeters/dotfiles
-  else 
-  cd dotfiles
-  hg pull -u
-  cd ~
-fi
-
-#date=$(date +"%m_%d_%Y")
 
 if [ ! -e dotfiles/backup ]; then
   mkdir dotfiles/backup
@@ -43,35 +34,64 @@ do
   fi
 done
 
-echo "Installing zshuery"
-if [[ -d ~/.zshuery ]]; then
-  echo Already installed. Update with:
-  echo "cd ~/.zshuery; git pull"
-else
-  git clone https://github.com/myfreeweb/zshuery.git ~/.zshuery
+prompt_install() {
+    echo -n $1
+    read answer
+    if [[ $answer =~ [yY] ]]; then
+        $2
+    fi
+}
+
+install_oh_my_zsh() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    echo
+}
+
+disable_etc_vimrc() {
+    # fixes escape character delay in vim
+    erun mv /etc/vimrc /etc/vimrc.disabled
+}
+
+install_rst() {
+    # This won't be handled above because .rst2pdf and .rst2html are folders
+    echo "Installing reStructuredText settings"
+    if [[ -h ~/.rst2pdf ]]; then
+        rm -f ~/.rst2pdf
+    else
+        # This may be a folder we need to backup
+        mv ~/.rst2pdf ~/dotfiles/backup/
+    fi
+    erun ln -s ~/dotfiles/.rst2pdf ~/.rst2pdf
+
+    if [[ -h ~/.rst2pdf ]]; then
+        rm -f ~/.rst2html
+    else
+        # This may be a folder we need to backup
+        mv ~/.rst2html ~/dotfiles/backup/
+    fi
+    erun ln -s ~/dotfiles/.rst2html ~/.rst2html
+}
+
+install_rst
+
+if [[ ! -d ~/.oh-my-zsh ]]; then
+    prompt_install "Install Oh-My-Zsh? ->" install_oh_my_zsh
+    # NOTE: oh-my-zsh auto updates
 fi
-echo
 
-echo "Run this to fix escape character delay in vim"
-echo "mv /etc/vimrc /etc/vimrc.disabled"
-echo
+if [[ -f /etc/vimrc ]]; then
+    prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
+fi
 
-echo "Setup reStructuredText"
-echo "mv ~/.rst2pdf backup/"
-echo "ln -s ~/dotfiles/.rst2pdf ~/.rst2pdf"
-echo "mv ~/.rst2html backup/"
-echo "ln -s ~/dotfiles/.rst2html ~/.rst2html"
-echo
 
-echo "Setting up Keyboard bindings"
-mkdir -p ~/Library/KeyBindings
-~/Library/KeyBindings/DefaultKeyBinding.dict
+if [[ $(uname) == Darwin ]]; then
+    echo "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
+    mkdir -p ~/Library/KeyBindings
+    cp ~/dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 
-echo "Setup vundle for vim"
-echo "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
-echo "vim +BundleInstall +q +q"
-echo
+    echo "Setup iterm settings"
+    plutil -convert binary1 ~/dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
 
-echo "Setup iterm settings"
-echo "plutil -convert binary1 ~/dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist"
-echo "Backup: plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o ~/dotfiles/iterm2.xml"
+    # This will safe the iTerm preferences into an XML files
+    #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o ~/dotfiles/iterm2.xml
+fi
