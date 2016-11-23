@@ -53,6 +53,27 @@ install_oh_my_zsh() {
     echo
 }
 
+update_vim_plugins() {
+    while IFS=$'\n' read url; do
+        if [[ $url =~ .*/(.*) ]]; then
+            base=${BASH_REMATCH[1]}
+            if [[ -e ~/.vim/bundle/$base ]]; then
+                echo Updating $url
+                git -C ~/.vim/bundle/$base pull
+            else
+                echo Cloning $url
+                ( cd ~/.vim/bundle; git clone $url )
+            fi
+
+            # Update helptags for each plugin
+            if [[ -e ~/.vim/bundle/$base/doc ]]; then
+                vim -e -c "helptags ~/.vim/bundle/$base/doc" -c q
+            fi
+            echo
+        fi
+    done < <(sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | grep github)
+}
+
 disable_etc_vimrc() {
     # fixes escape character delay in vim
     erun mv /etc/vimrc /etc/vimrc.disabled
@@ -102,4 +123,8 @@ if [[ $(uname) == Darwin ]]; then
 
     # This will safe the iTerm preferences into an XML files
     #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o ~/dotfiles/iterm2.xml
+fi
+
+if hash git 2> /dev/null; then
+    prompt_install "Install/Update Vim Plugins ->" update_vim_plugins
 fi
