@@ -181,6 +181,9 @@ nnoremap Y y$
 vnoremap <localleader>f Jgqj
 " Remove trailing whitespace in current buffer
 nnoremap <localleader>w :%s/\s\+$//<cr>
+" Remove trailing whitespaces and ^M chars
+" autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
 
 " Shortcuts
 " Change Working Directory to that of the current file
@@ -271,22 +274,19 @@ function! FixKeys()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
-" Update Plugins with
-" cd ~/.vim/bundle
-" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | sed -re 's/.*\/(.*)/\1/' | xargs -I {} bash -c "cd {}; git pull"
-" Checkout repositories with
-" cd ~/.vim/bundle
-" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} git clone {}
+" Update Plugins with:
+" sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | sed -e 's:.*/\(.*\):\1:' | xargs -I {} bash -c "cd ~/.vim/bundle/{}; git pull"
+"
+" Checkout repositories with:
+" ( cd ~/.vim/bundle; sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | xargs -I {} git clone {} )
+"
+" Generate helptags with:
+" sed -ne 's#^" *PLUGIN: [^ "]*/\([^ "]*\)#helptags ~/.vim/bundle/\1/doc#p' ~/.vimrc | vim -e -s -
+"
 " Download archives of plugins with:
 " cd ~/.vim/bundle
-" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
+" sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' ~/.vimrc | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
 " ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
-" Generate helptags
-" cat ~/.vimrc | sed -nre 's/^" ?PLUGIN: [^ "]*\/([^ "]*)/helptags ~\/.vim\/bundle\/\1\/doc/p' | vim -e -s -
-
-" This is like a plugin
-" Remove trailing whitespaces and ^M chars
-" autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 "swap word with ves
 vnoremap s :call SwapShort()<cr>
