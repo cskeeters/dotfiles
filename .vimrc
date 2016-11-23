@@ -465,11 +465,10 @@ set runtimepath+=$HOME/.vim/bundle/vim-easymotion
 let g:airline#extensions#tabline#enabled = 0
 "iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
 let g:airline_powerline_fonts = 1
-"set runtimepath+=$HOME/.vim/bundle/vim-airline
-
+set runtimepath+=$HOME/.vim/bundle/vim-airline
 
 "PLUGIN: https://github.com/vim-airline/vim-airline-themes
-"set runtimepath+=$HOME/.vim/bundle/vim-airline-themes
+set runtimepath+=$HOME/.vim/bundle/vim-airline-themes
 
 "PLUGIN: https://github.com/tpope/vim-surround
 " change 'hi' to (hi) with cs')
