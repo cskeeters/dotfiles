@@ -1,3 +1,4 @@
+"Default : aegimrLtT  linux : aciM
 set guioptions=rLt
 
 if has("gui_macvim")
