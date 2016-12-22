@@ -4,15 +4,9 @@ alias d=ll
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
-# for vim in iterm with base16-default with 256 colors
-. ~/.color_setup
 
-h2d(){
-  echo "ibase=16; $@"|bc
-}
-d2h(){
-  echo "obase=16; $@"|bc
-}
+# for vim in iterm with base16-default with 256 colors
+# . ~/.color_setup
 
 export HISTCONTROL=erasedups
 
