@@ -84,7 +84,7 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 
-source ~/dotfiles/hg_rprompt.zsh
+# source ~/dotfiles/hg_rprompt.zsh
 
 # Syntax Highlighting - Must be last
 # brew install zsh-syntax-highlighting
