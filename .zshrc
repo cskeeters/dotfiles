@@ -57,9 +57,8 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.gshrc
 
-if type ruby > /dev/null 2>&1; then
-    source ~/.fzf.zsh
-fi
+source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 # User configuration
 
