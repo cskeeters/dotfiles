@@ -8,6 +8,17 @@ scriptencoding utf-8
 set encoding=utf-8
 set fileencoding=utf-8
 
+set tags=tags
+set tags+=../tags
+set tags+=../../tags
+set tags+=../../../tags
+"set tags+=../../../../tags
+"set tags+=../../../../../tags
+" mkdir -p tags
+" cd ~/tags
+" ctags -R /usr/include
+"set tags+=/home/chad/tags/tags.inc
+
 if &shell =~# 'fish$'
     set shell=sh
 endif
@@ -17,12 +28,24 @@ set shiftwidth=4                " use indents of 4 spaces (sw)
 set tabstop=4                   " an indentation every four columns (ts)
 set softtabstop=4               " let backspace delete indent (sts)
 set shiftround                  " >> and << will round to the nearest shiftwidth
-" See Keyboard shortcuts to quicly change
 
+set linebreak                   " When wrap is one, break at word boundaries
+
+set nospell
+set spelllang=en_us
+set dictionary=/usr/share/dict/words
+set thesaurus=~/dotfiles/mthesaur.txt
+
+" Enable 'vim: tw=80 noet sw=2' in files
+set modeline
+
+" Print settings
+set printoptions=left:2cm,top:1in,right:2cm,bottom:1in,syntax:n,duplex:off,paper:letter
+
+" Ignore settings
 let g:ack_wildignore=0 " Otherwise error ack.vim line 31
 let g:ackprg = 'ag'
 set wildignore=tags,a.out,depmod,*.so,*.a,*.o,*.dep,*.class,*.pyc
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.o', '\.dep', '\.class']
 
 set hidden                      " Allow buffers (unsaved) in the background (like tabs)
 set virtualedit=block           " Block mode allows cursor to go where spaces don't exist
@@ -37,7 +60,7 @@ set nowrap                      " wrap long lines
 " yanked and pasted
 set clipboard=unnamed
 
-"set textwidth=80                " Used in autoformatting
+set textwidth=0                 " Used in autoformatting (tw)
 set colorcolumn=+0              " Use textwidth variable
 
 "set comments=sl:/*,mr:*,elx:*/  " auto format comment blocks with gq see help format-comments
@@ -61,23 +84,15 @@ set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when upper is present in search
 
 set number
-set relativenumber
+if version > 730
+    set relativenumber
+endif
 set printoptions=left:3pc,right:3pc,number:n,header:0
 
 set showcmd " Shows partial key sequences
 
-set scrolloff=3                 " minimum lines to keep above and below cursor
-set scrolljump=5                " lines to scroll when cursor leaves screen
-
-
-" Highlight problematic whitespace
-set list
-set listchars=tab:,.,trail:.,extends:#,nbsp:.
-if has('multi_byte')
-    set listchars=trail:·,precedes:«,extends:»,tab:▸·
-    set listchars+=nbsp:·
-    "set listchars+=eol:↲
-endif
+set scrolloff=3      " minimum lines to keep above and below cursor
+set scrolljump=5     " lines to scroll when cursor leaves screen
 
 
 set noshowmatch                   " Use pi_paren plugin instead
@@ -92,8 +107,8 @@ set matchpairs=(:),{:},[:]
 set wildmenu                    " show list instead of just completing
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 
-" Status {
 set laststatus=2
+
 
 " Broken down into easily includeable segments
 set statusline=%<%f\    " Filename
@@ -101,6 +116,15 @@ set statusline+=%w%h%m%r " Options
 set statusline+=\ [%{&ff}/%Y]            " filetype
 set statusline+=\ [%{getcwd()}]          " current dir
 set statusline+=%=%-14.(%l,%c%)\ %p%%  " Right aligned file nav info
+
+" Highlight problematic whitespace
+set list
+set listchars=tab:,.,trail:.,extends:#,nbsp:.
+if has('multi_byte')
+    set listchars=trail:·,precedes:«,extends:»,tab:▸·
+    set listchars+=nbsp:·
+    "set listchars+=eol:↲
+endif
 
 " show the ruler (only if statusline isn't shown - laststatus=0 or 1
 set ruler
@@ -125,10 +149,6 @@ endif
 "set undolevels=1000         " How many undos
 "set undoreload=10000        " number of lines to save for undo
 
-set dictionary=/usr/share/dict/words
-set thesaurus=~/dotfiles/mthesaur.txt
-set spelllang=en_us
-
 " Help escape take effect immediately
 " If on MAC, may need to
 " mv /etc/vimrc /etc/vimrc.disabled
@@ -136,11 +156,13 @@ set timeoutlen=1000 ttimeoutlen=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""" Keyboard Shortcuts
 let mapleader = ','
+let maplocalleader = '\'
 
 " Bookmarks
 "nnoremap <leader>en :e ~/Dropbox/notes/README.md<cr>:lcd %:p:h<cr>:CtrlP<CR><F5>
 nnoremap <leader>en :CtrlP ~/Dropbox/notes<CR>
 nnoremap <leader>eb :CtrlP ~/Documents/nci/bcst<CR>
+nnoremap <leader>er :CtrlP ~/Documents/nci/2014/mts/rcmp<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap gsv :source $MYVIMRC<cr>
 
@@ -149,67 +171,75 @@ nnoremap gsv :source $MYVIMRC<cr>
 "nnoremap j gj
 "nnoremap k gk
 
+nnoremap <LocalLeader>2 :setlocal sw=2 ts=2 sts=2 expandtab<cr>
+nnoremap <LocalLeader>3 :setlocal sw=3 ts=3 sts=3 expandtab<cr>
+nnoremap <LocalLeader>4 :setlocal sw=4 ts=4 sts=4 expandtab<cr>
+nnoremap <LocalLeader>8 :setlocal sw=8 ts=8 sts=8 expandtab<cr>
+nnoremap <LocalLeader>t :setlocal noexpandtab!<cr>
 nnoremap <leader>2 :set sw=2 ts=2 sts=2<cr>
 nnoremap <leader>3 :set sw=3 ts=3 sts=3<cr>
 nnoremap <leader>4 :set sw=4 ts=4 sts=4<cr>
 nnoremap <leader>8 :set sw=8 ts=8 sts=8<cr>
 nnoremap <leader>t :setlocal noexpandtab<cr>
-":set et
-":set noet
 ":retab to convert
 
-nnoremap <leader>W :set wrap<cr>:set linebreak<cr>:set nolist<cr>
-nnoremap <leader>nW :set nowrap<cr>
-nnoremap <leader>p :set spell!<cr>
+nnoremap <leader>p :set spell!<cr>        " Toggles Spelling
+nnoremap <leader>W :set wrap nolist<cr>   " Go into wrap mode
+nnoremap <leader>nW :set nowrap list<cr>  " Exit wrap mode
 
+"Saving helpers
+nnoremap <C-s> :update<CR>
 inoremap <C-s> <esc>:update<CR>
-noremap <Leader>s :update<CR>
+"noremap <Leader>s :update<CR>
 noremap <Leader>q :q<CR>
-nnoremap <leader>mw :bd!<cr>
-nnoremap <leader>w :bd<cr>
+
+"Buffer Helpers
 nmap <C-j> :bn<CR>
 nmap <C-k> :bp<CR>
 
 nnoremap <leader>h :noh<cr>
-nnoremap <C-l> :noh<cr>
+"nnoremap <C-l> :noh<cr>
 
 set pastetoggle=<F10>           " pastetoggle (sane indentation on pastes)
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
-" Put all lines selected on one line and then format that line
+
+" Reformat selected text
 vnoremap <localleader>f Jgqj
+
 " Remove trailing whitespace in current buffer
 nnoremap <localleader>w :%s/\s\+$//<cr>
 " Remove trailing whitespaces and ^M chars
 " autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
-
 " Shortcuts
-" Change Working Directory to that of the current file
 cnoremap Gb ~/Documents/nci/bcst/
 cnoremap Gn ~/Dropbox/notes/
 cnoremap Gv ~/.vim/bundle
+" Change Working Directory to that of the current file
 noremap gcd :lcd %:p:h<cr>
-
-nnoremap gb ^
-nnoremap ge $
+nnoremap <localleader>u :cd ..<cr>
+nnoremap <localleader>u :cd ..<cr>
 
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
 
-vno v <esc>
+"Remove in 2017 if no issue
+"vno v <esc>
 
 nnoremap <leader>. z=1<cr><cr>
 
 "Paste helper
 imap <S-Insert> <MiddleMouse>
 set mouse=a
-
+" viw,p will black-hole delete and paste default register
+nnoremap x "_x
+vnoremap <leader>d "_d
 
 iab @@ goobsoft@gmail.com
-iab ccopy Copyright 2014 Chad Skeeters, all rights reserved.
+iab ccopy Copyright 2017 Chad Skeeters, all rights reserved.
 
 iab <expr> dts strftime("%FT%T%z")
 iab <expr> ds strftime("%Y-%b-%d")
@@ -223,55 +253,62 @@ let @m = "^d0W\"cPa::f;xi{}j"
 let @s = "^Wf:dwdF i A;0j"
 
 " vimdiff stuff
-" unmap ]c from python.vim
-autocmd BufWritePost * if &diff == 1 | diffupdate | endif
+autocmd CursorMoved,CursorMovedI * if &diff == 1 | diffupdate | endif
+"autocmd BufWritePost * if &diff == 1 | diffupdate | endif
 "nnoremap <leader>dg :diffget 2<cr>
 
-" For when you forget to sudo.. Really Write the file.
+" TODO: Turn into normal map
+" Use sudo and tee to write the file
 cmap w!! w !sudo tee % >/dev/null
 
-" Some helpers to edit mode
-" http://vimcasts.org/e/14
-" Chad: this is not used when CtrlP is available
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>ew :e %%
+" TODO: only for ft=vim, otherwise use DashSearch
+nnoremap <localleader>h :help <c-r>=expand('<cWORD>')<cr><cr>
 
-" Easier horizontal scrolling
-map zl zL
-map zh zH
+nnoremap ]f :next<cr>
+nnoremap [f :prev<cr>
 
-nnoremap ]t :tabnext<cr>
-nnoremap [t :tabprevious<cr>
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+nnoremap ]q :cnext<cr>
+nnoremap [q :cprev<cr>
+nnoremap ]Q :cnewer<cr>
+nnoremap [Q :colder<cr>
+
+" Location List :lgrep :lvimgrep
+nnoremap ]l :lnext<cr>
+nnoremap [l :lprev<cr>
+
+" Tag Stack (Although I normall use the jump list CTRL-O)
+nnoremap ]t :tag<cr>
+nnoremap [t :pop<cr>
+
+" Jump List
+nnoremap ]j <c-I>
+nnoremap [j <c-O>
+
+" Change List
+nnoremap ]c g,
+nnoremap [c g;
+
+" Matching Tag List - Loaded with :tselect or g]
+nnoremap ]g :tnext<cr>
+nnoremap [g :tprevious<cr>
+
+" CTRL-W_} then cycle through matches in preview window
+nnoremap ]p :ptnext<cr>
+nnoremap [p :ptprev<cr>
+
+nnoremap ]T :tabnext<cr>
+nnoremap [T :tabprevious<cr>
+
 nnoremap ]w :wincmd l<cr>
 nnoremap [w :wincmd h<cr>
-
-" Number Base translations with 0x notation for hex
-nmap gd :.,.!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"
-nmap gh :.,.!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"
-vmap gd :!xargs -I {} -n1 bash -c "echo 'ibase=16; {}' \| bc"gv
-vmap gh :!xargs -I {} -n1 bash -c "echo 'obase=16; {}' \| bc"gv
-
-" Number Base translations with 0x notation for hex
-nmap gxd :.,.!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"
-nmap gxh :.,.!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""
-vmap gxd :!xargs -I {} -n1 bash -c "echo {} \| python -i 2>&1 \| sed -nE 's/>>> (.+)/\1/p'"gv
-vmap gxh :!xargs -I {} -n1 bash -c "echo '\"0x\%02X\" \% {}' \| python -i 2>&1 \| sed -nE \"s/>>> '(.+)'/\1/p\""gv
 
 " Open quickfix window by default after helpgrep or the like
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-autocmd BufEnter * call FixKeys()
-function! FixKeys()
-  if expand("%") == ""
-    " Allows enter to work with quickfix
-    "echom "unmapping"
-    silent! nunmap <enter>
-  else
-    "echom "mapping"
-    nnoremap <enter> <S-o><esc>j
-  endif
-endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Plugins
 " Update Plugins with:
@@ -288,30 +325,9 @@ endfunction
 " sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' ~/.vimrc | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
 " ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
 
-"swap word with ves
-vnoremap s :call SwapShort()<cr>
-function! SwapShort()
-	let l:tmp = @"
-	normal! gv"0d
-	let @" = l:tmp
-	normal! P
-endfunction
-
 
 let g:netrw_liststyle=1
 "let g:netrw_keepdir=0
-
-function! GrepWord(word)
-    execute ':vimgrep '.a:word.' **/*.cpp **/*.c++ **/*.h **/*.java'
-    copen
-endfunction
-nmap <leader>g :call GrepWord(expand('<cword>'))<cr>
-
-function! GrepWordInFile(word)
-    execute ':vimgrep '.a:word.' '.expand('%:p')
-    copen
-endfunction
-nmap <leader>ig :call GrepWordInFile(expand('<cword>'))<cr>
 
 function! Alt(filename)
     if stridx(a:filename, '.h') == -1
@@ -337,26 +353,65 @@ function! HandleURL()
     echo "No URI found in line."
   endif
 endfunction
-map gx :call HandleURL()<cr>
+" No longer needed with vim 8.0
+"map gx :call HandleURL()<cr>
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
+"PLUGIN: https://github.com/cskeeters/vim-smooth-scroll
+set runtimepath+=$HOME/.vim/bundle/vim-smooth-scroll
+"let g:scroll_follow = 1
+
+"PLUGIN: https://github.com/cskeeters/vim-map-enter
+set runtimepath+=$HOME/.vim/bundle/vim-map-enter
+
+"PLUGIN: https://github.com/moll/vim-bbye
+set runtimepath+=$HOME/.vim/bundle/vim-bbye
+
+"PLUGIN: https://github.com/cskeeters/vim-leave-window
+set runtimepath+=$HOME/.vim/bundle/vim-leave-window
+nnoremap <leader>mw :LWForceClose<cr>
+nnoremap <leader>w :LWClose<cr>
+
+" FZF requires a terminal emulator.  For this to work in MacVim, XQuartz must
+" be installed so xterm can be run
+
+" Must install fzf via brew.  This defines :FZF
+"set runtimepath+=/usr/local/opt/fzf
+
+"PLUGIN: https://github.com/junegunn/fzf.vim
+"set runtimepath+=$HOME/.vim/bundle/fzf.vim
+
+"PLUGIN: https://github.com/Shougo/neocomplete.vim
+"set runtimepath+=$HOME/.vim/bundle/neocomplete.vim
+"let g:acp_enableAtStartup = 0
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#sources#syntax#min_keyword_length = 4
+"inoremap <expr> <C-g> neocomplete#undo_completion()
+"inoremap <expr> <C-l> neocomplete#complete_common_string()
+"inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
+
+"PLUGIN: https://github.com/ervandew/supertab
+"FIXME: set runtimepath+=$HOME/.vim/bundle/supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 0
+
+"inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<C-R>=UltiSnips#ExpandSnippet()<cr>"
+
 "PLUGIN: https://github.com/cskeeters/closer.vim
 set runtimepath+=$HOME/.vim/bundle/closer.vim
 nmap <silent> <localleader>c <Plug>OpenCloser
 
 "PLUGIN: https://github.com/plasticboy/vim-markdown
+"Disable ]c to move to header since it disrupts ]c - next difference
+map <Plug> <Plug>Markdown_MoveToCurHeader
 set runtimepath+=$HOME/.vim/bundle/vim-markdown
-
-"Universal Text Linking (like text wiki)
-"PLUGIN: https://github.com/vim-scripts/utl.vim
-set runtimepath+=$HOME/.vim/bundle/utl.vim
-"Open file and move cursor to first match of search text
-"<url:file#search>
-nmap <Leader>ge :Utl openLink underCursor edit<CR>
 
 "PLUGIN: https://github.com/alvan/vim-closetag
 set runtimepath+=$HOME/.vim/bundle/vim-closetag
@@ -375,7 +430,7 @@ set runtimepath+=$HOME/.vim/bundle/vim-indent-object
 
 "PLUGIN: https://github.com/rizzatti/dash.vim
 set runtimepath+=$HOME/.vim/bundle/dash.vim
-nmap <silent> <leader>d <Plug>DashSearch
+nmap <silent> <localleader>d <Plug>DashSearch
 
 "PLUGIN: https://github.com/cskeeters/javadoc.vim
 let g:javadoc_path="/Users/chad/java7_doc/api"
@@ -394,13 +449,13 @@ nmap <leader>cch <Plug>JCallClear
 "PLUGIN: https://github.com/cskeeters/sr.vim
 set runtimepath+=$HOME/.vim/bundle/sr.vim
 
-
+"This causes problems trying to remap keys when developing plugins
 "If airline/powerline is removed, run the following command to remove startup
 "errors:
 "    rm -f ~/.vim/view/*
 "PLUGIN: https://github.com/vim-scripts/restore_view.vim
 "Uses mkview to save cursor position and folds
-set runtimepath+=$HOME/.vim/bundle/restore_view.vim
+"set runtimepath+=$HOME/.vim/bundle/restore_view.vim
 
 "PLUGIN: https://github.com/vim-scripts/visualrepeat
 set runtimepath+=$HOME/.vim/bundle/visualrepeat
@@ -420,21 +475,33 @@ set runtimepath+=$HOME/.vim/bundle/vim-online-thesaurus
 "PLUGIN: https://github.com/mileszs/ack.vim
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
+    " This sets up :grep to use ag too
+    set grepprg=ag\ --nogroup\ --nocolor\ --column\
+    set grepformat=%f:%l:%c:%m
+    "set grepprg=grep\ -n\
     set runtimepath+=$HOME/.vim/bundle/ack.vim
 elseif executable('ack')
-    let g:ackprg = 'ag --nogroup --nocolor --column'
-    set runtimepath+=$HOME/.vim/bundle/ack.vim
-elseif executable('ack-grep')
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    "set grepprg="ack --nogroup --nocolor "
     set runtimepath+=$HOME/.vim/bundle/ack.vim
 endif
+" This is better than :silent grep because
+" * it respects .hgignore/.gitignore
+" * grep requires <C-L> in iterm to redraw the screen
 noremap <leader>/ :Ack <cword><cr>
+noremap <leader>i/ :AckWindow <cword><cr>
 
 "PLUGIN: https://github.com/kien/ctrlp.vim
 "let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_max_files = 4000
+if executable('ag')
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
 set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 nnoremap <leader>b :CtrlPBuffer<cr>
 
@@ -462,6 +529,7 @@ set runtimepath+=$HOME/.vim/bundle/undotree
 set runtimepath+=$HOME/.vim/bundle/vim-easymotion
 
 "PLUGIN: https://github.com/bling/vim-airline
+" Disable tabline since there's a bug that messes up the order on mac #1228
 let g:airline#extensions#tabline#enabled = 0
 "iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
 let g:airline_powerline_fonts = 1
@@ -493,32 +561,90 @@ nmap <leader>+ :SignifyToggle<cr>
 "PLUGIN: https://github.com/tpope/vim-vinegar
 set runtimepath+=$HOME/.vim/bundle/vim-vinegar
 
+if has('nvim')
+    "PLUGIN: https://github.com/Shougo/denite.nvim
+    " Requires python3.  Run
+    "   pip3 install neovim
+    let g:unite_source_history_yank_enable = 1
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '-i --vimgrep --hidden --ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+    let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+    set runtimepath+=$HOME/.vim/bundle/denite.nvim
 
-"PLUGIN: https://github.com/troydm/easytree.vim
-let g:easytree_hijack_netrw = 0
-nmap <silent> <Leader>f :EasyTree<CR>
-" C/u - cd into/..
-" cd - set cwd to folder
-" f - find file
-" O - open all subdirs
-" X - Close all subdirs
-" r/R - refresh from cursor/root
-set runtimepath+=$HOME/.vim/bundle/easytree.vim
+    nnoremap <leader>f :Denite -prompt=> file_rec<CR>
+    nnoremap <leader>b :Denite -prompt=> buffer bookmark<CR>
+    nnoremap <leader>g :Denite -prompt=> grep:.<CR>
+    nnoremap <localleader>q :Denite -prompt=> quickfix<CR>
+    "nnoremap <silent> <leader>b :<C-u>Denite buffer bookmark<CR>
+    nnoremap <space>y :Denite history/yank<cr>
+else
+    "PLUGIN: https://github.com/Shougo/vimproc.vim
+    "cd ~/.vim/bundle/vimproc.vim
+    "make
+    "Speeds up unite if /async:! is used
+    set runtimepath+=$HOME/.vim/bundle/vimproc.vim
+    "PLUGIN: https://github.com/Shougo/unite.vim
+    let g:unite_source_history_yank_enable = 1
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '-i --vimgrep --hidden --ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+    let g:unite_enable_auto_select = 0
 
+    set runtimepath+=$HOME/.vim/bundle/unite.vim
+    "PLUGIN: https://github.com/Shougo/neomru.vim
+    set runtimepath+=$HOME/.vim/bundle/neomru.vim
+    "PLUGIN: https://github.com/Shougo/neoyank.vim
+    set runtimepath+=$HOME/.vim/bundle/neoyank.vim
+    "PLUGIN: https://github.com/tsukkee/unite-tag
+    set runtimepath+=$HOME/.vim/bundle/unite-tag
+    "PLUGIN: https://github.com/osyo-manga/unite-quickfix
+    set runtimepath+=$HOME/.vim/bundle/unite-quickfix
+    "PLUGIN: https://github.com/Shougo/unite-outline
+    set runtimepath+=$HOME/.vim/bundle/unite-outline
+    "PLUGIN: https://github.com/Shougo/unite-help
+    set runtimepath+=$HOME/.vim/bundle/unite-help
 
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    "-prompt=>
+    "-start-insert
+    "-direction=below
+    "-no-split
+    nnoremap <leader>f :Unite -start-insert -prompt=> -no-split file file_rec/async<CR>
+    nnoremap <localleader>t :Unite -start-insert -prompt=> -no-split tag<CR>
+    nnoremap g<c-]> :Unite -no-split -input=<C-r>=expand('<cword>')<CR> tag<CR>
+    nnoremap <leader>b :Unite -start-insert -prompt=> -no-split buffer bookmark<CR>
+    nnoremap <leader>g :Unite -start-insert -prompt=> -no-split grep:.<CR>
+    nnoremap <localleader>q :Unite -start-insert -prompt=> -no-split quickfix<CR>
+    "FIXME: Add :Unite line
+    "FIXME: Add :Unite jump
+    "FIXME: Add :Unite Tabularize
+    "FIXME: Add :Unite cd ; :Unite menu
+    nnoremap <space>y :Unite history/yank<cr>
+    nnoremap <leader><leader>b :UniteBookmarkAdd<cr>
+
+    autocmd FileType unite call s:unite_my_settings()
+    function! s:unite_my_settings()
+        "let b:SuperTabDisabled=1
+        imap <buffer> jj      <Plug>(unite_insert_leave)
+        imap <buffer> <C-w>   <Plug>(unite_delete_backward_path)
+        imap <buffer><expr> j unite#smart_map('j', '')
+        imap <buffer> <TAB> <Plug>(unite_select_next_line)
+        imap <buffer> <C-j> <Plug>(unite_select_next_line)
+        imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+
+        " Normal mode mappings
+        nmap <buffer> <ESC> <Plug>(unite_exit)
+        imap <buffer> <TAB> <Plug>(unite_select_next_line)
+    endfunction
+endif
 
 "PLUGIN: https://github.com/godlygeek/tabular
-nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:<CR>
 vmap <Leader>a: :Tabularize /:<CR>
-nmap <Leader>a:: :Tabularize /:\zs<CR>
 vmap <Leader>a:: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,<CR>
 vmap <Leader>a, :Tabularize /,<CR>
-nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 set runtimepath+=$HOME/.vim/bundle/tabular
+
 
 "PLUGIN: https://github.com/scrooloose/nerdcommenter
 "<leader>c<space>
@@ -556,15 +682,25 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 "PLUGIN: https://github.com/SirVer/ultisnips
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsExpandTrigger="<c-b>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"let g:UltiSnipsExpandTrigger="<c-b>"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 set runtimepath+=$HOME/.vim/bundle/ultisnips
+
+"PLUGIN: https://github.com/tomtom/tlib_vim
+"set runtimepath+=$HOME/.vim/bundle/tlib_vim
+"PLUGIN: https://github.com/MarcWeber/vim-addon-mw-utils
+"set runtimepath+=$HOME/.vim/bundle/vim-addon-mw-utils
+"PLUGIN: https://github.com/garbas/vim-snipmate
+"set runtimepath+=$HOME/.vim/bundle/vim-snipmate
+
+" My personal snippets
 "PLUGIN: https://github.com/cskeeters/vim-snippets
 set runtimepath+=$HOME/.vim/bundle/vim-snippets
+nnoremap <leader>es :OpenSnips<cr>
 
 
 "PLUGIN: https://github.com/Valloric/YouCompleteMe
@@ -579,6 +715,25 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:marked_app = "Marked"
 set runtimepath+=$HOME/.vim/bundle/vim-marked
 "Open in Marked with <leader>v
+
+let g:md_doc = [["/Users/chad/working/bcst-doc", "bcst-doc"],["/Users/chad/Dropbox/notes", "notes"]]
+let g:md_doc_auto_commit = 1
+nnoremap <leader>ep :CtrlP ~/working/bcst-doc<CR>
+set runtimepath+=$HOME/.vim/bundle/vim-md-doc
+
+"PLUGIN: https://github.com/tpope/vim-fugitive
+set runtimepath+=$HOME/.vim/bundle/vim-fugitive
+
+"PLUGIN: https://github.com/jlfwong/vim-mercenary
+set runtimepath+=$HOME/.vim/bundle/vim-mercenary
+
+"PLUGIN: https://github.com/myint/clang-complete
+" Requires python2
+"set runtimepath+=$HOME/.vim/bundle/clang_complete
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+
+"PLUGIN: https://github.com/sheerun/vim-polyglot
+set runtimepath+=$HOME/.vim/bundle/vim-polyglot
 
 " IF syntastic is used
 "let g:syntastic_cpp_compiler_options = ' -std=c++11 -D_GLIBCXX_USE_NANOSLEEP'
@@ -606,6 +761,7 @@ autocmd BufEnter *.twig setf php
 autocmd BufEnter *.htm call Html()
 autocmd BufEnter *.html call Html()
 autocmd BufEnter *.cpp set formatprg=astyle\ -s4pb
+autocmd BufEnter *.tjp call TaskJuggler()
 
 function! TaskJuggler()
   set ft=tjp
@@ -627,9 +783,9 @@ endfunction
 function! Markdown()
   setlocal wrap
   setlocal linebreak
-  setlocal nolist
+  setlocal list
   setf markdown
-  set conceallevel=2
+  setlocal conceallevel=0
 
   nmap <buffer> <localleader>h yypVr=
   nmap <buffer> <localleader>j yypVr-
@@ -645,6 +801,7 @@ function! Markdown()
   "vim-marked command
   nnoremap <buffer> <leader>v :MarkedOpen<cr>
   nnoremap <buffer> <leader>r :silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>
+  nnoremap <buffer> <localleader>k :silent !~/kramdown/render.rb '%' && open '%:r'.html<cr>
   nnoremap <buffer> <leader>d :update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o %:r.docx && open %:r.docx<cr>
 endfunction
 
@@ -660,7 +817,7 @@ function! ReStructuredText()
   setlocal textwidth=80
   setlocal wrap
   setlocal linebreak
-  setlocal nolist
+  setlocal list
   setlocal filetype=rst
   nnoremap <leader>v :update<cr>:silent !rst2html.py '%' > %:r.htm && open %:r.htm<cr>
   "nnoremap <leader>p :update<cr>:!rst2pdf '%' && open %:r.pdf<cr>
