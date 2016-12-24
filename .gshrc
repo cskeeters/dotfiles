@@ -60,8 +60,10 @@ fi
 # Python
 #export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
-# autojump
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+if ismac; then
+    # autojump
+    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+fi
 
 # Asciidoc
 export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
