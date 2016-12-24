@@ -409,7 +409,7 @@ nnoremap <localleader>. z=1<cr><cr>
 nnoremap <localleader><localleader>w :%s/\s\+$//<cr>
 
 " scrooloose/nerdcommenter
-map ,omg <plug>NERDCommenterComment
+map <localleader>c <plug>NERDCommenterComment
 
 " mbbill/undotree
 nnoremap <localleader><localleader>u :UndotreeToggle<CR>
@@ -473,96 +473,56 @@ endif
 
 call plug#begin()
 Plug 'tpope/vim-sensible'
-"Plug 'https://github.com/vim-scripts/argtextobj.vim'
-call plug#end()
 
-"PLUGIN: https://github.com/vim-scripts/argtextobj.vim
-"set runtimepath+=$HOME/.vim/bundle/argtextobj.vim
-" via (visual, in, argument)
+Plug 'https://github.com/vim-scripts/argtextobj.vim'
 " cia (change, in, argument)
-" dia (delete, in, argument)
-
-"PLUGIN: https://github.com/michaeljsmith/vim-indent-object
-set runtimepath+=$HOME/.vim/bundle/vim-indent-object
-" vii (visual, in, indent)
+Plug 'https://github.com/michaeljsmith/vim-indent-object'
 " cii (change, in, indent)
-" dii (delete, in, indent)
-"
-"PLUGIN: https://github.com/vim-scripts/visualrepeat
-set runtimepath+=$HOME/.vim/bundle/visualrepeat
 
-
-"PLUGIN: https://github.com/cskeeters/vim-smooth-scroll
-set runtimepath+=$HOME/.vim/bundle/vim-smooth-scroll
+Plug 'https://github.com/vim-scripts/visualrepeat'
+Plug 'https://github.com/cskeeters/vim-smooth-scroll'
 "let g:scroll_follow = 1
-
-"PLUGIN: https://github.com/tpope/vim-repeat
-set runtimepath+=$HOME/.vim/bundle/vim-repeat
+Plug 'https://github.com/tpope/vim-repeat'
 
 if !has('nvim')
     "Speeds up Unite with asynchronous commands
-    "PLUGIN: https://github.com/Shougo/vimproc.vim
-    "cd ~/.vim/bundle/vimproc.vim
-    "make
-    "Speeds up unite if /async:! is used
-    set runtimepath+=$HOME/.vim/bundle/vimproc.vim
+    Plug 'https://github.com/Shougo/vimproc.vim', { 'do': 'make' }
 endif
 
-"PLUGIN: https://github.com/chriskempson/base16-vim
-set runtimepath+=$HOME/.vim/bundle/base16-vim
-" In order to use base16 in the terminal without blue or green lines
-" You must checkout base16-shell and set g:base16_shell_path
-let g:base16_shell = $HOME."/base16-shell"
+
+Plug 'https://github.com/chriskempson/base16-vim', 
+    \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell' }
+let g:base16_shell = $HOME."~/.config/base16-shell"
 " This shouldn't change, comment out when terminal is loaded with 16 colors
 let g:base16_shell_path = g:base16_shell."/scripts"
 let base16colorspace=256
 set background=dark
-colorscheme base16-default-dark
 
-"PLUGIN: https://github.com/bling/vim-airline
+Plug 'https://github.com/bling/vim-airline'
 " Disable tabline since there's a bug that messes up the order on mac #1228
 let g:airline#extensions#tabline#enabled = 0
 "iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
 let g:airline_powerline_fonts = 1
-set runtimepath+=$HOME/.vim/bundle/vim-airline
 
-"PLUGIN: https://github.com/vim-airline/vim-airline-themes
-set runtimepath+=$HOME/.vim/bundle/vim-airline-themes
+Plug 'https://github.com/vim-airline/vim-airline-themes'
 
-"PLUGIN: https://github.com/junegunn/rainbow_parentheses.vim
-set runtimepath+=$HOME/.vim/bundle/rainbow_parentheses.vim
+Plug 'https://github.com/junegunn/rainbow_parentheses.vim'
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 
 """"""""""""""""""""""""""""""""" Plugins: Ease of use
 
-"PLUGIN: https://github.com/moll/vim-bbye
-set runtimepath+=$HOME/.vim/bundle/vim-bbye
+Plug 'https://github.com/moll/vim-bbye'
+Plug 'https://github.com/cskeeters/vim-leave-window'
+Plug 'https://github.com/cskeeters/closer.vim'
+Plug 'https://github.com/cskeeters/vim-simple-alt'
+Plug 'https://github.com/cskeeters/vim-map-enter'
+Plug 'https://github.com/mbbill/undotree'
+Plug 'https://github.com/tpope/vim-abolish'
+Plug 'https://github.com/scrooloose/nerdcommenter'
 
-"PLUGIN: https://github.com/cskeeters/vim-leave-window
-set runtimepath+=$HOME/.vim/bundle/vim-leave-window
-
-"PLUGIN: https://github.com/cskeeters/closer.vim
-set runtimepath+=$HOME/.vim/bundle/closer.vim
-
-"PLUGIN: https://github.com/cskeeters/vim-simple-alt
-set runtimepath+=$HOME/.vim/bundle/vim-simple-alt
-
-"PLUGIN: https://github.com/cskeeters/vim-map-enter
-set runtimepath+=$HOME/.vim/bundle/vim-map-enter
-
-"PLUGIN: https://github.com/mbbill/undotree
-set runtimepath+=$HOME/.vim/bundle/undotree
-
-"PLUGIN: https://github.com/tpope/vim-abolish
-set runtimepath+=$HOME/.vim/bundle/vim-abolish
-
-"PLUGIN: https://github.com/scrooloose/nerdcommenter
-"<leader>c<space>
-set runtimepath+=$HOME/.vim/bundle/nerdcommenter
-
-"PLUGIN: https://github.com/majutsushi/tagbar
+Plug 'https://github.com/majutsushi/tagbar'
 " Add support for markdown files in tagbar.
 " https://github.com/majutsushi/tagbar/wiki#markdown
 let g:tagbar_type_markdown = {
@@ -581,54 +541,34 @@ let g:tagbar_type_markdown = {
 \ }
 let g:tagbar_autoclose = 1
 let g:tagbar_autofocus = 1
-set runtimepath+=$HOME/.vim/bundle/tagbar
 
 
-"PLUGIN: https://github.com/Lokaltog/vim-easymotion
-"set runtimepath+=$HOME/.vim/bundle/vim-easymotion
+"Plug 'https://github.com/Lokaltog/vim-easymotion'
+"Plug 'https://github.com/tpope/vim-vinegar'
 
-"PLUGIN: https://github.com/tpope/vim-vinegar
-"set runtimepath+=$HOME/.vim/bundle/vim-vinegar
+Plug 'https://github.com/justinmk/vim-dirvish'
 
-
-"PLUGIN: https://github.com/justinmk/vim-dirvish
-set runtimepath+=$HOME/.vim/bundle/vim-dirvish
-
-"PLUGIN: https://github.com/mileszs/ack.vim
-set runtimepath+=$HOME/.vim/bundle/ack.vim
+Plug 'https://github.com/mileszs/ack.vim'
 if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
-"PLUGIN: https://github.com/junegunn/vim-easy-align
-set runtimepath+=$HOME/.vim/bundle/vim-easy-align
+Plug 'https://github.com/junegunn/vim-easy-align'
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 
 "junegunn/vim-easy-align doesn't work for tables
-"PLUGIN: https://github.com/godlygeek/tabular
-set runtimepath+=$HOME/.vim/bundle/tabular
-
-" Disable mappings in insert mode (CTRL+S)
-let g:surround_no_insert_mappings = 1
-"set runtimepath+=$HOME/.vim/bundle/vim-surround
-
+Plug 'https://github.com/godlygeek/tabular'
 
 
 """"""""""""""""""""""""""""""""" Plugins: File Searcher
 
-"PLUGIN: https://github.com/Shougo/neomru.vim
-set runtimepath+=$HOME/.vim/bundle/neomru.vim
-"PLUGIN: https://github.com/Shougo/neoyank.vim
-set runtimepath+=$HOME/.vim/bundle/neoyank.vim
-"PLUGIN: https://github.com/tsukkee/unite-tag
-set runtimepath+=$HOME/.vim/bundle/unite-tag
-"PLUGIN: https://github.com/osyo-manga/unite-quickfix
-set runtimepath+=$HOME/.vim/bundle/unite-quickfix
-"PLUGIN: https://github.com/Shougo/unite-outline
-set runtimepath+=$HOME/.vim/bundle/unite-outline
-"PLUGIN: https://github.com/Shougo/unite-help
-set runtimepath+=$HOME/.vim/bundle/unite-help
+Plug 'https://github.com/Shougo/neomru.vim'
+Plug 'https://github.com/Shougo/neoyank.vim'
+Plug 'https://github.com/tsukkee/unite-tag'
+Plug 'https://github.com/osyo-manga/unite-quickfix'
+Plug 'https://github.com/Shougo/unite-outline'
+Plug 'https://github.com/Shougo/unite-help'
 
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_grep_command = 'ag'
@@ -637,18 +577,14 @@ let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogrou
 let g:unite_enable_auto_select = 0
 
 if has('nvim')
-    "PLUGIN: https://github.com/Shougo/denite.nvim
     " Requires python3.  Run
     "   pip3 install neovim
-    set runtimepath+=$HOME/.vim/bundle/denite.nvim
+    Plug 'https://github.com/Shougo/denite.nvim'
 else
-
-    "PLUGIN: https://github.com/Shougo/unite.vim
-    set runtimepath+=$HOME/.vim/bundle/unite.vim
-    call unite#filters#matcher_default#use(['matcher_glob'])
+    Plug 'https://github.com/Shougo/unite.vim'
 endif
 
-"PLUGIN: https://github.com/kien/ctrlp.vim
+Plug 'https://github.com/kien/ctrlp.vim'
 "let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -660,26 +596,23 @@ if executable('ag')
     " ag is fast enough that CtrlP doesn't need to cache
     let g:ctrlp_use_caching = 0
 endif
-set runtimepath+=$HOME/.vim/bundle/ctrlp.vim
 
 """"""""""""""""""""""""""""""""" Plugins: Tab Completion
 
-"PLUGIN: https://github.com/ervandew/supertab
-set runtimepath+=$HOME/.vim/bundle/supertab
+Plug 'https://github.com/ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 0
 
-"PLUGIN: https://github.com/Valloric/YouCompleteMe
+"Plug 'https://github.com/Valloric/YouCompleteMe'
 "Disable signs so that signify can work
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_extra_conf_globlist = ['~/rcmp/*','!~/*']
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"set runtimepath+=$HOME/.vim/bundle/YouCompleteMe
 
 
 """"""""""""""""""""""""""""""""" Plugins: snippets
 
-"PLUGIN: https://github.com/SirVer/ultisnips
+Plug 'https://github.com/SirVer/ultisnips'
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -687,116 +620,89 @@ let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-set runtimepath+=$HOME/.vim/bundle/ultisnips
 
-"PLUGIN: https://github.com/tomtom/tlib_vim
-"set runtimepath+=$HOME/.vim/bundle/tlib_vim
-"PLUGIN: https://github.com/MarcWeber/vim-addon-mw-utils
-"set runtimepath+=$HOME/.vim/bundle/vim-addon-mw-utils
-"PLUGIN: https://github.com/garbas/vim-snipmate
-"set runtimepath+=$HOME/.vim/bundle/vim-snipmate
+"Plug 'https://github.com/tomtom/tlib_vim'
+"Plug 'https://github.com/MarcWeber/vim-addon-mw-utils'
+"Plug 'https://github.com/garbas/vim-snipmate'
 
 " My personal snippets
-"PLUGIN: https://github.com/cskeeters/vim-snippets
-set runtimepath+=$HOME/.vim/bundle/vim-snippets
+Plug 'https://github.com/cskeeters/vim-snippets'
 nnoremap <leader>es :OpenSnips<cr>
 
-"
+
 """"""""""""""""""""""""""""""""" Plugins: DRCS git/hg
 
 " Show diff in gutter
-"PLUGIN: https://github.com/mhinz/vim-signify
+Plug 'https://github.com/mhinz/vim-signify'
 let g:signify_vcs_list = ['hg']
 let g:signify_disable_by_default = 1
-set runtimepath+=$HOME/.vim/bundle/vim-signify
 
-"git wrapper
-"PLUGIN: https://github.com/tpope/vim-fugitive
-set runtimepath+=$HOME/.vim/bundle/vim-fugitive
+Plug 'https://github.com/tpope/vim-fugitive'
 ":Gblame :Gdiff
 
-"hg wrapper
-"PLUGIN: https://github.com/jlfwong/vim-mercenary
-set runtimepath+=$HOME/.vim/bundle/vim-mercenary
+Plug 'https://github.com/jlfwong/vim-mercenary'
 ":HGblame :HGdiff
 
 
 """"""""""""""""""""""""""""""""" Plugins: Lookup/Help
 if has('osx')
-    "PLUGIN: https://github.com/rizzatti/dash.vim
-    set runtimepath+=$HOME/.vim/bundle/dash.vim
+    Plug 'https://github.com/rizzatti/dash.vim'
     nmap <silent> K <Plug>DashSearch
 endif
 
-"PLUGIN: https://github.com/beloglazov/vim-online-thesaurus
+Plug 'https://github.com/beloglazov/vim-online-thesaurus'
 let g:online_thesaurus_map_keys = 0
-set runtimepath+=$HOME/.vim/bundle/vim-online-thesaurus
 
 "
 """"""""""""""""""""""""""""""""" Plugins: File-type specific
 
-"PLUGIN: https://github.com/sheerun/vim-polyglot
-set runtimepath+=$HOME/.vim/bundle/vim-polyglot
-
-
+Plug 'https://github.com/sheerun/vim-polyglot'
 "keyboard mappings and settings per file type
-"PLUGIN: https://github.com/cskeeters/vim-maps
-set runtimepath+=$HOME/.vim/bundle/vim-maps
-
-
-"PLUGIN: https://github.com/cskeeters/sr.vim
-set runtimepath+=$HOME/.vim/bundle/sr.vim
+Plug 'https://github.com/cskeeters/vim-maps'
+Plug 'https://github.com/cskeeters/sr.vim'
 
 " reStructuredText highlighting
-"LUGIN: https://github.com/vim-scripts/rest.vim
+"Plug 'https://github.com/vim-scripts/rest.vim'
 "setf rest
-"set runtimepath+=$HOME/.vim/bundle/rest.vim
 
 """"""""""""""""""""""""""""""""" Plugins: Markdown
-"PLUGIN: https://github.com/plasticboy/vim-markdown
+Plug 'https://github.com/plasticboy/vim-markdown'
 "Disable ]c to move to header since it disrupts ]c - next difference
 map <Plug> <Plug>Markdown_MoveToCurHeader
-set runtimepath+=$HOME/.vim/bundle/vim-markdown
 
-"PLUGIN: https://github.com/cskeeters/vim-markdown-maps
-set runtimepath+=$HOME/.vim/bundle/vim-markdown-maps
+Plug 'https://github.com/cskeeters/vim-markdown-maps'
 
-"NOTE: Not available on github. FIXME:
+"TODO: Not available on github.
+Plug '~/.vim/bundle/vim-md-doc'
 let g:md_doc = [
             \ ["/Users/chad/working/bcst-doc", "bcst-doc"],
             \ ["/Users/chad/Dropbox/notes", "notes"] ]
 let g:md_doc_auto_commit = 1
 nnoremap <leader>ep :CtrlP ~/working/bcst-doc<CR>
-set runtimepath+=$HOME/.vim/bundle/vim-md-doc
 
 
-"PLUGIN: https://github.com/itspriddle/vim-marked
+Plug 'https://github.com/itspriddle/vim-marked'
 " Use Marked (version 1)
 let g:marked_app = "Marked"
-set runtimepath+=$HOME/.vim/bundle/vim-marked
 
 """"""""""""""""""""""""""""""""" Plugins: HTML
-"PLUGIN: https://github.com/alvan/vim-closetag
-set runtimepath+=$HOME/.vim/bundle/vim-closetag
+Plug 'https://github.com/alvan/vim-closetag'
 
 
 """"""""""""""""""""""""""""""""" Plugins: Java
-"PLUGIN: https://github.com/cskeeters/javadoc.vim
-let g:javadoc_path="/Users/chad/java7_doc/api"
-set runtimepath+=$HOME/.vim/bundle/javadoc.vim
+Plug 'https://github.com/cskeeters/javadoc.vim', { 'for': 'java' }
+let g:javadoc_path="/Users/chad/java8_doc/api"
 
-"PLUGIN: https://github.com/cskeeters/jcall.vim
+
+Plug 'https://github.com/cskeeters/jcall.vim', { 'for': 'java' }
 let g:jcall_debug = 0
 let g:jcall_src_build_pairs = [
             \ ['/Users/chad/jcall_test/src', '/Users/chad/jcall_test/build'],
             \ ]
-set runtimepath+=$HOME/.vim/bundle/jcall.vim
 
 """"""""""""""""""""""""""""""""" Plugins: c++
 
-"PLUGIN: https://github.com/myint/clang-complete
-" Requires python2
-"set runtimepath+=$HOME/.vim/bundle/clang_complete
+Plug 'https://github.com/myint/clang-complete', { 'for': 'cpp' }
 let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 
 
@@ -817,10 +723,10 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 " Must install fzf via brew.  This defines :FZF
 "set runtimepath+=/usr/local/opt/fzf
 
-"PLUGIN: https://github.com/junegunn/fzf.vim
+"Plug 'https://github.com/junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
 "set runtimepath+=$HOME/.vim/bundle/fzf.vim
 
-"
+
 "This causes problems trying to remap keys when developing plugins
 "If airline/powerline is removed, run the following command to remove startup
 "errors:
@@ -830,10 +736,11 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 "set runtimepath+=$HOME/.vim/bundle/restore_view.vim
 
 
+call plug#end()
 
+call unite#filters#matcher_default#use(['matcher_glob'])
 
-" must be after plugins for ftdetect folders in runtimepaths to be used
-filetype indent plugin on
-syntax on
+colorscheme base16-default-dark
+
 "syntax sync minlines=500
 syntax sync fromstart
