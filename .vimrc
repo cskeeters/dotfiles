@@ -161,7 +161,6 @@ endif
 
 
 """"""""""""""""""""""""""""""""" Autocmds:
-
 augroup vimdiff
     autocmd!
     " Run diffupdate everytime Cursor is moved
@@ -182,11 +181,16 @@ augroup END
 let mapleader = ','
 let maplocalleader = ' '
 
+
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Built-in Modifications
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 " viw,p will black-hole delete and paste default register
 nnoremap x "_x
+
+if has('osx')
+    nmap <silent> K <Plug>DashSearch
+endif
 
 " Make any necesary parent directories
 command! -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
@@ -250,6 +254,7 @@ nnoremap [w :wincmd h<cr>
 " crc to camelCase
 " cru to UPPER_CASE
 
+
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Visual
 " Delete to black hole
 vnoremap <leader>d "_d
@@ -295,18 +300,14 @@ nnoremap <localleader>h :noh<cr>
 nnoremap <c-j>. :lcd %:p:h<cr>
 nnoremap <c-j>u :cd ..<cr>
 
+
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Jumping
 
 "majutsushi/tagbar (outline)
 nnoremap <silent> <leader>o :TagbarToggle<CR>
 
-"cskeeters/jcall.vim
-nmap <leader>ch <Plug>JCallOpen
-nmap <f3> <Plug>JCallJump
-nmap <leader>cch <Plug>JCallClear
-
 "beloglazov/vim-online-thesaurus
-nnoremap <c-j>d :OnlineThesaurusCurrentWord<cr>
+nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 
 nnoremap g] :Unite -no-split -input=<C-r>=expand('<cword>')<CR> -wipe tag<CR>
 nnoremap <c-j>t :Unite -start-insert -prompt=> -no-split -wipe tag<CR>
@@ -314,48 +315,48 @@ nnoremap <c-j>t :Unite -start-insert -prompt=> -no-split -wipe tag<CR>
 nnoremap <c-j>c :Unite -start-insert -prompt=> -no-split -wipe quickfix<CR>
 nnoremap <c-j>j :Unite -start-insert -prompt=> -no-split -wipe jump<CR>
 
+nnoremap g/ :Unite -start-insert -prompt=> -input=<C-r>=expand('<cword>')<CR> -wipe -no-split line<CR>
 nnoremap <c-j>; :Unite -start-insert -prompt=> -no-split -wipe line<CR>
+
+" Edit the snippets for the filetype of the current buffer
+" cskeeters/vim-snippets
+nnoremap <C-j>es :OpenSnips<cr>
+
+" Edit the maps file for the filetype of the current buffer
+nnoremap <C-j>em :execute 'edit '.globpath(&runtimepath, "ftplugin/".&filetype.".vim", v:true, v:true)[0]<cr>
+
+
+""""""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
+noremap <C-p>b     :CtrlPBuffer<cr>
+
+"cskeeters/closer.vim
+nmap <C-j>d <Plug>OpenCloser
+
+" Shougo/unite.vim
+noremap <C-j>b :Unite -start-insert -prompt=> -no-split -wipe buffer<CR>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
 
 "kien/ctrlp.vim
-nnoremap <C-p><C-p> :CtrlP .<cr>
-nnoremap <C-p>p     :CtrlP .<cr>
-nnoremap <C-p>b     :CtrlPBuffer<cr>
+noremap <C-p><C-p> :CtrlP .<cr>
+noremap <C-p>p     :CtrlP .<cr>
 
+" Shougo/unite.vim
 " Bookmarks
-nnoremap <leader><leader>b :UniteBookmarkAdd<cr>
+noremap <leader><leader>b :UniteBookmarkAdd<cr>
 
-nnoremap _ :Unite -start-insert -prompt=> -no-split file<CR>
-nnoremap <C-j>v :Unite -start-insert -prompt=> -no-split file:~/.vim/bundle<CR>
-nnoremap <C-j>f :Unite -start-insert -prompt=> -no-split -wipe file_rec/async<CR>
-nnoremap <C-j>k :Unite -start-insert -prompt=> -no-split -wipe bookmark<CR>
-nnoremap <C-j>b :Unite -start-insert -prompt=> -no-split -wipe buffer<CR>
-nnoremap <C-j>g :Unite -start-insert -prompt=> -no-split -wipe grep:.<CR>
+noremap _ :Unite -start-insert -prompt=> -no-split file<CR>
+noremap <C-j>v :Unite -start-insert -prompt=> -no-split file:~/.vim/bundle<CR>
+noremap <C-j>f :Unite -start-insert -prompt=> -no-split -wipe file_rec/async<CR>
+noremap <C-j>k :Unite -start-insert -prompt=> -no-split -wipe bookmark<CR>
+noremap <C-j>g :Unite -start-insert -prompt=> -no-split -wipe grep:.<CR>
+
 
 let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
-
-let g:unite_source_menu_menus.tabularize = {'description' : 'Tabularize'}
-let g:unite_source_menu_menus.tabularize.candidates = { '|':'|', '=':'=', ':':':', ',':',' }
-
-function! g:unite_source_menu_menus.tabularize.map(key, value)
-    return {
-    \   'word': a:key,
-    \   'kind': 'command',
-    \   'action__command': 'Tabularize /'.a:value
-    \ }
-endfunction
-vnoremap <silent><space><space>t :Unite -silent -start-insert -prompt=> -no-split menu:tabularize<CR>
-
-"vmap <Leader>a= :Tabularize /=<CR>
-"vmap <Leader>a: :Tabularize /:<CR>
-"vmap <Leader>a:: :Tabularize /:\zs<CR>
-"vmap <Leader>a, :Tabularize /,<CR>
-"vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-
 let g:unite_source_menu_menus.projects = {'description' : 'Change Directory to favorties'}
 let g:unite_source_menu_menus.projects.candidates = {
             \ 'notes':'~/Dropbox/notes',
+            \ 'bcst-doc':'~/working/bcst-doc',
             \ 'bcst':'~/Documents/nci/bcst',
             \ 'dotfiles':'~/dotfiles',
             \ 'bundle':'~/.vim/bundle',
@@ -369,7 +370,7 @@ function! g:unite_source_menu_menus.projects.map(key, value)
     \   'action__command': 'cd '.a:value.' | Dirvish'
     \ }
 endfunction
-nnoremap <silent><C-j>p :Unite -silent -start-insert -prompt=> -no-split menu:projects<CR>
+noremap <silent><C-j>p :Unite -silent -start-insert -prompt=> -no-split menu:projects<CR>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Text Search
@@ -392,13 +393,11 @@ nmap <leader><leader>w :w !sudo tee % >/dev/null<cr>
 nnoremap <leader>gw :LWClose!<cr>
 nnoremap <leader>w :LWClose<cr>
 
-"cskeeters/closer.vim
-nmap <silent> <leader>c <Plug>OpenCloser
-
 noremap <leader>q :q<CR>
 
 " cskeeters/vim-simple-alt
 nmap <leader>l :Alt<cr>
+
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Text Manipulation
 
@@ -410,9 +409,28 @@ nnoremap <localleader><localleader>w :%s/\s\+$//<cr>
 
 " scrooloose/nerdcommenter
 map <localleader>c <plug>NERDCommenterComment
+let g:NERDCreateDefaultMappings=0
 
 " mbbill/undotree
 nnoremap <localleader><localleader>u :UndotreeToggle<CR>
+
+" junegunn/vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+
+let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
+
+let g:unite_source_menu_menus.tabularize = {'description' : 'Tabularize'}
+let g:unite_source_menu_menus.tabularize.candidates = { '|':'|', '=':'=', ':':':', ',':',' }
+
+function! g:unite_source_menu_menus.tabularize.map(key, value)
+    return {
+    \   'word': a:key,
+    \   'kind': 'command',
+    \   'action__command': 'Tabularize /'.a:value
+    \ }
+endfunction
+vnoremap <silent><space><space>t :Unite -silent -start-insert -prompt=> -no-split menu:tabularize<CR>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Remove
@@ -492,7 +510,7 @@ endif
 
 Plug 'https://github.com/chriskempson/base16-vim', 
     \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell' }
-let g:base16_shell = $HOME."~/.config/base16-shell"
+let g:base16_shell = $HOME."/.config/base16-shell"
 " This shouldn't change, comment out when terminal is loaded with 16 colors
 let g:base16_shell_path = g:base16_shell."/scripts"
 let base16colorspace=256
@@ -554,8 +572,6 @@ if executable('ag')
 endif
 
 Plug 'https://github.com/junegunn/vim-easy-align'
-vmap <Enter> <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
 
 "junegunn/vim-easy-align doesn't work for tables
 Plug 'https://github.com/godlygeek/tabular'
@@ -625,9 +641,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Plug 'https://github.com/MarcWeber/vim-addon-mw-utils'
 "Plug 'https://github.com/garbas/vim-snipmate'
 
-" My personal snippets
-Plug 'https://github.com/cskeeters/vim-snippets'
-nnoremap <leader>es :OpenSnips<cr>
+" Personal snippets
+"URL: https://github.com/cskeeters/vim-snippets
+Plug '~/.vim/bundle/vim-snippets'
 
 
 """"""""""""""""""""""""""""""""" Plugins: DRCS git/hg
@@ -647,7 +663,6 @@ Plug 'https://github.com/jlfwong/vim-mercenary'
 """"""""""""""""""""""""""""""""" Plugins: Lookup/Help
 if has('osx')
     Plug 'https://github.com/rizzatti/dash.vim'
-    nmap <silent> K <Plug>DashSearch
 endif
 
 Plug 'https://github.com/beloglazov/vim-online-thesaurus'
@@ -656,9 +671,12 @@ let g:online_thesaurus_map_keys = 0
 "
 """"""""""""""""""""""""""""""""" Plugins: File-type specific
 
-Plug 'https://github.com/sheerun/vim-polyglot'
 "keyboard mappings and settings per file type
-Plug 'https://github.com/cskeeters/vim-maps'
+"URL: https://github.com/cskeeters/vim-maps
+Plug '~/.vim/bundle/vim-maps'
+
+Plug 'https://github.com/sheerun/vim-polyglot'
+
 Plug 'https://github.com/cskeeters/sr.vim'
 
 " reStructuredText highlighting
@@ -667,10 +685,12 @@ Plug 'https://github.com/cskeeters/sr.vim'
 
 """"""""""""""""""""""""""""""""" Plugins: Markdown
 Plug 'https://github.com/plasticboy/vim-markdown'
-"Disable ]c to move to header since it disrupts ]c - next difference
+" Disable ]c to move to header since it disrupts ]c - next difference
 map <Plug> <Plug>Markdown_MoveToCurHeader
+let g:vim_markdown_folding_disabled = 1
 
-Plug 'https://github.com/cskeeters/vim-markdown-maps'
+"URL: https://github.com/cskeeters/vim-markdown-maps
+Plug '~/.vim/bundle/vim-markdown-maps'
 
 "TODO: Not available on github.
 Plug '~/.vim/bundle/vim-md-doc'
@@ -678,8 +698,6 @@ let g:md_doc = [
             \ ["/Users/chad/working/bcst-doc", "bcst-doc"],
             \ ["/Users/chad/Dropbox/notes", "notes"] ]
 let g:md_doc_auto_commit = 1
-nnoremap <leader>ep :CtrlP ~/working/bcst-doc<CR>
-
 
 Plug 'https://github.com/itspriddle/vim-marked'
 " Use Marked (version 1)
