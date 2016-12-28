@@ -309,14 +309,14 @@ nnoremap <silent> <leader>o :TagbarToggle<CR>
 "beloglazov/vim-online-thesaurus
 nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 
-nnoremap g] :Unite -no-split -input=<C-r>=expand('<cword>')<CR> -wipe tag<CR>
-nnoremap <c-j>t :Unite -start-insert -prompt=> -no-split -wipe tag<CR>
+nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
+nnoremap <c-j>t :Unite tag<CR>
 
-nnoremap <c-j>c :Unite -start-insert -prompt=> -no-split -wipe quickfix<CR>
-nnoremap <c-j>j :Unite -start-insert -prompt=> -no-split -wipe jump<CR>
+nnoremap <c-j>c :Unite quickfix<CR>
+nnoremap <c-j>j :Unite jump<CR>
 
-nnoremap g/ :Unite -start-insert -prompt=> -input=<C-r>=expand('<cword>')<CR> -wipe -no-split line<CR>
-nnoremap <c-j>; :Unite -start-insert -prompt=> -no-split -wipe line<CR>
+nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
+nnoremap <c-j>; :Unite line<CR>
 
 " Edit the snippets for the filetype of the current buffer
 " cskeeters/vim-snippets
@@ -333,7 +333,7 @@ noremap <C-p>b     :CtrlPBuffer<cr>
 nmap <C-j>d <Plug>OpenCloser
 
 " Shougo/unite.vim
-noremap <C-j>b :Unite -start-insert -prompt=> -no-split -wipe buffer<CR>
+noremap <C-j>b :Unite buffer<CR>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
 
@@ -345,11 +345,12 @@ noremap <C-p>p     :CtrlP .<cr>
 " Bookmarks
 noremap <leader><leader>b :UniteBookmarkAdd<cr>
 
-noremap _ :Unite -start-insert -prompt=> -no-split file<CR>
-noremap <C-j>v :Unite -start-insert -prompt=> -no-split file:~/.vim/bundle<CR>
-noremap <C-j>f :Unite -start-insert -prompt=> -no-split -wipe file_rec/async<CR>
-noremap <C-j>k :Unite -start-insert -prompt=> -no-split -wipe bookmark<CR>
-noremap <C-j>g :Unite -start-insert -prompt=> -no-split -wipe grep:.<CR>
+noremap _ :Unite file<CR>
+noremap <C-j>v :Unite file:~/.vim/bundle<CR>
+noremap <C-j><C-j> :Unite file_rec/async<CR>
+noremap <C-j>f :Unite file_rec/async<CR>
+noremap <C-j>k :Unite bookmark<CR>
+noremap <C-j>g :Unite grep:.<CR>
 
 
 let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
@@ -370,7 +371,7 @@ function! g:unite_source_menu_menus.projects.map(key, value)
     \   'action__command': 'cd '.a:value.' | Dirvish'
     \ }
 endfunction
-noremap <silent><C-j>p :Unite -silent -start-insert -prompt=> -no-split menu:projects<CR>
+noremap <silent><C-j>p :Unite -silent menu:projects<CR>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Text Search
@@ -430,7 +431,7 @@ function! g:unite_source_menu_menus.tabularize.map(key, value)
     \   'action__command': 'Tabularize /'.a:value
     \ }
 endfunction
-vnoremap <silent><space><space>t :Unite -silent -start-insert -prompt=> -no-split menu:tabularize<CR>
+vnoremap <silent><space><space>t :Unite -silent menu:tabularize<CR>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Remove
@@ -756,6 +757,7 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 call plug#end()
 
+call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
 call unite#filters#matcher_default#use(['matcher_glob'])
 
 colorscheme base16-default-dark
