@@ -28,8 +28,9 @@ endif
 set expandtab                   " tabs are spaces, not tabs (et)
 set shiftwidth=4                " use indents of 4 spaces (sw)
 set tabstop=4                   " an indentation every four columns (ts)
-set softtabstop=4               " let backspace delete indent (sts)
+set softtabstop=8               " Column text should be easily aligned with this at 8
 set shiftround                  " >> and << will round to the nearest shiftwidth
+set smarttab                    " Make shiftwidth affect spaces added when tabs are typed
 
 set linebreak                   " When wrap is on, break at word boundaries
 
@@ -53,7 +54,7 @@ set virtualedit=block           " Block mode allows cursor to go where spaces do
 "set virtualedit+=onemore        " Allow cursor to stay one character past the end of the line
 set autoindent                  " indent at the same level of the previous line
 set cindent
-set smartindent
+set smartindent                 " New lines start indented appropriately
 set nowrap                      " wrap long lines
 
 " iTerm2 in osx likes unnamed, not unnamedplus
@@ -265,17 +266,16 @@ vnoremap > >gv
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Settings Modification
-
-nnoremap \2 :setlocal sw=2 ts=2 sts=2 expandtab<cr>
-nnoremap \3 :setlocal sw=3 ts=3 sts=3 expandtab<cr>
-nnoremap \4 :setlocal sw=4 ts=4 sts=4 expandtab<cr>
-nnoremap \8 :setlocal sw=8 ts=8 sts=8 expandtab<cr>
-nnoremap \t :setlocal noexpandtab!<cr>
-nnoremap \\2 :set sw=2 ts=2 sts=2<cr>
-nnoremap \\3 :set sw=3 ts=3 sts=3<cr>
-nnoremap \\4 :set sw=4 ts=4 sts=4<cr>
-nnoremap \\8 :set sw=8 ts=8 sts=8<cr>
-nnoremap \\t :setlocal noexpandtab!<cr>
+nnoremap \2 :setlocal sw=2 ts=2<cr>
+nnoremap \3 :setlocal sw=3 ts=3<cr>
+nnoremap \4 :setlocal sw=4 ts=4<cr>
+nnoremap \8 :setlocal sw=8 ts=8<cr>
+nnoremap \t :setlocal expandtab!<cr>
+nnoremap \\2 :set sw=2 ts=2<cr>
+nnoremap \\3 :set sw=3 ts=3<cr>
+nnoremap \\4 :set sw=4 ts=4<cr>
+nnoremap \\8 :set sw=8 ts=8<cr>
+nnoremap \\t :setlocal expandtab!<cr>
 ":retab to convert
 
 nnoremap \s :set spell!<cr>        " Toggles Spelling
