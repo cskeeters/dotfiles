@@ -42,6 +42,11 @@ prompt_install() {
     fi
 }
 
+install_vm() {
+    # Disable keyboard swapping
+    echo > ~/.Xmodmap
+}
+
 install_oh_my_zsh() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -100,6 +105,8 @@ install_rst() {
 }
 
 install_rst
+
+prompt_install "Is this a virtual machine? ->" install_vm
 
 if [[ $SHELL =~ .*zsh ]]; then
     if [[ ! -d ~/.oh-my-zsh ]]; then
