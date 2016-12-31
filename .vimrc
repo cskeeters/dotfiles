@@ -757,8 +757,10 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 call plug#end()
 
-call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
-call unite#filters#matcher_default#use(['matcher_glob'])
+if !has('nvim')
+    call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
+    call unite#filters#matcher_default#use(['matcher_glob'])
+endif
 
 colorscheme base16-default-dark
 
