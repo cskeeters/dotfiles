@@ -353,8 +353,13 @@ noremap <leader><leader>b :UniteBookmarkAdd<cr>
 
 noremap _ :Unite file<CR>
 noremap <C-j>v :Unite file:~/.vim/bundle<CR>
-noremap <C-j><C-j> :Unite file_rec/async<CR>
-noremap <C-j>f :Unite file_rec/async<CR>
+if !has('nvim')
+    noremap <C-j><C-j> :Unite file_rec/async<CR>
+    noremap <C-j>f :Unite file_rec/async<CR>
+else
+    noremap <C-j><C-j> :Denite file_rec<CR>
+    noremap <C-j>f :Denite file_rec<CR>
+endif
 noremap <C-j>k :Unite bookmark<CR>
 noremap <C-j>g :Unite grep:.<CR>
 
@@ -606,9 +611,8 @@ if has('nvim')
     " Requires python3.  Run
     "   pip3 install neovim
     Plug 'https://github.com/Shougo/denite.nvim'
-else
-    Plug 'https://github.com/Shougo/unite.vim'
 endif
+Plug 'https://github.com/Shougo/unite.vim'
 
 Plug 'https://github.com/kien/ctrlp.vim'
 "let g:ctrlp_working_path_mode = 'ra'
@@ -772,10 +776,11 @@ function! AirlineInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
-if !has('nvim')
-    call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
-    call unite#filters#matcher_default#use(['matcher_glob'])
+if has('nvim')
+    call denite#custom#source('file_rec', 'matchers', ['matcher_ignore_globs'])
 endif
+call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
+call unite#filters#matcher_default#use(['matcher_glob'])
 
 colorscheme base16-default-dark
 
