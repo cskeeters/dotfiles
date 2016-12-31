@@ -16,8 +16,10 @@ islinux() {
 # Homebrew path first
 export PATH=/usr/local/bin:$PATH
 
-# Finder launched programs need this path ?
-/bin/launchctl setenv PATH $PATH
+if [[ -z "$TMUX" ]]; then
+    # Finder launched programs need this path ?
+    /bin/launchctl setenv PATH $PATH
+fi
 
 
 #Bash
@@ -102,3 +104,5 @@ openbb() {
         echo "No BitBucket path found!"
     fi
 }
+
+# vim:ft=sh

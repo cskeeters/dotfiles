@@ -58,7 +58,9 @@ set smartindent                 " New lines start indented appropriately
 set nowrap                      " wrap long lines
 
 " iTerm2 in osx likes unnamed, not unnamedplus
-set clipboard=unnamed
+if $TMUX == ''
+    set clipboard=unnamed
+endif
 
 set textwidth=0                 " Used in autoformatting (tw)
 set colorcolumn=+0              " Use textwidth variable
@@ -125,7 +127,11 @@ set ruler
 set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
 
 set nobackup
-set swapfile   " Swap file lets you know the buffer is open in another window
+if $TMUX == ''
+    set swapfile   " Swap file lets you know the buffer is open in another window
+else
+    set noswapfile
+endif
 
 set backupdir=~/.vim/backup
 if !isdirectory(&backupdir)
