@@ -125,6 +125,15 @@ if [[ $(uname) == Darwin ]]; then
     #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o ~/dotfiles/iterm2.xml
 fi
 
+if [[ $(uname) == "Linux" ]]; then
+    if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
+        cp ~/.config/xfce4/terminal/terminalrc ~/dotfiles/backup
+    fi
+    mkdir -p ~/.config/xfce4/terminal/terminal
+    rm -f ~/.config/xfce4/terminal/terminalrc
+    ln -sfT ~/dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
+fi
+
 if hash git 2> /dev/null; then
     prompt_install "Install/Update Vim Plugins ->" update_vim_plugins
 fi
