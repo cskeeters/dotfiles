@@ -59,24 +59,10 @@ install_oh_my_zsh() {
 }
 
 update_vim_plugins() {
-    while IFS=$'\n' read url; do
-        if [[ $url =~ .*/(.*) ]]; then
-            base=${BASH_REMATCH[1]}
-            if [[ -e ~/.vim/bundle/$base ]]; then
-                echo Updating $url
-                ( cd ~/.vim/bundle/$base; git pull )
-            else
-                echo Cloning $url
-                ( cd ~/.vim/bundle; git clone $url )
-            fi
-
-            # Update helptags for each plugin
-            if [[ -e ~/.vim/bundle/$base/doc ]]; then
-                vim -e -c "helptags ~/.vim/bundle/$base/doc" -c q
-            fi
-            echo
-        fi
-    done < <(sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | grep github)
+    mkdir -p ~/.vim/autoload
+    rm -rf ~/.vim/autoload/plug.vim
+    ln -sfT ~/dotfiles/plug.vim ~/.vim/autoload/plug.vim
+    vim +PlugUpgrade +PlugInstall +PlugUpdate
 }
 
 disable_etc_vimrc() {
