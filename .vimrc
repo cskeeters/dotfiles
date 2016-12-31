@@ -509,12 +509,15 @@ if !has('nvim')
 endif
 
 
-Plug 'https://github.com/chriskempson/base16-vim', 
-    \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell' }
-let g:base16_shell = $HOME."/.config/base16-shell"
-" This shouldn't change, comment out when terminal is loaded with 16 colors
-let g:base16_shell_path = g:base16_shell."/scripts"
-let base16colorspace=256
+"Plug '~/working/base16-builder-php/templates/vim'
+Plug 'https://github.com/chriskempson/base16-vim',
+    \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.vim/base16-shell' }
+if $TERM != "konsole"
+    " As a work around for the following bugs in kde4's konsole:
+    " https://github.com/chriskempson/base16-shell/issues/31
+    let g:base16_shell_path = $HOME."/.vim/base16-shell/scripts"
+    let base16colorspace=256
+endif
 set background=dark
 
 Plug 'https://github.com/bling/vim-airline'
