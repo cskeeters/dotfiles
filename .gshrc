@@ -17,8 +17,10 @@ islinux() {
 export PATH=/usr/local/bin:$PATH
 
 if [[ -z "$TMUX" ]]; then
-    # Finder launched programs need this path ?
-    /bin/launchctl setenv PATH $PATH
+    if [[ -f /bin/launchctl ]]; then
+        # Finder launched programs need this path ?
+        /bin/launchctl setenv PATH $PATH
+    fi
 fi
 
 
