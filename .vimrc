@@ -757,6 +757,12 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 call plug#end()
 
+function! AirlineInit()
+    " Let me see the cwd
+    let g:airline_section_b = airline#section#create(['%{fnamemodify(getcwd(), ":t")}', g:airline_symbols.space, 'hunks', 'branch'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
+
 if !has('nvim')
     call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
     call unite#filters#matcher_default#use(['matcher_glob'])
