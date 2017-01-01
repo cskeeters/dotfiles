@@ -57,8 +57,12 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.gshrc
 
-source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='ag -g ""'
+if [[ -f ~/.fzf.zsh ]]; then
+    source ~/.fzf.zsh
+    if hash ag 2> /dev/null; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+fi
 
 # User configuration
 

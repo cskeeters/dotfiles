@@ -1,3 +1,8 @@
 . .profile
 source ~/.gshrc
-source ~/.fzf.bash
+if [[ -f ~/.fzf.zsh ]]; then
+    source ~/.fzf.zsh
+    if hash ag 2> /dev/null; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+fi
