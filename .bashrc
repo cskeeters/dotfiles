@@ -6,3 +6,8 @@ if [[ -f ~/.fzf.zsh ]]; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
     fi
 fi
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
