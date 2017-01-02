@@ -12,3 +12,5 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+
+[[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
