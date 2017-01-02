@@ -1,5 +1,6 @@
-. .profile
-source ~/.gshrc
+[[ -f ~/.profile ]] && source ~/.profile
+[[ -f ~/.gshrc ]] && source ~/.gshrc
+
 if [[ -f ~/.fzf.zsh ]]; then
     source ~/.fzf.zsh
     if hash ag 2> /dev/null; then
