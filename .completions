@@ -206,7 +206,7 @@ _fuzzy_search() {
 
     if [[ "${COMP_WORDS[0]}" = "cd" ]]; then
         log "Command is cd"
-        log "Backing up CDPATH $(CDPATH)"
+        log "Backing up CDPATH ${CDPATH}"
         CDPATH_bak="$CDPATH"
         CDPATH=""
         # call completion function from /etc/bash_complete
