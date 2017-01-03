@@ -22,4 +22,9 @@ if [[ $(uname) == "Darwin" ]]; then
     fi
 fi
 
+if type _cd > /dev/null; then
+    # Enable fuzzy style completions
+    [[ -f ~/.completions ]] && source ~/.completions
+fi
+
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
