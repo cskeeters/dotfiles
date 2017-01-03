@@ -71,6 +71,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory autocd autopushd beep extendedglob nomatch
+# Don't share history between different shells
+unsetopt share_history
 unsetopt notify
 bindkey -e
 
