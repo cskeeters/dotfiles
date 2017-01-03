@@ -1,3 +1,5 @@
+#!/bin/bash
+
 prompt_color="\001\e[%sm\002%s\001\e[0m\002"
 
 function parse_hg_branch() {
