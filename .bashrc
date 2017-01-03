@@ -13,4 +13,13 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+if [[ $(uname) == "Darwin" ]]; then
+    if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
+        . $(brew --prefix)/etc/bash_completion
+    else
+        echo "Bash completion is not installed.  Install with:"
+        echo "  brew install bash-completion"
+    fi
+fi
+
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
