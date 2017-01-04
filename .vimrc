@@ -297,8 +297,6 @@ nnoremap \r :RainbowParentheses!!<cr>
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
 
-nnoremap <localleader>h :noh<cr>
-
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Directory
 
