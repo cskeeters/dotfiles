@@ -12,7 +12,10 @@ islinux() {
 
 # Path
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
-export CDPATH=~:~/working:~/Documents/nci:/usr/local:/usr/local/Cellar
+
+export CDPATH=~:~/working
+ismac   && CDPATH=$CDPATH:~/Documents/nci:/usr/local:/usr/local/Cellar:/Volumes
+islinux && CDPATH=$CDPATH:/media:/var/run/media/$USER
 
 # Homebrew path first
 export PATH=/usr/local/bin:$PATH
