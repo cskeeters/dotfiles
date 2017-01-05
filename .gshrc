@@ -49,7 +49,9 @@ export LESS="FRX"
 #pkg-config --libs cairo
 export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
 
-islinux && xmodmap .Xmodmap
+if islinux && type xmodmap >/dev/null 2>&1; then
+    xmodmap .Xmodmap
+fi
 
 if ismac; then
   # use gnu versions of these tools.  Must be installed with
