@@ -122,17 +122,17 @@ install_rst() {
         rm -f ~/.rst2pdf
     else
         # This may be a folder we need to backup
-        mv ~/.rst2pdf ~/dotfiles/backup/
+        mv ~/.rst2pdf $dotfiles/backup/
     fi
-    erun ln -s ~/dotfiles/.rst2pdf ~/.rst2pdf
+    erun ln -s $dotfiles/.rst2pdf ~/.rst2pdf
 
     if [[ -h ~/.rst2pdf ]]; then
         rm -f ~/.rst2html
     else
         # This may be a folder we need to backup
-        mv ~/.rst2html ~/dotfiles/backup/
+        mv ~/.rst2html $dotfiles/backup/
     fi
-    erun ln -s ~/dotfiles/.rst2html ~/.rst2html
+    erun ln -s $dotfiles/.rst2html ~/.rst2html
 }
 
 
@@ -197,22 +197,22 @@ if [[ $(uname) == Darwin ]]; then
 
     echo "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
     mkdir -p ~/Library/KeyBindings
-    cp ~/dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
+    cp $dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 
     echo "Setup iterm settings"
-    plutil -convert binary1 ~/dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
+    plutil -convert binary1 $dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
 
     # This will safe the iTerm preferences into an XML files
-    #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o ~/dotfiles/iterm2.xml
+    #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o $dotfiles/iterm2.xml
 fi
 
 if [[ $(uname) == "Linux" ]]; then
     if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
-        cp ~/.config/xfce4/terminal/terminalrc ~/dotfiles/backup
+        cp ~/.config/xfce4/terminal/terminalrc $dotfiles/backup
     fi
     mkdir -p ~/.config/xfce4/terminal/terminal
     rm -f ~/.config/xfce4/terminal/terminalrc
-    ln -sfT ~/dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
+    ln -sfT $dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
 fi
 
 if hash git 2> /dev/null; then
