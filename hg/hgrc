@@ -10,9 +10,10 @@ tabsplice.executable = tabsplice
 tabsplice.premerge = keep
 tabsplice.args = $base $local $other $output
 
-vim.executable = vim
-vim.premerge = keep-merge3
-vim.args = $output
+# RHEL7 hg ships with 2.6.2 and doesn't support keep-premerge3
+#vim.executable = vim
+#vim.premerge = keep-merge3
+#vim.args = $output
 
 [extensions]
 hgext.mq=
