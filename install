@@ -1,38 +1,83 @@
 #!/bin/bash
 
-function die()
-{
-    echo "${@}"
+############ LOG FUNCTIONS
+show() {
+    if [[ -t 1 ]]; then
+        # Coloring is ok
+        printf -- "\x1b[$2m$1\x1b[m\n"
+    else
+        printf -- "$1\n"
+    fi
+}
+
+error() { show "ERROR: $1" 31; } # 31 is red
+warn()  { show "WARN: $1" 33; }  # 33 is yellow
+info()  { show "INFO: $1" 34; }  # 34 is blue
+# Outputs the first parameter and terminates with exit 1
+die() {
+    error "$1"
     exit 1
 }
 
-function erun()
-{
+
+############ INSTALL FUNCTIONS
+erun() {
   echo "Running: ${@}"
   ${@} || die "Error running ${@}"
 }
 
-cd ~
 
-if [ ! -e dotfiles/backup ]; then
-  mkdir dotfiles/backup
-fi
+exists() {
+    hash $1 2>/dev/null
+}
 
-for dotfile in `find dotfiles -type f -name ".*" | cut -c10-99`
-do
-  if [[ "$dotfile" != .hg/* ]]; then
-    if [[ "$dotfile" != *backup* ]]; then
-      if [ -L $dotfile ]; then
-        erun rm $dotfile
-      else
-        if [ -f $dotfile ]; then
-          erun mv $dotfile dotfiles/backup
+# cache files not tracked in this repo
+cache() {
+    mkdir -p offline
+    if [[ ! -f "offline/$(basename $1)" ]]; then
+        echo "Downloading $1..."
+        if exists curl; then
+            (cd offline && curl -sSO "$1" || die "Error downloading $1")
+        elif exists wget; then
+            (cd offline && wget -nv "$1" || die "Error downloading $1")
+        else
+            die "curl and wget not installed"
         fi
-      fi
-      erun ln -s dotfiles/$dotfile $dotfile
     fi
-  fi
-done
+}
+clone() {
+    mkdir -p offline
+    if [[ ! -e "offline/$(basename $1)" ]]; then
+        echo "Cloning $1..."
+        if exists git; then
+            (cd offline && git clone --quiet "$1" || die "Error downloading $1")
+        else
+            die "curl and wget not installed"
+        fi
+    fi
+}
+
+# Create symbolic link to dotfile
+# ${var##*/} === basename $var
+link() {
+    mkdir -p backup
+    dotfile="$1"
+    if [[ ! -f "$dotfiles/$dotfile" ]]; then
+        die "Could not find ${dotfile} in $dotfiles"
+    fi
+    if [[ -L ~/".${dotfile##*/}" ]]; then
+        # Just remove existing symbolic link
+        info "Removing existing symbolic link"
+        rm ~/".${dotfile##*/}" || die "Could not remove existing ~/$dotfile"
+    else
+        # Backup only if the existing file is not a symbolic link
+        if [[ -f ~/".${dotfile##*/}" ]]; then
+            info "Backing up ~/.${dotfile##*/}"
+            mv ~/".${dotfile##*/}" backup || die "Could not backup existing ~/.${dotfile##*/}"
+        fi
+    fi
+    ln -s "$dotfiles/$dotfile" ~/".${dotfile##*/}" || die "Error linking ~/.${dotfile##*/}"
+}
 
 prompt_install() {
     echo -n $1
@@ -59,15 +104,15 @@ install_oh_my_zsh() {
 }
 
 update_vim_plugins() {
-    mkdir -p ~/.vim/autoload
-    rm -rf ~/.vim/autoload/plug.vim
-    ln -sfT ~/dotfiles/plug.vim ~/.vim/autoload/plug.vim
-    vim +PlugUpgrade +PlugInstall +PlugUpdate
+    rm -f ~/.vim/autoload/plug.vim
+    info "Downloading updated vim-plug"
+    curl -sSfLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugUpgrade +PlugInstall +PlugUpdate +qa
 }
 
 disable_etc_vimrc() {
     # fixes escape character delay in vim
-    erun mv /etc/vimrc /etc/vimrc.disabled
+    sudo mv /etc/vimrc /etc/vimrc.disabled || die "Error disabling system vimrc"
 }
 
 install_rst() {
@@ -89,6 +134,49 @@ install_rst() {
     fi
     erun ln -s ~/dotfiles/.rst2html ~/.rst2html
 }
+
+
+######################## MAIN
+
+cd "${0%/*}"
+dotfiles="$(pwd)" # Location of this dotfiles folder
+
+info "Downloading files not tracked in this repo"
+cache https://github.com/cskeeters/tabsplice/blob/master/tabsplice
+
+clone https://github.com/chriskempson/base16-shell
+
+
+info "Installing settings files"
+link shell/fzf.bash
+link shell/fzf.zsh
+link shell/gshrc
+link shell/bashrc
+link shell/zshrc
+link shell/bash_profile
+link shell/bash_prompt
+link shell/profile
+link shell/completions
+link shell/inputrc
+
+link X11/xinitrc
+link X11/Xmodmap
+link X11/Xresources # xterm/rxvt color settings
+
+link git/gitconfig
+link git/gitignore
+
+link hg/hgrc
+
+link vim/gvimrc
+link vim/vimrc
+
+link doc/docutils
+
+link ctags
+link tmux.conf
+
+
 
 install_rst
 
