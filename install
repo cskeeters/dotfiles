@@ -135,6 +135,24 @@ install_rst() {
     erun ln -s $dotfiles/.rst2html ~/.rst2html
 }
 
+install_powerline() {
+    if [[ $(uname) == 'Darwin' ]]; then
+        font_dir="$HOME/Library/Fonts"
+    else
+        font_dir="$HOME/.local/share/fonts"
+    fi
+
+    mkdir -p $font_dir
+
+    find "$dotfiles/offline/fonts" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -exec cp "{}" "$font_dir/" \; || die "Error installing fonts"
+
+    if hash 2>/dev/null fc-cache; then
+        info "Resetting font cache, this may take a moment..."
+        fc-cache -f $font_dir
+    fi
+
+    info "All Powerline fonts installed to $font_dir"
+}
 
 ######################## MAIN
 
@@ -206,7 +224,7 @@ if [[ $(uname) == Darwin ]]; then
     #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o $dotfiles/iterm2.xml
 fi
 
-if [[ $(uname) == "Linux" ]]; then
+if [[ $(uname) == Linux ]]; then
     if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
         cp ~/.config/xfce4/terminal/terminalrc $dotfiles/backup
     fi
@@ -217,4 +235,8 @@ fi
 
 if hash git 2> /dev/null; then
     prompt_install "Install/Update Vim Plugins (n) ->" update_vim_plugins
+fi
+
+if [[ -d $dotfiles/offline/fonts ]]; then
+    prompt_install "Install powerline fonts (n) ->" install_powerline
 fi
