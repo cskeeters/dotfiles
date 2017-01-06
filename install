@@ -37,7 +37,7 @@ cache() {
     if [[ ! -f "offline/$(basename $1)" ]]; then
         echo "Downloading $1..."
         if exists curl; then
-            (cd offline && curl -sSO "$1" || die "Error downloading $1")
+            (cd offline && curl -sSfLO "$1" || die "Error downloading $1")
         elif exists wget; then
             (cd offline && wget -nv "$1" || die "Error downloading $1")
         else
