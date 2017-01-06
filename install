@@ -97,7 +97,7 @@ install_oh_my_zsh() {
 
     # Install chad theme
     if [[ -d ~/.oh-my-zsh/themes ]]; then
-        cp ~/dotfiles/chad.zsh-theme ~/.oh-my-zsh/themes/
+        cp $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/
     fi
 
     echo
