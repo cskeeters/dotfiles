@@ -1,7 +1,7 @@
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.gshrc ]] && source ~/.gshrc
 
-if [[ -f ~/.fzf.bash ]]; then
+if [[ -f ~/.fzf.bash && -d /usr/local/opt/fzf ]]; then
     source ~/.fzf.bash
     if hash ag 2> /dev/null; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
@@ -22,7 +22,7 @@ if [[ $(uname) == "Darwin" ]]; then
     fi
 fi
 
-if type _cd > /dev/null; then
+if hash _cd 2>/dev/null; then
     # Enable fuzzy style completions
     [[ -f ~/.completions ]] && source ~/.completions
 fi
