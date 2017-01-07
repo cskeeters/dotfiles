@@ -18,25 +18,21 @@ function parse_hg_branch() {
 
 # get current status of hg repo
 function parse_hg_dirty {
-    status=`hg status 2>&1 | tee`
-    dirty=`echo -n "${status}" 2> /dev/null | egrep "^[MAD\?] " &> /dev/null; echo "$?"`
-    untracked=`echo -n "${status}" 2> /dev/null | grep "^\? " &> /dev/null; echo "$?"`
-    newfile=`echo -n "${status}" 2> /dev/null | grep "^A " &> /dev/null; echo "$?"`
-    deleted=`echo -n "${status}" 2> /dev/null | grep "^D " &> /dev/null; echo "$?"`
+    local dirty=1 newfile=1 deleted=1 untracked=1
+    while IFS= read -r -d $'\n' line; do
+        [[ $line =~ ^M ]] && dirty=0
+        [[ $line =~ ^A ]] && newfile=0
+        [[ $line =~ ^R ]] && deleted=0
+        [[ $line =~ ^\? ]] && untracked=0
+    done < <(hg status 2>&1)
+
     indicators=''
-    if [ "${newfile}" == "0" ]; then
-        indicators="+${indicators}"
-    fi
-    if [ "${untracked}" == "0" ]; then
-        indicators="?${indicators}"
-    fi
-    if [ "${deleted}" == "0" ]; then
-        indicators="x${indicators}"
-    fi
-    if [ "${dirty}" == "0" ]; then
-        indicators="!${indicators}"
-    fi
-    if [ ! "${indicators}" == "" ]; then
+    [[ "${newfile}" == "0" ]] && indicators="+${indicators}"
+    [[ "${untracked}" == "0" ]] && indicators="?${indicators}"
+    [[ "${deleted}" == "0" ]] && indicators="x${indicators}"
+    [[ "${dirty}" == "0" ]] && indicators="!${indicators}"
+
+    if [[ ! "${indicators}" == "" ]]; then
         echo " ${indicators}"
     else
         echo ""
@@ -61,33 +57,25 @@ function parse_git_branch() {
 
 # get current status of git repo
 function parse_git_dirty {
-    status=`git status 2>&1 | tee`
-    dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-    untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-    ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-    newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-    renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-    deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
+    local dirty=1 untracked=1 ahead=1 newfile=1 renamed=1 deleted=1
+    while IFS= read -r -d $'\n' line; do
+        [[ $line =~ modified: ]] && dirty=0
+        [[ $line =~ Untracked\ files ]] && untracked=0
+        [[ $line =~ Your\ branch\ is\ ahead\ of ]] && ahead=0
+        [[ $line =~ new\ file: ]] && newfile=0
+        [[ $line =~ renamed: ]] && renamed=0
+        [[ $line =~ deleted: ]] && deleted=0
+    done < <(git status 2>&1)
+
     bits=''
-    if [ "${renamed}" == "0" ]; then
-        bits=">${bits}"
-    fi
-    if [ "${ahead}" == "0" ]; then
-        bits="*${bits}"
-    fi
-    if [ "${newfile}" == "0" ]; then
-        bits="+${bits}"
-    fi
-    if [ "${untracked}" == "0" ]; then
-        bits="?${bits}"
-    fi
-    if [ "${deleted}" == "0" ]; then
-        bits="x${bits}"
-    fi
-    if [ "${dirty}" == "0" ]; then
-        bits="!${bits}"
-    fi
-    if [ ! "${bits}" == "" ]; then
+    [[ "${renamed}" == "0" ]] && bits=">${bits}"
+    [[ "${ahead}" == "0" ]] && bits="*${bits}"
+    [[ "${newfile}" == "0" ]] && bits="+${bits}"
+    [[ "${untracked}" == "0" ]] && bits="?${bits}"
+    [[ "${deleted}" == "0" ]] && bits="x${bits}"
+    [[ "${dirty}" == "0" ]] && bits="!${bits}"
+
+    if [[ ! "${bits}" == "" ]]; then
         echo " ${bits}"
     else
         echo ""
@@ -96,7 +84,7 @@ function parse_git_dirty {
 
 function nonzero_return() {
     RETVAL=$?
-    [ $RETVAL -ne 0 ] && printf $prompt_color 31 "$RETVAL "
+    [[ $RETVAL -ne 0 ]] && printf $prompt_color 31 "$RETVAL "
 }
 
 export PS1="\`nonzero_return\`\[\e[36m\]\w\[\e[0m\] \`parse_git_branch\`\`parse_hg_branch\`"
