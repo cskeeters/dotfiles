@@ -10,11 +10,9 @@ function parse_hg_branch() {
         dirty_color=34
         [[ $STAT != "" ]] && dirty_color=33
 
-        echo -n "["
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
-        echo -n "] "
-        printf $prompt_color $dirty_color "☿ "
+        printf $prompt_color $dirty_color " ☿ "
     fi
 }
 
@@ -54,11 +52,9 @@ function parse_git_branch() {
         dirty_color=34
         [[ $STAT != "" ]] && dirty_color=33
 
-        echo -n "["
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
-        echo -n "] "
-        printf $prompt_color $dirty_color "± "
+        printf $prompt_color $dirty_color " ± "
     fi
 }
 
