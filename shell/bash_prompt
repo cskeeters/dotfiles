@@ -6,11 +6,15 @@ function parse_hg_branch() {
     BRANCH=$(hg branch 2> /dev/null)
     if [[ $BRANCH != "" ]]; then
         STAT=$(parse_hg_dirty)
+
+        dirty_color=34
+        [[ $STAT != "" ]] && dirty_color=33
+
         echo -n "["
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
         echo -n "] "
-        printf $prompt_color 33 "☿ "
+        printf $prompt_color $dirty_color "☿ "
     fi
 }
 
@@ -46,11 +50,15 @@ function parse_git_branch() {
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     if [ ! "${BRANCH}" == "" ]; then
         STAT=`parse_git_dirty`
+
+        dirty_color=34
+        [[ $STAT != "" ]] && dirty_color=33
+
         echo -n "["
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
         echo -n "] "
-        printf $prompt_color 33 "± "
+        printf $prompt_color $dirty_color "± "
     fi
 }
 
