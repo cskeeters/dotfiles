@@ -92,7 +92,9 @@ fi
 # Aliases
 alias vi='vim'
 alias gvim='mvim'
-alias ll='ls -la'
+alias l='ls -lhG'
+alias la='ls -lAhG'
+alias ll='ls -lAhG'
 
 # Commands
 _open() {
