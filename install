@@ -22,8 +22,9 @@ die() {
 
 ############ INSTALL FUNCTIONS
 erun() {
-  info "Running: ${@}"
-  ${@} || die "Error running ${@}"
+    all="$@"
+    info "Running: $all"
+    ${@} || die "Error running ${@}"
 }
 
 
@@ -122,11 +123,6 @@ install_vm() {
 
 install_oh_my_zsh() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    # Install chad theme
-    if [[ -d ~/.oh-my-zsh/themes ]]; then
-        cp $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/
-    fi
 
     echo
 }
@@ -229,12 +225,17 @@ linkdot offline/mercurial-cli-templates "$HOME"
 
 install_rst
 
-prompt_install "Is this a virtual machine? (n) ->" install_vm
-
 if [[ $SHELL =~ .*zsh ]]; then
-    if [[ ! -d ~/.oh-my-zsh ]]; then
+    if [[ ! -d $HOME/.oh-my-zsh ]]; then
         prompt_install "Install Oh-My-Zsh? ->" install_oh_my_zsh
         # NOTE: oh-my-zsh auto updates
+
+    fi
+
+    # Install chad theme, even if oh-my-zsh was already installed
+    if [[ -d ~/.oh-my-zsh/themes ]]; then
+        rm -f ~/.oh-my-zsh/themes/chad.zsh-theme
+        ln -sf $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/chad.zsh-theme || die "Error installing chad.zsh-theme"
     fi
 fi
 
@@ -263,6 +264,9 @@ if [[ $(uname) == Linux ]]; then
     rm -f ~/.config/xfce4/terminal/terminalrc
     ln -sf $dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
 fi
+
+### Optional stuff
+prompt_install "Is this a virtual machine? (n) ->" install_vm
 
 if hash git 2> /dev/null; then
     prompt_install "Install/Update Vim Plugins (n) ->" update_vim_plugins
