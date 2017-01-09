@@ -118,7 +118,7 @@ prompt_install() {
 
 install_vm() {
     # Disable keyboard swapping
-    echo > ~/.Xmodmap
+    rm -f ~/.Xmodmap
 }
 
 install_oh_my_zsh() {
