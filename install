@@ -57,26 +57,38 @@ clone() {
     fi
 }
 
-# Create symbolic link to dotfile
-# ${var##*/} === basename $var
-link() {
-    mkdir -p backup
-    dotfile="$1"
-    if [[ ! -f "$dotfiles/$dotfile" ]]; then
-        die "Could not find ${dotfile} in $dotfiles"
-    fi
-    if [[ -L ~/".${dotfile##*/}" ]]; then
+# backup file if exists by moving it out of the way
+backup_clear() {
+    if [[ -L $INSTALL_PATH ]]; then
         # Just remove existing symbolic link
         #info "Removing existing symbolic link"
-        rm ~/".${dotfile##*/}" || die "Could not remove existing ~/$dotfile"
+        rm "$INSTALL_PATH" || die "Could not remove $INSTALL_PATH"
     else
         # Backup only if the existing file is not a symbolic link
-        if [[ -f ~/".${dotfile##*/}" ]]; then
-            info "Backing up ~/.${dotfile##*/}"
-            mv ~/".${dotfile##*/}" backup || die "Could not backup existing ~/.${dotfile##*/}"
+        if [[ -f $INSTALL_PATH ]]; then
+            info "Backing up $INSTALL_PATH"
+            mv "$INSTALL_PATH" backup || die "Could not backup existing $INSTALL_PATH"
         fi
     fi
-    ln -s "$dotfiles/$dotfile" ~/".${dotfile##*/}" || die "Error linking ~/.${dotfile##*/}"
+}
+
+link() {
+    ln -s "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
+}
+
+linkdot() {
+    # Add the dot and remove everything before last slash (basename)
+    INSTALL_PATH="${2:-$HOME}/.${1##*/}"
+    SOURCE_PATH="$dotfiles/$1"
+    backup_clear
+    link
+}
+linkbin() {
+    # Remove everything before last slash
+    INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
+    SOURCE_PATH="$dotfiles/$1"
+    backup_clear
+    link
 }
 
 prompt_install() {
@@ -166,34 +178,35 @@ clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
 
 info "Installing settings files"
-link shell/fzf.bash
-link shell/fzf.zsh
-link shell/gshrc
-link shell/bashrc
-link shell/zshrc
-link shell/bash_profile
-link shell/bash_prompt
-link shell/profile
-link shell/completions
-link shell/inputrc
+linkdot shell/fzf.bash
+linkdot shell/fzf.zsh
+linkdot shell/gshrc
+linkdot shell/bashrc
+linkdot shell/zshrc
+linkdot shell/bash_profile
+linkdot shell/bash_prompt
+linkdot shell/profile
+linkdot shell/completions
+linkdot shell/inputrc
 
-link X11/xinitrc
-link X11/Xmodmap
-link X11/Xresources # xterm/rxvt color settings
+linkdot X11/xinitrc
+linkdot X11/Xmodmap
+linkdot X11/Xresources # xterm/rxvt color settings
 
-link git/gitconfig
-link git/gitignore
+linkdot git/gitconfig
+linkdot git/gitignore
 
-link hg/hgrc
+linkdot hg/hgrc
 
-link vim/gvimrc
-link vim/vimrc
+linkdot vim/gvimrc
+linkdot vim/vimrc
 
-link doc/docutils
+linkdot doc/docutils
 
-link ctags
-link tmux.conf
+linkdot ctags
+linkdot tmux.conf
 
+linkbin offline/tabsplice
 
 
 install_rst
