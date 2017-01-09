@@ -34,6 +34,7 @@ git=1
 
 [defaults]
 revert=--no-backup
+parents=-v --style=$HOME/.mercurial-cli-templates/map-cmdline.slog
 log=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
 glog=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
 
