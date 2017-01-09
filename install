@@ -22,7 +22,7 @@ die() {
 
 ############ INSTALL FUNCTIONS
 erun() {
-  echo "Running: ${@}"
+  info "Running: ${@}"
   ${@} || die "Error running ${@}"
 }
 
@@ -35,7 +35,7 @@ exists() {
 cache() {
     mkdir -p offline
     if [[ ! -f "offline/$(basename $1)" ]]; then
-        echo "Downloading $1..."
+        info "Downloading $1..."
         if exists curl; then
             (cd offline && curl -sSfLO "$1" || die "Error downloading $1")
         elif exists wget; then
@@ -62,7 +62,7 @@ hgclone() {
 clone() {
     mkdir -p offline
     if [[ ! -e "offline/$(basename $1)" ]]; then
-        echo "Cloning $1..."
+        info "Cloning $1..."
         if [[ $1 =~ github ]]; then
             gitclone "$1"
         elif [[ $1 =~ bitbucket ]]; then
@@ -103,7 +103,6 @@ linkbin() {
     # Remove everything before last slash
     INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
-    echo $INSTALL_PATH $SOURCE_PATH
     backup_clear
     link
 }
@@ -146,7 +145,7 @@ disable_etc_vimrc() {
 
 install_rst() {
     # This won't be handled above because .rst2pdf and .rst2html are folders
-    echo "Installing reStructuredText settings"
+    info "Installing reStructuredText settings"
     if [[ -h ~/.rst2pdf ]]; then
         rm -f ~/.rst2pdf
     else
@@ -245,11 +244,11 @@ if [[ $(uname) == Darwin ]]; then
         prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
     fi
 
-    echo "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
+    info "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
     mkdir -p ~/Library/KeyBindings
     cp $dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 
-    echo "Setup iterm settings"
+    info "Setup iterm settings"
     plutil -convert binary1 $dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
 
     # This will safe the iTerm preferences into an XML files
