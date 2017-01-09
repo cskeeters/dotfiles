@@ -184,7 +184,8 @@ cd "${0%/*}"
 dotfiles="$(pwd)" # Location of this dotfiles folder
 
 info "Downloading files not tracked in this repo"
-cache https://github.com/cskeeters/tabsplice/blob/master/tabsplice
+cache https://raw.githubusercontent.com/cskeeters/tabsplice/master/tabsplice
+chmod a+x offline/tabsplice
 
 clone http://bitbucket.org/sjl/mercurial-cli-templates/
 clone https://github.com/chriskempson/base16-shell
