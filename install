@@ -45,14 +45,30 @@ cache() {
         fi
     fi
 }
+gitclone() {
+    if exists git; then
+        (cd offline && git clone --quiet --depth 1 "$1" || die "Error downloading $1")
+    else
+        die "git not installed"
+    fi
+}
+hgclone() {
+    if exists hg; then
+        (cd offline && hg clone "$1" || die "Error downloading $1")
+    else
+        die "hg not installed"
+    fi
+}
 clone() {
     mkdir -p offline
     if [[ ! -e "offline/$(basename $1)" ]]; then
         echo "Cloning $1..."
-        if exists git; then
-            (cd offline && git clone --quiet "$1" || die "Error downloading $1")
+        if [[ $1 =~ github ]]; then
+            gitclone "$1"
+        elif [[ $1 =~ bitbucket ]]; then
+            hgclone "$1"
         else
-            die "curl and wget not installed"
+            die "Don't know how to clone $1"
         fi
     fi
 }
@@ -65,7 +81,7 @@ backup_clear() {
         rm "$INSTALL_PATH" || die "Could not remove $INSTALL_PATH"
     else
         # Backup only if the existing file is not a symbolic link
-        if [[ -f $INSTALL_PATH ]]; then
+        if [[ -e $INSTALL_PATH ]]; then
             info "Backing up $INSTALL_PATH"
             mv "$INSTALL_PATH" backup || die "Could not backup existing $INSTALL_PATH"
         fi
@@ -73,7 +89,7 @@ backup_clear() {
 }
 
 link() {
-    ln -s "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
+    ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
 
 linkdot() {
@@ -87,6 +103,7 @@ linkbin() {
     # Remove everything before last slash
     INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
+    echo $INSTALL_PATH $SOURCE_PATH
     backup_clear
     link
 }
@@ -174,6 +191,7 @@ dotfiles="$(pwd)" # Location of this dotfiles folder
 info "Downloading files not tracked in this repo"
 cache https://github.com/cskeeters/tabsplice/blob/master/tabsplice
 
+clone http://bitbucket.org/sjl/mercurial-cli-templates/
 clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
 
@@ -208,6 +226,7 @@ linkdot tmux.conf
 
 linkbin offline/tabsplice
 
+linkdot offline/mercurial-cli-templates "$HOME"
 
 install_rst
 

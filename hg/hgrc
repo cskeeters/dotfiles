@@ -34,13 +34,13 @@ git=1
 
 [defaults]
 revert=--no-backup
-log=--style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
-glog=--style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
+log=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
+glog=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
 
 [alias]
-slog = log --style=/Users/chad/mercurial-cli-templates/map-cmdline.slog
-nlog = log --style=/Users/chad/mercurial-cli-templates/map-cmdline.nlog
-sglog = glog --style=/Users/chad/mercurial-cli-templates/map-cmdline.sglog
+slog = log --style=$HOME/.mercurial-cli-templates/map-cmdline.slog
+nlog = log --style=$HOME/.mercurial-cli-templates/map-cmdline.nlog
+sglog = glog --style=$HOME/.mercurial-cli-templates/map-cmdline.sglog
 , = sglog -l15
 
 [pager]
