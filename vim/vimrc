@@ -350,7 +350,7 @@ noremap <C-p>p     :CtrlP .<cr>
 noremap <leader><leader>b :UniteBookmarkAdd<cr>
 
 noremap _ :Unite file<CR>
-noremap <C-j>v :Unite file:~/.vim/bundle<CR>
+noremap <C-j>v :Unite file:~/.vim/plugged<CR>
 if !has('nvim')
     noremap <C-j><C-j> :Unite file_rec/async<CR>
     noremap <C-j>f :Unite file_rec/async<CR>
@@ -369,7 +369,6 @@ let g:unite_source_menu_menus.projects.candidates = {
             \ 'bcst-doc':'~/working/bcst-doc',
             \ 'bcst':'~/Documents/nci/bcst',
             \ 'dotfiles':'~/dotfiles',
-            \ 'bundle':'~/.vim/bundle',
             \ 'rcmp':'~/Documents/nci/2014/mts/rcmp'
             \ }
 
@@ -443,22 +442,6 @@ endfunction
 vnoremap <silent><space><space>t :Unite -silent menu:tabularize<CR>
 
 
-""""""""""""""""""""""""""""""""" Keyboard Mappings: Remove
-
-
-"Buffer Helpers
-"nmap <C-j> :bn<CR>
-"nmap <C-k> :bp<CR>
-
-" Reformat selected text
-"vnoremap <localleader>f Jgqj
-
-" Shortcuts
-"cnoremap Gb ~/Documents/nci/bcst/
-"cnoremap Gn ~/Dropbox/notes/
-"cnoremap Gv ~/.vim/bundle
-
-
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Abbr
 
 iab <expr> dts strftime("%FT%T%z")
@@ -481,21 +464,6 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 endif
 
 
-
-""""""""""""""""""""""""""""""""" Plugins:
-" Update Plugins with:
-" sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | sed -e 's:.*/\(.*\):\1:' | xargs -I {} bash -c "cd ~/.vim/bundle/{}; git pull"
-"
-" Checkout repositories with:
-" ( cd ~/.vim/bundle; sed -ne 's/^" *PLUGIN: \([^ \"]*\)/\1/p' ~/.vimrc | xargs -I {} git clone {} )
-"
-" Generate helptags with:
-" sed -ne 's#^" *PLUGIN: [^ "]*/\([^ "]*\)#helptags ~/.vim/bundle/\1/doc#p' ~/.vimrc | vim -e -s -
-"
-" Download archives of plugins with:
-" cd ~/.vim/bundle
-" sed -nre 's/^" ?PLUGIN: ([^ \"]*)/\1/p' ~/.vimrc | xargs -I {} bash -c "wget -q {}/archive/master.zip; unzip master.zip; rm -f master.zip"
-" ls -1 | sed -re 's/(.*)-master/mv \1-master \1/' | bash
 
 """"""""""""""""""""""""""""""""" Plugins: Built-in Extension
 
@@ -641,7 +609,7 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 """"""""""""""""""""""""""""""""" Plugins: snippets
 
 Plug 'https://github.com/SirVer/ultisnips'
-let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
+"let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "let g:UltiSnipsExpandTrigger="<c-b>"
@@ -654,8 +622,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Plug 'https://github.com/garbas/vim-snipmate'
 
 " Personal snippets
-"URL: https://github.com/cskeeters/vim-snippets
-Plug '~/.vim/bundle/vim-snippets'
+Plug 'https://github.com/cskeeters/vim-snippets'
 
 
 """"""""""""""""""""""""""""""""" Plugins: DRCS git/hg
@@ -684,8 +651,7 @@ let g:online_thesaurus_map_keys = 0
 """"""""""""""""""""""""""""""""" Plugins: File-type specific
 
 "keyboard mappings and settings per file type
-"URL: https://github.com/cskeeters/vim-maps
-Plug '~/.vim/bundle/vim-maps'
+Plug 'https://github.com/cskeeters/vim-maps'
 
 Plug 'https://github.com/sheerun/vim-polyglot'
 
@@ -701,11 +667,9 @@ Plug 'https://github.com/plasticboy/vim-markdown'
 map <Plug> <Plug>Markdown_MoveToCurHeader
 let g:vim_markdown_folding_disabled = 1
 
-"URL: https://github.com/cskeeters/vim-markdown-maps
-Plug '~/.vim/bundle/vim-markdown-maps'
+Plug 'https://github.com/cskeeters/vim-markdown-maps'
 
-"TODO: Not available on github.
-Plug '~/.vim/bundle/vim-md-doc'
+Plug 'https://github.com/cskeeters/vim-md-doc'
 let g:md_doc = [
             \ ["/Users/chad/working/bcst-doc", "bcst-doc"],
             \ ["/Users/chad/Dropbox/notes", "notes"] ]
@@ -754,16 +718,6 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 "set runtimepath+=/usr/local/opt/fzf
 
 "Plug 'https://github.com/junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
-"set runtimepath+=$HOME/.vim/bundle/fzf.vim
-
-
-"This causes problems trying to remap keys when developing plugins
-"If airline/powerline is removed, run the following command to remove startup
-"errors:
-"    rm -f ~/.vim/view/*
-"PLUGIN: https://github.com/vim-scripts/restore_view.vim
-"Uses mkview to save cursor position and folds
-"set runtimepath+=$HOME/.vim/bundle/restore_view.vim
 
 
 call plug#end()
