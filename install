@@ -121,12 +121,6 @@ install_vm() {
     rm -f ~/.Xmodmap
 }
 
-install_oh_my_zsh() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-    echo
-}
-
 update_vim_plugins() {
     rm -f ~/.vim/autoload/plug.vim
     info "Downloading updated vim-plug"
@@ -191,6 +185,9 @@ chmod a+x offline/tabsplice
 cache https://raw.githubusercontent.com/junegunn/myvim/master/myvim
 chmod a+x offline/myvim
 
+
+clone https://github.com/robbyrussell/oh-my-zsh
+
 clone http://bitbucket.org/sjl/mercurial-cli-templates/
 clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
@@ -227,22 +224,16 @@ linkdot tmux.conf
 linkbin offline/tabsplice
 linkbin offline/myvim
 
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+linkdot offline/oh-my-zsh
 linkdot offline/mercurial-cli-templates "$HOME"
 
 install_rst
 
-if [[ $SHELL =~ .*zsh ]]; then
-    if [[ ! -d $HOME/.oh-my-zsh ]]; then
-        prompt_install "Install Oh-My-Zsh? ->" install_oh_my_zsh
-        # NOTE: oh-my-zsh auto updates
-
-    fi
-
-    # Install chad theme, even if oh-my-zsh was already installed
-    if [[ -d ~/.oh-my-zsh/themes ]]; then
-        rm -f ~/.oh-my-zsh/themes/chad.zsh-theme
-        ln -sf $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/chad.zsh-theme || die "Error installing chad.zsh-theme"
-    fi
+# Install chad theme, even if oh-my-zsh was already installed
+if [[ -d ~/.oh-my-zsh/themes ]]; then
+    rm -f ~/.oh-my-zsh/themes/chad.zsh-theme
+    ln -sf $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/chad.zsh-theme || die "Error installing chad.zsh-theme"
 fi
 
 
