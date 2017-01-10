@@ -316,7 +316,7 @@ nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
 nnoremap <c-j>t :Unite tag<CR>
 
-nnoremap <c-j>c :Unite quickfix<CR>
+nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
 nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
@@ -334,7 +334,7 @@ nnoremap <C-j>em :execute 'edit '.globpath(&runtimepath, "ftplugin/".&filetype."
 noremap <C-p>b     :CtrlPBuffer<cr>
 
 "cskeeters/closer.vim
-nmap <C-j>d <Plug>OpenCloser
+nmap <C-j>c <Plug>OpenCloser
 
 " Shougo/unite.vim
 noremap <C-j>b :Unite buffer<CR>
@@ -351,6 +351,7 @@ noremap <leader><leader>b :UniteBookmarkAdd<cr>
 
 noremap _ :Unite file<CR>
 noremap <C-j>v :Unite file:~/.vim/plugged<CR>
+noremap <C-j>m :Unite file_mru<CR>
 if !has('nvim')
     noremap <C-j><C-j> :Unite file_rec/async<CR>
     noremap <C-j>f :Unite file_rec/async<CR>
