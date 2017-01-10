@@ -82,7 +82,7 @@ set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when upper is present in search
 
 set number
-if version > 730
+if version > 703
     set relativenumber
 endif
 
