@@ -673,7 +673,7 @@ Plug 'https://github.com/cskeeters/vim-md-doc'
 let g:md_doc = [
             \ ["/Users/chad/working/bcst-doc", "bcst-doc"],
             \ ["/Users/chad/Dropbox/notes", "notes"] ]
-let g:md_doc_auto_commit = 1
+let g:md_doc_auto_commit = 0
 
 Plug 'https://github.com/itspriddle/vim-marked'
 " Use Marked (version 1)
