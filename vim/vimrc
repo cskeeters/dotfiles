@@ -367,9 +367,10 @@ let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
 let g:unite_source_menu_menus.projects = {'description' : 'Change Directory to favorties'}
 let g:unite_source_menu_menus.projects.candidates = {
             \ 'notes':'~/Dropbox/notes',
+            \ 'bcst-main':'~/Documents/nci/bcst',
             \ 'bcst-doc':'~/working/bcst-doc',
-            \ 'bcst':'~/Documents/nci/bcst',
             \ 'dotfiles':'~/dotfiles',
+            \ 'plugged':'~/.vim/plugged',
             \ 'rcmp':'~/Documents/nci/2014/mts/rcmp'
             \ }
 
