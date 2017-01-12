@@ -161,7 +161,7 @@ set mouse=a
 
 if executable('ag')
     " Make :grep use the silver searcher (ag)
-    set grepprg=ag\ --nogroup\ --nocolor\ --column\
+    set grepprg=ag\ --nogroup\ --nocolor\ --column\  "this comment prevents trailing space on this line
     "set grepprg=grep\ -n\
     set grepformat=%f:%l:%c:%m
 endif
