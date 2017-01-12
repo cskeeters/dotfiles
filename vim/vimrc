@@ -319,14 +319,13 @@ nnoremap <silent> <leader>o :TagbarToggle<CR>
 "beloglazov/vim-online-thesaurus
 nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 
-nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
-
 nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
 if !has("gui")
     "junegunn/fzf.vim
     nnoremap <c-j>t :Tag<CR>
+    nnoremap g] :Tags <C-r>=expand('<cword>')<CR><CR>
 
     nnoremap g/ :Ag <C-r>=expand('<cword>')<CR><CR>
     nnoremap <c-j>; :BLines<CR>
@@ -334,6 +333,7 @@ if !has("gui")
 else
     " Shougo/unite.vim
     nnoremap <c-j>t :Unite tag<CR>
+    nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
 
     nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
     nnoremap <c-j>; :Unite line<CR>
