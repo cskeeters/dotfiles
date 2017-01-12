@@ -210,9 +210,9 @@ imap <S-Insert> <MiddleMouse>
 
 if !has('nvim')
     " Shougo/unite.vim
-    nnoremap <space>y :Unite history/yank<cr>
+    nnoremap <space>p :Unite history/yank<cr>
 else
-    nnoremap <space>y :Denite neoyank<cr>
+    nnoremap <space>p :Denite neoyank<cr>
 endif
 
 nnoremap ]f :next<cr>
