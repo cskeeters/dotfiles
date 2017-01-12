@@ -562,6 +562,7 @@ Plug 'https://github.com/godlygeek/tabular'
 
 """"""""""""""""""""""""""""""""" Plugins: File Searcher
 
+Plug 'https://github.com/cskeeters/unite-fzf'
 Plug 'https://github.com/Shougo/neomru.vim'
 Plug 'https://github.com/Shougo/neoyank.vim'
 Plug 'https://github.com/tsukkee/unite-tag'
@@ -734,7 +735,11 @@ if has('nvim')
     call denite#custom#source('file_rec', 'matchers', ['matcher_ignore_globs'])
 endif
 call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
-call unite#filters#matcher_default#use(['matcher_glob'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#matcher_default#use(['matcher_glob'])
+call unite#filters#matcher_default#use(['matcher_fzf'])
+
+"call unite#filters#sorter_default#use(['sorter_rank'])
 
 if has('nvim')
     if $TERM_PROGRAM == "iTerm.app"
