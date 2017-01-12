@@ -207,7 +207,13 @@ nnoremap <C-s> :update<CR>
 inoremap <C-s> <esc>:update<CR>
 
 imap <S-Insert> <MiddleMouse>
-nnoremap <space>y :Unite history/yank<cr>
+
+if !has('nvim')
+    " Shougo/unite.vim
+    nnoremap <space>y :Unite history/yank<cr>
+else
+    nnoremap <space>y :Denite neoyank<cr>
+endif
 
 nnoremap ]f :next<cr>
 nnoremap [f :prev<cr>
@@ -314,13 +320,24 @@ nnoremap <silent> <leader>o :TagbarToggle<CR>
 nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 
 nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
-nnoremap <c-j>t :Unite tag<CR>
 
 nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
-nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
-nnoremap <c-j>; :Unite line<CR>
+if !has("gui")
+    "junegunn/fzf.vim
+    nnoremap <c-j>t :Tag<CR>
+
+    nnoremap g/ :Ag <C-r>=expand('<cword>')<CR><CR>
+    nnoremap <c-j>; :BLines<CR>
+    nnoremap <c-j>: :Lines<CR>
+else
+    " Shougo/unite.vim
+    nnoremap <c-j>t :Unite tag<CR>
+
+    nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
+    nnoremap <c-j>; :Unite line<CR>
+endif
 
 " Edit the snippets for the filetype of the current buffer
 " cskeeters/vim-snippets
@@ -336,8 +353,13 @@ noremap <C-p>b     :CtrlPBuffer<cr>
 "cskeeters/closer.vim
 nmap <C-j>c <Plug>OpenCloser
 
-" Shougo/unite.vim
-noremap <C-j>b :Unite buffer<CR>
+if !has("gui")
+    "junegunn/fzf.vim
+    noremap <C-j>b :Buffers<CR>
+else
+    " Shougo/unite.vim
+    noremap <C-j>b :Unite buffer<CR>
+endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
 
@@ -348,20 +370,31 @@ noremap <C-p>p     :CtrlP .<cr>
 " Shougo/unite.vim
 " Bookmarks
 noremap <leader><leader>b :UniteBookmarkAdd<cr>
+noremap <C-j>k :Unite bookmark<CR>
 
-noremap _ :Unite file<CR>
-noremap <C-j>v :Unite file:~/.vim/plugged<CR>
-noremap <C-j>m :Unite file_mru<CR>
-if !has('nvim')
+if !has("gui")
+    "junegunn/fzf.vim
+    noremap _ :Files<CR>
+    noremap <C-j>h :History<CR>
+    noremap <C-j>m :Marks<CR>
+    noremap <C-j>v :Files file:~/.vim/plugged<CR>
+
+    noremap <C-j><C-j> :Files<CR>
+    noremap <C-j>f :Files<CR>
+    "noremap <C-j><C-j> :Denite file_rec<CR>
+    "noremap <C-j>f :Denite file_rec<CR>
+
+    noremap <C-j>g :Ag<space>
+else
+    noremap _ :Unite file_rec/async<CR>
+    noremap <C-j>h :Unite file_mru<CR>
+    noremap <C-j>v :Unite file:~/.vim/plugged<CR>
+
     noremap <C-j><C-j> :Unite file_rec/async<CR>
     noremap <C-j>f :Unite file_rec/async<CR>
-else
-    noremap <C-j><C-j> :Denite file_rec<CR>
-    noremap <C-j>f :Denite file_rec<CR>
-endif
-noremap <C-j>k :Unite bookmark<CR>
-noremap <C-j>g :Unite grep:.<CR>
 
+    noremap <C-j>g :Unite grep:.<CR>
+endif
 
 let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
 let g:unite_source_menu_menus.projects = {'description' : 'Change Directory to favorties'}
@@ -716,11 +749,15 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 " FZF requires a terminal emulator.  For this to work in MacVim, XQuartz must
 " be installed so xterm can be run
+if !has("gui")
+    " This defines :FZF
+    "If installed with brew, we don't need this
+    "Plug 'https://github.com/junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug '/usr/local/opt/fzf'
 
-" Must install fzf via brew.  This defines :FZF
-"set runtimepath+=/usr/local/opt/fzf
-
-"Plug 'https://github.com/junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
+    " Adds useful commands for fzf
+    Plug 'https://github.com/junegunn/fzf.vim'
+endif
 
 
 call plug#end()
@@ -740,6 +777,8 @@ call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>'
 call unite#filters#matcher_default#use(['matcher_fzf'])
 
 "call unite#filters#sorter_default#use(['sorter_rank'])
+
+let g:fzf_layout = { 'down': '~100%' }
 
 if has('nvim')
     if $TERM_PROGRAM == "iTerm.app"
