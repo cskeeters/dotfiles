@@ -61,6 +61,9 @@ if [[ -f ~/.fzf.zsh ]]; then
     source ~/.fzf.zsh
     if hash ag 2> /dev/null; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
+        _fzf_compgen_path() {
+            ag -g "" "$1"
+        }
     fi
 fi
 
@@ -94,3 +97,6 @@ alias -g .....='../../../..'
 # Syntax Highlighting - Must be last
 # brew install zsh-syntax-highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
