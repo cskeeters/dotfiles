@@ -202,7 +202,7 @@ dotfiles="$(pwd)" # Location of this dotfiles folder
 
 DOWNLOAD_ONLY=0
 UPDATE=0
-while getopts ":r:o" opt; do
+while getopts "ro" opt; do
   case $opt in
     r)
       rm -rf offline
@@ -232,6 +232,7 @@ clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
 
 if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
+    echo "Finished Downloading.  Exiting"
     exit 0
 fi
 
