@@ -86,13 +86,15 @@ clone() {
             die "Don't know how to clone $1"
         fi
     else
-        info "Updating $1..."
-        if [[ $1 =~ github ]]; then
-            gitupdate $(basename "$1")
-        elif [[ $1 =~ bitbucket ]]; then
-            hgupdate $(basename "$1")
-        else
-            die "Don't know how to update $1"
+        if [[ $UPDATE -eq 1 ]]; then
+            info "Updating $1..."
+            if [[ $1 =~ github ]]; then
+                gitupdate $(basename "$1")
+            elif [[ $1 =~ bitbucket ]]; then
+                hgupdate $(basename "$1")
+            else
+                die "Don't know how to update $1"
+            fi
         fi
     fi
 }
@@ -202,13 +204,16 @@ dotfiles="$(pwd)" # Location of this dotfiles folder
 
 DOWNLOAD_ONLY=0
 UPDATE=0
-while getopts "ro" opt; do
+while getopts "rou" opt; do
   case $opt in
     r)
       rm -rf offline
       ;;
     o)
       DOWNLOAD_ONLY=1
+      ;;
+    u)
+      UPDATE=1
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
