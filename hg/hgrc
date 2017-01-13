@@ -17,7 +17,6 @@ tabsplice.args = $base $local $other $output
 
 [extensions]
 hgext.mq=
-#hgk=
 graphlog=
 color=
 pager=
@@ -46,3 +45,10 @@ sglog = glog --style=$HOME/.mercurial-cli-templates/map-cmdline.sglog
 
 [pager]
 pager = LESS='FRX' less
+
+[format]
+# as of 1.9
+generaldelta = false
+usegeneraldelta = false
+# as of 1.7
+dotencode= false
