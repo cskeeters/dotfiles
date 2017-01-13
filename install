@@ -53,9 +53,23 @@ gitclone() {
         die "git not installed"
     fi
 }
+gitupdate() {
+    if exists git; then
+        (cd offline/"$1" && git pull || die "Error updating $1")
+    else
+        die "hg not installed"
+    fi
+}
 hgclone() {
     if exists hg; then
         (cd offline && hg clone "$1" || die "Error downloading $1")
+    else
+        die "hg not installed"
+    fi
+}
+hgupdate() {
+    if exists hg; then
+        (cd offline/"$1" && hg pull -u || die "Error updating $1")
     else
         die "hg not installed"
     fi
@@ -70,6 +84,15 @@ clone() {
             hgclone "$1"
         else
             die "Don't know how to clone $1"
+        fi
+    else
+        info "Updating $1..."
+        if [[ $1 =~ github ]]; then
+            gitupdate $(basename "$1")
+        elif [[ $1 =~ bitbucket ]]; then
+            hgupdate $(basename "$1")
+        else
+            die "Don't know how to update $1"
         fi
     fi
 }
@@ -177,6 +200,22 @@ install_powerline() {
 cd "${0%/*}"
 dotfiles="$(pwd)" # Location of this dotfiles folder
 
+DOWNLOAD_ONLY=0
+UPDATE=0
+while getopts ":r:o" opt; do
+  case $opt in
+    r)
+      rm -rf offline
+      ;;
+    o)
+      DOWNLOAD_ONLY=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+
 info "Downloading files not tracked in this repo"
 
 cache https://raw.githubusercontent.com/cskeeters/tabsplice/master/tabsplice
@@ -191,6 +230,10 @@ clone https://github.com/robbyrussell/oh-my-zsh
 clone http://bitbucket.org/sjl/mercurial-cli-templates/
 clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
+
+if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
+    exit 0
+fi
 
 info "Installing settings files"
 linkdot shell/fzf.bash
