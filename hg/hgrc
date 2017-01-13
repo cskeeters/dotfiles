@@ -17,7 +17,7 @@ tabsplice.args = $base $local $other $output
 
 [extensions]
 hgext.mq=
-hgk=
+#hgk=
 graphlog=
 color=
 pager=
