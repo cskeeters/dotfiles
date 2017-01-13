@@ -1,13 +1,6 @@
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.gshrc ]] && source ~/.gshrc
 
-if [[ -f ~/.fzf.bash && -d /usr/local/opt/fzf ]]; then
-    source ~/.fzf.bash
-    if hash ag 2> /dev/null; then
-        export FZF_DEFAULT_COMMAND='ag -g ""'
-    fi
-fi
-
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -25,6 +18,16 @@ fi
 if hash _cd 2>/dev/null; then
     # Enable fuzzy style completions
     [[ -f ~/.completions ]] && source ~/.completions
+fi
+
+if [[ -f ~/.fzf.bash && -d /usr/local/opt/fzf ]]; then
+    source ~/.fzf.bash
+    if hash ag 2> /dev/null; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+        _fzf_compgen_path() {
+            ag -g "" "$1"
+        }
+    fi
 fi
 
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
