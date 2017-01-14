@@ -347,7 +347,7 @@ endif
 nnoremap <C-j>es :OpenSnips<cr>
 
 " Edit the maps file for the filetype of the current buffer
-nnoremap <C-j>em :execute 'edit '.globpath(&runtimepath, "ftplugin/".&filetype.".vim", v:true, v:true)[0]<cr>
+nnoremap <C-j>em :execute 'edit '.globpath(&runtimepath, "ftplugin/".&filetype.".vim", 1, 1)[0]<cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
