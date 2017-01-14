@@ -48,3 +48,10 @@
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+
+! XTerm xettings
+XTerm*SaveLines: 9000
+XTerm*utf8: 1
+XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-*
+xterm*faceName: DejaVu Sans Mono:style=Book:size=13:antialias=false
+XTerm*ScrollBar: false
