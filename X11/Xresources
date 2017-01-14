@@ -58,3 +58,5 @@ XTerm*faceName: DejaVu Sans Mono for Powerline:style=Book:size=12:antialias=true
 XTerm*ScrollBar: false
 XTerm*locale: true
 XTerm*termName: xterm-256color
+XTerm*loginShell: true
+XTerm*vt100*geometry: 120x50
