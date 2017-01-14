@@ -53,5 +53,8 @@
 XTerm*SaveLines: 9000
 XTerm*utf8: 1
 XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-*
-xterm*faceName: DejaVu Sans Mono:style=Book:size=13:antialias=false
+! XTerm*faceName: DejaVu Sans Mono:style=Book:size=13:antialias=true
+XTerm*faceName: DejaVu Sans Mono for Powerline:style=Book:size=12:antialias=true
 XTerm*ScrollBar: false
+XTerm*locale: true
+XTerm*termName: xterm-256color
