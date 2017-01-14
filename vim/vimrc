@@ -117,9 +117,12 @@ set statusline+=%=%-14.(%l,%c%)\ %p%%     " Right aligned file nav info
 set list
 set listchars=tab:>\ ,trail:.,extends:#,nbsp:.
 if has('multi_byte')
-    set listchars=trail:·,precedes:«,extends:»,tab:▸·
-    set listchars+=nbsp:·
-    "set listchars+=eol:↲
+    if $TERM != "konsole"
+        " For some reason UTF characters are not showing in vim
+        set listchars=trail:·,precedes:«,extends:»,tab:▸·
+        set listchars+=nbsp:·
+        "set listchars+=eol:↲
+    endif
 endif
 
 " show the ruler (only if statusline isn't shown - laststatus=0 or 1
