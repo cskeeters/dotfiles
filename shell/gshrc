@@ -91,9 +91,9 @@ if ismac; then
 fi
 
 # Aliases
-alias l='ls -lhG'
-alias la='ls -lAhG'
-alias ll='ls -lAhG'
+alias l='ls -lh'
+alias la='ls -lAh'
+alias ll='ls -lAh'
 alias vi='vim'
 if exists mvim; then
     alias gvim='mvim'
