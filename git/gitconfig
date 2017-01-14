@@ -13,8 +13,6 @@
   ds = diff --staged
   gl = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   gll = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --max-count=20
-[push]
-  default = simple
 [merge]
   tool = tabsplice
 [mergetool "tabsplice"]
