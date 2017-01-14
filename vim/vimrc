@@ -290,7 +290,7 @@ nnoremap \\2 :set sw=2 ts=2<cr>
 nnoremap \\3 :set sw=3 ts=3<cr>
 nnoremap \\4 :set sw=4 ts=4<cr>
 nnoremap \\8 :set sw=8 ts=8<cr>
-nnoremap \\t :setlocal expandtab!<cr>
+nnoremap \\t :set expandtab!<cr>
 ":retab to convert
 
 nnoremap \s :set spell!<cr>        " Toggles Spelling
