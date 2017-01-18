@@ -1,3 +1,4 @@
+[[ -f /etc/profile ]] && source /etc/profile
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.gshrc ]] && source ~/.gshrc
 
