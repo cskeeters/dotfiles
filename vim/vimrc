@@ -724,8 +724,11 @@ Plug 'https://github.com/alvan/vim-closetag'
 
 """"""""""""""""""""""""""""""""" Plugins: Java
 Plug 'https://github.com/cskeeters/javadoc.vim', { 'for': 'java' }
-let g:javadoc_path="/Users/chad/java8_doc/api"
-"let g:javadoc_path="/usr/AMS2/net/doc/javadoc-1.6.0/api"
+if isdirectory('/usr/AMS2')
+    let g:javadoc_path="/usr/AMS2/net/doc/javadoc-1.6.0/api:/usr/local/Solipsys/TDF4.7.13/doc/api"
+else
+    let g:javadoc_path="/Users/chad/java8_doc/api"
+endif
 
 
 Plug 'https://github.com/cskeeters/jcall.vim', { 'for': 'java' }

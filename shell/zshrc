@@ -57,8 +57,8 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.gshrc
 
-if [[ -f ~/.fzf.zsh ]]; then
-    source ~/.fzf.zsh
+if [[ -f ~/.fzf.sh ]]; then
+    source ~/.fzf.sh
     if hash ag 2> /dev/null; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
         _fzf_compgen_path() {
