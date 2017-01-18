@@ -242,8 +242,7 @@ if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
 fi
 
 info "Installing settings files"
-linkdot shell/fzf.bash
-linkdot shell/fzf.zsh
+linkdot shell/fzf.sh
 linkdot shell/gshrc
 linkdot shell/bashrc
 linkdot shell/zshrc

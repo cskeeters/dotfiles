@@ -20,8 +20,8 @@ if hash _cd 2>/dev/null; then
     [[ -f ~/.completions ]] && source ~/.completions
 fi
 
-if [[ -f ~/.fzf.bash && -d /usr/local/opt/fzf ]]; then
-    source ~/.fzf.bash
+if [[ -f ~/.fzf.sh ]]; then
+    source ~/.fzf.sh
     if hash ag 2> /dev/null; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
         _fzf_compgen_path() {
