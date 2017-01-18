@@ -45,3 +45,6 @@ sglog = glog --style=$HOME/.mercurial-cli-templates/map-cmdline.sglog
 
 [pager]
 pager = LESS='FRX' less
+
+[trusted]
+groups = users, wheel, root
