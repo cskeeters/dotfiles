@@ -8,6 +8,10 @@ shell=$(basename $SHELL)
 # Disable fzf-tmux
 hash tmux 2>/dev/null || export FZF_TMUX=0
 
+if [[ $TERM =~ konsole.* ]]; then
+    export FZF_DEFAULT_OPTS='--color fg+:5,hl+:6'
+fi
+
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == *$FZF_HOME/bin* ]]; then
