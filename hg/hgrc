@@ -48,3 +48,11 @@ pager = LESS='FRX' less
 
 [trusted]
 groups = users, wheel, root
+
+[color]
+status.modified = blue
+status.added = green
+status.removed = red
+status.deleted = cyan
+status.unknown = magenta
+status.ignored = yellow
