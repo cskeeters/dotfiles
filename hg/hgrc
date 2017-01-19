@@ -56,3 +56,12 @@ status.removed = red
 status.deleted = cyan
 status.unknown = magenta
 status.ignored = yellow
+
+diff.extended = cyan
+diff.file_a = red
+diff.file_b = green
+diff.trailingwhitespace = red_background
+
+qseries.applied = blue underline
+qseries.unapplied = yellow
+qseries.missing = red
