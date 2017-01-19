@@ -251,6 +251,7 @@ linkdot shell/bash_prompt
 linkdot shell/profile
 linkdot shell/completions
 linkdot shell/inputrc
+linkdot shell/dir_colors
 
 linkdot X11/xinitrc
 linkdot X11/Xmodmap
