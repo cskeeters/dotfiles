@@ -306,6 +306,9 @@ nnoremap \r :RainbowParentheses!!<cr>
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
 
+" When text doesn't highlight
+nnoremap \\5 :syntax sync minlines=500<cr>
+nnoremap \\x :syntax sync fromstart<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Directory
 
@@ -793,6 +796,3 @@ if has('nvim')
     endif
 endif
 colorscheme base16-default-dark
-
-"syntax sync minlines=500
-syntax sync fromstart
