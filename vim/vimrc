@@ -315,6 +315,9 @@ nnoremap \\x :syntax sync fromstart<cr>
 " Change Working Directory to that of the current file
 nnoremap <c-j>. :lcd %:p:h<cr>
 nnoremap <c-j>u :cd ..<cr>
+nnoremap <c-j>1 :cd ..<cr>
+nnoremap <c-j>2 :cd ../..<cr>
+nnoremap <c-j>3 :cd ../../..<cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Jumping
