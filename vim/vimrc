@@ -362,11 +362,6 @@ nnoremap <leader>mx :call GetMark('x')<cr>
 nnoremap <leader>mc :call GetMark('c')<cr>
 nnoremap <leader>mv :call GetMark('v')<cr>
 
-nnoremap <space>z :put z<cr>
-nnoremap <space>x :put x<cr>
-nnoremap <space>c :put c<cr>
-nnoremap <space>v :put v<cr>
-
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
 noremap <C-p>b     :CtrlPBuffer<cr>
 
@@ -470,6 +465,15 @@ nnoremap <localleader>. z=1<cr><cr>
 
 " Remove trailing whitespace in current buffer
 nnoremap <localleader><localleader>w :%s/\s\+$//<cr>
+
+" Paste buffer as a sparate line
+nnoremap <localleader>' :put "<cr>:normal ddkP<cr>
+
+" cskeeters/vim-jump
+nnoremap <localleader>z :put z<cr>
+nnoremap <localleader>x :put x<cr>
+nnoremap <localleader>c :put c<cr>
+nnoremap <localleader>v :put v<cr>
 
 " scrooloose/nerdcommenter
 map <localleader>c <plug>NERDCommenterComment
