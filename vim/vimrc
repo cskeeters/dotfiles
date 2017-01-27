@@ -331,7 +331,7 @@ nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
-if !has("gui")
+if !has("gui_running")
     "junegunn/fzf.vim
     nnoremap <c-j>t :Tag<CR>
     nnoremap g] :Tags <C-r>=expand('<cword>')<CR><CR>
@@ -368,7 +368,7 @@ noremap <C-p>b     :CtrlPBuffer<cr>
 "cskeeters/closer.vim
 nmap <C-j>c <Plug>OpenCloser
 
-if !has("gui")
+if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>b :Buffers<CR>
 else
@@ -387,7 +387,7 @@ noremap <C-p>p     :CtrlP .<cr>
 noremap <leader><leader>b :UniteBookmarkAdd<cr>
 noremap <C-j>k :Unite bookmark<CR>
 
-if !has("gui")
+if !has("gui_running")
     "junegunn/fzf.vim
     noremap _ :Files<CR>
     noremap <C-j>h :History<CR>
@@ -778,7 +778,7 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 " FZF requires a terminal emulator.  For this to work in MacVim, XQuartz must
 " be installed so xterm can be run
-if !has("gui")
+if !has("gui_running")
     " This defines :FZF
     "If installed with brew, we don't need this
     "Plug '/usr/local/opt/fzf'
