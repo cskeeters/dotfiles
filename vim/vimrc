@@ -213,9 +213,9 @@ imap <S-Insert> <MiddleMouse>
 
 if !has('nvim')
     " Shougo/unite.vim
-    nnoremap <space>p :Unite history/yank<cr>
+    nnoremap <localleader>p :Unite history/yank<cr>
 else
-    nnoremap <space>p :Denite neoyank<cr>
+    nnoremap <localleader>p :Denite neoyank<cr>
 endif
 
 nnoremap ]f :next<cr>
