@@ -218,6 +218,14 @@ else
     nnoremap <localleader>p :Denite neoyank<cr>
 endif
 
+"junegunn/fzf.vim
+if !has("gui_running")
+    imap <c-x><c-k> <plug>(fzf-complete-word)
+    imap <c-x><c-f> <plug>(fzf-complete-path)
+    imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+    imap <c-x><c-l> <plug>(fzf-complete-line)
+endif
+
 nnoremap ]f :next<cr>
 nnoremap [f :prev<cr>
 
@@ -270,6 +278,8 @@ nnoremap [w :wincmd h<cr>
 " crc to camelCase
 " cru to UPPER_CASE
 
+"junegunn/fzf.vim
+nmap <leader><tab> <plug>(fzf-maps-n)
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Visual
 " Delete to black hole
