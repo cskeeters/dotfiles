@@ -12,7 +12,8 @@ function parse_hg_branch() {
 
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
-        printf $prompt_color $dirty_color " ☿ "
+        #printf $prompt_color $dirty_color " ☿ "
+        printf $prompt_color $dirty_color " + "
     fi
 }
 
@@ -50,7 +51,8 @@ function parse_git_branch() {
 
         printf $prompt_color 35 "${BRANCH}"
         printf $prompt_color 31 "${STAT}"
-        printf $prompt_color $dirty_color " ± "
+        #printf $prompt_color $dirty_color " ± "
+        printf $prompt_color $dirty_color " + "
     fi
 }
 

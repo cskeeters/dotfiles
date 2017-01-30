@@ -7,7 +7,7 @@ merge=tabsplice
 
 [merge-tools]
 tabsplice.executable = tabsplice
-tabsplice.premerge = keep
+#tabsplice.premerge = keep
 tabsplice.args = $base $local $other $output
 
 # RHEL7 hg ships with 2.6.2 and doesn't support keep-premerge3
