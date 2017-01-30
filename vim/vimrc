@@ -305,8 +305,8 @@ nnoremap \\t :set expandtab!<cr>
 
 nnoremap \s :set spell!<cr>        " Toggles Spelling
 
-nnoremap \w :set wrap nolist<cr>   " Go into wrap mode
-nnoremap \W :set nowrap list<cr>  " Exit wrap mode
+nnoremap \w :set wrap<cr>    " Go into wrap mode
+nnoremap \W :set nowrap<cr>  " Exit wrap mode
 
 nnoremap \\v :source $MYVIMRC<cr>
 
