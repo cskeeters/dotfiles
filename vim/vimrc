@@ -115,7 +115,7 @@ set statusline+=%=%-14.(%l,%c%)\ %p%%     " Right aligned file nav info
 
 " Highlight problematic whitespace
 set list
-set listchars=tab:>\ ,trail:.,extends:#,nbsp:.
+set listchars=tab:>\ ,trail:+,extends:#,nbsp:.
 if has('multi_byte')
     if $TERM != "konsole"
         " For some reason UTF characters are not showing in vim
