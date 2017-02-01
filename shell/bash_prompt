@@ -4,12 +4,12 @@ prompt_color="\001\e[%sm\002%s\001\e[0m\002"
 
 function parse_hg_branch() {
     BRANCH=$(hg branch 2> /dev/null)
-    REV=$(hg identify -n 2> /dev/null)
-    if [[ $REV =~ ([[:digit:]]+)\+ ]]; then
-        REV=${BASH_REMATCH[1]}
-    fi
-    BREV=$(hg identify -nr $(hg identify -b))
     if [[ $BRANCH != "" ]]; then
+        REV=$(hg identify -n 2> /dev/null)
+        if [[ $REV =~ ([[:digit:]]+)\+ ]]; then
+            REV=${BASH_REMATCH[1]}
+        fi
+        BREV=$(hg identify -nr $(hg identify -b))
         STAT=$(parse_hg_dirty)
 
         dirty_color=34
