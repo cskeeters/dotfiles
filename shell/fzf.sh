@@ -3,6 +3,8 @@ for dir in /usr/share /usr/local/opt; do
     [[ -d $dir/fzf ]] && FZF_HOME="$dir/fzf"
 done
 
+shell=${shell:-$(basename $SHELL)}
+
 # Disable fzf-tmux
 hash tmux 2>/dev/null || export FZF_TMUX=0
 
