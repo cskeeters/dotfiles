@@ -95,6 +95,11 @@ alias l='ls -lh'
 alias la='ls -lAh'
 alias ll='ls -lAh'
 alias vi='vim'
+if [[ ! $HOSTNAME =~ server && -f ~/bin/vim.chad ]]; then
+    alias vi='vim.chad'
+    alias vim='vim.chad'
+fi
+
 if exists mvim; then
     alias gvim='mvim'
 fi
