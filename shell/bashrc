@@ -32,3 +32,6 @@ if [[ -f ~/.fzf.sh ]]; then
 fi
 
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
+
+# In konsole, this will prevent ^C from being printed
+stty -echoctl
