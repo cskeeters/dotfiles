@@ -491,6 +491,7 @@ nnoremap <localleader>v :put v<cr>
 
 " cskeeters/vim-simple-comment
 nmap <localleader>c <Plug>ToggleComment
+nmap <localleader>C <Plug>CommentOperator
 vmap <localleader>c <Plug>ToggleAllComment
 vmap <localleader><localleader>c <Plug>MultiLineComment
 
