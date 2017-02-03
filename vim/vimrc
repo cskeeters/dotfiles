@@ -490,7 +490,7 @@ nnoremap <localleader>v :put v<cr>
 "let g:NERDCreateDefaultMappings=0
 
 " cskeeters/vim-simple-comment
-nmap <localleader>c :ToggleComment<cr>
+nmap <localleader>c <Plug>ToggleComment
 vmap <localleader>c <Plug>ToggleAllComment
 vmap <localleader><localleader>c <Plug>MultiLineComment
 
