@@ -1,3 +1,4 @@
+#!/bin/bash
 # Generic bash/zsh Initialization
 
 umask 002
@@ -22,8 +23,9 @@ export CDPATH=.:~:~/working
 ismac   && CDPATH=$CDPATH:~/Documents/nci:/usr/local:/usr/local/Cellar:/Volumes
 islinux && CDPATH=$CDPATH:/media:/var/run/media/$USER:/usr/AMS2/net:/usr/AMS2/net/cm:/usr/AMS2/net/cm/rpms:/usr/AMS2/net/doc
 
-# Homebrew path first
-export PATH=/usr/local/bin:$PATH
+# Homebrew paths first
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
