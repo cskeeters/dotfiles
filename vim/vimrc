@@ -648,6 +648,11 @@ if !has("gui_running")
 
     " Adds useful commands for fzf
     Plug 'https://github.com/junegunn/fzf.vim'
+
+    let g:fzf_layout = {'up': '~100%'}
+    let g:fzf_files_options = '--reverse --preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+    let g:fzf_buffers_jump = 1
+    let g:fzf_tags_command = 'ctags -R'
 else
     Plug 'https://github.com/Shougo/neomru.vim'
     Plug 'https://github.com/tsukkee/unite-tag'
@@ -826,8 +831,6 @@ call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>'
 call unite#filters#matcher_default#use(['matcher_fzf'])
 
 "call unite#filters#sorter_default#use(['sorter_rank'])
-
-let g:fzf_layout = { 'down': '~100%' }
 
 if has('nvim')
     if $TERM_PROGRAM == "iTerm.app"
