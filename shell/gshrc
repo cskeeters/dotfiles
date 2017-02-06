@@ -1,3 +1,4 @@
+#!/bin/bash
 # Generic bash/zsh Initialization
 
 umask 002
