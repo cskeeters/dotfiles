@@ -381,9 +381,11 @@ nmap <C-j>c <Plug>OpenCloser
 if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>b :Buffers<CR>
+    noremap _      :Buffers<CR>
 else
     " Shougo/unite.vim
     noremap <C-j>b :Unite buffer<CR>
+    noremap _      :Unite buffer<CR>
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
@@ -399,7 +401,6 @@ noremap <C-j>k :Unite bookmark<CR>
 
 if !has("gui_running")
     "junegunn/fzf.vim
-    noremap _ :Files<CR>
     noremap <C-j>h :History<CR>
     noremap <C-j>m :Marks<CR>
     noremap <C-j>v :Files file:~/.vim/plugged<CR>
@@ -411,7 +412,6 @@ if !has("gui_running")
 
     noremap <C-j>g :Ag<space>
 else
-    noremap _ :Unite file_rec/async<CR>
     noremap <C-j>h :Unite file_mru<CR>
     noremap <C-j>v :Unite file:~/.vim/plugged<CR>
 
