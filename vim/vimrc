@@ -554,7 +554,7 @@ Plug 'https://github.com/michaeljsmith/vim-indent-object'
 
 Plug 'https://github.com/vim-scripts/visualrepeat'
 Plug 'https://github.com/cskeeters/vim-smooth-scroll'
-"let g:scroll_follow = 1
+"let g:ms_per_line = 20
 Plug 'https://github.com/tpope/vim-repeat'
 
 if !has('nvim')
