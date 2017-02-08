@@ -775,7 +775,8 @@ Plug 'https://github.com/cskeeters/sr.vim'
 "setf rest
 
 """"""""""""""""""""""""""""""""" Plugins: Markdown
-Plug 'https://github.com/plasticboy/vim-markdown'
+" from plasticboy/vim-markdown without netrw#BrowseX
+Plug 'https://github.com/cskeeters/vim-markdown'
 " Disable ]c to move to header since it disrupts ]c - next difference
 map <Plug> <Plug>Markdown_MoveToCurHeader
 let g:vim_markdown_folding_disabled = 1
