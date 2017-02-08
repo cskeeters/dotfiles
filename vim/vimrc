@@ -313,6 +313,12 @@ nnoremap \\v :source $MYVIMRC<cr>
 " junegunn/rainbow_parentheses.vim
 nnoremap \r :RainbowParentheses!!<cr>
 
+" tpope/vim-commentary
+" For changing comment characters in html/script/style
+nnoremap \c/  :set commentstring=//%s<cr>
+nnoremap \c*  :set commentstring=/*%s*/<cr>
+nnoremap \c-  :set commentstring=<!--%s--><cr>
+
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
 
@@ -491,11 +497,18 @@ nnoremap <localleader>v :put v<cr>
 "let g:NERDCreateDefaultMappings=0
 
 " cskeeters/vim-simple-comment
-nmap <localleader>c <Plug>ToggleComment
-nmap <localleader>C <Plug>CommentOperator
-vmap <localleader>c <Plug>ToggleAllComment
+"nmap <localleader>cc <Plug>ToggleComment
+"nmap <localleader>c <Plug>CommentOperator
+"vmap <localleader>c <Plug>ToggleAllComment
 vmap <localleader><localleader>c <Plug>MultiLineComment
 
+" tpope/vim-commentary
+xmap <localleader>c  <Plug>Commentary
+nmap <localleader>c  <Plug>Commentary
+omap <localleader>c  <Plug>Commentary
+nmap <localleader>cc <Plug>CommentaryLine
+nmap c<localleader>c <Plug>ChangeCommentary
+nmap <localleader>cu <Plug>Commentary<Plug>Commentary
 
 " mbbill/undotree
 nnoremap <localleader><localleader>u :UndotreeToggle<CR>
@@ -598,6 +611,7 @@ Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/tpope/vim-abolish'
 "Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/cskeeters/vim-simple-comment'
+Plug 'https://github.com/tpope/vim-commentary'
 
 Plug 'https://github.com/majutsushi/tagbar'
 " Add support for markdown files in tagbar.
