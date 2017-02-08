@@ -102,7 +102,7 @@ if exists mvim; then
 fi
 
 # Commands
-_open() {
+_do_open() {
     type xdg-open > /dev/null 2>&1 && xdg-open $1
     type gnome-open > /dev/null 2>&1 && gnome-open $1
 
@@ -114,7 +114,7 @@ openbb() {
     # Form URL from user and repository name from default path
     local URL=$(gsed -nre 's;.*bitbucket.org/([a-z][-_a-z0-9]*)/([a-z][-_a-z0-9]+)$;http://bitbucket.org/\1/\2;p' <(hg paths))
     if [[ -n $URL ]]; then
-        _open $URL
+        _do_open $URL
     else
         echo "No BitBucket path found!"
     fi
