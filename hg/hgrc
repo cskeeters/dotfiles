@@ -47,7 +47,7 @@ sglog = glog --style=$HOME/.mercurial-cli-templates/map-cmdline.sglog
 pager = LESS='FRX' less
 
 [trusted]
-groups = users, wheel, root
+groups = users, wheel, root, dev
 
 [color]
 status.modified = blue
