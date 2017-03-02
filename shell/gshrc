@@ -66,12 +66,15 @@ fi
 
 # Ruby Version Manager
 ## Add RVM to PATH for scripting
-[[ -d "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+# [[ -d "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
 # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Python
 #export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+# Rust Language
+export PATH="$HOME/.cargo/bin:$PATH"
 
 if ismac; then
     # autojump
