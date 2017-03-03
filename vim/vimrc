@@ -106,12 +106,22 @@ set wildmode=list:longest,full  " command <Tab> completion, list matches, then l
 
 set laststatus=2                " 2 - Always show status line
 
-" Broken down into easily includeable segments
-set statusline=%<%f\                      " Filename
-set statusline+=%w%h%m%r                  " Options
-set statusline+=\ [%{&ff}/%Y]             " FileType
-set statusline+=\ [%{getcwd()}]           " current dir
-set statusline+=%=%-14.(%l,%c%)\ %p%%     " Right aligned file nav info
+" statusline Colors
+"   directory
+hi default link User1 Directory
+"   filename
+hi default link User2 ModeMsg
+"   filetype
+hi default link User3 Type
+
+set statusline=\ \ %1*\ %{getcwd()}\ %0*                        " current root or dir
+set statusline+=\ \ %2*\ %f%m\ %0*                              " Filename/Modified
+set statusline+=%=                                              " Right Aligned
+set statusline+=%l/%L\                                          " cursor pos
+set statusline+=\ \ %3*\ %{&ft}\ %0*\                           " Filetype
+set statusline+=%{&fenc?&fenc:&enc}/%{&ff}\                     " Encoding/EOL
+set statusline+=%w                                              " Preview
+set statusline+=%r\                                             " Read Only
 
 " Highlight problematic whitespace
 set list
@@ -313,6 +323,12 @@ nnoremap \\v :source $MYVIMRC<cr>
 " junegunn/rainbow_parentheses.vim
 nnoremap \r :RainbowParentheses!!<cr>
 
+" tpope/vim-commentary
+" For changing comment characters in html/script/style
+nnoremap \c/  :set commentstring=//%s<cr>
+nnoremap \c*  :set commentstring=/*%s*/<cr>
+nnoremap \c-  :set commentstring=<!--%s--><cr>
+
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
 
@@ -324,10 +340,10 @@ nnoremap \\x :syntax sync fromstart<cr>
 
 " Change Working Directory to that of the current file
 nnoremap <c-j>. :lcd %:p:h<cr>
-nnoremap <c-j>u :cd ..<cr>
-nnoremap <c-j>1 :cd ..<cr>
-nnoremap <c-j>2 :cd ../..<cr>
-nnoremap <c-j>3 :cd ../../..<cr>
+nnoremap <c-j>u :lcd ..<cr>
+nnoremap <c-j>1 :lcd ..<cr>
+nnoremap <c-j>2 :lcd ../..<cr>
+nnoremap <c-j>3 :lcd ../../..<cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Jumping
@@ -381,9 +397,11 @@ nmap <C-j>c <Plug>OpenCloser
 if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>b :Buffers<CR>
+    noremap _      :Buffers<CR>
 else
     " Shougo/unite.vim
     noremap <C-j>b :Unite buffer<CR>
+    noremap _      :Unite buffer<CR>
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
@@ -399,7 +417,6 @@ noremap <C-j>k :Unite bookmark<CR>
 
 if !has("gui_running")
     "junegunn/fzf.vim
-    noremap _ :Files<CR>
     noremap <C-j>h :History<CR>
     noremap <C-j>m :Marks<CR>
     noremap <C-j>v :Files file:~/.vim/plugged<CR>
@@ -411,7 +428,6 @@ if !has("gui_running")
 
     noremap <C-j>g :Ag<space>
 else
-    noremap _ :Unite file_rec/async<CR>
     noremap <C-j>h :Unite file_mru<CR>
     noremap <C-j>v :Unite file:~/.vim/plugged<CR>
 
@@ -429,7 +445,8 @@ let g:unite_source_menu_menus.projects.candidates = {
             \ 'bcst-doc':'~/working/bcst-doc',
             \ 'dotfiles':'~/dotfiles',
             \ 'plugged':'~/.vim/plugged',
-            \ 'rcmp':'~/Documents/nci/2014/mts/rcmp'
+            \ 'rcmp':'~/Documents/nci/2014/mts/rcmp',
+            \ 'vim-runtime':'/usr/local/Cellar/macvim/8.0-119/MacVim.app/Contents/Resources/vim/runtime'
             \ }
 
 function! g:unite_source_menu_menus.projects.map(key, value)
@@ -490,11 +507,18 @@ nnoremap <localleader>v :put v<cr>
 "let g:NERDCreateDefaultMappings=0
 
 " cskeeters/vim-simple-comment
-nmap <localleader>c <Plug>ToggleComment
-nmap <localleader>C <Plug>CommentOperator
-vmap <localleader>c <Plug>ToggleAllComment
+"nmap <localleader>cc <Plug>ToggleComment
+"nmap <localleader>c <Plug>CommentOperator
+"vmap <localleader>c <Plug>ToggleAllComment
 vmap <localleader><localleader>c <Plug>MultiLineComment
 
+" tpope/vim-commentary
+xmap <localleader>c  <Plug>Commentary
+nmap <localleader>c  <Plug>Commentary
+omap <localleader>c  <Plug>Commentary
+nmap <localleader>cc <Plug>CommentaryLine
+nmap c<localleader>c <Plug>ChangeCommentary
+nmap <localleader>cu <Plug>Commentary<Plug>Commentary
 
 " mbbill/undotree
 nnoremap <localleader><localleader>u :UndotreeToggle<CR>
@@ -553,7 +577,7 @@ Plug 'https://github.com/michaeljsmith/vim-indent-object'
 
 Plug 'https://github.com/vim-scripts/visualrepeat'
 Plug 'https://github.com/cskeeters/vim-smooth-scroll'
-"let g:scroll_follow = 1
+"let g:ms_per_line = 20
 Plug 'https://github.com/tpope/vim-repeat'
 
 if !has('nvim')
@@ -573,14 +597,6 @@ if $TERM != "konsole"
 endif
 set background=dark
 
-Plug 'https://github.com/bling/vim-airline'
-" Disable tabline since there's a bug that messes up the order on mac #1228
-let g:airline#extensions#tabline#enabled = 0
-"iTerm2 has to have the asci and non-asci (two separate font settings) set to a powerline font
-let g:airline_powerline_fonts = 1
-
-Plug 'https://github.com/vim-airline/vim-airline-themes'
-
 Plug 'https://github.com/junegunn/rainbow_parentheses.vim'
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
@@ -597,6 +613,7 @@ Plug 'https://github.com/mbbill/undotree'
 Plug 'https://github.com/tpope/vim-abolish'
 "Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/cskeeters/vim-simple-comment'
+Plug 'https://github.com/tpope/vim-commentary'
 
 Plug 'https://github.com/majutsushi/tagbar'
 " Add support for markdown files in tagbar.
@@ -736,6 +753,8 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/jlfwong/vim-mercenary'
 ":HGblame :HGdiff
 
+Plug 'https://github.com/cskeeters/vim-vcvars'
+Plug 'https://github.com/cskeeters/vim-statusline'
 
 """"""""""""""""""""""""""""""""" Plugins: Lookup/Help
 if has('osx')
@@ -760,7 +779,8 @@ Plug 'https://github.com/cskeeters/sr.vim'
 "setf rest
 
 """"""""""""""""""""""""""""""""" Plugins: Markdown
-Plug 'https://github.com/plasticboy/vim-markdown'
+" from plasticboy/vim-markdown without netrw#BrowseX
+Plug 'https://github.com/cskeeters/vim-markdown'
 " Disable ]c to move to header since it disrupts ]c - next difference
 map <Plug> <Plug>Markdown_MoveToCurHeader
 let g:vim_markdown_folding_disabled = 1
@@ -818,6 +838,9 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 call plug#end()
 
+
+""""""""""""""""""""""""""""""""" Plugins: post-load Configuration
+
 function! AirlineInit()
     " Let me see the cwd
     let g:airline_section_b = airline#section#create(['%{fnamemodify(getcwd(), ":t")}', g:airline_symbols.space, 'hunks', 'branch'])
@@ -834,6 +857,8 @@ call unite#filters#matcher_default#use(['matcher_fzf'])
 
 "call unite#filters#sorter_default#use(['sorter_rank'])
 
+
+""""""""""""""""""""""""""""""""" Configuration: colorscheme
 if has('nvim')
     if $TERM_PROGRAM == "iTerm.app"
         set termguicolors
