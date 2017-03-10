@@ -26,6 +26,7 @@ islinux && CDPATH=$CDPATH:/media:/var/run/media/$USER
 # Homebrew paths first
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$PATH:/usr/AMS2/net/scripts"
 
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
@@ -98,7 +99,7 @@ fi
 # Aliases
 alias l='ls -lh'
 alias la='ls -lAh'
-alias ll='ls -lAh'
+alias ll='ls -lh'
 alias vi='vim'
 if exists mvim; then
     alias gvim='mvim'

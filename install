@@ -187,6 +187,11 @@ install_powerline() {
 
     mkdir -p $font_dir
 
+    if [[ $(uname) == 'Linux' ]]; then
+        # RHEL6 uses ~/.fonts
+        ln -s "$HOME/.local/share/fonts" $HOME/.fonts
+    fi
+
     find "$dotfiles/offline/fonts" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -exec cp "{}" "$font_dir/" \; || die "Error installing fonts"
 
     if hash 2>/dev/null fc-cache; then
