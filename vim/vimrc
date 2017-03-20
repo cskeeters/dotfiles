@@ -419,7 +419,7 @@ if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>h :History<CR>
     noremap <C-j>m :Marks<CR>
-    noremap <C-j>v :Files file:~/.vim/plugged<CR>
+    noremap <C-j>v :Files ~/.vim/plugged<CR>
 
     noremap <C-j><C-j> :Files<CR>
     noremap <C-j>f :Files<CR>
