@@ -105,6 +105,17 @@ if exists mvim; then
     alias gvim='mvim'
 fi
 
+if [ -t 0 ]; then # term test?
+    # Turn off TTY "start" and "stop" commands in all interactive shells.
+    # They default to C-q and C-s, Bash uses C-s to do a forward history search.
+    stty start ''
+    stty stop  ''
+    stty -ixon # disable XON/XOFF flow control
+    stty ixoff # enable sending (to app) of start/stop characters
+    stty ixany # let any character restart output, not only start character
+    stty -echoctl # Disable ^C from printing when Ctrl-C is pressed
+fi
+
 # Commands
 _do_open() {
     type xdg-open > /dev/null 2>&1 && xdg-open $1
