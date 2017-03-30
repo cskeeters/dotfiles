@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #set FZF_HOME to the detected home of fzf
-for dir in /usr/share /usr/local/opt; do
+for dir in /usr/share /usr/local/opt ~/.vim/plugged; do
     [[ -d $dir/fzf ]] && FZF_HOME="$dir/fzf"
 done
 
