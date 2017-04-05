@@ -607,6 +607,7 @@ set background=dark
 Plug 'https://github.com/junegunn/rainbow_parentheses.vim'
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+let g:rainbow#blacklist = [7, 10, 12]
 
 
 """"""""""""""""""""""""""""""""" Plugins: Ease of use
