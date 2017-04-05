@@ -178,29 +178,6 @@ install_rst() {
     erun ln -s $dotfiles/.rst2html ~/.rst2html
 }
 
-install_powerline() {
-    if [[ $(uname) == 'Darwin' ]]; then
-        font_dir="$HOME/Library/Fonts"
-    else
-        font_dir="$HOME/.local/share/fonts"
-    fi
-
-    mkdir -p $font_dir
-
-    if [[ $(uname) == 'Linux' ]]; then
-        # RHEL6 uses ~/.fonts
-        ln -s "$HOME/.local/share/fonts" $HOME/.fonts
-    fi
-
-    find "$dotfiles/offline/fonts" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -exec cp "{}" "$font_dir/" \; || die "Error installing fonts"
-
-    if hash 2>/dev/null fc-cache; then
-        info "Resetting font cache, this may take a moment..."
-        fc-cache -f $font_dir
-    fi
-
-    info "All Powerline fonts installed to $font_dir"
-}
 
 ######################## MAIN
 
@@ -321,8 +298,4 @@ prompt_install "Is this a virtual machine? (n) ->" install_vm
 
 if hash git 2> /dev/null; then
     prompt_install "Install/Update Vim Plugins (n) ->" update_vim_plugins
-fi
-
-if [[ -d $dotfiles/offline/fonts ]]; then
-    prompt_install "Install powerline fonts (n) ->" install_powerline
 fi
