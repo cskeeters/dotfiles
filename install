@@ -251,6 +251,7 @@ linkdot doc/docutils
 
 linkdot ctags
 linkdot tmux.conf
+linkdot ldaprc
 
 linkbin offline/tabsplice
 linkbin offline/myvim

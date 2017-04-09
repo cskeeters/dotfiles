@@ -57,6 +57,20 @@ export LESS="FRX"
 #pkg-config --libs cairo
 export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
 
+export LDA="-xZZ -y $HOME/.ldappw"
+# export LDA="-xZZD cn=admin,dc=ams,dc=sim,dc=mil -y $HOME/.ldappw"
+# export LDA="-QY EXTERNAL -H ldapi:///"
+export LDCA="-QY EXTERNAL -H ldapi:///"
+
+if [[ ! -r $HOME/.ldappw ]]; then
+    echo "$HOME/.ldappw does not exist.  Create with"
+    echo "touch ~/.ldappw"
+    echo "chmod 700 ~/.ldapwd"
+    echo "vim ~/.ldapwd"
+    echo ":set noeol"
+fi
+
+
 if ismac; then
   # use gnu versions of these tools.  Must be installed with
   # brew install findutils gnu-sed coreutils

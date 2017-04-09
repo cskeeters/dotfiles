@@ -1,0 +1,5 @@
+# URI ldapi:///
+# SASL_MECH EXTERNAL
+
+BINDDN cn=admin,dc=ams,dc=sim,dc=mil
+TLS_REQCERT demand
