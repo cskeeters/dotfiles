@@ -65,9 +65,9 @@ export LDCA="-QY EXTERNAL -H ldapi:///"
 if [[ ! -r $HOME/.ldappw ]]; then
     echo "$HOME/.ldappw does not exist.  Create with"
     echo "touch ~/.ldappw"
-    echo "chmod 700 ~/.ldapwd"
-    echo "vim ~/.ldapwd"
-    echo ":set noeol"
+    echo "chmod 700 ~/.ldappw"
+    echo "vim ~/.ldappw"
+    echo ":set noeol binary"
 fi
 
 
