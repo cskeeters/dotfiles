@@ -2,6 +2,12 @@
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.gshrc ]] && source ~/.gshrc
 
+# /etc/profile.d/vte.sh overwrites PROMPT_COMMAND set by autojump
+# This corrects the issue by resourcing autojump.sh
+if [[ ! $PROMPT_COMMAND =~ autojump && -f /etc/profile.d/autojump.sh ]]; then
+    source /etc/profile.d/autojump.sh
+fi
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
