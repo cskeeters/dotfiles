@@ -447,13 +447,12 @@ endif
 let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
 let g:unite_source_menu_menus.projects = {'description' : 'Change Directory to favorties'}
 let g:unite_source_menu_menus.projects.candidates = {
-            \ 'notes':'~/Dropbox/notes',
-            \ 'bcst-main':'~/Documents/nci/bcst',
-            \ 'bcst-doc':'~/working/bcst-doc',
+            \ 'uaces':'~/uaces',
+            \ 'uams2':'~/uams2',
+            \ 'bcst-doc':'/opt/AMS2/net/doc/bcst-doc',
+            \ 'luckyCM':'/opt/AMS2/net/luckyCM',
             \ 'dotfiles':'~/dotfiles',
             \ 'plugged':'~/.vim/plugged',
-            \ 'rcmp':'~/Documents/nci/2014/mts/rcmp',
-            \ 'vim-runtime':'/usr/local/Cellar/macvim/8.0-119/MacVim.app/Contents/Resources/vim/runtime'
             \ }
 
 function! g:unite_source_menu_menus.projects.map(key, value)

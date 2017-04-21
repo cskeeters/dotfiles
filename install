@@ -208,7 +208,7 @@ info "Downloading files not tracked in this repo"
 cache https://raw.githubusercontent.com/cskeeters/tabsplice/master/tabsplice
 chmod a+x offline/tabsplice
 
-cache https://raw.githubusercontent.com/junegunn/myvim/master/myvim
+cache https://raw.githubusercontent.com/cskeeters/myvim/master/myvim
 chmod a+x offline/myvim
 
 
