@@ -16,18 +16,20 @@ if [[ $(uname) == "Darwin" ]]; then
     fi
 fi
 
-if hash _cd 2>/dev/null; then
+if hash _cd 2> /dev/null; then
     # Enable fuzzy style completions
     [[ -f ~/.completions ]] && source ~/.completions
 fi
 
-if [[ -f ~/.fzf.sh ]]; then
-    source ~/.fzf.sh
-    if hash ag 2> /dev/null; then
-        export FZF_DEFAULT_COMMAND='ag -g ""'
-        _fzf_compgen_path() {
-            ag -g "" "$1"
-        }
+if hash fzf 2> /dev/null; then
+    if [[ -f ~/.fzf.sh ]]; then
+        source ~/.fzf.sh
+        if hash ag 2> /dev/null; then
+            export FZF_DEFAULT_COMMAND='ag -g ""'
+            _fzf_compgen_path() {
+                ag -g "" "$1"
+            }
+        fi
     fi
 fi
 
