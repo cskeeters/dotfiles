@@ -124,6 +124,13 @@ if exists mvim; then
     alias gvim='mvim'
 fi
 
+if exists dconf; then
+    if ! grep caps <(dconf read "/org/gnome/desktop/input-sources/xkb-options") > /dev/null; then
+        echo "Configuring caps-lock to escape"
+        dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:escape']"
+    fi
+fi
+
 if [ -t 0 ]; then # term test?
     # Turn off TTY "start" and "stop" commands in all interactive shells.
     # They default to C-q and C-s, Bash uses C-s to do a forward history search.
