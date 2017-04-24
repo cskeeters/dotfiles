@@ -4,11 +4,9 @@ set guioptions=rLt
 if has("gui_macvim")
     "set guifont=Monospace\ 13
 
-    let g:airline_powerline_fonts = 1
-    "set guifont=Meslo\ LG\ S\ for\ Powerline:h15
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h15
+    set guifont=DejaVu\ Sans\ Mono\ 12
 elseif has("x11")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
+    set guifont=DejaVu\ Sans\ Mono\ 12
 else
     set guifont=Consolas:h13
 endif
