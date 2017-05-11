@@ -118,6 +118,8 @@ alias vi='vim'
 if [[ ! $HOSTNAME =~ server && -f ~/bin/vim.chad ]]; then
     alias vi='vim.chad'
     alias vim='vim.chad'
+elif [[ -n $DISPLAY ]]; then
+    alias vim='vimx'
 fi
 
 if exists mvim; then
