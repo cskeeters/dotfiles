@@ -123,6 +123,7 @@ set statusline+=%{&fenc?&fenc:&enc}/%{&ff}\                     " Encoding/EOL
 set statusline+=%w                                              " Preview
 set statusline+=%r\                                             " Read Only
 
+" For wrap/linebreak/breakat to work correctly, set nolist
 " Highlight problematic whitespace
 set list
 set listchars=tab:>\ ,trail:+,extends:#,nbsp:.
