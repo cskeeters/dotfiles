@@ -312,6 +312,10 @@ nnoremap \\4 :set sw=4 ts=4<cr>
 nnoremap \\8 :set sw=8 ts=8<cr>
 nnoremap \\t :set expandtab!<cr>
 
+" This facilitates copying multiple lines of text from terminal vim
+nnoremap \n :set number relativenumber<cr>
+nnoremap \N :set nonumber norelativenumber<cr>
+
 " Reload to force line endings
 nnoremap \\d :e ++ff=dos<cr>
 nnoremap \\u :e ++ff=unix<cr>
