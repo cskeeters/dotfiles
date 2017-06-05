@@ -55,6 +55,7 @@ set virtualedit=block           " Block mode allows cursor to go where spaces do
 "set virtualedit+=onemore        " Allow cursor to stay one character past the end of the line
 set autoindent                  " indent at the same level of the previous line
 set cindent
+set cinoptions=g0               " Don't indent public or private in c++ classes
 set smartindent                 " New lines start indented appropriately
 set nowrap                      " wrap long lines
 
