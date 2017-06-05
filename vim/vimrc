@@ -19,7 +19,8 @@ set tags+=../../../tags
 " mkdir -p tags
 " cd ~/tags
 " ctags -R /usr/include
-"set tags+=/home/chad/tags/tags.inc
+" mv tags tags.inc
+set tags+=/home/chad/tags/tags.inc
 
 if &shell =~# 'fish$'
     set shell=sh
