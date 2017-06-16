@@ -126,10 +126,12 @@ if exists mvim; then
     alias gvim='mvim'
 fi
 
-if exists dconf; then
-    if ! grep caps <(dconf read "/org/gnome/desktop/input-sources/xkb-options") > /dev/null; then
-        echo "Configuring caps-lock to escape"
-        dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:escape']"
+if exists dconf ; then
+    if [[ -d $XDG_RUNTIME_DIR/dconf-service ]]; then
+        if ! grep caps <(dconf read "/org/gnome/desktop/input-sources/xkb-options") > /dev/null; then
+            echo "Configuring caps-lock to escape"
+            dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:escape']"
+        fi
     fi
 fi
 
