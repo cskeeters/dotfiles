@@ -28,8 +28,8 @@ function parse_hg_branch() {
 
             parse_hg_status
             # set_indicators_hg_single
-            (($dirty)) || (($newfile)) || (($deleted)) && REVCOLOR=31 # Red == Dirty
             (($untracked)) && REVCOLOR=33 # Yellow == Dirty
+            (($dirty)) || (($newfile)) || (($deleted)) && REVCOLOR=31 # Red == Dirty
         fi
 
         printf $prompt_color $BRCOLOR "${BRANCH}"
