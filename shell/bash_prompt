@@ -3,91 +3,108 @@
 prompt_color="\001\e[%sm\002%s\001\e[0m\002"
 
 function parse_hg_branch() {
+    local dirty=0 newfile=0 deleted=0 untracked=0 indicators=""
+
     BRANCH=$(hg branch 2> /dev/null)
     if [[ $BRANCH != "" ]]; then
-        REV=$(hg identify -n 2> /dev/null)
-        if [[ $REV =~ ([[:digit:]]+)\+ ]]; then
-            REV=${BASH_REMATCH[1]}
+        # hg par is fast, id is slow over nfs
+        REV=$(hg par --template '{rev},')
+        [[ $REV =~ ([[:digit:]]+),([[:digit:]]+), ]] && REV=${BASH_REMATCH[1]},${BASH_REMATCH[2]}
+        [[ $REV =~ ([[:digit:]]+),$ ]] && REV=${BASH_REMATCH[1]}
+
+        BRCOLOR=37 # White means no status checked
+        REVCOLOR=37 # White means no status checked
+
+        # If the current directory is on an nfs mount, don't run hg sta, or hg id, too slow
+        if [[ ! $(df -PT . | sed -n 2p | awk '{ print $2 }') =~ nfs ]]; then
+            BRCOLOR=35 # purple == Clean
+            REVCOLOR=35 # purple == Clean
+            if [[ $REV != -1 ]]; then
+                # If no commits id -n returns -1, but this outputs an error
+                BREV=$(hg identify -nr $(hg identify -b) 2> /dev/null)
+            fi
+            # Red, not on latest revision for branch
+            [[ $REV == $BREV ]] || BRCOLOR=31
+
+            parse_hg_status
+            # set_indicators_hg_single
+            (($untracked)) && REVCOLOR=33 # Yellow == Dirty
+            (($dirty)) || (($newfile)) || (($deleted)) && REVCOLOR=31 # Red == Dirty
         fi
-        BREV=$(hg identify -nr $(hg identify -b))
-        STAT=$(parse_hg_dirty)
 
-        dirty_color=34
-        [[ $STAT != "" ]] && dirty_color=33
-
-        printf $prompt_color 35 "${BRANCH}"
+        printf $prompt_color $BRCOLOR "${BRANCH}"
         printf ":"
-        [[ $REV == $BREV ]] && REVCOLOR=35 || REVCOLOR=31
-        printf $prompt_color $REVCOLOR "${REV}"
-        printf $prompt_color 31 "${STAT}"
-        printf $prompt_color $dirty_color " ☿ "
+        printf $prompt_color $REVCOLOR "${REV}${indicators} "
     fi
 }
 
 # get current status of hg repo
-function parse_hg_dirty {
-    local dirty=1 newfile=1 deleted=1 untracked=1
+function parse_hg_status {
+    # local dirty=1 newfile=1 deleted=1 untracked=1
     while IFS= read -r -d $'\n' line; do
-        [[ $line =~ ^M ]] && dirty=0
-        [[ $line =~ ^A ]] && newfile=0
-        [[ $line =~ ^R ]] && deleted=0
-        [[ $line =~ ^\? ]] && untracked=0
+        [[ $line =~ ^M ]] && dirty=1
+        [[ $line =~ ^A ]] && newfile=1
+        [[ $line =~ ^R ]] && deleted=1
+        [[ $line =~ ^\? ]] && untracked=1
     done < <(hg status 2>&1)
 
-    indicators=''
-    [[ "${newfile}" == "0" ]] && indicators="+${indicators}"
-    [[ "${untracked}" == "0" ]] && indicators="?${indicators}"
-    [[ "${deleted}" == "0" ]] && indicators="x${indicators}"
-    [[ "${dirty}" == "0" ]] && indicators="!${indicators}"
+}
 
-    if [[ ! "${indicators}" == "" ]]; then
-        echo " ${indicators}"
-    else
-        echo ""
-    fi
+function set_indicators_hg_single() {
+    indicators=''
+    ((${untracked})) && indicators="?"
+    (($dirty)) || (($newfile)) || (($deleted)) && indicators="+"
+    echo $indicators
+}
+
+function set_indicators_hg_multi() {
+    indicators=''
+    (($newfile)) && indicators="+${indicators}"
+    (($untracked)) && indicators="?${indicators}"
+    (($deleted)) && indicators="x${indicators}"
+    (($dirty)) && indicators="!${indicators}"
 }
 
 # get current branch in git repo
 function parse_git_branch() {
+    local dirty=0 untracked=0 ahead=0 newfile=0 renamed=0 deleted=0 indicators=""
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     if [ ! "${BRANCH}" == "" ]; then
-        STAT=`parse_git_dirty`
+        parse_git_status
+        set_indicators_git_multi
 
         dirty_color=34
-        [[ $STAT != "" ]] && dirty_color=33
+        [[ $indicators != "" ]] && dirty_color=33
 
         printf $prompt_color 35 "${BRANCH}"
-        printf $prompt_color 31 "${STAT}"
-        printf $prompt_color $dirty_color " ± "
+        printf $prompt_color 31 "${indicators} "
+        # printf $prompt_color $dirty_color " ± "
+        # printf $prompt_color $dirty_color " + "
     fi
 }
 
 
 # get current status of git repo
-function parse_git_dirty {
-    local dirty=1 untracked=1 ahead=1 newfile=1 renamed=1 deleted=1
+function parse_git_status {
     while IFS= read -r -d $'\n' line; do
-        [[ $line =~ modified: ]] && dirty=0
-        [[ $line =~ Untracked\ files ]] && untracked=0
-        [[ $line =~ Your\ branch\ is\ ahead\ of ]] && ahead=0
-        [[ $line =~ new\ file: ]] && newfile=0
-        [[ $line =~ renamed: ]] && renamed=0
-        [[ $line =~ deleted: ]] && deleted=0
+        [[ $line =~ modified: ]] && dirty=1
+        [[ $line =~ Untracked\ files ]] && untracked=1
+        [[ $line =~ Your\ branch\ is\ ahead\ of ]] && ahead=1
+        [[ $line =~ new\ file: ]] && newfile=1
+        [[ $line =~ renamed: ]] && renamed=1
+        [[ $line =~ deleted: ]] && deleted=1
     done < <(git status 2>&1)
 
-    bits=''
-    [[ "${renamed}" == "0" ]] && bits=">${bits}"
-    [[ "${ahead}" == "0" ]] && bits="*${bits}"
-    [[ "${newfile}" == "0" ]] && bits="+${bits}"
-    [[ "${untracked}" == "0" ]] && bits="?${bits}"
-    [[ "${deleted}" == "0" ]] && bits="x${bits}"
-    [[ "${dirty}" == "0" ]] && bits="!${bits}"
+}
 
-    if [[ ! "${bits}" == "" ]]; then
-        echo " ${bits}"
-    else
-        echo ""
-    fi
+function set_indicators_git_multi() {
+    indicators=''
+    ((${renamed})) && indicators=">${indicators}"
+    ((${ahead})) && indicators="*${indicators}"
+    ((${newfile})) && indicators="+${indicators}"
+    ((${untracked})) && indicators="?${indicators}"
+    ((${deleted})) && indicators="x${indicators}"
+    ((${dirty})) && indicators="+${indicators}"
 }
 
 function nonzero_return() {
