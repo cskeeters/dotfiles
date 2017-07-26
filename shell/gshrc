@@ -62,14 +62,6 @@ export LDA="-xZZ -y $HOME/.ldappw"
 # export LDA="-QY EXTERNAL -H ldapi:///"
 export LDCA="-QY EXTERNAL -H ldapi:///"
 
-if [[ ! -r $HOME/.ldappw ]]; then
-    echo "$HOME/.ldappw does not exist.  Create with"
-    echo "touch ~/.ldappw"
-    echo "chmod 700 ~/.ldappw"
-    echo "vim ~/.ldappw"
-    echo ":set noeol binary"
-fi
-
 
 if ismac; then
   # use gnu versions of these tools.  Must be installed with
