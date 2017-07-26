@@ -109,7 +109,7 @@ backup_clear() {
         # Backup only if the existing file is not a symbolic link
         if [[ -e $INSTALL_PATH ]]; then
             info "Backing up $INSTALL_PATH"
-            mv "$INSTALL_PATH" backup || die "Could not backup existing $INSTALL_PATH"
+            mv "$INSTALL_PATH" "$dotfiles/backup" || die "Could not backup existing $INSTALL_PATH"
         fi
     fi
 }
@@ -126,6 +126,7 @@ linkdot() {
     link
 }
 linkbin() {
+    mkdir -p "$HOME/bin"
     # Remove everything before last slash
     INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
@@ -165,7 +166,7 @@ install_rst() {
         rm -f ~/.rst2pdf
     else
         # This may be a folder we need to backup
-        mv ~/.rst2pdf $dotfiles/backup/
+        mv ~/.rst2pdf "$dotfiles/backup/"
     fi
     erun ln -s $dotfiles/.rst2pdf ~/.rst2pdf
 
@@ -173,7 +174,7 @@ install_rst() {
         rm -f ~/.rst2html
     else
         # This may be a folder we need to backup
-        mv ~/.rst2html $dotfiles/backup/
+        mv ~/.rst2html "$dotfiles/backup/"
     fi
     erun ln -s $dotfiles/.rst2html ~/.rst2html
 }
@@ -183,6 +184,7 @@ install_rst() {
 
 cd "${0%/*}"
 dotfiles="$(pwd)" # Location of this dotfiles folder
+mkdir -p "$dotfiles/backup"
 
 DOWNLOAD_ONLY=0
 UPDATE=0
@@ -286,7 +288,7 @@ fi
 
 if [[ $(uname) == Linux ]]; then
     if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
-        cp ~/.config/xfce4/terminal/terminalrc $dotfiles/backup
+        cp ~/.config/xfce4/terminal/terminalrc "$dotfiles/backup"
     fi
     mkdir -p ~/.config/xfce4/terminal/terminal
     rm -f ~/.config/xfce4/terminal/terminalrc
@@ -297,5 +299,5 @@ fi
 prompt_install "Is this a virtual machine? (n) ->" install_vm
 
 if hash git 2> /dev/null; then
-    prompt_install "Install/Update Vim Plugins (n) ->" update_vim_plugins
+    prompt_install "Install/Update Vim Plugins (requires internet) (n) ->" update_vim_plugins
 fi
