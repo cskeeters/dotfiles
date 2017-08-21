@@ -32,6 +32,7 @@ path=/opt/local/share/mercurial/contrib/hgk
 git=1
 
 [defaults]
+branches=-a
 revert=--no-backup
 parents=-v --style=$HOME/.mercurial-cli-templates/map-cmdline.slog
 log=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
