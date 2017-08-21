@@ -342,6 +342,11 @@ nnoremap \c-  :set commentstring=<!--%s--><cr>
 
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
+" jlfwong/vim-mercenary'
+nmap \b :HGblame<cr>
+" cskeeters/vim-hg
+nmap \a :HgAnnotate<cr>
+" gd - go diff when cursor is over number
 
 " When text doesn't highlight
 nnoremap \\5 :syntax sync minlines=500<cr>
@@ -765,7 +770,9 @@ Plug 'https://github.com/tpope/vim-fugitive'
 ":Gblame :Gdiff
 
 Plug 'https://github.com/jlfwong/vim-mercenary'
-":HGblame :HGdiff
+":HGblame :HGdiff :HGshow
+
+Plug 'https://github.com/cskeeters/vim-hg'
 
 Plug 'https://github.com/cskeeters/vim-vcvars'
 Plug 'https://github.com/cskeeters/vim-statusline'
