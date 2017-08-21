@@ -795,10 +795,6 @@ Plug 'https://github.com/sheerun/vim-polyglot'
 
 Plug 'https://github.com/cskeeters/sr.vim'
 
-" reStructuredText highlighting
-"Plug 'https://github.com/vim-scripts/rest.vim'
-"setf rest
-
 """"""""""""""""""""""""""""""""" Plugins: Markdown
 " from plasticboy/vim-markdown without netrw#BrowseX
 Plug 'https://github.com/cskeeters/vim-markdown'
