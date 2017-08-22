@@ -216,7 +216,6 @@ chmod a+x offline/myvim
 
 clone https://github.com/robbyrussell/oh-my-zsh
 
-clone http://bitbucket.org/sjl/mercurial-cli-templates/
 clone https://github.com/chriskempson/base16-shell
 clone https://github.com/powerline/fonts
 
@@ -245,6 +244,7 @@ linkdot git/gitconfig
 linkdot git/gitignore
 
 linkdot hg/hgrc
+linkdot hg/hg_log_style
 
 linkdot vim/gvimrc
 linkdot vim/vimrc
@@ -259,7 +259,6 @@ linkbin offline/myvim
 
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 linkdot offline/oh-my-zsh
-linkdot offline/mercurial-cli-templates "$HOME"
 
 install_rst
 

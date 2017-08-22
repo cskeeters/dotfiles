@@ -1,0 +1,27 @@
+changeset         = '{label('log.{phase}',rev)} {label('log.branch',branch)} {label('log.desc',desc|firstline|strip)} {label("log.dim", "({author|user} {date|age})")}{tags}{bookmarks}\n'
+changeset_verbose = '{label('log.{phase}',rev)} {label('log.node',node|short)} {label('log.branch',branch)} {label('log.desc',desc|firstline|strip)} {label("log.dim", "({author|user} on {date|shortdate})")}{tags}{bookmarks}\n{file_mods}{file_adds}{file_dels}\n'
+
+#{phase}
+
+start_file_adds = ''
+file_add = '  {label("log.add", "A {file_add}")}\n'
+end_file_adds = ''
+
+start_file_dels = ''
+file_del = '  {label("log.del", "R {file_del}")}\n'
+end_file_dels = ''
+
+start_file_mods = ''
+file_mod = '  {label("log.mod", "M {file_mod}")}\n'
+end_file_mods = ''
+
+start_branches = ' '
+branch = '\033[0;35m{branch}\033[0m'
+
+start_bookmarks = ' '
+bookmark = '{label("log.bookmark", bookmark)} '
+last_bookmark = '{label("log.bookmark", bookmark)}'
+
+start_tags = ' '
+tag = '{label('log.tag',tag)} '
+last_tag = '{label('log.tag',tag)}'
