@@ -34,15 +34,12 @@ git=1
 [defaults]
 branches=-a
 revert=--no-backup
-parents=-v --style=$HOME/.mercurial-cli-templates/map-cmdline.slog
-log=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
-glog=--style=$HOME/.mercurial-cli-templates/map-cmdline.slog
+parents=-v --style=$HOME/.hg_log_style
+log=--style=$HOME/.hg_log_style
+glog=--style=$HOME/.hg_log_style
 
 [alias]
-slog = log --style=$HOME/.mercurial-cli-templates/map-cmdline.slog
-nlog = log --style=$HOME/.mercurial-cli-templates/map-cmdline.nlog
-sglog = glog --style=$HOME/.mercurial-cli-templates/map-cmdline.sglog
-, = sglog -l15
+, = glog -l 15 --style=$HOME/.hg_log_style
 
 [pager]
 pager = LESS='FRX' less
@@ -66,3 +63,20 @@ diff.trailingwhitespace = red_background
 qseries.applied = blue underline
 qseries.unapplied = yellow
 qseries.missing = red
+
+# rev is colored by phase
+log.secret = blue
+log.draft = red
+log.public = white dim
+
+log.node = white dim
+log.desc = white
+log.branch = magenta
+log.tag = yellow
+log.bookmark = cyan
+log.date = dim
+log.dim = dim
+log.author = blue
+log.mod = blue
+log.del = red
+log.add = green
