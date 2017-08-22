@@ -48,6 +48,11 @@ pager = LESS='FRX' less
 groups = users, wheel, root
 
 [color]
+mode = terminfo
+color.Bright_Black = 8
+color.orange = 17
+color.Bright_Orange = 16
+
 status.modified = blue
 status.added = green
 status.removed = red
@@ -66,16 +71,16 @@ qseries.missing = red
 
 # rev is colored by phase
 log.secret = blue
-log.draft = red
-log.public = white dim
+log.draft = green
+log.public = yellow
 
-log.node = white dim
+log.node = Bright_Black
 log.desc = white
 log.branch = magenta
 log.tag = yellow
 log.bookmark = cyan
-log.date = dim
-log.dim = dim
+log.date = Bright_Black
+log.dim = Bright_Black
 log.author = blue
 log.mod = blue
 log.del = red
