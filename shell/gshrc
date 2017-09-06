@@ -55,7 +55,7 @@ export LESS="FRX"
 #pkg-config path
 #pkg-config --cflags cairo
 #pkg-config --libs cairo
-export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
+#export PKG_CONFIG_PATH=/usr/lib/pkgconfig
 
 export LDA="-xZZ -y $HOME/.ldappw"
 # export LDA="-xZZD cn=admin,dc=ams,dc=sim,dc=mil -y $HOME/.ldappw"
