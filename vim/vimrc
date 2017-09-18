@@ -850,6 +850,9 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 """"""""""""""""""""""""""""""""" Plugins: experimental
 
+if has('nvim')
+    Plug 'https://github.com/roxma/nvim-completion-manager'
+endif
 
 call plug#end()
 
