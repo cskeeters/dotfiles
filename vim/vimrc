@@ -853,6 +853,9 @@ let g:jcall_src_build_pairs = [
 
 """"""""""""""""""""""""""""""""" Plugins: experimental
 
+if has('nvim')
+    Plug 'https://github.com/roxma/nvim-completion-manager'
+endif
 
 call plug#end()
 
