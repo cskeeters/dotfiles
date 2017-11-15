@@ -43,12 +43,12 @@ export -f parse_hg_branch
 # get current status of hg repo
 function parse_hg_status {
     # local dirty=1 newfile=1 deleted=1 untracked=1
-    while IFS= read -r -d $'\n' line; do
+    hg status 2>&1 | while IFS= read -r -d $'\n' line; do
         [[ $line =~ ^M ]] && dirty=1
         [[ $line =~ ^A ]] && newfile=1
         [[ $line =~ ^R ]] && deleted=1
         [[ $line =~ ^\? ]] && untracked=1
-    done < <(hg status 2>&1)
+    done
 }
 export -f parse_hg_status
 
@@ -90,14 +90,14 @@ export -f parse_git_branch
 
 # get current status of git repo
 function parse_git_status {
-    while IFS= read -r -d $'\n' line; do
+    git status 2>&1 | while IFS= read -r -d $'\n' line; do
         [[ $line =~ modified: ]] && dirty=1
         [[ $line =~ Untracked\ files ]] && untracked=1
         [[ $line =~ Your\ branch\ is\ ahead\ of ]] && ahead=1
         [[ $line =~ new\ file: ]] && newfile=1
         [[ $line =~ renamed: ]] && renamed=1
         [[ $line =~ deleted: ]] && deleted=1
-    done < <(git status 2>&1)
+    done
 }
 export -f parse_git_status
 
