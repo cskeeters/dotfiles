@@ -31,7 +31,7 @@ export PATH="$PATH:/usr/AMS2/net/scripts"
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
         # Finder launched programs need this path ?
-        /bin/launchctl setenv PATH $PATH
+        /bin/launchctl setenv PATH "$PATH"
     fi
 fi
 
