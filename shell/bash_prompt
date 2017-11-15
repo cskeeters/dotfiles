@@ -1,6 +1,7 @@
 #!/bin/bash
 
 prompt_color="\001\e[%sm\002%s\001\e[0m\002"
+export prompt_color
 
 function parse_hg_branch() {
     local dirty=0 newfile=0 deleted=0 untracked=0 indicators=""
@@ -37,6 +38,7 @@ function parse_hg_branch() {
         printf $prompt_color $REVCOLOR "${REV}${indicators} "
     fi
 }
+export -f parse_hg_branch
 
 # get current status of hg repo
 function parse_hg_status {
@@ -47,8 +49,8 @@ function parse_hg_status {
         [[ $line =~ ^R ]] && deleted=1
         [[ $line =~ ^\? ]] && untracked=1
     done < <(hg status 2>&1)
-
 }
+export -f parse_hg_status
 
 function set_indicators_hg_single() {
     indicators=''
@@ -56,6 +58,7 @@ function set_indicators_hg_single() {
     (($dirty)) || (($newfile)) || (($deleted)) && indicators="+"
     echo $indicators
 }
+export -f set_indicators_hg_single
 
 function set_indicators_hg_multi() {
     indicators=''
@@ -64,6 +67,7 @@ function set_indicators_hg_multi() {
     (($deleted)) && indicators="x${indicators}"
     (($dirty)) && indicators="!${indicators}"
 }
+export -f set_indicators_hg_multi
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -82,7 +86,7 @@ function parse_git_branch() {
         # printf $prompt_color $dirty_color " + "
     fi
 }
-
+export -f parse_git_branch
 
 # get current status of git repo
 function parse_git_status {
@@ -94,8 +98,8 @@ function parse_git_status {
         [[ $line =~ renamed: ]] && renamed=1
         [[ $line =~ deleted: ]] && deleted=1
     done < <(git status 2>&1)
-
 }
+export -f parse_git_status
 
 function set_indicators_git_multi() {
     indicators=''
@@ -106,10 +110,12 @@ function set_indicators_git_multi() {
     ((${deleted})) && indicators="x${indicators}"
     ((${dirty})) && indicators="+${indicators}"
 }
+export -f set_indicators_git_multi
 
 function nonzero_return() {
     RETVAL=$?
     [[ $RETVAL -ne 0 ]] && printf $prompt_color 31 "$RETVAL "
 }
+export -f nonzero_return
 
 export PS1="\`nonzero_return\`\[\e[35m\]\u\[\e[0m\]@\[\e[33m\]\h\[\e[0m\] \[\e[36m\]\w\[\e[0m\] \`parse_git_branch\`\`parse_hg_branch\`"
