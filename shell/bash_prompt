@@ -118,4 +118,4 @@ function nonzero_return() {
 }
 export -f nonzero_return
 
-export PS1="\`nonzero_return\`\[\e[35m\]\u\[\e[0m\]@\[\e[33m\]\h\[\e[0m\] \[\e[36m\]\w\[\e[0m\] \`parse_git_branch\`\`parse_hg_branch\`"
+export PS1="\`nonzero_return\`\[\e[35m\]\`whoami\`\[\e[0m\]@\[\e[33m\]\h\[\e[0m\] \[\e[36m\]\w\[\e[0m\] \`parse_git_branch\`\`parse_hg_branch\`"
