@@ -336,9 +336,9 @@ nnoremap \r :RainbowParentheses!!<cr>
 
 " tpope/vim-commentary
 " For changing comment characters in html/script/style
-nnoremap \c/  :set commentstring=//%s<cr>
-nnoremap \c*  :set commentstring=/*%s*/<cr>
-nnoremap \c-  :set commentstring=<!--%s--><cr>
+nnoremap \c/  :set commentstring=//\ %s<cr>
+nnoremap \c*  :set commentstring=/*\ %s\ */<cr>
+nnoremap \c-  :set commentstring=<!--\ %s\ --><cr>
 
 " mhinz/vim-signify
 nmap \+ :SignifyToggle<cr>
