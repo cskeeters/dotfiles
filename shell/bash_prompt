@@ -1,121 +1,187 @@
 #!/bin/bash
 
-prompt_color="\001\e[%sm\002%s\001\e[0m\002"
-export prompt_color
+color() {
+    TXT=$2
+    if [[ $TXT =~ ^$HOME(.*) ]]; then
+        TXT=~${BASH_REMATCH[1]}
+    fi
+    printf "\001\033[38;05;$1m\002$TXT\001\033[0m\002"
+}
+export -f color
 
-function parse_hg_branch() {
-    local dirty=0 newfile=0 deleted=0 untracked=0 indicators=""
-
-    BRANCH=$(hg branch 2> /dev/null)
-    if [[ $BRANCH != "" ]]; then
+set_hg_vars() {
+    HG_BRANCH=$(hg branch 2> /dev/null)
+    if [[ $HG_BRANCH != "" ]]; then
         # hg par is fast, id is slow over nfs
-        REV=$(hg par --template '{rev},')
-        [[ $REV =~ ([[:digit:]]+),([[:digit:]]+), ]] && REV=${BASH_REMATCH[1]},${BASH_REMATCH[2]}
-        [[ $REV =~ ([[:digit:]]+),$ ]] && REV=${BASH_REMATCH[1]}
+        HG_REV=$(hg par --template '{rev},')
+        [[ $HG_REV =~ ([[:digit:]]+),([[:digit:]]+), ]] && HG_REV=${BASH_REMATCH[1]},${BASH_REMATCH[2]}
+        [[ $HG_REV =~ ([[:digit:]]+),$ ]] && HG_REV=${BASH_REMATCH[1]}
 
-        BRCOLOR=37 # White means no status checked
-        REVCOLOR=37 # White means no status checked
+        HG_LATEST=0 # not checked, file system too slow
+
+        HG_DIRTY=0
+        HG_NEWFILE=0
+        HG_DELETED=0
+        HG_UNTRACKED=0
 
         # If the current directory is on an nfs mount, don't run hg sta, or hg id, too slow
         if [[ ! $(df -PT . | sed -n 2p | awk '{ print $2 }') =~ nfs ]]; then
-            BRCOLOR=35 # purple == Clean
-            REVCOLOR=35 # purple == Clean
+            HG_LATEST=1 # Clean
             if [[ $REV != -1 ]]; then
                 # If no commits id -n returns -1, but this outputs an error
-                BREV=$(hg identify -nr $(hg identify -b) 2> /dev/null)
+                HG_BRANCH_REV=$(hg identify -nr $(hg identify -b) 2> /dev/null)
             fi
+
             # Red, not on latest revision for branch
-            [[ $REV == $BREV ]] || BRCOLOR=31
+            [[ $HG_REV == $HG_BRANCH_REV ]] || HG_LATEST=2 # On Old Rev
 
             parse_hg_status
-            # set_indicators_hg_single
-            (($untracked)) && REVCOLOR=33 # Yellow == Dirty
-            (($dirty)) || (($newfile)) || (($deleted)) && REVCOLOR=31 # Red == Dirty
         fi
 
-        printf $prompt_color $BRCOLOR "${BRANCH}"
-        printf ":"
-        printf $prompt_color $REVCOLOR "${REV}${indicators} "
     fi
 }
-export -f parse_hg_branch
+export -f set_hg_vars
 
 # get current status of hg repo
-function parse_hg_status {
-    # local dirty=1 newfile=1 deleted=1 untracked=1
-    hg status 2>&1 | while IFS= read -r -d $'\n' line; do
-        [[ $line =~ ^M ]] && dirty=1
-        [[ $line =~ ^A ]] && newfile=1
-        [[ $line =~ ^R ]] && deleted=1
-        [[ $line =~ ^\? ]] && untracked=1
-    done
+parse_hg_status() {
+    hg status 2>&1 > $TMPDIR/prompt-$$
+    while IFS= read -r -d $'\n' line; do
+        [[ $line =~ ^M ]] && HG_DIRTY=1
+        [[ $line =~ ^A ]] && HG_NEWFILE=1
+        [[ $line =~ ^R ]] && HG_DELETED=1
+        [[ $line =~ ^\? ]] && HG_UNTRACKED=1
+    done < $TMPDIR/prompt-$$
+    rm -f $TMPDIR/prompt-$$
 }
 export -f parse_hg_status
 
-function set_indicators_hg_single() {
-    indicators=''
-    ((${untracked})) && indicators="?"
-    (($dirty)) || (($newfile)) || (($deleted)) && indicators="+"
-    echo $indicators
-}
-export -f set_indicators_hg_single
-
-function set_indicators_hg_multi() {
-    indicators=''
-    (($newfile)) && indicators="+${indicators}"
-    (($untracked)) && indicators="?${indicators}"
-    (($deleted)) && indicators="x${indicators}"
-    (($dirty)) && indicators="!${indicators}"
-}
-export -f set_indicators_hg_multi
-
 # get current branch in git repo
-function parse_git_branch() {
-    local dirty=0 untracked=0 ahead=0 newfile=0 renamed=0 deleted=0 indicators=""
-    BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-    if [ ! "${BRANCH}" == "" ]; then
-        parse_git_status
-        set_indicators_git_multi
+set_git_vars() {
+    GIT_BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+    if [ ! "$GIT_BRANCH" == "" ]; then
 
-        dirty_color=34
-        [[ $indicators != "" ]] && dirty_color=33
+        GIT_MODIFIED=0
+        GIT_UNTRACKED=0
+        GIT_AHEAD=0
+        GIT_NEWFILE=0
+        GIT_RENAMED=0
+        GIT_DELETED=0
 
-        printf $prompt_color 35 "${BRANCH}"
-        printf $prompt_color 31 "${indicators} "
-        # printf $prompt_color $dirty_color " ± "
-        # printf $prompt_color $dirty_color " + "
+        git status 2>&1 > $TMPDIR/prompt-$$
+        # cat $TMPDIR/prompt-$$
+        while IFS= read -r -d $'\n' line; do
+            [[ $line =~ modified: ]] && GIT_MODIFIED=1
+            [[ $line =~ Untracked\ files ]] && GIT_UNTRACKED=1
+            [[ $line =~ Your\ branch\ is\ ahead\ of ]] && GIT_AHEAD=1
+            [[ $line =~ new\ file: ]] && GIT_NEWFILE=1
+            [[ $line =~ renamed: ]] && GIT_RENAMED=1
+            [[ $line =~ deleted: ]] && GIT_DELETED=1
+        done < $TMPDIR/prompt-$$
+        rm -f $TMPDIR/prompt-$$
+
+        GIT_WF=0
+        [[ $GIT_INDICATORS != "" ]] && GIT_WF=1
     fi
 }
-export -f parse_git_branch
+export -f set_git_vars
 
-# get current status of git repo
-function parse_git_status {
-    git status 2>&1 | while IFS= read -r -d $'\n' line; do
-        [[ $line =~ modified: ]] && dirty=1
-        [[ $line =~ Untracked\ files ]] && untracked=1
-        [[ $line =~ Your\ branch\ is\ ahead\ of ]] && ahead=1
-        [[ $line =~ new\ file: ]] && newfile=1
-        [[ $line =~ renamed: ]] && renamed=1
-        [[ $line =~ deleted: ]] && deleted=1
-    done
+
+declare -i LAST_RUN
+export LAST_RUN
+
+declare LAST_WD
+export LAST_WD
+
+__run_slow() {
+    # Has not run yet
+    [[ -z $LAST_RUN ]] && return 0
+    [[ -z $LAST_WD ]] && return 0
+
+    # In new directory
+    [[ $PWD != $LAST_WD ]] && return 0
+
+    # more than N second has elapsed
+    ((ELAPSED=$(date +%s) - $LAST_RUN))
+    [[ ! $ELAPSED -lt 2 ]] && return 0
+
+    # Don't think it's possible to see if the last command run was hg ci or git ci
+    # fc -ln -1 doesn't yet have the right command
+
+    return 1 # Don't run slow
 }
-export -f parse_git_status
+export -f __run_slow
 
-function set_indicators_git_multi() {
-    indicators=''
-    ((${renamed})) && indicators=">${indicators}"
-    ((${ahead})) && indicators="*${indicators}"
-    ((${newfile})) && indicators="+${indicators}"
-    ((${untracked})) && indicators="?${indicators}"
-    ((${deleted})) && indicators="x${indicators}"
-    ((${dirty})) && indicators="+${indicators}"
+set_hg_colors() {
+    HG_BRANCH_COLOR=7 # White means no status checked
+    [[ $HG_LATEST == 1 ]] && HG_BRANCH_COLOR=5
+    [[ $HG_LATEST == 2 ]] && HG_BRANCH_COLOR=1
+
+    if [[ $HG_LATEST == 0 ]]; then
+        HG_WF_COLOR=7 # White means no status checked
+    else
+        HG_WF_COLOR=5 # White means no status checked
+        (($HG_UNTRACKED)) && HG_WF_COLOR=3 # untracked files present
+        (($HG_DIRTY)) || (($HG_NEWFILE)) || (($HG_DELETED)) && HG_WF_COLOR=1 # Red == Dirty
+    fi
 }
-export -f set_indicators_git_multi
+export -f set_hg_colors
 
-function nonzero_return() {
-    RETVAL=$?
-    [[ $RETVAL -ne 0 ]] && printf $prompt_color 31 "$RETVAL "
+set_git_colors() {
+    GIT_WF_COLOR=5
+    [[ $GIT_UNTRACKED == 1 ]] && GIT_WF_COLOR=3
+    [[ $GIT_AHEAD == 1 ]] && GIT_WF_COLOR=3
+    [[ $GIT_NEWFILE == 1 ]] && GIT_WF_COLOR=1
+    [[ $GIT_RENAMED == 1 ]] && GIT_WF_COLOR=1
+    [[ $GIT_DELETED == 1 ]] && GIT_WF_COLOR=1
+    [[ $GIT_MODIFIED == 1 ]] && GIT_WF_COLOR=1
 }
-export -f nonzero_return
+export -f set_git_colors
 
-export PS1="\`nonzero_return\`\[\e[35m\]\`whoami\`\[\e[0m\]@\[\e[33m\]\h\[\e[0m\] \[\e[36m\]\w\[\e[0m\] \`parse_git_branch\`\`parse_hg_branch\`"
+__prompt_cmd() {
+    RET=$?
+    STATUS=""
+    [[ $RET != 0 ]] && STATUS="$(color 1 "$RET") "
+    # STATUS=$'\001'$(tput bold)$(tput setaf $STATUS_COLOR)$'\002'$RET$'\001'$(tput sgr0)$'\002'
+
+    if __run_slow; then
+        # echo "Updating Prompt"
+
+        # User according to whoami (with out \u JDK-6555979)
+        _WHOAMI=$(whoami)
+
+        ############### Mercurial
+        set_hg_vars
+        set_hg_colors
+
+        if [[ $HG_BRANCH ]]; then
+            # Add trailing slash
+            HG_STATUS="$(color $HG_BRANCH_COLOR "$HG_BRANCH"):$(color $HG_WF_COLOR "$HG_REV") "
+        else
+            HG_STATUS=""
+        fi
+
+        ############### GIT
+        set_git_vars
+        set_git_colors
+
+        if [[ $GIT_BRANCH ]]; then
+            # Add trailing slash
+            GIT_STATUS="$(color $GIT_WF_COLOR "$GIT_BRANCH") "
+        else
+            GIT_STATUS=""
+        fi
+
+        SCM_STATUS="$HG_STATUS$GIT_STATUS"
+
+        LAST_RUN="$(date +%s)"
+        LAST_WD="$PWD"
+    fi
+
+}
+export -f __prompt_cmd
+
+export PROMPT_COMMAND=__prompt_cmd
+
+PS1='$STATUS$(color 5 $_WHOAMI)@$(color 3 \h) '
+PS1+='$(color 6 \w) '
+PS1+='$SCM_STATUS'
