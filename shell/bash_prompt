@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [[ !$TMPDIR ]]; then
+    if [[ $XDG_RUNTIME_DIR ]]; then
+        TMPDIR="$XDG_RUNTIME_DIR"
+    else
+        TMPDIR=/tmp
+    fi
+fi
+
 color() {
     TXT=$2
     if [[ $TXT =~ ^$HOME(.*) ]]; then
