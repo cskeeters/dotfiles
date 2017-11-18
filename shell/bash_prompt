@@ -8,12 +8,14 @@ if [[ !$TMPDIR ]]; then
     fi
 fi
 
+export fg_col="\001\033[38;05;%sm\002%s\001\033[0m\002"
+
 color() {
     TXT=$2
     if [[ $TXT =~ ^$HOME(.*) ]]; then
         TXT=~${BASH_REMATCH[1]}
     fi
-    printf "\001\033[38;05;$1m\002$TXT\001\033[0m\002"
+    printf $fg_col "$1" "$TXT"
 }
 export -f color
 
@@ -154,9 +156,6 @@ __prompt_cmd() {
     if __run_slow; then
         # echo "Updating Prompt"
 
-        # User according to whoami (with out \u JDK-6555979)
-        _WHOAMI=$(whoami)
-
         ############### Mercurial
         set_hg_vars
         set_hg_colors
@@ -190,6 +189,10 @@ export -f __prompt_cmd
 
 export PROMPT_COMMAND=__prompt_cmd
 
-PS1='$STATUS$(color 5 $_WHOAMI)@$(color 3 \h) '
-PS1+='$(color 6 \w) '
+# User according to whoami (with out \u JDK-6555979)
+# Use printf since functions don't export when su(do)ing, but variables (fg_col) will
+# If su(do)ing, STATUS and SCM_STATUS will not update
+# Functions are exported so that way they will things will function when running sh/git/vim
+PS1='$STATUS$(printf $fg_col 5 $(whoami))@$(printf $fg_col 3 \h) '
+PS1+='$(printf $fg_col 6 \W) '
 PS1+='$SCM_STATUS'
