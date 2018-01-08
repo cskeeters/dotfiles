@@ -381,6 +381,9 @@ if !has("gui_running")
     nnoremap g/ :Ag <cword><CR>
     nnoremap <c-j>; :BLines<CR>
     nnoremap <c-j>: :Lines<CR>
+
+    command! -nargs=0 HgFiles call fzf#run({'source': 'hg sta -n', 'sink': 'e', 'options': ''})
+    nnoremap <c-j>s :HgFiles<CR>
 else
     " Shougo/unite.vim
     nnoremap <c-j>t :Unite tag<CR>
