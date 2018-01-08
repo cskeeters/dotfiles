@@ -351,6 +351,9 @@ nmap \b :HGblame<cr>
 nmap \a :HgAnnotate<cr>
 " gd - go diff when cursor is over number
 
+" Toggle diff
+nmap <space>d :ToggleDiff<cr>
+
 " When text doesn't highlight
 nnoremap \\5 :syntax sync minlines=500<cr>
 nnoremap \\x :syntax sync fromstart<cr>
@@ -384,6 +387,9 @@ if !has("gui_running")
     nnoremap g/ :Ag <cword><CR>
     nnoremap <c-j>; :BLines<CR>
     nnoremap <c-j>: :Lines<CR>
+
+    command! -nargs=0 HgFiles call fzf#run({'source': 'hg sta -n', 'sink': 'e', 'options': ''})
+    nnoremap <c-j>s :HgFiles<CR>
 else
     " Shougo/unite.vim
     nnoremap <c-j>t :Unite tag<CR>
@@ -633,6 +639,7 @@ Plug 'https://github.com/tpope/vim-abolish'
 "Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/cskeeters/vim-simple-comment'
 Plug 'https://github.com/tpope/vim-commentary'
+Plug 'https://github.com/cskeeters/vim-diff-settings'
 
 Plug 'https://github.com/majutsushi/tagbar'
 " Add support for markdown files in tagbar.
