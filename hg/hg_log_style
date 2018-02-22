@@ -1,4 +1,4 @@
-changeset         = '{label('log.{phase}',rev)} {label('log.branch',branch)} {label('log.desc',desc|firstline|strip)} {label("log.dim", "({author|user} {date(date, "%d-%b-%y")})")}{tags}{bookmarks}\n'
+changeset         = '{label('log.{phase}',rev)} {label('log.branch',branch)} {label('log.desc',desc|firstline|strip)} {label("log.dim", "({author|user} {date(date, '%d-%b-%y')})")}{tags}{bookmarks}\n'
 changeset_verbose = '{label('log.{phase}',rev)} {label('log.node',node|short)} {label('log.branch',branch)} {label('log.desc',desc|firstline|strip)} {label("log.dim", "({author|user} on {date|shortdate})")}{tags}{bookmarks}\n{file_mods}{file_adds}{file_dels}\n'
 
 #{phase}
