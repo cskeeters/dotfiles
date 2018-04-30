@@ -571,6 +571,9 @@ vnoremap <silent><space><space>t :Unite -silent menu:tabularize<CR>
 iab <expr> dts strftime("%FT%T%z")
 iab <expr> ds strftime("%Y-%b-%d")
 
+""""""""""""""""""""""""""""""""" Keyboard Mappings: Other
+
+nmap <C-k> :make<cr>
 
 """"""""""""""""""""""""""""""""" Builtin: Configuration
 
