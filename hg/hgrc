@@ -32,6 +32,7 @@ path=/opt/local/share/mercurial/contrib/hgk
 git=1
 
 [defaults]
+annotate=-w
 branches=-a
 revert=--no-backup
 parents=-v --style=$HOME/.hg_log_style
