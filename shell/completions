@@ -359,6 +359,6 @@ done
 
 for cmd in awk cat diff diff3 emacs ex file g++ gcc gvim head hg java javac ld less \
            more mvim patch perl python ruby sed sftp sort source tail tee uniq vi view vim wc; do
-    complete -o filenames -o nospace -F _fuzzy_file -o default -o bashdefault $cmd
+    complete -o filenames -F _fuzzy_file -o default -o bashdefault $cmd
 done
 
