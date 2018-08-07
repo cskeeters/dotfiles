@@ -101,6 +101,9 @@ alias l='ls -lh'
 alias la='ls -lAh'
 alias ll='ls -lh'
 alias vi='vim'
+if exists nvim; then
+    alias vim='nvim'
+fi
 if exists mvim; then
     alias gvim='mvim'
 fi
