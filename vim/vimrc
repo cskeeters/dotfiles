@@ -347,6 +347,8 @@ nmap \b :HGblame<cr>
 " cskeeters/vim-hg
 nmap \a :HgAnnotate<cr>
 " gd - go diff when cursor is over number
+nmap \l :HgGLog<cr>
+" gd - go diff when cursor is over number
 
 " Toggle diff
 nmap <space>d :ToggleDiff<cr>
