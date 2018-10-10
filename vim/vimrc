@@ -381,9 +381,9 @@ nnoremap <c-j>j :Unite jump<CR>
 if !has("gui_running")
     "junegunn/fzf.vim
     nnoremap <c-j>t :Tag<CR>
-    nnoremap g] :Tags '<cword><CR>
+    nnoremap g] :Tags '<C-r>=expand('<cword>')<CR> <CR>
 
-    nnoremap g/ :Ag <cword><CR>
+    nnoremap g/ :Ag <C-r>=expand('<cword>')<CR><CR>
     nnoremap <c-j>; :BLines<CR>
     nnoremap <c-j>: :Lines<CR>
 
