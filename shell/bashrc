@@ -1,5 +1,6 @@
 [[ -f /etc/profile ]] && source /etc/profile
 [[ -f ~/.profile ]] && source ~/.profile
+[[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
 [[ -f ~/.gshrc ]] && source ~/.gshrc
 
 # /etc/profile.d/vte.sh overwrites PROMPT_COMMAND set by autojump
@@ -38,8 +39,6 @@ if hash fzf 2> /dev/null; then
         fi
     fi
 fi
-
-[[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
 
 if [[ $- =~ i ]]; then
     # In konsole, this will prevent ^C from being printed
