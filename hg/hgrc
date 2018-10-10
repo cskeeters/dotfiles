@@ -33,7 +33,6 @@ git=1
 
 [defaults]
 annotate=-w
-branches=-a
 revert=--no-backup
 parents=-v --style=$HOME/.hg_log_style
 log=--style=$HOME/.hg_log_style
