@@ -1,4 +1,8 @@
 set bell-style none
+
+# Turn off trailing slashes on folder complete
+set mark-directories off
+
 #set editing-mode vi
 $if mode=vi
     set keymap vi-command
