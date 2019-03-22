@@ -86,6 +86,9 @@ if version > 703
     set relativenumber
 endif
 
+set splitbelow
+set splitright
+
 set showcmd " Shows partial key sequences
 
 set scrolloff=3      " minimum lines to keep above and below cursor
