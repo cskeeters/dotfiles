@@ -251,6 +251,8 @@ nnoremap [Q :colder<cr>
 " Location List :lgrep :lvimgrep
 nnoremap ]l :lnext<cr>
 nnoremap [l :lprev<cr>
+nnoremap ]L :lnewer<cr>
+nnoremap [L :lolder<cr>
 
 " Tag Stack (Although I normall use the jump list CTRL-O)
 nnoremap ]t :tag<cr>
@@ -491,8 +493,8 @@ noremap <silent><C-j>p :Unite -silent menu:projects<CR>
 " This is better than :silent grep because
 " * it respects .hgignore/.gitignore
 " * grep requires <C-L> in iterm to redraw the screen
-noremap <leader>/ :Ack <cword><cr>
-noremap <leader>i/ :AckWindow <cword><cr>
+noremap <leader>/ :LAck <cword><cr>
+noremap <leader>i/ :LAckWindow <cword><cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File
