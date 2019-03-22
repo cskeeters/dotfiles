@@ -887,12 +887,6 @@ function! FocusWindow(target_width)
     endfor
 endfunction
 
-function! AirlineInit()
-    " Let me see the cwd
-    let g:airline_section_b = airline#section#create(['%{fnamemodify(getcwd(), ":t")}', g:airline_symbols.space, 'hunks', 'branch'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
 if has('nvim')
     call denite#custom#source('file_rec', 'matchers', ['matcher_ignore_globs'])
 endif
