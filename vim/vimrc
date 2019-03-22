@@ -204,6 +204,7 @@ augroup END
 let mapleader = ','
 let maplocalleader = ' '
 
+nnoremap <c-w>f :call FocusWindow(140)<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Built-in Modifications
 nnoremap Q :echom "Exmode Disabled"<cr>
@@ -866,6 +867,26 @@ call plug#end()
 
 
 """"""""""""""""""""""""""""""""" Plugins: post-load Configuration
+
+function! FocusWindow(target_width)
+    let l:winid = win_getid()
+    let l:winlist = getwininfo()
+
+    " In case we were called by accident, just exit
+    if len(l:winlist) < 2
+        return
+    endif
+
+    for winfo in l:winlist
+        if winfo.winid == l:winid
+            if winfo.width != a:target_width
+                execute "vertical resize ".a:target_width
+            else
+                wincmd =
+            endif
+        endif
+    endfor
+endfunction
 
 function! AirlineInit()
     " Let me see the cwd
