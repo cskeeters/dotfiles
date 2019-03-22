@@ -88,6 +88,9 @@ if version > 703
     set relativenumber
 endif
 
+set splitbelow
+set splitright
+
 set showcmd " Shows partial key sequences
 
 set scrolloff=3      " minimum lines to keep above and below cursor
@@ -204,11 +207,12 @@ augroup END
 let mapleader = ','
 let maplocalleader = ' '
 
+nnoremap <c-w>f :call FocusWindow(140)<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Built-in Modifications
+nnoremap Q :echom "Exmode Disabled"<cr>
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
-" viw,p will black-hole delete and paste default register
 nnoremap x "_x
 
 if has('osx')
@@ -253,6 +257,8 @@ nnoremap [Q :colder<cr>
 " Location List :lgrep :lvimgrep
 nnoremap ]l :lnext<cr>
 nnoremap [l :lprev<cr>
+nnoremap ]L :lnewer<cr>
+nnoremap [L :lolder<cr>
 
 " Tag Stack (Although I normall use the jump list CTRL-O)
 nnoremap ]t :tag<cr>
@@ -381,6 +387,9 @@ nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
+"Jump to tag in vertical split instead of horizonal (default)
+nnoremap <c-w>] :vertical wincmd ]<cr>
+
 if !has("gui_running")
     "junegunn/fzf.vim
     nnoremap <c-j>t :Tag<CR>
@@ -416,8 +425,6 @@ nnoremap <leader>mc :call GetMark('c')<cr>
 nnoremap <leader>mv :call GetMark('v')<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
-noremap <C-p>b     :CtrlPBuffer<cr>
-
 "cskeeters/closer.vim
 nmap <C-j>c <Plug>OpenCloser
 
@@ -432,10 +439,6 @@ else
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
-
-"kien/ctrlp.vim
-noremap <C-p><C-p> :CtrlP .<cr>
-noremap <C-p>p     :CtrlP .<cr>
 
 " Shougo/unite.vim
 " Bookmarks
@@ -490,8 +493,8 @@ noremap <silent><C-j>p :Unite -silent menu:projects<CR>
 " This is better than :silent grep because
 " * it respects .hgignore/.gitignore
 " * grep requires <C-L> in iterm to redraw the screen
-noremap <leader>/ :Ack <cword><cr>
-noremap <leader>i/ :AckWindow <cword><cr>
+noremap <leader>/ :LAck <cword><cr>
+noremap <leader>i/ :LAckWindow <cword><cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File
@@ -730,19 +733,6 @@ if has('nvim')
 endif
 Plug 'https://github.com/Shougo/unite.vim'
 
-Plug 'https://github.com/kien/ctrlp.vim'
-"let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_max_files = 4000
-if executable('ag')
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-endif
-
 """"""""""""""""""""""""""""""""" Plugins: Tab Completion
 
 Plug 'https://github.com/ervandew/supertab'
@@ -879,6 +869,26 @@ call plug#end()
 
 
 """"""""""""""""""""""""""""""""" Plugins: post-load Configuration
+
+function! FocusWindow(target_width)
+    let l:winid = win_getid()
+    let l:winlist = getwininfo()
+
+    " In case we were called by accident, just exit
+    if len(l:winlist) < 2
+        return
+    endif
+
+    for winfo in l:winlist
+        if winfo.winid == l:winid
+            if winfo.width != a:target_width
+                execute "vertical resize ".a:target_width
+            else
+                wincmd =
+            endif
+        endif
+    endfor
+endfunction
 
 function! AirlineInit()
     " Let me see the cwd
