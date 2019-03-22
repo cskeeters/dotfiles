@@ -419,8 +419,6 @@ nnoremap <leader>mc :call GetMark('c')<cr>
 nnoremap <leader>mv :call GetMark('v')<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
-noremap <C-p>b     :CtrlPBuffer<cr>
-
 "cskeeters/closer.vim
 nmap <C-j>c <Plug>OpenCloser
 
@@ -435,10 +433,6 @@ else
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
-
-"kien/ctrlp.vim
-noremap <C-p><C-p> :CtrlP .<cr>
-noremap <C-p>p     :CtrlP .<cr>
 
 " Shougo/unite.vim
 " Bookmarks
@@ -735,19 +729,6 @@ if has('nvim')
     Plug 'https://github.com/Shougo/denite.nvim'
 endif
 Plug 'https://github.com/Shougo/unite.vim'
-
-Plug 'https://github.com/kien/ctrlp.vim'
-"let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_max_files = 4000
-if executable('ag')
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
-    let g:ctrlp_use_caching = 0
-endif
 
 """"""""""""""""""""""""""""""""" Plugins: Tab Completion
 
