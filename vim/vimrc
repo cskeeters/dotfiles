@@ -381,6 +381,9 @@ nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 nnoremap <c-j>q :Unite quickfix<CR>
 nnoremap <c-j>j :Unite jump<CR>
 
+"Jump to tag in vertical split instead of horizonal (default)
+nnoremap <c-w>] :vertical wincmd ]<cr>
+
 if !has("gui_running")
     "junegunn/fzf.vim
     nnoremap <c-j>t :Tag<CR>
