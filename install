@@ -170,7 +170,7 @@ install_rst() {
     fi
     erun ln -s $dotfiles/.rst2pdf ~/.rst2pdf
 
-    if [[ -h ~/.rst2pdf ]]; then
+    if [[ -h ~/.rst2html ]]; then
         rm -f ~/.rst2html
     else
         # This may be a folder we need to backup
