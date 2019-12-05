@@ -843,8 +843,8 @@ Plug 'https://github.com/cskeeters/vim-log4j', { 'for': 'java' }
 
 """"""""""""""""""""""""""""""""" Plugins: c++
 
-Plug 'https://github.com/myint/clang-complete', { 'for': 'cpp' }
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+" Plug 'https://github.com/myint/clang-complete', { 'for': 'cpp' }
+" let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 
 
 " IF syntastic is used
@@ -857,10 +857,6 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 
 
 """"""""""""""""""""""""""""""""" Plugins: experimental
-
-if has('nvim')
-    Plug 'https://github.com/roxma/nvim-completion-manager'
-endif
 
 call plug#end()
 
