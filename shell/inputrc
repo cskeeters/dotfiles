@@ -1,7 +1,12 @@
 set bell-style none
 
-# Turn off trailing slashes on folder complete
-set mark-directories off
+# Trailing slashes on folder complete
+set mark-directories on
+# Add trailing slash for symlinks to directories
+set mark-symlinked-directories on
+
+# Show complete options after one tab press
+set show-all-if-ambiguous on
 
 #set editing-mode vi
 $if mode=vi
