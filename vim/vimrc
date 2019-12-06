@@ -861,10 +861,6 @@ Plug 'https://github.com/cskeeters/vim-log4j', { 'for': 'java' }
 
 """"""""""""""""""""""""""""""""" Plugins: experimental
 
-if has('nvim')
-    Plug 'https://github.com/roxma/nvim-completion-manager'
-endif
-
 call plug#end()
 
 
