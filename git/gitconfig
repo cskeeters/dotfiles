@@ -11,8 +11,9 @@
   co = checkout
   df = diff
   ds = diff --staged
-  gl = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  gll = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --max-count=20
+  l = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  la = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+  ll = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --max-count=20
 [merge]
   tool = tabsplice
 [mergetool "tabsplice"]
