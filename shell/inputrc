@@ -1,4 +1,8 @@
 set bell-style none
+
+# Add trailing slash for symlinks to directories
+set mark-symlinked-directories on
+
 #set editing-mode vi
 $if mode=vi
     set keymap vi-command

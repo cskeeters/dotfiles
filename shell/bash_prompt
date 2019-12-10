@@ -77,20 +77,22 @@ set_git_vars() {
         GIT_RENAMED=0
         GIT_DELETED=0
 
-        git status 2>&1 > $TMPDIR/prompt-$$
-        # cat $TMPDIR/prompt-$$
-        while IFS= read -r -d $'\n' line; do
-            [[ $line =~ modified: ]] && GIT_MODIFIED=1
-            [[ $line =~ Untracked\ files ]] && GIT_UNTRACKED=1
-            [[ $line =~ Your\ branch\ is\ ahead\ of ]] && GIT_AHEAD=1
-            [[ $line =~ new\ file: ]] && GIT_NEWFILE=1
-            [[ $line =~ renamed: ]] && GIT_RENAMED=1
-            [[ $line =~ deleted: ]] && GIT_DELETED=1
-        done < $TMPDIR/prompt-$$
-        rm -f $TMPDIR/prompt-$$
+        git status 2> /dev/null > $TMPDIR/prompt-$$
+        if [[ $? -eq 0 ]]; then
+            # cat $TMPDIR/prompt-$$
+            while IFS= read -r -d $'\n' line; do
+                [[ $line =~ modified: ]] && GIT_MODIFIED=1
+                [[ $line =~ Untracked\ files ]] && GIT_UNTRACKED=1
+                [[ $line =~ Your\ branch\ is\ ahead\ of ]] && GIT_AHEAD=1
+                [[ $line =~ new\ file: ]] && GIT_NEWFILE=1
+                [[ $line =~ renamed: ]] && GIT_RENAMED=1
+                [[ $line =~ deleted: ]] && GIT_DELETED=1
+            done < $TMPDIR/prompt-$$
+            rm -f $TMPDIR/prompt-$$
 
-        GIT_WF=0
-        [[ $GIT_INDICATORS != "" ]] && GIT_WF=1
+            GIT_WF=0
+            [[ $GIT_INDICATORS != "" ]] && GIT_WF=1
+        fi
     fi
 }
 export -f set_git_vars
