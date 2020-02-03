@@ -36,6 +36,8 @@ annotate=-w
 revert=--no-backup
 parents=-v --style=$HOME/.hg_log_style
 log=--style=$HOME/.hg_log_style
+outgoing=--style=$HOME/.hg_log_style
+incoming=--style=$HOME/.hg_log_style
 glog=--style=$HOME/.hg_log_style
 
 [alias]
