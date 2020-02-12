@@ -619,10 +619,14 @@ endif
 
 
 "Plug '~/working/base16-builder-php/templates/vim'
-" Addresses a possible bug where vim (term) doesn't fall back to underline
-" from undercurl
-let &t_Cs = "\e[4:3m"
-let &t_Ce = "\e[4:0m"
+
+if version > 800
+    " Addresses a possible bug where vim (term) doesn't fall back to underline
+    " from undercurl
+    let &t_Cs = "\e[4:3m"
+    let &t_Ce = "\e[4:0m"
+endif
+
 Plug 'https://github.com/chriskempson/base16-vim',
     \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.vim/base16-shell' }
 if $TERM != "konsole"
@@ -829,11 +833,7 @@ Plug 'https://github.com/alvan/vim-closetag'
 
 """"""""""""""""""""""""""""""""" Plugins: Java
 Plug 'https://github.com/cskeeters/javadoc.vim', { 'for': 'java' }
-if isdirectory('/opt/AMS2')
-    let g:javadoc_path="/opt/AMS2/net/doc/javadoc-1.6.0/api:/usr/local/Solipsys/TDF4.7.13/doc/api"
-else
-    let g:javadoc_path="/Users/chad/java8_doc/api"
-endif
+let g:javadoc_path="/opt/AMS2/net/doc/java8/api:/usr/local/Solipsys/TDF4.7.13/doc/api:/opt/AMS2/net/doc/apache-log4j-1.2.17/apidocs"
 
 
 Plug 'https://github.com/cskeeters/jcall.vim', { 'for': 'java' }
