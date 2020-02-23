@@ -196,5 +196,5 @@ export PROMPT_COMMAND=__prompt_cmd
 # If su(do)ing, STATUS and SCM_STATUS will not update
 # Functions are exported so that way they will things will function when running sh/git/vim
 PS1='$STATUS$(printf $fg_col 5 $(whoami))@$(printf $fg_col 3 \h) '
-PS1+='$(printf $fg_col 6 \W) '
+PS1+='$(printf $fg_col 6 "\W") '
 PS1+='$SCM_STATUS'
