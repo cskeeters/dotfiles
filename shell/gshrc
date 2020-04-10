@@ -28,6 +28,9 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/usr/AMS2/net/scripts"
 
+# Make python, pip run version 3 stuff
+ismac && export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
         # Finder launched programs need this path ?
