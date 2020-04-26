@@ -219,6 +219,13 @@ endif
 " Make any necesary parent directories
 command! -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
 
+" Removes highlighting on insert
+" https://vi.stackexchange.com/questions/10407/stop-highlighting-when-entering-insert-mode
+autocmd InsertEnter * setlocal nohlsearch
+autocmd InsertLeave * setlocal hlsearch
+inoremap <silent><Esc> <Esc>:nohl<CR>
+inoremap <silent><C-c> <Esc>:nohl<CR>
+
 "Saving helpers
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <esc>:update<CR>
