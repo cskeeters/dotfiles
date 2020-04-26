@@ -765,6 +765,11 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Plug 'https://github.com/MarcWeber/vim-addon-mw-utils'
 "Plug 'https://github.com/garbas/vim-snipmate'
 
+" vim runtime/filetype autoload/dist/ft.vim will detect htmldjango.
+" This dot syntax makes html snippets accessible
+autocmd FileType htmldjango set ft=htmldjango.js.css.html
+autocmd FileType html set ft=js.css.html
+
 " Personal snippets
 Plug 'https://github.com/cskeeters/vim-snippets'
 
