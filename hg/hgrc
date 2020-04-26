@@ -1,7 +1,6 @@
 [ui]
 interface=curses
 username=chad.skeeters@gmail.com
-editor=vim
 
 # See hg help merge-tools
 merge=tabsplice
