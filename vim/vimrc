@@ -230,6 +230,9 @@ inoremap <silent><C-c> <Esc>:nohl<CR>
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <esc>:update<CR>
 
+nnoremap <A-x> :update<CR>:!<Up><CR>
+inoremap <A-x> <esc>:update<CR>
+
 imap <S-Insert> <MiddleMouse>
 
 if !has('nvim')
