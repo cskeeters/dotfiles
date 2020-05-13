@@ -916,3 +916,7 @@ if has('nvim')
     endif
 endif
 colorscheme base16-default-dark
+
+" Vim 8 sets cterm=underline, reset that here
+highlight CursorLine   ctermbg=18 term=NONE cterm=NONE
+highlight CursorLineNr ctermbg=18 term=NONE cterm=NONE
