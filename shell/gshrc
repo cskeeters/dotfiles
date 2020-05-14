@@ -32,6 +32,15 @@ export PATH="$PATH:/usr/AMS2/net/scripts"
 ismac && export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 ismac && export PATH="/usr/local/Cellar/gnu-sed/4.8/libexec/gnubin:$PATH"
 
+if ismac; then
+    LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+    export LDFLAGS="-L/usr/local/opt/llvm/lib"
+    export CPPFLAGS="-I/usr/local/opt/llvm/include"
+fi
+
 
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
