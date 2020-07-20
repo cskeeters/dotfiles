@@ -816,6 +816,8 @@ let g:online_thesaurus_map_keys = 0
 "keyboard mappings and settings per file type
 Plug 'https://github.com/cskeeters/vim-maps'
 
+" Use custom cskeeters/vim-markdown
+let g:polyglot_disabled = ['markdown']
 Plug 'https://github.com/sheerun/vim-polyglot'
 
 Plug 'https://github.com/cskeeters/sr.vim'
