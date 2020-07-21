@@ -28,6 +28,20 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/usr/AMS2/net/scripts"
 
+# Make python, pip run version 3 stuff
+ismac && export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+ismac && export PATH="/usr/local/Cellar/gnu-sed/4.8/libexec/gnubin:$PATH"
+
+if ismac; then
+    LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+
+    export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+    export LDFLAGS="-L/usr/local/opt/llvm/lib"
+    export CPPFLAGS="-I/usr/local/opt/llvm/include"
+fi
+
+
 if [[ -z "$TMUX" ]]; then
     if [[ -f /bin/launchctl ]]; then
         # Finder launched programs need this path ?
@@ -82,7 +96,7 @@ fi
 #export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # Rust Language
-export PATH="$HOME/.cargo/bin:$PATH"
+# export PATH="$HOME/.cargo/bin:$PATH"
 
 if ismac; then
     # autojump

@@ -222,9 +222,19 @@ endif
 " Make any necesary parent directories
 command! -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
 
+" Removes highlighting on insert
+" https://vi.stackexchange.com/questions/10407/stop-highlighting-when-entering-insert-mode
+autocmd InsertEnter * setlocal nohlsearch
+autocmd InsertLeave * setlocal hlsearch
+inoremap <silent><Esc> <Esc>:nohl<CR>
+inoremap <silent><C-c> <Esc>:nohl<CR>
+
 "Saving helpers
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <esc>:update<CR>
+
+nnoremap <A-x> :update<CR>:!<Up><CR>
+inoremap <A-x> <esc>:update<CR>
 
 imap <S-Insert> <MiddleMouse>
 
@@ -765,6 +775,11 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Plug 'https://github.com/MarcWeber/vim-addon-mw-utils'
 "Plug 'https://github.com/garbas/vim-snipmate'
 
+" vim runtime/filetype autoload/dist/ft.vim will detect htmldjango.
+" This dot syntax makes html snippets accessible
+autocmd FileType htmldjango set ft=htmldjango.js.css.html
+autocmd FileType html set ft=js.css.html
+
 " Personal snippets
 Plug 'https://github.com/cskeeters/vim-snippets'
 
@@ -801,6 +816,8 @@ let g:online_thesaurus_map_keys = 0
 "keyboard mappings and settings per file type
 Plug 'https://github.com/cskeeters/vim-maps'
 
+" Use custom cskeeters/vim-markdown
+let g:polyglot_disabled = ['markdown']
 Plug 'https://github.com/sheerun/vim-polyglot'
 
 Plug 'https://github.com/cskeeters/sr.vim'
@@ -904,3 +921,7 @@ if has('nvim')
     endif
 endif
 colorscheme base16-default-dark
+
+" Vim 8 sets cterm=underline, reset that here
+highlight CursorLine   ctermbg=18 term=NONE cterm=NONE
+highlight CursorLineNr ctermbg=18 term=NONE cterm=NONE
