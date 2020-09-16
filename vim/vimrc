@@ -719,7 +719,7 @@ if !has("gui_running")
     Plug 'https://github.com/junegunn/fzf.vim'
 
     let g:fzf_layout = {'up': '~100%'}
-    let g:fzf_files_options = '--reverse --preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+    let g:fzf_files_options = '--reverse'
     let g:fzf_buffers_jump = 1
     let g:fzf_tags_command = 'ctags -R'
 else
