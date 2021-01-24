@@ -67,6 +67,15 @@ export CLICOLOR=1
 # Less
 export LESS="FRX"
 
+
+if [[ $- == *i* ]]; then
+    # Setup colors in case this is a terminal
+    COLOR_SCRIPT=$HOME/dotfiles/offline/base16-shell/scripts/base16-default-dark.sh
+    if [[ -r "$COLOR_SCRIPT" ]]; then
+        source "$COLOR_SCRIPT"
+    fi
+fi
+
 #pkg-config path
 #pkg-config --cflags cairo
 #pkg-config --libs cairo
