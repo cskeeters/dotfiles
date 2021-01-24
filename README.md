@@ -23,3 +23,21 @@ On new machine:
     tar -zxf [USB_MOUNT]/dotfiles.tgz
     cd dotfiles
     ./install
+
+
+Capslock to Escape
+==================
+
+To map caps lock to escape for one given session, run:
+
+    setxkbmap -option caps:escape
+
+If running in X, you can setup the keybord with dconf.
+
+To install `dconf` under Debian, run:
+
+    sudo apt-get install dconf-cli
+
+To make the setting perminant, run this command.
+
+    dconf write "/org/gnome/desktop/input-sources/xkb-options" "['caps:escape']"
