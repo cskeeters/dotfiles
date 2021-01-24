@@ -1,5 +1,12 @@
 " NOTE: FormatMatch osx application prevents visual block selections from being yanked and pasted
 
+" Set this to higher numbers to increase vim's speed (while losing features)
+"  0 : Slowest, all features enabled
+"  1 : Disables features that slow down vim the most
+"  2 : Disables custom color highlighting
+"  3 : Disables syntax highlighting all together
+let g:speed=0
+
 " vim: set ft=vim:
 
 set nocompatible
@@ -41,7 +48,16 @@ set thesaurus=~/dotfiles/mthesaur.txt
 
 " Enable 'vim: tw=80 noet sw=2' in files
 set modeline
-set cursorline
+if g:speed < 1
+    " This slows things down a fair amount
+    set cursorline
+endif
+
+if g:speed > 0
+    set synmaxcol=200
+    set lazyredraw
+    set regexpengine=1
+endif
 
 set printoptions=left:2cm,top:1in,right:2cm,bottom:1in,duplex:off,paper:letter,syntax:y,number:y
 
@@ -63,7 +79,9 @@ if $TMUX == ''
 endif
 
 set textwidth=0                 " Used in autoformatting (tw)
-set colorcolumn=+0              " Use textwidth variable
+if g:speed < 1
+    set colorcolumn=+0              " Use textwidth variable
+endif
 
 "set comments=sl:/*,mr:*,elx:*/  " auto format comment blocks with gq see help format-comments
 set comments=n:\"
@@ -72,6 +90,7 @@ set comments=n://
 set comments=sr:/***,m:*,elx:***/
 " set formatoptions+=a " to get format as you type in comments (fo)
 " set formatoptions-=a " to disable
+set formatoptions+=j " Delete comment character when joining commented lines
 
 " works for normal and insert.  I want insert to work
 set backspace=indent,eol,start
@@ -83,7 +102,8 @@ set smartcase                   " case sensitive when upper is present in search
 
 set number
 if version > 703
-    set relativenumber
+    " This is a redraw hog!
+    " set relativenumber
 endif
 
 set splitbelow
@@ -93,7 +113,9 @@ set showcmd " Shows partial key sequences
 
 set scrolloff=3      " minimum lines to keep above and below cursor
 set scrolljump=5     " lines to scroll when cursor leaves screen
+set sidescrolloff=5
 
+set display+=lastline
 
 set noshowmatch                   " Use pi_paren plugin instead
 set matchtime=5
@@ -126,6 +148,10 @@ set statusline+=%{&fenc?&fenc:&enc}/%{&ff}\                     " Encoding/EOL
 set statusline+=%w                                              " Preview
 set statusline+=%r\                                             " Read Only
 
+set history=1000 " : command history size
+set sessionoptions-=options  " Don't store mappings when using mksession
+set viewoptions-=options     " Don't store mappings when using mkview
+
 " Highlight problematic whitespace
 set list
 set listchars=tab:>\ ,trail:+,extends:#,nbsp:.
@@ -142,6 +168,7 @@ endif
 set ruler
 set rulerformat=%30(%=%y%m%r%w\ %l,%r%V\ %p%)
 
+set autoread
 set nobackup
 if $TMUX == ''
     set swapfile   " Swap file lets you know the buffer is open in another window
@@ -225,6 +252,7 @@ autocmd InsertEnter * setlocal nohlsearch
 autocmd InsertLeave * setlocal hlsearch
 inoremap <silent><Esc> <Esc>:nohl<CR>
 inoremap <silent><C-c> <Esc>:nohl<CR>
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 
 "Saving helpers
 nnoremap <C-s> :update<CR>
@@ -610,7 +638,6 @@ endif
 """"""""""""""""""""""""""""""""" Plugins: Built-in Extension
 
 call plug#begin()
-Plug 'tpope/vim-sensible'
 
 Plug 'https://github.com/vim-scripts/argtextobj.vim'
 " cia (change, in, argument)
@@ -762,7 +789,9 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 """"""""""""""""""""""""""""""""" Plugins: snippets
 
-Plug 'https://github.com/SirVer/ultisnips'
+if g:speed < 1
+    Plug 'https://github.com/SirVer/ultisnips'
+endif
 "let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -816,9 +845,11 @@ let g:online_thesaurus_map_keys = 0
 "keyboard mappings and settings per file type
 Plug 'https://github.com/cskeeters/vim-maps'
 
-" Use custom cskeeters/vim-markdown
-let g:polyglot_disabled = ['markdown']
-Plug 'https://github.com/sheerun/vim-polyglot'
+if g:speed < 1
+    " Use custom cskeeters/vim-markdown
+    let g:polyglot_disabled = ['markdown']
+    Plug 'https://github.com/sheerun/vim-polyglot'
+endif
 
 Plug 'https://github.com/cskeeters/sr.vim'
 
@@ -917,8 +948,29 @@ if has('nvim')
         set termguicolors
     endif
 endif
-colorscheme base16-default-dark
 
-" Vim 8 sets cterm=underline, reset that here
-highlight CursorLine   ctermbg=18 term=NONE cterm=NONE
-highlight CursorLineNr ctermbg=18 term=NONE cterm=NONE
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+  set t_Co=16
+endif
+
+if g:speed < 1
+    " Load matchit.vim, but only if the user hasn't installed a newer version.
+    if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+        runtime! macros/matchit.vim
+    endif
+endif
+
+if g:speed < 2
+    if has('autocmd')
+        filetype plugin indent on
+    endif
+
+    colorscheme base16-default-dark
+    " Vim 8 sets cterm=underline, reset that here
+    highlight CursorLine   ctermbg=18 term=NONE cterm=NONE
+    highlight CursorLineNr ctermbg=18 term=NONE cterm=NONE
+elseif g:speed > 2
+    hi clear
+    syntax off
+endif
