@@ -31,15 +31,6 @@ if [ "Darwin" == "$(uname)" ]; then
   # brew install findutils gnu-sed
   alias find=gfind
   alias sed=gsed
-
-
-  function tabname {
-    printf "\e]1;$1\a"
-  }
-
-  function winname {
-    printf "\e]2;$1\a"
-  }
 fi
 
 bitb() {
