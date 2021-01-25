@@ -6,6 +6,9 @@ alias d=ll
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
+alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
+alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 
 # for vim in iterm with base16-default with 256 colors
 # . ~/.color_setup

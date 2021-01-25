@@ -57,7 +57,6 @@ export HISTCONTROL=erasedups
 #Common Shell tools
 export LANG=en_US.UTF-8
 
-export GREP_OPTIONS="--color --exclude-dir=.hg --exclude-dir=.git"
 # Not graphical or hg ci will abort without -f or --remote-wait
 export VISUAL='nvim'
 export EDITOR=$VISUAL
