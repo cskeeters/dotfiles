@@ -28,11 +28,13 @@ On new machine:
 Capslock to Escape
 ==================
 
-To map caps lock to escape for one given session, run:
+To map caps lock to escape for the tty:
+
+    sudo loadkeys caps-escape.kmap
+
+If running in X, you can setup the keybord with setxkbmap or dconf.
 
     setxkbmap -option caps:escape
-
-If running in X, you can setup the keybord with dconf.
 
 To install `dconf` under Debian, run:
 
