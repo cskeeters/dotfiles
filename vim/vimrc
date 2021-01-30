@@ -102,8 +102,10 @@ set smartcase                   " case sensitive when upper is present in search
 
 set number
 if version > 703
-    " This is a redraw hog!
-    " set relativenumber
+    if g:speed == 0
+        " This is a redraw hog!
+        set relativenumber
+    endif
 endif
 
 set splitbelow
