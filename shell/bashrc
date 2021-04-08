@@ -12,6 +12,16 @@ if [[ $(uname) == "Darwin" ]]; then
     # https://support.apple.com/en-us/HT208050
     export BASH_SILENCE_DEPRECATION_WARNING=1
 
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+    export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
+    # export LDFLAGS="-L/usr/local/opt/ruby/lib"
+    # export CPPFLAGS="-I/usr/local/opt/ruby/include"
+    # export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+    export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+    # export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
+    # export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+
     if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
         . $(brew --prefix)/etc/bash_completion
     else
