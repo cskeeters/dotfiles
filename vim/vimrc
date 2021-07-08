@@ -892,6 +892,8 @@ let g:jcall_src_build_pairs = [
 
 Plug 'https://github.com/cskeeters/vim-log4j', { 'for': 'java' }
 
+Plug 'https://github.com/cskeeters/vim-java'
+
 """"""""""""""""""""""""""""""""" Plugins: c++
 
 " Plug 'https://github.com/myint/clang-complete', { 'for': 'cpp' }
