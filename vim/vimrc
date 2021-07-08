@@ -464,7 +464,7 @@ nnoremap <leader>mv :call GetMark('v')<cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Buffer Management
 "cskeeters/closer.vim
-nmap <C-j>c <Plug>OpenCloser
+nmap <silent> <C-j>c <Plug>OpenCloser
 
 if !has("gui_running")
     "junegunn/fzf.vim
@@ -546,8 +546,8 @@ nmap <leader><leader>w :w !sudo tee % >/dev/null<cr>
 
 
 "cskeeters/vim-leave-window
-nnoremap <leader>gw :LWClose!<cr>
-nnoremap <leader>w :LWClose<cr>
+nnoremap <silent> <leader>gw :LWClose!<cr>
+nnoremap <silent> <leader>w :LWClose<cr>
 
 noremap <leader>q :q<CR>
 
