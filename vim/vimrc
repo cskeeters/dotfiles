@@ -621,6 +621,9 @@ iab <expr> ds strftime("%Y-%b-%d")
 
 nmap <C-k> :make<cr>
 
+" cskeeters/vim-make
+nmap g<C-k> :RootBuild<CR>
+
 """"""""""""""""""""""""""""""""" Builtin: Configuration
 
 "Disable netrw
@@ -842,7 +845,8 @@ endif
 Plug 'https://github.com/beloglazov/vim-online-thesaurus'
 let g:online_thesaurus_map_keys = 0
 
-"
+Plug 'https://github.com/cskeeters/vim-make'
+
 """"""""""""""""""""""""""""""""" Plugins: File-type specific
 
 "keyboard mappings and settings per file type
