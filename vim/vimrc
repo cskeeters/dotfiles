@@ -141,6 +141,7 @@ hi default link User2 String
 "   filetype
 hi default link User3 Type
 
+" This will be overwritten if vim-statusline is loaded
 set statusline=\ \ %1*\ %{getcwd()}\ %0*                        " current root or dir
 set statusline+=\ \ %2*\ %f%m\ %0*                              " Filename/Modified
 set statusline+=%=                                              " Right Aligned
