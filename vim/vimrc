@@ -466,6 +466,11 @@ nnoremap <leader>mv :call GetMark('v')<cr>
 "cskeeters/closer.vim
 nmap <silent> <C-j>c <Plug>OpenCloser
 
+" cskeeters/vim-status
+nmap <silent> <C-j>s :OpenStatus<CR>
+
+nmap <silent> <leader>t :tabclose<cr>
+
 if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>b :Buffers<CR>
@@ -836,6 +841,8 @@ Plug 'https://github.com/cskeeters/vim-hg'
 
 Plug 'https://github.com/cskeeters/vim-vcvars'
 Plug 'https://github.com/cskeeters/vim-statusline'
+
+Plug 'https://github.com/cskeeters/vim-status'
 
 """"""""""""""""""""""""""""""""" Plugins: Lookup/Help
 if has('osx')
