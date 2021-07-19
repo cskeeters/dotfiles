@@ -801,6 +801,7 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 """"""""""""""""""""""""""""""""" Plugins: snippets
 
 if g:speed < 1
+    " Use tag 3.2 for python2 support
     Plug 'https://github.com/SirVer/ultisnips'
 endif
 "let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
