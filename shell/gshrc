@@ -31,6 +31,8 @@ export PATH="$PATH:/usr/AMS2/net/scripts"
 # Make python, pip run version 3 stuff
 ismac && export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 ismac && export PATH="/usr/local/Cellar/gnu-sed/4.8/libexec/gnubin:$PATH"
+ismac && export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+ismac && export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
 
 if ismac; then
     LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
