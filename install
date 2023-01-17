@@ -120,11 +120,25 @@ link() {
 
 linkdot() {
     # Add the dot and remove everything before last slash (basename)
-    INSTALL_PATH="${2:-$HOME}/.${1##*/}"
+    INSTALL_DIR="${2:-$HOME}"
+    INSTALL_PATH="$INSTALL_DIR/.${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
+    mkdir -p "$INSTALL_DIR"
     backup_clear
     link
 }
+
+# linkconfig vim/init.vim nvim
+linkconfig() {
+    # Add the dot and remove everything before last slash (basename)
+    CONFIG_DIR="$HOME/.config/$2"
+    INSTALL_PATH="$CONFIG_DIR/${1##*/}"
+    SOURCE_PATH="$dotfiles/$1"
+    mkdir -p "$CONFIG_DIR"
+    backup_clear
+    link
+}
+
 linkbin() {
     mkdir -p "$HOME/bin"
     # Remove everything before last slash
@@ -248,6 +262,7 @@ linkdot hg/hg_log_style
 
 linkdot vim/gvimrc
 linkdot vim/vimrc
+linkconfig vim/init.vim nvim
 
 linkdot doc/docutils
 
