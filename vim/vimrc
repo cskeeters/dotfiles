@@ -648,7 +648,7 @@ endif
 
 """"""""""""""""""""""""""""""""" Plugins: Built-in Extension
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
 Plug 'https://github.com/vim-scripts/argtextobj.vim'
 " cia (change, in, argument)
