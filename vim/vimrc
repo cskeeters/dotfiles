@@ -72,6 +72,7 @@ set autoindent                  " indent at the same level of the previous line
 set cindent
 set smartindent                 " New lines start indented appropriately
 set nowrap                      " wrap long lines
+set breakindent                 " When wrapping, the next line should be indented the same as the first
 
 " iTerm2 in osx likes unnamed, not unnamedplus
 if $TMUX == ''
