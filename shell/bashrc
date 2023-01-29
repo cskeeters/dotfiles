@@ -28,6 +28,9 @@ if [[ $(uname) == "Darwin" ]]; then
         echo "Bash completion is not installed.  Install with:"
         echo "  brew install bash-completion"
     fi
+
+    alias docker='nerdctl.lima'
+    source <(limactl completion bash)
 fi
 
 if hash _cd 2> /dev/null; then
