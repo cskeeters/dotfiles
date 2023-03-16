@@ -178,7 +178,8 @@ install_rst() {
     info "Installing reStructuredText settings"
     if [[ -h ~/.rst2pdf ]]; then
         rm -f ~/.rst2pdf
-    else
+    fi
+    if [[ -f ~/.rst2pdf ]]; then
         # This may be a folder we need to backup
         mv ~/.rst2pdf "$dotfiles/backup/"
     fi
@@ -186,7 +187,8 @@ install_rst() {
 
     if [[ -h ~/.rst2html ]]; then
         rm -f ~/.rst2html
-    else
+    fi
+    if [[ -f ~/.rst2html ]]; then
         # This may be a folder we need to backup
         mv ~/.rst2html "$dotfiles/backup/"
     fi
