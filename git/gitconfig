@@ -4,14 +4,16 @@
 [credential]
   helper = osxkeychain
 [alias]
-  st = status
+  s   = status
+  st  = status
   sta = status
   ci = commit
   br = branch
   co = checkout
+  d  = diff
   df = diff
   ds = diff --staged
-  l = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  l  = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   la = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
   gl = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
   ll = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --max-count=20
