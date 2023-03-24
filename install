@@ -165,7 +165,7 @@ update_vim_plugins() {
     rm -f ~/.vim/autoload/plug.vim
     info "Downloading updated vim-plug"
     curl -sSfLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    nvim +PlugInstall +PlugUpdate +qa
+    vim +PlugInstall +PlugUpdate +qa
 }
 
 disable_etc_vimrc() {
