@@ -291,31 +291,12 @@ if [[ -d ~/.oh-my-zsh/themes ]]; then
     ln -sf $dotfiles/shell/chad.zsh-theme ~/.oh-my-zsh/themes/chad.zsh-theme || die "Error installing chad.zsh-theme"
 fi
 
-
-if [[ $(uname) == Darwin ]]; then
-    if [[ -f /etc/vimrc ]]; then
-        prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
-    fi
-
-    info "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
-    mkdir -p ~/Library/KeyBindings
-    cp $dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
-
-    info "Setup iterm settings"
-    plutil -convert binary1 $dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
-
-    # This will safe the iTerm preferences into an XML files
-    #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o $dotfiles/iterm2.xml
+if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
+    cp ~/.config/xfce4/terminal/terminalrc "$dotfiles/backup"
 fi
-
-if [[ $(uname) == Linux ]]; then
-    if [[ -f ~/.config/xfce4/terminal/terminalrc ]]; then
-        cp ~/.config/xfce4/terminal/terminalrc "$dotfiles/backup"
-    fi
-    mkdir -p ~/.config/xfce4/terminal/terminal
-    rm -f ~/.config/xfce4/terminal/terminalrc
-    ln -sf $dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
-fi
+mkdir -p ~/.config/xfce4/terminal/terminal
+rm -f ~/.config/xfce4/terminal/terminalrc
+ln -sf $dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
 
 ### Optional stuff
 prompt_install "Is this a virtual machine? (n) ->" install_vm
