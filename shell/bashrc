@@ -29,8 +29,10 @@ if [[ $(uname) == "Darwin" ]]; then
         echo "  brew install bash-completion"
     fi
 
-    alias docker='nerdctl.lima'
-    source <(limactl completion bash)
+    if [[ -f $(brew --prefix)/local/bin/limactl ]]; then
+        alias docker='nerdctl.lima'
+        source <(limactl completion bash)
+    fi
 fi
 
 if hash _cd 2> /dev/null; then
