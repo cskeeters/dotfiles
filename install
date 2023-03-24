@@ -269,6 +269,9 @@ linkconfig vim/init.vim nvim
 
 linkconfig bat/config bat
 
+linkconfig ranger/rc.conf ranger
+linkconfig ranger/commands.py ranger
+
 linkdot doc/docutils
 
 linkdot ctags
