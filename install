@@ -267,6 +267,8 @@ linkdot vim/gvimrc
 linkdot vim/vimrc
 linkconfig vim/init.vim nvim
 
+linkconfig bat/config bat
+
 linkdot doc/docutils
 
 linkdot ctags
