@@ -170,6 +170,7 @@ update_vim_plugins() {
 
 disable_etc_vimrc() {
     # fixes escape character delay in vim
+    # Not a problem in ventura (probably earlier)
     sudo mv /etc/vimrc /etc/vimrc.disabled || die "Error disabling system vimrc"
 }
 
