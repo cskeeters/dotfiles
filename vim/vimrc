@@ -267,13 +267,6 @@ inoremap <A-x> <esc>:update<CR>
 
 imap <S-Insert> <MiddleMouse>
 
-if !has('nvim')
-    " Shougo/unite.vim
-    nnoremap <localleader>p :Unite history/yank<cr>
-else
-    nnoremap <localleader>p :Denite neoyank<cr>
-endif
-
 "junegunn/fzf.vim
 if !has("gui_running")
     imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -423,9 +416,6 @@ nnoremap <silent> <leader>o :TagbarToggle<CR>
 "beloglazov/vim-online-thesaurus
 nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
 
-nnoremap <c-j>q :Unite quickfix<CR>
-nnoremap <c-j>j :Unite jump<CR>
-
 "Jump to tag in vertical split instead of horizonal (default)
 nnoremap <c-w>] :vertical wincmd ]<cr>
 
@@ -440,13 +430,6 @@ if !has("gui_running")
 
     command! -nargs=0 HgFiles call fzf#run({'source': 'hg sta -n', 'sink': 'e', 'options': ''})
     nnoremap <c-j>s :HgFiles<CR>
-else
-    " Shougo/unite.vim
-    nnoremap <c-j>t :Unite tag<CR>
-    nnoremap g] :Unite -input=<C-r>=expand('<cword>')<CR> tag<CR>
-
-    nnoremap g/ :Unite -input=<C-r>=expand('<cword>')<CR> line<CR>
-    nnoremap <c-j>; :Unite line<CR>
 endif
 
 " Edit the snippets for the filetype of the current buffer
@@ -476,18 +459,9 @@ if !has("gui_running")
     "junegunn/fzf.vim
     noremap <C-j>b :Buffers<CR>
     noremap _      :Buffers<CR>
-else
-    " Shougo/unite.vim
-    noremap <C-j>b :Unite buffer<CR>
-    noremap _      :Unite buffer<CR>
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
-
-" Shougo/unite.vim
-" Bookmarks
-noremap <leader><leader>b :UniteBookmarkAdd<cr>
-noremap <C-j>k :Unite bookmark<CR>
 
 if !has("gui_running")
     "junegunn/fzf.vim
@@ -497,42 +471,9 @@ if !has("gui_running")
 
     noremap <C-j><C-j> :Files<CR>
     noremap <C-j>f :Files<CR>
-    "noremap <C-j><C-j> :Denite file_rec<CR>
-    "noremap <C-j>f :Denite file_rec<CR>
 
     noremap <C-j>g :Ag<space>
-else
-    noremap <C-j>h :Unite file_mru<CR>
-    noremap <C-j>v :Unite file:~/.vim/plugged<CR>
-
-    noremap <C-j><C-j> :Unite file_rec/async<CR>
-    noremap <C-j>f :Unite file_rec/async<CR>
-
-    noremap <C-j>g :Unite grep:.<CR>
 endif
-
-let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
-let g:unite_source_menu_menus.projects = {'description' : 'Change Directory to favorties'}
-let g:unite_source_menu_menus.projects.candidates = {
-            \ 'notes':'~/Dropbox/notes',
-            \ 'bcst-main':'~/Documents/nci/bcst',
-            \ 'bcst-doc':'~/working/bcst-doc',
-            \ 'dotfiles':'~/dotfiles',
-            \ 'plugged':'~/.vim/plugged',
-            \ 'rcmp':'~/Documents/nci/2014/mts/rcmp',
-            \ 'working':'~/working',
-            \ 'dhcis':'~/working/dhcis',
-            \ 'vim-runtime':'/usr/local/Cellar/macvim/8.0-119/MacVim.app/Contents/Resources/vim/runtime'
-            \ }
-
-function! g:unite_source_menu_menus.projects.map(key, value)
-    return {
-    \   'word': a:key,
-    \   'kind': 'command',
-    \   'action__command': 'cd '.a:value.' | Dirvish'
-    \ }
-endfunction
-noremap <silent><C-j>p :Unite -silent menu:projects<CR>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Text Search
@@ -603,21 +544,6 @@ nnoremap <localleader><localleader>u :UndotreeToggle<CR>
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 
-let g:unite_source_menu_menus = get(g:,'unite_source_menu_menus',{})
-
-let g:unite_source_menu_menus.tabularize = {'description' : 'Tabularize'}
-let g:unite_source_menu_menus.tabularize.candidates = { '|':'|', '=':'=', ':':':', ',':',' }
-
-function! g:unite_source_menu_menus.tabularize.map(key, value)
-    return {
-    \   'word': a:key,
-    \   'kind': 'command',
-    \   'action__command': 'Tabularize /'.a:value
-    \ }
-endfunction
-vnoremap <silent><space><space>t :Unite -silent menu:tabularize<CR>
-
-
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Abbr
 
 iab <expr> dts strftime("%FT%T%z")
@@ -660,12 +586,6 @@ Plug 'https://github.com/vim-scripts/visualrepeat'
 Plug 'https://github.com/cskeeters/vim-smooth-scroll'
 "let g:ms_per_line = 20
 Plug 'https://github.com/tpope/vim-repeat'
-
-if !has('nvim')
-    "Speeds up Unite with asynchronous commands
-    Plug 'https://github.com/Shougo/vimproc.vim', { 'do': 'make' }
-endif
-
 
 "Plug '~/working/base16-builder-php/templates/vim'
 
@@ -763,28 +683,9 @@ if !has("gui_running")
     let g:fzf_tags_command = 'ctags -R'
 else
     Plug 'https://github.com/Shougo/neomru.vim'
-    Plug 'https://github.com/tsukkee/unite-tag'
 endif
 
-
-Plug 'https://github.com/cskeeters/unite-fzf'
 Plug 'https://github.com/Shougo/neoyank.vim'
-Plug 'https://github.com/osyo-manga/unite-quickfix'
-Plug 'https://github.com/Shougo/unite-outline'
-Plug 'https://github.com/Shougo/unite-help'
-
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '-i --vimgrep --hidden --ignore ''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-let g:unite_enable_auto_select = 0
-
-if has('nvim')
-    " Requires python3.  Run
-    "   pip3 install neovim
-    Plug 'https://github.com/Shougo/denite.nvim'
-endif
-Plug 'https://github.com/Shougo/unite.vim'
 
 """"""""""""""""""""""""""""""""" Plugins: Tab Completion
 
@@ -948,17 +849,6 @@ function! FocusWindow(target_width)
         endif
     endfor
 endfunction
-
-if has('nvim')
-    call denite#custom#source('file_rec', 'matchers', ['matcher_ignore_globs'])
-endif
-call unite#custom#profile('default', 'context', { 'start_insert':1, 'prompt':'>', 'no_split':1, 'wipe':1 })
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#matcher_default#use(['matcher_glob'])
-call unite#filters#matcher_default#use(['matcher_fzf'])
-
-"call unite#filters#sorter_default#use(['sorter_rank'])
-
 
 """"""""""""""""""""""""""""""""" Configuration: colorscheme
 if has('nvim')
