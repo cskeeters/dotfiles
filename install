@@ -1,24 +1,6 @@
 #!/bin/bash
 
-############ LOG FUNCTIONS
-show() {
-    if [[ -t 1 ]]; then
-        # Coloring is ok
-        printf -- "\x1b[$2m$1\x1b[m\n"
-    else
-        printf -- "$1\n"
-    fi
-}
-
-error() { show "ERROR: $1" 31; } # 31 is red
-warn()  { show "WARN: $1" 33; }  # 33 is yellow
-info()  { show "INFO: $1" 34; }  # 34 is blue
-# Outputs the first parameter and terminates with exit 1
-die() {
-    error "$1"
-    exit 1
-}
-
+source log.sh
 
 ############ INSTALL FUNCTIONS
 erun() {
@@ -156,18 +138,6 @@ prompt_install() {
     fi
 }
 
-install_vm() {
-    # Disable keyboard swapping
-    rm -f ~/.Xmodmap
-}
-
-update_vim_plugins() {
-    rm -f ~/.vim/autoload/plug.vim
-    info "Downloading updated vim-plug"
-    curl -sSfLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    vim +PlugInstall +PlugUpdate +qa
-}
-
 disable_etc_vimrc() {
     # fixes escape character delay in vim
     # Not a problem in ventura (probably earlier)
@@ -297,9 +267,6 @@ fi
 mkdir -p ~/.config/xfce4/terminal/terminal
 rm -f ~/.config/xfce4/terminal/terminalrc
 ln -sf $dotfiles/config/terminalrc ~/.config/xfce4/terminal/terminalrc
-
-### Optional stuff
-prompt_install "Is this a virtual machine? (n) ->" install_vm
 
 if hash git 2> /dev/null; then
     prompt_install "Install/Update Vim Plugins (requires internet) (n) ->" update_vim_plugins
