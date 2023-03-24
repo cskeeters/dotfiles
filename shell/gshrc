@@ -16,16 +16,21 @@ exists() {
 }
 
 
+export CDPATH=.:~:~/working
+
+ismac && CDPATH=$CDPATH:~/Documents/nci
+ismac && CDPATH=$CDPATH:/opt/homebrew/Cellar
+ismac && CDPATH=$CDPATH:/Volumes
+
+islinux && CDPATH=$CDPATH:/media
+islinux && CDPATH=$CDPATH:/var/run/media/$USER
+
 # Path
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
-export CDPATH=.:~:~/working
-ismac   && CDPATH=$CDPATH:~/Documents/nci:/usr/local:/usr/local/Cellar:/Volumes
-islinux && CDPATH=$CDPATH:/media:/var/run/media/$USER
-
 # Homebrew paths first
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="$PATH:/usr/AMS2/net/scripts"
 
 # Make python, pip run version 3 stuff
