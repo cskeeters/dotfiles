@@ -85,9 +85,9 @@ export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/loca
 if ismac; then
   # use gnu versions of these tools.  Must be installed with
   # brew install findutils gnu-sed coreutils
-  alias find=gfind
-  alias sed=gsed
-  alias mktemp=gmktemp
+  command -v gfind   &> /dev/null && alias find=gfind
+  command -v gsed    &> /dev/null && alias sed=gsed
+  command -v gmktemp &> /dev/null && alias mktemp=gmktemp
 fi
 
 # Ruby Version Manager
