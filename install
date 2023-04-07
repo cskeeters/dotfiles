@@ -214,10 +214,8 @@ fi
 info "Installing settings files"
 linkdot shell/fzf.sh
 linkdot shell/bashrc
-linkdot shell/zshrc
 linkdot shell/bash_profile
 linkdot shell/bash_prompt
-linkdot shell/profile
 linkdot shell/completions
 linkdot shell/inputrc
 linkdot shell/dir_colors

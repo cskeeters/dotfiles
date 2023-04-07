@@ -2,19 +2,9 @@ set bell-style none
 
 # Trailing slashes on folder complete
 set mark-directories on
+
 # Add trailing slash for symlinks to directories
 set mark-symlinked-directories on
 
 # Show complete options after one tab press
 set show-all-if-ambiguous on
-
-#set editing-mode vi
-$if mode=vi
-    set keymap vi-command
-    "gg": beginning-of-history
-    "G": end-of-history
-    set keymap vi-insert       #notice how the "jj" movement is
-    "jj": vi-movement-mode     #after 'set keymap vi-insert'?
-    "\C-w": backward-kill-word
-    "\C-p": history-search-backward
-$endif
