@@ -213,7 +213,6 @@ fi
 
 info "Installing settings files"
 linkdot shell/fzf.sh
-linkdot shell/gshrc
 linkdot shell/bashrc
 linkdot shell/zshrc
 linkdot shell/bash_profile

@@ -1,49 +1,152 @@
+#!/bin/bash
+
 [[ -f /etc/profile ]] && source /etc/profile
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
-[[ -f ~/.gshrc ]] && source ~/.gshrc
 
+#### Common Shell tools
+umask 002
+
+export LANG=en_US.UTF-8
+
+# Not graphical or hg ci will abort without -f or --remote-wait
+export VISUAL='nvim'
+export EDITOR=$VISUAL
+# Enable colors in ls on Mac/BSD
+export CLICOLOR=1
+
+export HISTCONTROL=erasedups
+
+# Less
+export LESS="FRX"
+
+if [[ $- == *i* ]]; then
+    # Setup colors in case this is a terminal
+    COLOR_SCRIPT=$HOME/dotfiles/offline/base16-shell/scripts/base16-default-dark.sh
+    if [[ -r "$COLOR_SCRIPT" ]]; then
+        source "$COLOR_SCRIPT"
+    fi
+fi
+
+export BREW_PREFIX=/opt/homebrew
+
+# https://support.apple.com/en-us/HT208050
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+#### Personal Settings
+export CDPATH=.:~:~/working
+CDPATH=$CDPATH:/Volumes
+[[ -d ~/bin ]] && export PATH=~/bin:$PATH
+
+# Aliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-if [[ $(uname) == "Darwin" ]]; then
-    # https://support.apple.com/en-us/HT208050
-    export BASH_SILENCE_DEPRECATION_WARNING=1
+alias l='ls -lh'
+alias la='ls -lAh'
+alias ll='ls -lh'
+alias vi='vim'
 
-    export PATH="/usr/local/opt/ruby/bin:$PATH"
-    export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
-    # export LDFLAGS="-L/usr/local/opt/ruby/lib"
-    # export CPPFLAGS="-I/usr/local/opt/ruby/include"
-    # export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+#### Functions
 
-    export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-    # export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
-    # export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+exists() {
+    hash $1 2>/dev/null
+}
 
-    if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
-        . $(brew --prefix)/etc/bash_completion
-    else
-        echo "Bash completion is not installed.  Install with:"
-        echo "  brew install bash-completion"
-    fi
+#### Homebrew
+export PATH="$BREW_PREFIX/bin:$PATH"
+export PATH="$BREW_PREFIX/sbin:$PATH"
 
-    if [[ -f $(brew --prefix)/local/bin/limactl ]]; then
-        alias docker='nerdctl.lima'
-        source <(limactl completion bash)
-    fi
+#### Bash Completion for Brew
+
+if [[ -f $BREW_PREFIX/etc/bash_completion ]]; then
+    . $BREW_PREFIX/etc/bash_completion
+else
+    echo "Bash completion is not installed.  Install with:"
+    echo "  brew install bash-completion"
 fi
 
-if hash _cd 2> /dev/null; then
-    # Enable fuzzy style completions
-    [[ -f ~/.completions ]] && source ~/.completions
+#### Neovim
+if exists nvim; then
+    alias vi='nvim'
+    alias vim='nvim'
 fi
 
-if hash fzf 2> /dev/null; then
+#### Python
+#export LDFLAGS="-L$BREW_PREFIX/opt/python@3.11/lib"
+#export PKG_CONFIG_PATH="/usr/local/opt/python@3.11/lib/pkgconfig"
+
+#### QMK
+export PATH="$BREW_PREFIX/opt/avr-gcc@8/bin:$PATH"
+export PATH="$BREW_PREFIX/opt/arm-gcc-bin@8/bin:$PATH"
+
+#### Ruby
+export PATH="$BREW_PREFIX/opt/ruby/bin:$PATH"
+export PATH="$BREW_PREFIX/lib/ruby/gems/3.2.0/bin:$PATH"
+# export LDFLAGS="-L$BREW_PREFIX/opt/ruby/lib"
+# export CPPFLAGS="-I$BREW_PREFIX/opt/ruby/include"
+# export PKG_CONFIG_PATH="$BREW_PREFIX/opt/ruby/lib/pkgconfig"
+### Ruby Version Manager
+## Add RVM to PATH for scripting
+# [[ -d "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
+# Load RVM into a shell session *as a function*
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+#### LLVM
+#export PATH="/usr/local/opt/llvm/bin:$PATH"
+#export LDFLAGS="-L$BREW_PREFIX/opt/llvm/lib -Wl,-rpath,$BREW_PREFIX/opt/llvm/lib"
+#export CPPFLAGS="-I$BREW_PREFIX/opt/llvm/include"
+
+#### PHP
+# export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+# export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
+#pkg-config path
+#pkg-config --cflags cairo
+#pkg-config --libs cairo
+# export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
+
+# use gnu versions of these tools.  Must be installed with
+# brew install findutils gnu-sed coreutils
+exists gfind   && alias find=gfind
+exists gsed    && alias sed=gsed
+exists gmktemp && alias mktemp=gmktemp
+
+#### Rust Language
+# export PATH="$HOME/.cargo/bin:$PATH"
+
+#### autojump
+[[ -s $BREW_PREFIX/etc/profile.d/autojump.sh ]] && . $BREW_PREFIX/etc/profile.d/autojump.sh
+
+#### Asciidoc
+# export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+
+#### iterm
+function tabname {
+    printf "\e]1;$1\a"
+}
+
+function winname {
+    printf "\e]2;$1\a"
+}
+
+#### FZF Jumping
+#
+fzf_project_jump() {
+    D=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
+    # D=$(fzf --bind 'enter:execute(echo {1})+abort')
+    printf 'builtin cd -- %q' "$D"
+} 
+
+if exists fzf; then
     if [[ -f ~/.fzf.sh ]]; then
         source ~/.fzf.sh
-        if hash ag 2> /dev/null; then
+
+        bind -m emacs-standard '"\C-j": "`fzf_project_jump`\e\C-e\C-m"'
+
+        if exists ag; then
             export FZF_DEFAULT_COMMAND='ag -g ""'
             _fzf_compgen_path() {
                 ag -g "" "$1"
@@ -52,17 +155,21 @@ if hash fzf 2> /dev/null; then
     fi
 fi
 
-# Heroku Shell Completion
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
-fi
+#### Fuzzy Style File Completion
+#
+# With autojump, this is not necessary
+#
+#if exists _cd; then
+#    # Enable fuzzy style completions
+#    [[ -f ~/.completions ]] && source ~/.completions
+#fi
+
+
+#### Lima (Docker)
+#
+# if [[ -f $BREW_PREFIX/local/bin/limactl ]]; then
+#     alias docker='nerdctl.lima'
+#     source <(limactl completion bash)
+# fi
+
+# vim:ft=sh
