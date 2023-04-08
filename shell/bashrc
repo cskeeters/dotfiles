@@ -126,6 +126,33 @@ exists gmktemp && alias mktemp=gmktemp
 #### autojump
 [[ -s $BREW_PREFIX/etc/profile.d/autojump.sh ]] && . $BREW_PREFIX/etc/profile.d/autojump.sh
 
+#### nnn
+n() {
+    nnn -AHdeT t
+    LASTD="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    if [ -f "$LASTD" ]; then
+        # .lastd will be a script with a cd command in it
+        . "$LASTD"
+        rm -f "$LASTD" > /dev/null
+    fi
+}
+export NNN_PLUG='a:addjump;f:osxfinder;j:fzjump;o:fzopen;p:acrobatpro;v:vim'
+# -A no dir auto-enter during filter
+# -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
+# -d detail mode
+# -H show hidden files
+export NNN_FIFO=/tmp/nnn.fifo
+
+nnn_cd()
+{
+    if ! [ -z "$NNN_PIPE" ]; then
+        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
+    fi
+}
+
+trap nnn_cd EXIT
+
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 
@@ -144,7 +171,7 @@ fzf_project_jump() {
     D=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
     # D=$(fzf --bind 'enter:execute(echo {1})+abort')
     printf 'builtin cd -- %q' "$D"
-} 
+}
 
 if exists fzf; then
     if [[ -f ~/.fzf.sh ]]; then

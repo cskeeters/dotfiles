@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+IFS="$(printf '\n\r')"
+
+. "$(dirname "$0")"/.nnn-plugin-helper
+
+# CTX=1
+CUR_CTX=1
+
+if ! type open >/dev/null 2>&1; then
+    printf "open missing"
+    read -r _
+    exit 1
+fi
+
+open $PWD

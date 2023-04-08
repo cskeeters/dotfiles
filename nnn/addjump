@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+IFS="$(printf '\n\r')"
+
+. "$(dirname "$0")"/.nnn-plugin-helper
+
+CTX=+
+
+DEFAULT=$(basename "$PWD")
+printf "Description [$DEFAULT] ->"
+read -r DESC
+DESC=${DESC:-$DEFAULT}
+
+printf "$PWD	$DESC\n" >> $HOME/dotfiles/paths/default
