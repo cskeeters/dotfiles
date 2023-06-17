@@ -128,7 +128,8 @@ exists gmktemp && alias mktemp=gmktemp
 
 #### nnn
 n() {
-    nnn -AHdeT t
+    # Remove F from LESS so help will be paged
+    LESS="RX" nnn -AHdeT t $*
     LASTD="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
     if [ -f "$LASTD" ]; then
