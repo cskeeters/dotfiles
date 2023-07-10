@@ -138,7 +138,7 @@ n() {
         rm -f "$LASTD" > /dev/null
     fi
 }
-export NNN_PLUG='a:addjump;f:osxfinder;j:fzjump;o:fzopen;p:acrobatpro;v:vim'
+export NNN_PLUG='a:addjump;f:osxfinder;j:fzjump;o:fzopen;p:acrobatpro;v:vim;i:preview-tui'
 # -A no dir auto-enter during filter
 # -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
 # -d detail mode
