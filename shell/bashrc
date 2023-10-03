@@ -171,7 +171,9 @@ function winname {
 fzf_project_jump() {
     D=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
     # D=$(fzf --bind 'enter:execute(echo {1})+abort')
-    printf 'builtin cd -- %q' "$D"
+    if [[ $D != "" ]]; then
+        printf 'builtin cd -- %q' "$D"
+    fi
 }
 
 if exists fzf; then
