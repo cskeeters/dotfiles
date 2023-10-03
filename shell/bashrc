@@ -180,7 +180,7 @@ if exists fzf; then
     if [[ -f ~/.fzf.sh ]]; then
         source ~/.fzf.sh
 
-        bind -m emacs-standard '"\C-j": "`fzf_project_jump`\e\C-e\C-m"'
+        bind -m emacs-standard '"\C-l": "`fzf_project_jump`\e\C-e\C-m"'
 
         if exists ag; then
             export FZF_DEFAULT_COMMAND='ag -g ""'
