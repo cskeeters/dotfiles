@@ -258,6 +258,7 @@ linkbin offline/myvim
 linknnnplugin acrobatpro
 linknnnplugin addjump
 linknnnplugin fzjump
+linknnnplugin fzcd
 linknnnplugin osxfinder
 linknnnplugin vim
 
