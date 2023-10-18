@@ -59,7 +59,11 @@ if g:speed > 0
     set regexpengine=1
 endif
 
-set printoptions=left:2cm,top:1in,right:2cm,bottom:1in,duplex:off,paper:letter,syntax:y,number:y
+" :ha is removed and replaced with :TOhtml
+"set printoptions=left:2cm,top:1in,right:2cm,bottom:1in,duplex:off,paper:letter,syntax:y,number:y
+
+" :TOHtml options
+"let g:html_no_links=1
 
 " Ignore settings
 let g:ack_wildignore=0 " Otherwise error ack.vim line 31
