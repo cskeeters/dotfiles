@@ -1,3 +1,4 @@
 #!/bin/bash
 
-# [[ -f ~/.bashrc ]] && . ~/.bashrc
+# .bashrc won't run when you login to the machine via ssh unless this is here
+[[ -f ~/.bashrc ]] && . ~/.bashrc
