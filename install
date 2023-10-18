@@ -259,7 +259,7 @@ linknnnplugin acrobatpro
 linknnnplugin addjump
 linknnnplugin fzjump
 linknnnplugin fzcd
-linknnnplugin osxfinder
+linknnnplugin openfolder
 linknnnplugin vim
 
 install_rst
