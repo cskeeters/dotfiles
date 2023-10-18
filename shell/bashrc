@@ -103,6 +103,9 @@ nnn_cd()
 
 trap nnn_cd EXIT
 
+#### autojump
+[[ -f /usr/share/autojump/autojump.bash ]] && . /usr/share/autojump/autojump.bash
+
 #### FZF Jumping
 
 fzf_project_jump() {
