@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# opens the current folder in the gui so that files or folders can be dragged and dropped to email etc...
+
+IFS="$(printf '\n\r')"
+
+. "$(dirname "$0")"/.nnn-plugin-helper
+
+# CTX=1
+CUR_CTX=1
+
+if ! type open >/dev/null 2>&1; then
+    printf "open missing"
+    read -r _
+    exit 1
+fi
+
+open $PWD

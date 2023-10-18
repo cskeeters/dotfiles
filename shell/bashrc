@@ -74,3 +74,56 @@ if hash fzf 2> /dev/null; then
         fi
     fi
 fi
+
+#### nnn
+n() {
+    # Remove F from LESS so help will be paged
+    LESS="RX" nnn -AHdeT t $*
+    LASTD="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    if [ -f "$LASTD" ]; then
+        # .lastd will be a script with a cd command in it
+        . "$LASTD"
+        rm -f "$LASTD" > /dev/null
+    fi
+}
+export NNN_PLUG='a:addjump;f:openfolder;j:fzjump;o:fzopen;d:fzcd;p:acrobatpro;v:vim;i:preview-tui'
+# -A no dir auto-enter during filter
+# -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
+# -d detail mode
+# -H show hidden files
+export NNN_FIFO=/tmp/nnn.fifo
+
+nnn_cd()
+{
+    if ! [ -z "$NNN_PIPE" ]; then
+        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
+    fi
+}
+
+trap nnn_cd EXIT
+
+#### FZF Jumping
+
+fzf_project_jump() {
+    D=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
+    # D=$(fzf --bind 'enter:execute(echo {1})+abort')
+    if [[ $D != "" ]]; then
+        printf 'builtin cd -- %q' "$D"
+    fi
+}
+
+if exists fzf; then
+    if [[ -f ~/.fzf.sh ]]; then
+        source ~/.fzf.sh
+
+        bind -m emacs-standard '"\ej": "`fzf_project_jump`\e\C-e\C-m"'
+
+        if exists ag; then
+            export FZF_DEFAULT_COMMAND='ag -g ""'
+            _fzf_compgen_path() {
+                ag -g "" "$1"
+            }
+        fi
+    fi
+fi

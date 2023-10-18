@@ -130,6 +130,16 @@ linkbin() {
     link
 }
 
+linknnnplugin() {
+    PLUGIN_PATH="$HOME/.config/nnn/plugins"
+    mkdir -p "$PLUGIN_PATH"
+
+    INSTALL_PATH="$HOME/.config/nnn/plugins/$1"
+    SOURCE_PATH="$dotfiles/nnn/$1"
+    backup_clear
+    link
+}
+
 prompt_install() {
     echo -n $1
     read answer
@@ -249,6 +259,13 @@ linkdot tmux.conf
 
 linkbin offline/tabsplice
 linkbin offline/myvim
+
+linknnnplugin acrobatpro
+linknnnplugin addjump
+linknnnplugin fzjump
+linknnnplugin fzcd
+linknnnplugin openfolder
+linknnnplugin vim
 
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 linkdot offline/oh-my-zsh
