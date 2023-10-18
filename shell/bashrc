@@ -1,44 +1,67 @@
 [[ -f /etc/profile ]] && source /etc/profile
 [[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.bash_prompt ]] && source ~/.bash_prompt
-[[ -f ~/.gshrc ]] && source ~/.gshrc
+[[ -f ~/.bash_local ]] && source ~/.bash_local
 
+exists() {
+    hash $1 2>/dev/null
+}
+
+export HISTCONTROL=erasedups
+
+# Turn on colors for ls
+export CLICOLOR=1
+
+# Not graphical or hg ci will abort without -f or --remote-wait
+export VISUAL='nvim'
+export EDITOR=$VISUAL
+# Enable colors in ls on Mac/BSD
+export CLICOLOR=1
+
+# Less
+export LESS="FRX"
+
+#export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
+
+# for shared user repositories
+umask 002
+
+alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-if [[ $(uname) == "Darwin" ]]; then
-    # https://support.apple.com/en-us/HT208050
-    export BASH_SILENCE_DEPRECATION_WARNING=1
+alias l='ls -lh'
+alias la='ls -lAh'
+alias ll="ls -lah"
+alias d=ll
+alias dir=ll
 
-    export PATH="/usr/local/opt/ruby/bin:$PATH"
-    export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
-    # export LDFLAGS="-L/usr/local/opt/ruby/lib"
-    # export CPPFLAGS="-I/usr/local/opt/ruby/include"
-    # export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+alias vi='vim'
+if exists nvim; then
+    alias vim='nvim'
+fi
 
-    export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-    # export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
-    # export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+exists gnome-open && alias open="gnome-open"
+exists xdg-open && alias open="xdg-open"
+exists gio && alias open="gio open"
 
-    if [[ -f $(brew --prefix)/etc/bash_completion ]]; then
-        . $(brew --prefix)/etc/bash_completion
-    else
-        echo "Bash completion is not installed.  Install with:"
-        echo "  brew install bash-completion"
-    fi
+# Path
+[[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
-    if [[ -f $(brew --prefix)/local/bin/limactl ]]; then
-        alias docker='nerdctl.lima'
-        source <(limactl completion bash)
+if [[ $- == *i* ]]; then
+    # Setup colors in case this is a terminal
+    COLOR_SCRIPT=$HOME/dotfiles/offline/base16-shell/scripts/base16-default-dark.sh
+    if [[ -r "$COLOR_SCRIPT" ]]; then
+        source "$COLOR_SCRIPT"
     fi
 fi
 
-if hash _cd 2> /dev/null; then
-    # Enable fuzzy style completions
-    [[ -f ~/.completions ]] && source ~/.completions
-fi
+#if hash _cd 2> /dev/null; then
+#    # Enable fuzzy style completions
+#    [[ -f ~/.completions ]] && source ~/.completions
+#fi
 
 if hash fzf 2> /dev/null; then
     if [[ -f ~/.fzf.sh ]]; then
@@ -50,19 +73,4 @@ if hash fzf 2> /dev/null; then
             }
         fi
     fi
-fi
-
-# Heroku Shell Completion
-if type brew &>/dev/null
-then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
-  then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-  fi
 fi
