@@ -74,12 +74,22 @@ export PATH="$BREW_PREFIX/sbin:$PATH"
 
 #### Bash Completion for Brew
 
-if [[ -f $BREW_PREFIX/etc/bash_completion ]]; then
-    . $BREW_PREFIX/etc/bash_completion
+# brew install bash-completion
+if [[ -r "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 else
-    echo "Bash completion is not installed.  Install with:"
-    echo "  brew install bash-completion"
+    for COMPLETION in "${BREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
 fi
+
+#### Heroku
+# heroku autocomplete setup
+HEROKU_AC_BASH_SETUP_PATH=/Users/chad/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+
+#### coreutils
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 #### Neovim
 if exists nvim; then
@@ -96,16 +106,13 @@ export PATH="$BREW_PREFIX/opt/avr-gcc@8/bin:$PATH"
 export PATH="$BREW_PREFIX/opt/arm-gcc-bin@8/bin:$PATH"
 
 #### Ruby
+#
 export PATH="$BREW_PREFIX/opt/ruby/bin:$PATH"
-export PATH="$BREW_PREFIX/lib/ruby/gems/3.2.0/bin:$PATH"
-# export LDFLAGS="-L$BREW_PREFIX/opt/ruby/lib"
-# export CPPFLAGS="-I$BREW_PREFIX/opt/ruby/include"
-# export PKG_CONFIG_PATH="$BREW_PREFIX/opt/ruby/lib/pkgconfig"
-### Ruby Version Manager
-## Add RVM to PATH for scripting
-# [[ -d "$HOME/.rvm/bin" ]] && PATH=$PATH:$HOME/.rvm/bin
-# Load RVM into a shell session *as a function*
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export LDFLAGS="-L$BREW_PREFIX/opt/ruby/lib"
+export CPPFLAGS="-I$BREW_PREFIX/opt/ruby/include"
+export PKG_CONFIG_PATH="$BREW_PREFIX/opt/ruby/lib/pkgconfig"
+#
+#export PATH="$BREW_PREFIX/lib/ruby/gems/3.2.0/bin:$PATH"
 
 #### LLVM
 #export PATH="/usr/local/opt/llvm/bin:$PATH"
