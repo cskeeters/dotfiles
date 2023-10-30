@@ -674,8 +674,11 @@ Plug 'https://github.com/cskeeters/vim-jump'
 " be installed so xterm can be run
 if !has("gui_running")
     " This defines :FZF
-    "If installed with brew, we don't need this
+
+    " If installed with brew, we don't need this
     "Plug '/usr/local/opt/fzf'
+    "set rtp+=/opt/homebrew/opt/fzf
+
     Plug 'https://github.com/junegunn/fzf'
 
     " Adds useful commands for fzf
