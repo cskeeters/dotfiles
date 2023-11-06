@@ -1,0 +1,5 @@
+vim.keymap.set('n', '.', '<cmd>cd %<cr>', { buffer=true, desc='Change working directory to the current folder' })
+vim.keymap.set('n', '<c-l>', '<cmd>nohlsearch | Dirvish % | unlet b:vcvars<cr><C-l>', { buffer=true, desc='Remove highlight and refresh' })
+vim.keymap.set('n', 'M', '<cmd>call dirvishmap#Mkdir()<cr>', { buffer=true, desc='Create directory' })
+vim.keymap.set('n', 'D', '<cmd>call dirvishmap#Remove()<cr>', { buffer=true, desc='Remove file or folder under the cursor' })
+vim.keymap.set('v', 'D', '<cmd><C-u>call dirvishmap#RemoveAll()<cr>', { buffer=true, desc='Remove all highlighted files and/or folders' })
