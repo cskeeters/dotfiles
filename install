@@ -277,7 +277,3 @@ plutil -convert binary1 $dotfiles/iterm2.xml -o ~/Library/Preferences/com.google
 
 # This will safe the iTerm preferences into an XML files
 #   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o $dotfiles/iterm2.xml
-
-if hash git 2> /dev/null; then
-    prompt_install "Install/Update Vim Plugins (requires internet) (n) ->" update_vim_plugins
-fi
