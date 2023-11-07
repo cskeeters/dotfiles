@@ -121,6 +121,27 @@ linkconfig() {
     link
 }
 
+linkall() {
+    SRC="$dotfiles/$1"
+    DEST="$2"
+
+    # Make all directories
+    pushd .
+    cd "$SRC"
+    find * -type d -exec mkdir -p "{}" \;
+
+    while IFS= read -r -d $'\0' FILE; do
+        {
+            INSTALL_PATH="${DEST}/${FILE}"
+            SOURCE_PATH="${SRC}/${FILE}"
+            backup_clear
+            link
+        } < /dev/null
+    done < <(find * -type f -print0)
+
+    popd
+}
+
 linkbin() {
     mkdir -p "$HOME/bin"
     # Remove everything before last slash
@@ -240,7 +261,7 @@ linkdot hg/hg_log_style
 
 linkdot vim/gvimrc
 linkdot vim/vimrc
-linkconfig vim/init.vim nvim
+linkall vim/nvim ~/.config/nvim
 
 linkconfig bat/config bat
 
