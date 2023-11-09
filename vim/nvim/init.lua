@@ -36,7 +36,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.colorcolumn = '80'           -- Show col for max line length
 vim.opt.number = true                -- Show line numbers
 vim.opt.relativenumber = true        -- Show relative line numbers
-vim.opt.scrolloff = 4                -- Min num lines of context
+vim.opt.scrolloff = 6                -- Min num lines of context
 vim.opt.signcolumn = "yes"           -- Show the sign column
 vim.opt.modeline = true              -- enables "vim: tw=80 noet sw=2" in files to change settings
 vim.opt.showcmd = true               -- Shows partial key sequences
