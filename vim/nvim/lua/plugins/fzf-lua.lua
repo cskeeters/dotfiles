@@ -115,6 +115,108 @@ local grep_word = function()
 end
 -- vim.keymap.set('n', '<leader>F', function() files("'"..vim.fn.expand('<cword>')) end, { silent = true });
 
+
+function ChangeProject()
+
+    local actions = {
+        ['default'] = function(selected, _)
+            for _, f in ipairs(selected) do
+                vim.notify("Selected: ".. f);
+            end
+        end
+    }
+
+    local generate_options = function(fzf_cb)
+        local HOME = os.getenv("HOME")
+        local path = HOME.."/dotfiles/paths/default"
+        local f = io.open(path, "rb")
+        if not f then
+            fzf_cb(nil)
+            return
+        end
+
+        for line in io.lines(path) do
+            fzf_cb(line)
+        end
+    end
+
+    -- local prev_act = require("fzf-lua.actions").action(function (items)
+        -- return vim.inspect("hi")
+    -- end)
+
+    coroutine.wrap(function()
+        local selected = require('fzf-lua').fzf({
+            prompt = 'Prompt❯ ',
+            -- preview = prev_act,
+            debug = true,
+            debug_cmd = true,
+            actions = actions,
+            fzf_opts = {
+                ["--delimiter"] = '	',
+                ["--with-nth"] = '2..',
+            },
+        }, generate_options)
+        require('fzf-lua').actions.act(actions, selected, {})
+    end)()
+end
+
+function GenerateDefaultPaths(fzf_cb)
+    coroutine.wrap(function()
+        local co = coroutine.running()
+
+        local HOME = os.getenv("HOME")
+        local path = HOME.."/dotfiles/paths/default"
+        local f = io.open(path, "rb")
+        if not f then
+            -- signal EOF to fzf and close the named pipe
+            -- this also stops the fzf "loading" indicator
+            fzf_cb()
+            return
+        end
+
+        for line in io.lines(path) do
+            -- coroutine.resume only gets called once uv.write completes
+            fzf_cb(line, function() coroutine.resume(co) end)
+
+            -- wait here until 'coroutine.resume' is called which only happens
+            -- once 'uv.write' completes (i.e. the line was written into fzf)
+            -- this frees neovim to respond and open the UI
+            coroutine.yield()
+        end
+
+        -- signal EOF to fzf and close the named pipe
+        -- this also stops the fzf "loading" indicator
+        fzf_cb()
+    end)()
+end
+
+
+function ChangeProject()
+    local opts = {
+        fzf_opts = {
+            ['--delimiter'] = [['	']],
+            ['--with-nth'] = '2..',
+        },
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                for _, line in ipairs(selected) do
+                    local _, _, dir = string.find(line, '^(.*)	')
+                    vim.cmd("cd "..dir)
+                    vim.cmd("Explore "..dir)
+                    --vim.notify("cd "..dir);
+                end
+            end
+        },
+    }
+
+    require'fzf-lua'.fzf_exec(GenerateDefaultPaths, opts)
+end
+
+
+vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
+
+
 return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
