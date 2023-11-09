@@ -335,6 +335,14 @@ if vim.g.neovide then
 
     -- So we don't start at the root of the machine
     vim.cmd([[cd ~]])
+
+    vim.g.neovide_input_use_logo = 1
+
+    vim.keymap.set('n', '<D-v>', '"+p<Cr>', { desc="macOS Paste" })
+    vim.keymap.set('i', '<D-v>', '<C-r>+', { desc="macOS Paste (Insert)" })
+    vim.keymap.set('c', '<D-v>', '<C-r>+', { desc="macOS Paste (Command)" })
+    vim.keymap.set('t', '<D-v>', '<C-r>+', { desc="macOS Paste (Terminal)" })
+    vim.keymap.set('v', '<D-c>', '"+y', { desc="macOS Copy (Visual)" })
 end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
