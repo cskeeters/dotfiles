@@ -39,3 +39,5 @@
 /Users/chad/working/joffrey/db-dev	db-dev
 /Users/chad/working/bcst-db/bcst-db	bcst-db
 /opt/homebrew/Cellar/neovim/0.9.4/share/nvim/runtime	nvim runtime
+/Users/chad/.config/nvim	nvim config
+/Users/chad/.local/share/nvim/lazy	nvim plugins
