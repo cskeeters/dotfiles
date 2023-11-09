@@ -203,10 +203,9 @@ vim.keymap.set('n', '<Leader>s', ':update<cr>', { noremap=true, silent=true, des
 -- vim.keymap.set('n', '<Leader>9', '9gt', { noremap=true, desc="Switch to tab number 9" })
 -- vim.keymap.set('n', '<Leader>0', ':tablast<cr>', { noremap=true, desc="Switch to last tab" })
 
----- Directory
---Change Working Directory to that of the current file
-require("chad.dir")
+require("chad.dir") -- Working Directory Helpers
 
+require("chad.cmd-mode-emacs") -- emacs Shortcuts in cmd
 
 -- File formats
 vim.keymap.set('n', '\\\\ffu', ':set ff=unix<CR>', { noremap = true, desc="Change to unix file format" })
