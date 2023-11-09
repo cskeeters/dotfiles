@@ -297,6 +297,7 @@ vim.cmd.iabbrev({ "<expr>", "nds",  'strftime("%Y-%m-%d")' })
 vim.cmd.iabbrev({ "<expr>", "ds",  'strftime("%Y-%b-%d")' })
 
 -- Helper Functions
+-- NOTE: can also use print(vim.inspect(data))
 local function dump(o)
    if type(o) == 'table' then
       local s = '{ '
