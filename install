@@ -121,6 +121,15 @@ linkconfig() {
     link
 }
 
+linkcustom() {
+    # Add the dot and remove everything before last slash (basename)
+    SOURCE_PATH="$dotfiles/$1"
+    INSTALL_PATH="$2"
+    mkdir -p "$(dirname $INSTALL_PATH)"
+    backup_clear
+    link
+}
+
 linkall() {
     SRC="$dotfiles/$1"
     DEST="$2"
@@ -155,7 +164,7 @@ linknnnplugin() {
     PLUGIN_PATH="$HOME/.config/nnn/plugins"
     mkdir -p "$PLUGIN_PATH"
 
-    INSTALL_PATH="$HOME/.config/nnn/plugins/$1"
+    INSTALL_PATH="$PLUGIN_PATH/$1"
     SOURCE_PATH="$dotfiles/nnn/$1"
     backup_clear
     link
@@ -282,6 +291,10 @@ linknnnplugin fzjump
 linknnnplugin fzcd
 linknnnplugin openfolder
 linknnnplugin vim
+
+# Hammerspoon / Movie
+linkcustom hammerspoon/init.lua ~/.hammerspoon/init.lua
+linkcustom hammerspoon/MoveIt/init.lua ~/.hammerspoon/Spoons/MoveIt/init.lua
 
 install_rst
 
