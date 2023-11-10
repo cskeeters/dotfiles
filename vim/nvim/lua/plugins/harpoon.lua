@@ -13,7 +13,7 @@ return {
         { "]h",         "<cmd>lua require('harpoon.ui').nav_next()<cr>", desc = "Go to next harpoon mark" },
         { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Go to previous harpoon mark" },
         { "[h",         "<cmd>lua require('harpoon.ui').nav_prev()<cr>", desc = "Go to previous harpoon mark" },
-        { "<leader>he", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Show harpoon marks" },
+        { "<leader>he", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Edit harpoon marks" },
         { "<leader>ha", "<cmd>Telescope harpoon marks<cr>", desc = "Show harpoon marks" },
 
         -- lua require("harpoon.ui").nav_file(3)
