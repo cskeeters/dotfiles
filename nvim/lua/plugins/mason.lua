@@ -131,6 +131,11 @@ return {
             flags = lsp_flags,
         }
 
+        -- require('lspconfig').java_language_server.setup{
+            -- on_attach = on_attach,
+            -- flags = lsp_flags,
+        -- }
+
         -- require("lspconfig").rust_analyzer.setup {}
 
     end
