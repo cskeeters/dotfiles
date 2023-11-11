@@ -116,50 +116,6 @@ end
 -- vim.keymap.set('n', '<leader>F', function() files("'"..vim.fn.expand('<cword>')) end, { silent = true });
 
 
-function ChangeProject()
-
-    local actions = {
-        ['default'] = function(selected, _)
-            for _, f in ipairs(selected) do
-                vim.notify("Selected: ".. f);
-            end
-        end
-    }
-
-    local generate_options = function(fzf_cb)
-        local HOME = os.getenv("HOME")
-        local path = HOME.."/dotfiles/paths/default"
-        local f = io.open(path, "rb")
-        if not f then
-            fzf_cb(nil)
-            return
-        end
-
-        for line in io.lines(path) do
-            fzf_cb(line)
-        end
-    end
-
-    -- local prev_act = require("fzf-lua.actions").action(function (items)
-        -- return vim.inspect("hi")
-    -- end)
-
-    coroutine.wrap(function()
-        local selected = require('fzf-lua').fzf({
-            prompt = 'Prompt❯ ',
-            -- preview = prev_act,
-            debug = true,
-            debug_cmd = true,
-            actions = actions,
-            fzf_opts = {
-                ["--delimiter"] = '	',
-                ["--with-nth"] = '2..',
-            },
-        }, generate_options)
-        require('fzf-lua').actions.act(actions, selected, {})
-    end)()
-end
-
 function GenerateDefaultPaths(fzf_cb)
     coroutine.wrap(function()
         local co = coroutine.running()
@@ -202,9 +158,9 @@ function ChangeProject()
             ['default'] = function(selected, _)
                 for _, line in ipairs(selected) do
                     local _, _, dir = string.find(line, '^(.*)	')
-                    vim.cmd("cd "..dir)
-                    vim.cmd("Explore "..dir)
-                    --vim.notify("cd "..dir);
+                    vim.cmd("tcd "..dir)
+                    vim.cmd("Explore .")
+                    vim.notify("cd "..dir);
                 end
             end
         },

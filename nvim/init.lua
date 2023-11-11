@@ -2,7 +2,7 @@
 Speed=0
 
 local config_path = vim.fn.stdpath("config")
-local data_path = vim.fn.stdpath("data")
+-- local data_path = vim.fn.stdpath("data")
 
 -- Settings that might likely change should be at the top
 -- vim.opt.comments="n:\""
@@ -287,8 +287,6 @@ vim.keymap.set('n', '<LocalLeader>w', ':%s/\\s\\+$//<cr>', { desc="Removes all t
 
 -- I may not need this
 --vim.keymap.set('n', '<LocalLeader>p', ':put "<cr>:normal ddkP<cr>', { desc="Paste buffer as a sparate line" })
-
-vim.keymap.set('n', '<LocalLeader><LocalLeader>p', ':e '..data_path.."/lazy<cr>", { desc="Opens directory where plugins have been downloaded (lazy)" })
 
 vim.keymap.set('n', '<Leader><Leader>m', ':make<cr>', { desc="Runs make" })
 
