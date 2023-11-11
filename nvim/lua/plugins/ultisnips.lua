@@ -1,5 +1,5 @@
 return {
-    enabled=false,
+    enabled = true,
     'SirVer/ultisnips',
     -- tag = '3.2', UltiSnips won't work with tag 3.2
     dependencies = {
