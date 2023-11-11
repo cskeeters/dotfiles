@@ -270,7 +270,7 @@ linkdot hg/hg_log_style
 
 linkdot vim/gvimrc
 linkdot vim/vimrc
-linkall vim/nvim ~/.config/nvim
+linkcustom nvim ~/.config/nvim
 
 linkconfig bat/config bat
 
