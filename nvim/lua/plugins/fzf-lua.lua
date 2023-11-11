@@ -159,7 +159,7 @@ function ChangeProject()
                 for _, line in ipairs(selected) do
                     local _, _, dir = string.find(line, '^(.*)	')
                     vim.cmd("tcd "..dir)
-                    vim.cmd("Explore .")
+                    vim.cmd("e .")
                     vim.notify("cd "..dir);
                 end
             end
