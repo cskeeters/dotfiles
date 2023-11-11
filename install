@@ -294,7 +294,7 @@ linknnnplugin vim
 
 # Hammerspoon / Movie
 linkcustom hammerspoon/init.lua ~/.hammerspoon/init.lua
-linkcustom hammerspoon/MoveIt/init.lua ~/.hammerspoon/Spoons/MoveIt/init.lua
+linkcustom hammerspoon/MoveIt/init.lua ~/.hammerspoon/Spoons/MoveIt.spoon/init.lua
 
 install_rst
 
