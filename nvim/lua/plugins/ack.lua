@@ -12,5 +12,5 @@ return {
 
         -- Not using
         vim.keymap.set('n', '<Leader>i/', ':LAckWindow <cword><cr>', { noremap=true, desc="Searches buffers open in current type for the word under the cursor" })
-    end
+    end,
 }
