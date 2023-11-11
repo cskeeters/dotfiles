@@ -41,3 +41,5 @@
 /opt/homebrew/Cellar/neovim/0.9.4/share/nvim/runtime	nvim runtime
 /Users/chad/.config/nvim	nvim config
 /Users/chad/.local/share/nvim/lazy	nvim plugins
+/Users/chad/working/aces	aces
+/Users/chad/working/ams	ams
