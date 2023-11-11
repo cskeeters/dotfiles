@@ -74,6 +74,9 @@ return {
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
         -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
 
+        -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
         require("lspconfig").lua_ls.setup {
             on_attach = on_attach,
 
@@ -100,6 +103,7 @@ return {
                     },
                 },
             },
+            capabilities = capabilities,
         }
 
         require('lspconfig').bashls.setup{

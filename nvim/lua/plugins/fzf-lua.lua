@@ -219,7 +219,7 @@ return {
     vim.keymap.set('n', '<LocalLeader>.', ':FzfLua spell_suggest<cr>',  { desc="Suggest spelling (fzf)" })
     vim.keymap.set('n', '<LocalLeader>s', search_snippets,  { desc="Search for Snippet to insert (fzf)" })
     vim.keymap.set('n', '<LocalLeader><LocalLeader>s', edit_snippets,  { desc="Edit Snippet (fzf)" })
-    vim.keymap.set('i', '<C-y>', search_snippets,  { desc="Expand Snippet (fzf)" })
+    --vim.keymap.set('i', '<C-y>', search_snippets,  { desc="Expand Snippet (fzf)" })
 
     -- vim.keymap.set({'n'}, '<Leader>ft', ':FzfLua tabs<cr>', { desc="Find tab" })
 
