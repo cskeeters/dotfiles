@@ -243,8 +243,8 @@ vim.keymap.set('n', '[j', '<c-O>', { noremap = true, desc="Prev jump" })
 
 -- Change List
 -- "mhinz/vim-signify
-vim.keymap.set('n', ']c', '<plug>(signify-next-hunk)', { noremap = true, desc="Next hunk" })
-vim.keymap.set('n', '[c', '<plug>(signify-prev-hunk)', { noremap = true, desc="Prev hunk" })
+-- vim.keymap.set('n', ']c', '<plug>(signify-next-hunk)', { noremap = true, desc="Next hunk" })
+-- vim.keymap.set('n', '[c', '<plug>(signify-prev-hunk)', { noremap = true, desc="Prev hunk" })
 
 -- Matching Tag List - Loaded with :tselect or g]
 vim.keymap.set('n', ']g', ':tnext<CR>', { noremap = true, desc="Next tag" })
