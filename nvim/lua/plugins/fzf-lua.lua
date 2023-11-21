@@ -118,6 +118,10 @@ return {
     -- https://github.com/ibhagwan/fzf-lua#commands
     vim.env.FZF_DEFAULT_OPTS = nil
 
+    -- Replace vim.ui.select menu
+    -- vim.cmd[[FzfLua register_ui_select]]
+    require("fzf-lua").register_ui_select()
+
     vim.keymap.set({'n'}, '<Leader>r', ':FzfLua resume<cr>', { desc="Reopen fzf dialog" })
 
     -- Search history ??

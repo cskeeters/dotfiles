@@ -4,6 +4,7 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'benfowler/telescope-luasnip.nvim',
+        --'nvim-telescope/telescope-ui-select.nvim',
     },
 
     keys = {
