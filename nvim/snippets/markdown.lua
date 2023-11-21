@@ -20,13 +20,14 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.conditions")
 local conds_expand = require("luasnip.extras.conditions.expand")
 
-
-function OF(index)
-    return f(function(arg)
-        return arg[1][1]
-    end, {index})
+local dt = function()
+    return os.date("%Y-%m-%d")
 end
 
+local multiply = function(args, _, _)
+    local total = tonumber(args[1][1]) * tonumber(args[2][1]);
+    return tostring(total);
+end
 
 return {
     s({trig = "table(%d+)x(%d+)", regTrig = true}, {
@@ -57,5 +58,12 @@ return {
             return sn(nil, nodes)
         end
         ),
-    })
+    }),
+    s({trig = "stock"}, fmt([[{} {} {} {} {}]], {
+        f(dt),
+        i(1, "100"),
+        i(2, "SSO"),
+        i(3, "90.00"),
+        f(multiply, {1, 3}),
+    })),
 }
