@@ -61,6 +61,25 @@ alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 # Path
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
+load_all()
+{
+    if [[ -d "$1" ]]; then
+        #-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
+        #-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
+        while IFS= read -r -d $'\0' FILE; do
+            if [[ -r $FILE ]]; then
+                # echo "Sourcing $FILE"
+                . "$FILE"
+            fi
+        done < <(find $1 -type f -print0)
+    fi
+}
+
+# Load OS specific configuration
+load_all "$DOTFILES/shell/bashrc.d-$(uname)"
+# Load host specific configuration
+load_all "$DOTFILES/shell/bashrc.d-$HOSTNAME"
+
 #### Neovim
 if exists nvim; then
     alias vi='nvim'
@@ -106,24 +125,5 @@ fi
 #    # Enable fuzzy style completions
 #    [[ -f ~/.completions ]] && source ~/.completions
 #fi
-
-load_all()
-{
-    if [[ -d "$1" ]]; then
-        #-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
-        #-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
-        while IFS= read -r -d $'\0' FILE; do
-            if [[ -r $FILE ]]; then
-                # echo "Sourcing $FILE"
-                . "$FILE"
-            fi
-        done < <(find $1 -type f -print0)
-    fi
-}
-
-# Load OS specific configuration
-load_all "$DOTFILES/shell/bashrc.d-$(uname)"
-# Load host specific configuration
-load_all "$DOTFILES/shell/bashrc.d-$HOSTNAME"
 
 # vim:ft=sh
