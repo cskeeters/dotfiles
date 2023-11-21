@@ -290,9 +290,10 @@ vim.keymap.set('n', '<LocalLeader>w', ':%s/\\s\\+$//<cr>', { desc="Removes all t
 
 vim.keymap.set('n', '<Leader><Leader>m', ':make<cr>', { desc="Runs make" })
 
-vim.cmd.iabbrev({ "<expr>", "dts", 'strftime("%FT%T%z")' })
-vim.cmd.iabbrev({ "<expr>", "nds",  'strftime("%Y-%m-%d")' })
-vim.cmd.iabbrev({ "<expr>", "ds",  'strftime("%Y-%b-%d")' })
+-- These get annoying
+-- vim.cmd.iabbrev({ "<expr>", "dts", 'strftime("%FT%T%z")' })
+-- vim.cmd.iabbrev({ "<expr>", "nds",  'strftime("%Y-%m-%d")' })
+-- vim.cmd.iabbrev({ "<expr>", "ds",  'strftime("%Y-%b-%d")' })
 
 -- Helper Functions
 -- NOTE: can also use print(vim.inspect(data))
