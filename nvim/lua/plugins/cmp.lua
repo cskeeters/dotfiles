@@ -10,19 +10,17 @@ return {
         'hrsh7th/cmp-nvim-lua',
         'hrsh7th/cmp-cmdline',
 
-        'hrsh7th/cmp-nvim-lsp-signature-help',
+        -- LuaSnip
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
 
-        -- For ultisnips users.
-        'SirVer/ultisnips',
-        'quangnguyen30192/cmp-nvim-ultisnips',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
 
         -- Icons
         'onsails/lspkind.nvim',
     },
 
     init = function()
-
-        require("cmp_nvim_ultisnips").setup{}
 
         local lspkind = require('lspkind')
 
@@ -32,28 +30,27 @@ return {
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
-                    -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-                    vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                 end,
             },
             sources = {
-                { name = 'nvim-lsp' },
+                { name = 'nvim_lsp' },
                 { name = 'nvim_lua' },
                 { name = 'buffer' },
                 { name = 'path' },
-                { name = "ultisnips" },
-                --{ name = 'nvim_lsp_signature_help' },
+                { name = 'luasnip' },
+                -- { name = 'nvim_lsp_signature_help' },
             },
-            mapping = {
+            mapping =  cmp.mapping.preset.insert({
                 ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-e>'] = cmp.mapping.abort(), -- close the menu, at least until another char is typed
                 ['<C-y>'] = cmp.mapping.confirm {
-                    --behavior = cmp.ConfirmBehavior.Insert,
+                    -- behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 },
                 ['<C-space>'] = cmp.mapping.complete(),
-            },
+            }),
             formatting = {
                 format = lspkind.cmp_format({
                     mode = 'symbol',
