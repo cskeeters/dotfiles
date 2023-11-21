@@ -183,6 +183,7 @@ vim.keymap.set('n', '<c-w>]', ':vertical wincmd ]<cr>', { noremap=true, silent=t
 vim.keymap.set('n', 'Y', 'y$', { noremap=true, silent=true, desc="Copies text from cursor to the end of the line"})
 
 vim.keymap.set('n', 'x', '"_x', { noremap=true, silent=true, desc="Remove character without affecting the unnamed register" })
+vim.keymap.set('v', 'x', '"_x', { noremap=true, silent=true, desc="Remove character(s) without affecting the unnamed register" })
 vim.keymap.set('n', 'X', '"_X', { noremap=true, silent=true, desc="Remove character before without affecting the unnamed register" })
 
 vim.keymap.set('v', '<LocalLeader>d', '"_d', { noremap=true, desc="Remove selected text without affecting the unnamed register" })
