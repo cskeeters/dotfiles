@@ -9,6 +9,8 @@ exists() {
     hash $1 2>/dev/null
 }
 
+DOTFILES=$(dirname $(dirname $(realpath ~/.bashrc)))
+
 #### Common Shell tools
 umask 002
 
@@ -27,20 +29,16 @@ export LESS="FRX"
 
 if [[ $- == *i* ]]; then
     # Setup colors in case this is a terminal
-    COLOR_SCRIPT=$HOME/dotfiles/offline/base16-shell/scripts/base16-default-dark.sh
+    COLOR_SCRIPT=$DOTFILES/offline/base16-shell/scripts/base16-default-dark.sh
     if [[ -r "$COLOR_SCRIPT" ]]; then
         source "$COLOR_SCRIPT"
     fi
 fi
 
-export BREW_PREFIX=/opt/homebrew
-
 # https://support.apple.com/en-us/HT208050
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 #### Personal Settings
-export CDPATH=.:~:~/working
-CDPATH=$CDPATH:/Volumes
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
 # Aliases
@@ -60,36 +58,8 @@ alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
 alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
 alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 
-exists gnome-open && alias open="gnome-open"
-exists xdg-open && alias open="xdg-open"
-exists gio && alias open="gio open"
-
 # Path
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
-
-#### Homebrew
-export PATH="$BREW_PREFIX/bin:$PATH"
-export PATH="$BREW_PREFIX/sbin:$PATH"
-
-
-#### Bash Completion for Brew
-
-# brew install bash-completion
-if [[ -r "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-    source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
-else
-    for COMPLETION in "${BREW_PREFIX}/etc/bash_completion.d/"*
-    do
-      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
-    done
-fi
-
-#### Heroku
-# heroku autocomplete setup
-HEROKU_AC_BASH_SETUP_PATH=/Users/chad/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
-
-#### coreutils
-PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 #### Neovim
 if exists nvim; then
@@ -97,65 +67,16 @@ if exists nvim; then
     alias vim='nvim'
 fi
 
-#### Python
-#export LDFLAGS="-L$BREW_PREFIX/opt/python@3.11/lib"
-#export PKG_CONFIG_PATH="/usr/local/opt/python@3.11/lib/pkgconfig"
-
-#### QMK
-export PATH="$BREW_PREFIX/opt/avr-gcc@8/bin:$PATH"
-export PATH="$BREW_PREFIX/opt/arm-gcc-bin@8/bin:$PATH"
-
-#### Ruby
-#
-export PATH="$BREW_PREFIX/opt/ruby/bin:$PATH"
-export LDFLAGS="-L$BREW_PREFIX/opt/ruby/lib"
-export CPPFLAGS="-I$BREW_PREFIX/opt/ruby/include"
-export PKG_CONFIG_PATH="$BREW_PREFIX/opt/ruby/lib/pkgconfig"
-#
-#export PATH="$BREW_PREFIX/lib/ruby/gems/3.2.0/bin:$PATH"
-
-#### LLVM
-#export PATH="/usr/local/opt/llvm/bin:$PATH"
-#export LDFLAGS="-L$BREW_PREFIX/opt/llvm/lib -Wl,-rpath,$BREW_PREFIX/opt/llvm/lib"
-#export CPPFLAGS="-I$BREW_PREFIX/opt/llvm/include"
-
-#### PHP
-# export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-# export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
-
-#pkg-config path
-#pkg-config --cflags cairo
-#pkg-config --libs cairo
-# export PKG_CONFIG_PATH=/opt/X11/lib/pkgconfig:/opt/X11/share/pkgconfig:/opt/local/lib/pkgconfig:/usr/lib/pkgconfig
-
-# use gnu versions of these tools.  Must be installed with
-# brew install findutils gnu-sed coreutils
-exists gfind   && alias find=gfind
-exists gsed    && alias sed=gsed
-exists gmktemp && alias mktemp=gmktemp
-
 #### Rust Language
 # export PATH="$HOME/.cargo/bin:$PATH"
-
-#### autojump
-[[ -s $BREW_PREFIX/etc/profile.d/autojump.sh ]] && . $BREW_PREFIX/etc/profile.d/autojump.sh
 
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 
-#### iterm
-function tabname {
-    printf "\e]1;$1\a"
-}
-
-function winname {
-    printf "\e]2;$1\a"
-}
-
 #### FZF Jumping
 
 fzf_project_jump() {
-    D=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
+    D=$(cat $DOTFILES/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
     # D=$(fzf --bind 'enter:execute(echo {1})+abort')
     if [[ $D != "" ]]; then
         printf 'builtin cd -- %q' "$D"
@@ -186,44 +107,23 @@ fi
 #    [[ -f ~/.completions ]] && source ~/.completions
 #fi
 
+load_all()
+{
+    if [[ -d "$1" ]]; then
+        #-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
+        #-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
+        while IFS= read -r -d $'\0' FILE; do
+            if [[ -r $FILE ]]; then
+                # echo "Sourcing $FILE"
+                . "$FILE"
+            fi
+        done < <(find $1 -type f -print0)
+    fi
+}
 
-#### Lima (Docker)
-#
-# if [[ -f $BREW_PREFIX/local/bin/limactl ]]; then
-#     alias docker='nerdctl.lima'
-#     source <(limactl completion bash)
-# fi
+# Load OS specific configuration
+load_all "$DOTFILES/shell/bashrc.d-$(uname)"
+# Load host specific configuration
+load_all "$DOTFILES/shell/bashrc.d-$HOSTNAME"
 
 # vim:ft=sh
-
-#### nnn
-n() {
-    # Remove F from LESS so help will be paged
-    LESS="RX" \
-    # Open text files with neovide (separate window)
-    VISUAL="neovide" \
-    nnn -AHdeT t $*
-
-    LASTD="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    if [ -f "$LASTD" ]; then
-        # .lastd will be a script with a cd command in it
-        . "$LASTD"
-        rm -f "$LASTD" > /dev/null
-    fi
-}
-export NNN_PLUG='a:addjump;f:openfolder;j:fzjump;o:fzopen;d:fzcd;p:acrobatpro;v:vim;i:preview-tui'
-# -A no dir auto-enter during filter
-# -e open text files in $VISUAL (else $EDITOR, fallback vi) [preferably CLI]
-# -d detail mode
-# -H show hidden files
-export NNN_FIFO=/tmp/nnn.fifo
-
-nnn_cd()
-{
-    if ! [ -z "$NNN_PIPE" ]; then
-        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
-    fi
-}
-
-trap nnn_cd EXIT
