@@ -2,7 +2,8 @@ return {
     enabled = true,
     'nvim-telescope/telescope.nvim',
     dependencies = {
-        'nvim-lua/plenary.nvim'
+        'nvim-lua/plenary.nvim',
+        'benfowler/telescope-luasnip.nvim',
     },
 
     keys = {
@@ -23,6 +24,11 @@ return {
                 }
             }
         })
+
+        require('telescope').load_extension('luasnip')
+        --require('telescope').load_extension('ui-select')
+
+        vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
 
         -- local builtin = require('telescope.builtin')
         -- NOTE: Currently Using fzf-lua

@@ -1,0 +1,76 @@
+snippet def
+	\${${1:var}:-${2:default}}
+snippet cd
+	cd "${0%/*}"
+	cd "$(dirname "\$0")"
+snippet a
+	${${0:arr}[@]}
+snippet pf
+	printf "${0}\n"
+snippet forin
+	for ${1:var} in ${${2:array}[@]}; do
+		echo $1
+	done
+snippet for
+	for ((i=0;i<${1:5};i++)); do
+		${2:echo $i}
+	done
+snippet whilefind
+	#-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
+	#-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
+	while IFS= read -r -d $'\0' line; do
+		echo "$line"
+	done < <(find /tmp -type f -print0)
+snippet whileread
+	while IFS= read -r line; do
+	    echo "$line"
+	done
+snippet re
+	${0:name}p='^${1:(.*)}$'
+	if [[ '${2:Chad is good}' =~ $${0}p ]]; then
+	    echo ${BASH_REMATCH[1]}
+	fi
+snippet root
+	source "/usr/local/libexec/os.sh"
+	assert_root
+	${1}
+snippet server
+	source "/usr/local/libexec/os.sh"
+	assert_server
+	${1}
+snippet log
+	source "/usr/local/libexec/log.sh"
+	${1}
+snippet tmp
+	source "/usr/local/libexec/tmp.sh"
+	mk_temp TMP
+	echo hi > $TMP
+	${1}
+snippet os
+	source "/usr/local/libexec/os.sh"
+	set_os
+	${1}
+snippet case
+	case $${1:var} in
+	    ${2:chad|david})
+	        echo yes
+	        ;;
+	    *)
+	        echo no
+	        ;;
+	esac
+	${3}
+snippet cc
+	case $${1:var} in
+	    ${2:chad|david}) echo yes ;;
+	    *)          echo no  ;;
+	esac
+	${3}
+snippet i
+	info "${1}"${2}
+snippet w
+	warn "${1}"${2}
+snippet e
+	error "${1}"${2}
+snippet d
+	die "${1}"${2}

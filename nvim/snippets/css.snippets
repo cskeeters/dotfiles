@@ -1,0 +1,26 @@
+snippet main
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+snippet s
+	${1:body} {
+		${2}
+	}
+snippet a
+	${1:display}: ${2:none};
+snippet c
+	/* ${1} */
+snippet radius
+	border-radius: ${1:5px};
+snippet flex
+	display: flex;
+	flex-direction: column; /* Up and Down */
+	flex-direction: row; /* Left to Right */
+	align-items: flex-start;
+snippet v
+	var(--${1:text})

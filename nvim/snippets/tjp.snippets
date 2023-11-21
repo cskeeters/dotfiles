@@ -1,0 +1,10 @@
+snippet ts
+	task ${1:task_id} "Setup/Test ${2:Description}" {
+		effort ${3:1}d
+		allocate chad
+		complete 0
+	}
+snippet d
+	depends !${1}
+snippet dp
+	depends ${1}

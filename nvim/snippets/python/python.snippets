@@ -1,0 +1,25 @@
+snippet main
+	#!/usr/bin/env python
+	# encoding: utf-8
+
+	if __name__ == "__main__":
+		${0}
+snippet def
+	def ${0:foo}:
+	    ${1}
+snippet p
+	print("${0:bar}")
+snippet pv
+	print(f"${1}: {$1}")
+snippet re
+	import re
+	p=re.compile('^(${0:chad})$', re.IGNORECASE)
+
+	m=p.match(line)
+	if m != None:
+	    print m.group(1)
+snippet signal
+	import signal
+	def handler(signum, frame):
+		print(f"caught {signum}")
+	signal.signal(signal.SIGINT, handler)

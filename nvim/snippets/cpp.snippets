@@ -1,0 +1,72 @@
+snippet syslog
+	#include <syslog.h>
+	openlog(argv[0], LOG_PID | LOG_PERROR | LOG_CONS, LOG_DAEMON);
+	syslog(LOG_INFO, "Format String %d", i);
+snippet daemon
+	#include <unistd.h>
+	#include <string.h>
+	if ((daemon(0, 0)) < 0) {
+	   syslog(LOG_ERR, "Error daemonizing %s", strerror(errno));
+	   exit(EXIT_FAILURE);
+	}
+snippet sleep
+	#include <unistd.h>
+	unsigned int leftover = sleep(1);
+snippet usleep
+	#include <unistd.h>
+	usleep(20);
+snippet err
+	#include <errno.h>
+	#include <string.h>
+	syslog(LOG_INFO, "Error: %s", strerror(errno));
+snippet exit
+	#include <stdlib.h>
+	exit(EXIT_FAILURE);
+snippet p
+	printf("${1:}\n"${2});
+snippet pf
+	printf("${1:%s}\n", ${2:var});
+snippet sprintf
+	char buffer[255];
+	sprintf(buffer, "${1:%s}\n", ${2:var});
+snippet main
+	#include <iostream>
+	#include <string>
+	#include <vector>
+	
+	int main(int argc, char *argv[])
+	{
+		${1}
+	}
+snippet inc
+	#include <${1:string}>
+snippet Inc
+	#include "${1:string}.h"
+snippet cout
+	std::cout << "${1:text}" << std::endl;
+snippet cerr
+	std::cerr << "${1:Error: }${2}" << std::endl;
+snippet vec
+	std::vector<${1:std::string}> ${2:bar};
+snippet str
+	std::string ${1}
+snippet ts
+	std::to_string(${1})
+snippet sp
+	std::shared_ptr<${1}>
+snippet ms
+	std::make_shared<${1}>(${2})
+snippet log
+	#include <UTILS/log.h>
+snippet lef
+	LOG_ERROR("${1:field}: "<<$1);
+snippet ldf
+	LOG_DEBUG("${1:field}: "<<$1);
+snippet le
+	LOG_ERROR("${1}");
+snippet lw
+	LOG_WARN("${1}");
+snippet li
+	LOG_INFO("${1}");
+snippet ld
+	LOG_DEBUG("${1}");
