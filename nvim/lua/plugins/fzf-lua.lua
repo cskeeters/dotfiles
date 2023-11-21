@@ -26,44 +26,6 @@ local function fzf_rcs_changed_files()
     end
 end
 
-local expand_snip = function(selected, opts)
-    for k, value in pairs(selected) do
-        local _, _, trigger = string.find(value, "([^%s]+)%s-")
-        -- The \\<cr> is required for \\<c-r>= to work
-        vim.cmd('execute "normal! a'..trigger.. '\\<c-r>=UltiSnips#ExpandSnippet()\\<cr>"')
-    end
-end
-
-local function search_snippets()
-    vim.fn["UltiSnips#SnippetsInCurrentScope"](1)
-    local list = vim.g.current_ulti_dict_info
-    local triggers = {}
-    for trigger, snipinfo in pairs(list) do
-        local desc = snipinfo["description"]
-        --local loc = snipinfo["location"]
-        table.insert(triggers, trigger.." - "..desc)
-    end
-
-    -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#fzf-exec-api
-    require'fzf-lua'.fzf_exec(triggers,
-      {
-          prompt="UltiSnips> ",
-          actions = {
-              ['default'] = expand_snip,
-          },
-          fzf_opts = {
-              ['--preview-window'] = 'nohidden,down,50%',
-              ['--preview'] = require'fzf-lua'.shell.action(function(items)
-                  local contents = {}
-                  vim.tbl_map(function(x)
-                      table.insert(contents, "selected item: " .. x)
-                  end, items)
-                  return contents
-              end)
-          }
-      })
-end
-
 local function parse_line(value)
     local _, _, trigger, path, line = string.find(value, "([^%s]+)%s*-%s*([^:]+):(%d+)")
     return trigger, path, line
@@ -77,34 +39,6 @@ local edit_snippet = function(selected, opts)
         -- Jump to line
         vim.cmd('execute "normal! '..line..'G"')
     end
-end
-
-local function edit_snippets()
-    vim.fn["UltiSnips#SnippetsInCurrentScope"](1)
-    local list = vim.g.current_ulti_dict_info
-    local triggers = {}
-    for trigger, snipinfo in pairs(list) do
-        --local desc = snipinfo["description"]
-        local loc = snipinfo["location"]
-        table.insert(triggers, trigger.." - "..loc)
-    end
-
-    -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#fzf-exec-api
-    require'fzf-lua'.fzf_exec(triggers,
-      {
-          prompt="Edit UltiSnips> ",
-          actions = {
-              ['default'] = edit_snippet,
-          },
-          fzf_opts = {
-              ['--preview-window'] = 'nohidden,down,50%',
-              ['--preview'] = require'fzf-lua'.shell.preview_action_cmd(function(items)
-                  print("PREV", items[1])
-                  local _, path, _ = parse_line(items[1])
-                  return string.format("bat --style=default --color=always %s", path)
-              end)
-          }
-      })
 end
 
 local grep_word = function()
@@ -217,9 +151,6 @@ return {
     vim.keymap.set('n', '<Leader>pr', ':FzfLua register<cr>',  { desc="Paste register (fzf)" })
     vim.keymap.set('n', '<Leader><Leader>ft', ':FzfLua filetypes<cr>',  { desc="Select filetype to by applied to the current buffer setf (fzf)" })
     vim.keymap.set('n', '<LocalLeader>.', ':FzfLua spell_suggest<cr>',  { desc="Suggest spelling (fzf)" })
-    vim.keymap.set('n', '<LocalLeader>s', search_snippets,  { desc="Search for Snippet to insert (fzf)" })
-    vim.keymap.set('n', '<LocalLeader><LocalLeader>s', edit_snippets,  { desc="Edit Snippet (fzf)" })
-    --vim.keymap.set('i', '<C-y>', search_snippets,  { desc="Expand Snippet (fzf)" })
 
     -- vim.keymap.set({'n'}, '<Leader>ft', ':FzfLua tabs<cr>', { desc="Find tab" })
 
@@ -256,6 +187,5 @@ return {
         vim.keymap.set('i', '<c-x><c-j>', '<Plug>(fzf-complete-file-ag)', { desc="Use fzf to find file name to insert with ag" })
         vim.keymap.set('i', '<c-x><c-l>', '<Plug>(fzf-complete-line)', { desc="Use fzf to find line to insert" })
     end
-
   end
 }
