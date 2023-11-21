@@ -47,11 +47,10 @@ return {
     'williamboman/mason.nvim',
     dependencies = {
         'williamboman/mason-lspconfig.nvim',
-        'neovim/nvim-lspconfig'
+        'neovim/nvim-lspconfig',
+        --'hrsh7th/cmp-nvim-lsp',
     },
-    keys = {
-
-    },
+    lazy=false,
     init = function()
         require("mason").setup()
         require("mason-lspconfig").setup()
@@ -75,7 +74,16 @@ return {
         -- https://github.com/LuaLS/lua-language-server/blob/master/doc/en-us/config.md
 
         -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+        local capabilities = nil
+        local status, lsp = pcall(require, 'cmp_nvim_lsp')
+        if status then
+            capabilities = require('cmp_nvim_lsp').default_capabilities()
+            --vim.notify("cmp_nvim_lsp was loaded, lsp capabilities will be associated to the completion engine", vim.log.levels.INFO, { title = "Mason", })
+        else
+            vim.notify("cmp_nvim_lsp was not loaded, lsp capabilities will not be associated to the completion engine", vim.log.levels.WARN, { title = "Mason", })
+        end
+
 
         require("lspconfig").lua_ls.setup {
             on_attach = on_attach,
@@ -109,26 +117,31 @@ return {
         require('lspconfig').bashls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
+            capabilities = capabilities,
         }
 
         require('lspconfig').cssls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
+            capabilities = capabilities,
         }
 
         require('lspconfig').phpactor.setup{
             on_attach = on_attach,
             flags = lsp_flags,
+            capabilities = capabilities,
         }
 
         require('lspconfig').pyright.setup{
             on_attach = on_attach,
             flags = lsp_flags,
+            capabilities = capabilities,
         }
 
         require('lspconfig').clangd.setup{
             on_attach = on_attach,
             flags = lsp_flags,
+            capabilities = capabilities,
         }
 
         -- require('lspconfig').java_language_server.setup{
