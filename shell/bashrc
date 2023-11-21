@@ -199,7 +199,11 @@ fi
 #### nnn
 n() {
     # Remove F from LESS so help will be paged
-    LESS="RX" nnn -AHdeT t $*
+    LESS="RX" \
+    # Open text files with neovide (separate window)
+    VISUAL="neovide" \
+    nnn -AHdeT t $*
+
     LASTD="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
     if [ -f "$LASTD" ]; then
