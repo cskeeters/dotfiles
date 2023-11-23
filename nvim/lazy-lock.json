@@ -17,7 +17,7 @@
   "kanagawa.nvim": { "branch": "master", "commit": "c19b9023842697ec92caf72cd3599f7dd7be4456" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lspkind.nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
-  "lualine.nvim": { "branch": "master", "commit": "2248ef254d0a1488a72041cfb45ca9caada6d994" },
+  "lualine.nvim": { "branch": "master", "commit": "c0cb29e17199b24c6a3109950968dc4034c60925" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "40301e1c74bc0946eece13edf2b1c561cc497491" },
   "mason.nvim": { "branch": "main", "commit": "eabf6d347fdb75be360d4c0ced1145670a171453" },
   "mintabline.vim": { "branch": "master", "commit": "940c01e606fd9bcd2e4763cca753a151e74b1720" },
@@ -49,11 +49,9 @@
   "vim-make": { "branch": "master", "commit": "a36de3b22f003d27302623d40e29fb33a4bb62e0" },
   "vim-mercenary": { "branch": "master", "commit": "7e57581a60aec3bbc6499b4f49b3eca3b71caed6" },
   "vim-pug": { "branch": "master", "commit": "ea39cd942cf3194230cf72bfb838901a5344d3b3" },
-  "vim-signify": { "branch": "master", "commit": "7d538b77a5a8806e344b057f8846f6d0c035efa9" },
   "vim-simple-alt": { "branch": "master", "commit": "4d3dede13752d83b29a116886ecd6571fdb08f2f" },
   "vim-simple-comment": { "branch": "master", "commit": "8c2cb270b2da9b6021e480fb0b4bce613e7488b5" },
   "vim-status": { "branch": "master", "commit": "35b56960928611b1728c9adbec26ac81a5db26e9" },
   "vim-vcvars": { "branch": "master", "commit": "5ed3b1085f6e42c72c80d69355866a45578dc2bc" },
-  "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" },
-  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
+  "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" }
 }
