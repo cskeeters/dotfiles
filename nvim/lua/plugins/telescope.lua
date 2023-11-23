@@ -28,6 +28,7 @@ return {
 
         require('telescope').load_extension('luasnip')
         --require('telescope').load_extension('ui-select')
+        require("telescope").load_extension("git_worktree")
 
         vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
 

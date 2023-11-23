@@ -12,6 +12,7 @@
   "d2-vim": { "branch": "master", "commit": "981c87dccb63df2887cc41b96e84bf550f736c57" },
   "dash.vim": { "branch": "master", "commit": "25b17d9488454a1fcdbb2cbe829a23226f95e3c2" },
   "fzf-lua": { "branch": "main", "commit": "305c60c39fdc8cc536cc330150eebf04fa351249" },
+  "git-worktree.nvim": { "branch": "master", "commit": "f247308e68dab9f1133759b05d944569ad054546" },
   "harpoon": { "branch": "master", "commit": "c1aebbad9e3d13f20bedb8f2ce8b3a94e39e424a" },
   "javadoc.vim": { "branch": "master", "commit": "c762c7c066d04f8485465180e017c65726c29089" },
   "kanagawa.nvim": { "branch": "master", "commit": "c19b9023842697ec92caf72cd3599f7dd7be4456" },
