@@ -133,6 +133,20 @@ linkbin() {
     ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
 
+run_all()
+{
+    if [[ -d "$1" ]]; then
+        #-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
+        #-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
+        while IFS= read -r -d $'\0' FILE; do
+            if [[ -r "$FILE" ]]; then
+                # echo "Sourcing $FILE"
+                . "$FILE"
+            fi
+        done < <(find "$1" -type f -print0)
+    fi
+}
+
 cleanup_link() {
     FILE="$1"
     TARGET=$(readlink -f "$FILE")
@@ -212,10 +226,6 @@ linkdot shell/completions
 linkdot shell/inputrc
 linkdot shell/dir_colors
 
-linkdot X11/xinitrc
-linkdot X11/Xmodmap
-linkdot X11/Xresources # xterm/rxvt color settings
-
 linkdot git/gitconfig
 linkdot git/gitignore
 
@@ -230,11 +240,6 @@ linkdot vim/vimrc
 link nvim .config
 
 link bat/config .config/bat
-
-link ranger/rc.conf .config/ranger
-link ranger/commands.py .config/ranger
-
-linkdot doc/docutils
 
 # Helps ctags with markdown
 linkdot ctags
@@ -252,11 +257,7 @@ link fzcd .config/nnn/plugins
 link openfolder .config/nnn/plugins
 link vim .config/nnn/plugins
 
-# Hammerspoon / Movie
-link hammerspoon/init.lua .hammerspoon
-link hammerspoon/MoveIt/init.lua .hammerspoon/Spoons/MoveIt.spoon
-
-link .rst2pdf
-link .rst2html
-
-link $dotfiles/DefaultKeyBinding.dict Library/KeyBindings
+# Run OS specific installation
+run_all "$DOTFILES/install.d-$(uname)"
+# Run host specific installation
+run_all "$DOTFILES/install.d-$(hostname -s)"
