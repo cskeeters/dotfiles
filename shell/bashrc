@@ -78,7 +78,7 @@ load_all()
 # Load OS specific configuration
 load_all "$DOTFILES/shell/bashrc.d-$(uname)"
 # Load host specific configuration
-load_all "$DOTFILES/shell/bashrc.d-$HOSTNAME"
+load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
 
 #### Neovim
 if exists nvim; then
