@@ -96,59 +96,25 @@ backup_clear() {
     fi
 }
 
+# Installs a symbolic link pointing to the provided file or folder
+# It first runs backup_clear to free the target path for the new symbolic link.
+# $1 - The dotfiles sub-path to the source file or folder
+# $2 - the target directory, which defaults to $HOME.  Could be $HOME/.config for example
 link() {
+    INSTALL_DIR="$HOME"
+    if [[ "$2" != "" ]]; then
+        INSTALL_DIR="$HOME/$2"
+    fi
+
+    INSTALL_PATH="$INSTALL_DIR/${DOT}${1##*/}"
+    SOURCE_PATH="$dotfiles/$1"
+    mkdir -p "$INSTALL_DIR"
+    backup_clear
     ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
 
 linkdot() {
-    # Add the dot and remove everything before last slash (basename)
-    INSTALL_DIR="${2:-$HOME}"
-    INSTALL_PATH="$INSTALL_DIR/.${1##*/}"
-    SOURCE_PATH="$dotfiles/$1"
-    mkdir -p "$INSTALL_DIR"
-    backup_clear
-    link
-}
-
-# linkconfig vim/init.vim nvim
-linkconfig() {
-    # Add the dot and remove everything before last slash (basename)
-    CONFIG_DIR="$HOME/.config/$2"
-    INSTALL_PATH="$CONFIG_DIR/${1##*/}"
-    SOURCE_PATH="$dotfiles/$1"
-    mkdir -p "$CONFIG_DIR"
-    backup_clear
-    link
-}
-
-linkcustom() {
-    # Add the dot and remove everything before last slash (basename)
-    SOURCE_PATH="$dotfiles/$1"
-    INSTALL_PATH="$2"
-    mkdir -p "$(dirname $INSTALL_PATH)"
-    backup_clear
-    link
-}
-
-linkall() {
-    SRC="$dotfiles/$1"
-    DEST="$2"
-
-    # Make all directories
-    pushd .
-    cd "$SRC"
-    find * -type d -exec mkdir -p "{}" \;
-
-    while IFS= read -r -d $'\0' FILE; do
-        {
-            INSTALL_PATH="${DEST}/${FILE}"
-            SOURCE_PATH="${SRC}/${FILE}"
-            backup_clear
-            link
-        } < /dev/null
-    done < <(find * -type f -print0)
-
-    popd
+    DOT="." link "$1" "$2"
 }
 
 linkbin() {
@@ -157,55 +123,8 @@ linkbin() {
     INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
     backup_clear
-    link
+    ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
-
-linknnnplugin() {
-    PLUGIN_PATH="$HOME/.config/nnn/plugins"
-    mkdir -p "$PLUGIN_PATH"
-
-    INSTALL_PATH="$PLUGIN_PATH/$1"
-    SOURCE_PATH="$dotfiles/nnn/$1"
-    backup_clear
-    link
-}
-
-prompt_install() {
-    echo -n $1
-    read answer
-    if [[ $answer =~ [yY] ]]; then
-        $2
-    fi
-}
-
-disable_etc_vimrc() {
-    # fixes escape character delay in vim
-    # Not a problem in ventura (probably earlier)
-    sudo mv /etc/vimrc /etc/vimrc.disabled || die "Error disabling system vimrc"
-}
-
-install_rst() {
-    # This won't be handled above because .rst2pdf and .rst2html are folders
-    info "Installing reStructuredText settings"
-    if [[ -h ~/.rst2pdf ]]; then
-        rm -f ~/.rst2pdf
-    fi
-    if [[ -f ~/.rst2pdf ]]; then
-        # This may be a folder we need to backup
-        mv ~/.rst2pdf "$dotfiles/backup/"
-    fi
-    erun ln -s $dotfiles/.rst2pdf ~/.rst2pdf
-
-    if [[ -h ~/.rst2html ]]; then
-        rm -f ~/.rst2html
-    fi
-    if [[ -f ~/.rst2html ]]; then
-        # This may be a folder we need to backup
-        mv ~/.rst2html "$dotfiles/backup/"
-    fi
-    erun ln -s $dotfiles/.rst2html ~/.rst2html
-}
-
 
 ######################## MAIN
 
@@ -242,7 +161,9 @@ chmod a+x offline/myvim
 
 
 clone https://github.com/chriskempson/base16-shell
-clone https://github.com/powerline/fonts
+
+# Use Nerd Font instead
+# clone https://github.com/powerline/fonts
 
 if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
     echo "Finished Downloading.  Exiting"
@@ -268,14 +189,17 @@ linkdot git/gitignore
 linkdot hg/hgrc
 linkdot hg/hg_log_style
 
+# If we install both, vim will use vimrc and neovim will use .config/init.lua,
+# which doesn't reference vimrc
 linkdot vim/gvimrc
 linkdot vim/vimrc
-linkcustom nvim ~/.config/nvim
 
-linkconfig bat/config bat
+link nvim .config
 
-linkconfig ranger/rc.conf ranger
-linkconfig ranger/commands.py ranger
+link bat/config .config/bat
+
+link ranger/rc.conf .config/ranger
+link ranger/commands.py .config/ranger
 
 linkdot doc/docutils
 
@@ -285,29 +209,18 @@ linkdot tmux.conf
 linkbin offline/tabsplice
 linkbin offline/myvim
 
-linknnnplugin acrobatpro
-linknnnplugin addjump
-linknnnplugin fzjump
-linknnnplugin fzcd
-linknnnplugin openfolder
-linknnnplugin vim
+link acrobatpro .config/nnn/plugins
+link addjump .config/nnn/plugins
+link fzjump .config/nnn/plugins
+link fzcd .config/nnn/plugins
+link openfolder .config/nnn/plugins
+link vim .config/nnn/plugins
 
 # Hammerspoon / Movie
-linkcustom hammerspoon/init.lua ~/.hammerspoon/init.lua
-linkcustom hammerspoon/MoveIt/init.lua ~/.hammerspoon/Spoons/MoveIt.spoon/init.lua
+link hammerspoon/init.lua .hammerspoon
+link hammerspoon/MoveIt/init.lua .hammerspoon/Spoons/MoveIt.spoon
 
-install_rst
+link .rst2pdf
+link .rst2html
 
-if [[ -f /etc/vimrc ]]; then
-    prompt_install "Disable /etc/vimrc? ->" disable_etc_vimrc
-fi
-
-info "Setting up Keyboard bindings to support ^w -> deleteWordBackward:"
-mkdir -p ~/Library/KeyBindings
-cp $dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
-
-info "Setup iterm settings"
-plutil -convert binary1 $dotfiles/iterm2.xml -o ~/Library/Preferences/com.googlecode.iterm2.plist
-
-# This will safe the iTerm preferences into an XML files
-#   plutil -convert xml1 ~/Library/Preferences/com.googlecode.iterm2.plist -o $dotfiles/iterm2.xml
+link $dotfiles/DefaultKeyBinding.dict Library/KeyBindings
