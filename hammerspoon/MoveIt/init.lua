@@ -85,11 +85,11 @@ function obj:right()
     hs.window.focusedWindow():setFullScreen(false)
     if state == 0 then
         local screen = hs.window.focusedWindow():screen():frame()
-        self:move({ x = screen.w/2, y = screen.y, w = screen.w/2, h = screen.h })
+        self:move({ x = screen.x + screen.w/2, y = screen.y, w = screen.w/2, h = screen.h })
     end
     if state == 1 then
         local screen = hs.window.focusedWindow():screen():frame()
-        self:move({ x = screen.w/3, y = screen.y, w = screen.w*(2/3), h = screen.h })
+        self:move({ x = screen.x + screen.w/3, y = screen.y, w = screen.w*(2/3), h = screen.h })
     end
 end
 
