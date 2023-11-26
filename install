@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# With no options, install will download offline files and install settings
+#
+# -o Download offline files/repositores only
+# -r reinstall offline repositories
+# -u Update cloned offline repositories
+# -c uninstall links to dotfiles
+
 source log.sh
 
 ############ INSTALL FUNCTIONS
@@ -126,6 +133,27 @@ linkbin() {
     ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
 
+cleanup_link() {
+    FILE="$1"
+    TARGET=$(readlink -f "$FILE")
+    if [[ "$TARGET" =~ dotfiles ]]; then
+        echo "Removing $FILE"
+        rm -f "$FILE"
+    fi
+}
+
+# This is used when older config is in place that no longer applies
+cleanup_links()
+{
+    while IFS= read -r -d $'\0' FILE; do
+        cleanup_link "$FILE"
+    done < <(find "$HOME" -maxdepth 2 -type l -print0)
+
+    while IFS= read -r -d $'\0' FILE; do
+        cleanup_link "$FILE"
+    done < <(find "$HOME/.config" -type l -print0)
+}
+
 ######################## MAIN
 
 cd "${0%/*}"
@@ -134,7 +162,7 @@ mkdir -p "$dotfiles/backup"
 
 DOWNLOAD_ONLY=0
 UPDATE=0
-while getopts "rou" opt; do
+while getopts "rouc" opt; do
   case $opt in
     r)
       rm -rf offline
@@ -144,6 +172,10 @@ while getopts "rou" opt; do
       ;;
     u)
       UPDATE=1
+      ;;
+    c)
+      cleanup_links
+      exit 1
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
