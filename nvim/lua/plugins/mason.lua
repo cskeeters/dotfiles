@@ -159,5 +159,11 @@ return {
         -- MasonInstall rust-analyzer
         -- require("lspconfig").rust_analyzer.setup {}
 
+        -- MasonInstall gopls
+        require("lspconfig").gopls.setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+        })
     end
 }
