@@ -142,9 +142,11 @@ return {
 
 
     vim.keymap.set('n', '<Leader>oo', ':FzfLua oldfiles<cr>',  { desc="Open Old file from history (fzf)" })
+    vim.keymap.set('n', '<Leader>ob', ':FzfLua buffers <cr>', { desc="Open Buffer (selected via fzf)" })
+
+    -- Specific, commonly opened locations
     vim.keymap.set('n', '<Leader>oc', ':FzfLua files cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
     vim.keymap.set('n', '<Leader>op', ':FzfLua files cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
-    vim.keymap.set('n', '<Leader>ob', ':FzfLua buffers <cr>', { desc="Open Buffer (selected via fzf)" })
 
     -- Jump to line
     vim.keymap.set('n', '<Leader>jb', ':FzfLua blines<cr>', { desc="Jump to line in current buffer (fzf)" })
@@ -159,6 +161,8 @@ return {
     -- vim.keymap.set({'n'}, '<Leader>ft', ':FzfLua tabs<cr>', { desc="Find tab" })
 
     -- Jump to file/line
+    vim.keymap.set('n', '<Leader>js', ':FzfLua btags<cr>',  { desc="Jump to method signature in current buffer (fzf/ctags)" })
+    vim.keymap.set('n', '<Leader>jS', ':FzfLua tags<cr>',  { desc="Jump to method signature in current directory (fzf/ctags)" })
     vim.keymap.set('n', '<Leader>jt', ':FzfLua tagstack<cr>',  { desc="Jump in tagstack (fzf)" })
     vim.keymap.set('n', '<Leader>jj', ':FzfLua jumps<cr>',  { desc="Jump in jumps (fzf)" })
     vim.keymap.set('n', '<Leader>jc', ':FzfLua changes<cr>',  { desc="Jump in changes (fzf)" })
