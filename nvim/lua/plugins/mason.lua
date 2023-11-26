@@ -85,6 +85,7 @@ return {
         end
 
 
+        -- MasonInstall lua-language-server
         require("lspconfig").lua_ls.setup {
             on_attach = on_attach,
 
@@ -114,41 +115,48 @@ return {
             capabilities = capabilities,
         }
 
+        -- MasonInstall bash-language-server
         require('lspconfig').bashls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
+        -- MasonInstall css-lsp
         require('lspconfig').cssls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
+        -- MasonInstall phpactor
         require('lspconfig').phpactor.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
+        -- MasonInstall pyright
         require('lspconfig').pyright.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
+        -- MasonInstall clangd
         require('lspconfig').clangd.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
+        -- MasonInstall java-language-server
         -- require('lspconfig').java_language_server.setup{
             -- on_attach = on_attach,
             -- flags = lsp_flags,
         -- }
 
+        -- MasonInstall rust-analyzer
         -- require("lspconfig").rust_analyzer.setup {}
 
     end
