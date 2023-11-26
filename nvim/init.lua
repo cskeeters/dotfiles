@@ -315,6 +315,7 @@ end
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 0
 vim.g.netrw_keepdir = 1 -- having this 0 make harpoon loose track of project (at least for mercurial repos)
+vim.g.netrw_bufsettings = 'nomodifiable nomodified readonly number relativenumber nobuflisted nowrap'
 
 -- Enables the use of 'T' to move files and folders to the trash instead of rm
 vim.cmd("source "..config_path.."/netrw-trash.vim")
