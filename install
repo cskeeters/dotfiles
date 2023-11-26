@@ -179,6 +179,7 @@ while getopts "rouc" opt; do
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
+      exit 1
       ;;
   esac
 done
@@ -235,12 +236,15 @@ link ranger/commands.py .config/ranger
 
 linkdot doc/docutils
 
+# Helps ctags with markdown
 linkdot ctags
+
 linkdot tmux.conf
 
 linkbin offline/tabsplice
 linkbin offline/myvim
 
+# nnn
 link acrobatpro .config/nnn/plugins
 link addjump .config/nnn/plugins
 link fzjump .config/nnn/plugins
