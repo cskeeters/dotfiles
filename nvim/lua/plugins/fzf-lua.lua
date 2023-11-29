@@ -130,7 +130,7 @@ return {
     -- Execute Keymap
     vim.keymap.set('n', '<Leader>k', ':FzfLua keymaps<cr>', { desc="Execute keymap" })
     vim.keymap.set('n', '<Leader>c', ':FzfLua commands<cr>', { desc="Execute command" })
-    vim.keymap.set('n', '<Leader>h', ':FzfLua command_history<cr>', { desc="Execute command from history" })
+    vim.keymap.set('n', '<Leader>H', ':FzfLua command_history<cr>', { desc="Execute command from history" })
 
     -- This slows down exiting macros
     -- vim.keymap.set('n', 'q:',        ':FzfLua command_history<cr>', { desc="Execute command from history" })
