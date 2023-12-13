@@ -4,12 +4,17 @@ local function copy(args)
 	return args[1]
 end
 
-local reloadSnippets = function()
+-- This will load snippets from any directory named 'snippets' in the runtime path of vim.
+local doReloadSnippets = function()
     local from_snipmate = require("luasnip.loaders.from_snipmate")
     from_snipmate.lazy_load()
 
     local from_lua = require("luasnip.loaders.from_lua")
     from_lua.load({paths = "~/dotfiles/nvim/snippets"})
+end
+
+local reloadSnippets = function()
+    doReloadSnippets()
     vim.notify("Snippets Reloaded")
 end
 
@@ -20,12 +25,7 @@ return {
     build = "make install_jsregexp",
 
     init = function()
-        -- This will load snippets from any directory named 'snippets' in the runtime path of vim.
-        local from_snipmate = require("luasnip.loaders.from_snipmate")
-        from_snipmate.lazy_load()
-
-        local from_lua = require("luasnip.loaders.from_lua")
-        from_lua.load({paths = "~/dotfiles/nvim/snippets"})
+        doReloadSnippets()
 
         local ls = require("luasnip")
         -- some shorthands...
