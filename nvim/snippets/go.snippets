@@ -1,0 +1,23 @@
+snippet main
+	package main
+	import "fmt"
+	func main() {
+		fmt.Println("hello world")
+	}
+snippet f
+	import "errors"
+
+	func ${1:name}() (${2:int}, error) {
+		${3:body}
+		return 1, errors.New("${4:Error message}")
+	}
+snippet en
+	return errors.New("${1:Error message}")
+snippet logf
+	log.Printf("${1:field}: %d", ${1})
+snippet log
+	log.Printf("${1:here}")
+snippet err
+	if err != nil {
+		log.Fatal(err)
+	}
