@@ -44,7 +44,7 @@ return {
 
     keys = {
         -- FIXME Figure out how visual mode is mapped, then turn off default mapping
-        -- { 'gcc', '<Cmd>CommentToggle<cr>',           noremap = true, desc="Comment line" },
+        { 'gcc', '<Cmd>CommentToggle<cr>',           noremap = true, desc="Comment line" },
         -- { 'gc',  '<C-u><Cmd>CommentToggle<cr>', mode='v', noremap = true, desc="Comment selected text" },
     },
 }

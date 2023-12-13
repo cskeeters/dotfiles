@@ -32,7 +32,7 @@ return {
     'cskeeters/vim-simple-comment',
     lazy = false,
     keys = {
-        {'gcc', '<Plug>ToggleComment', desc="Comment current line" },
+        -- {'gcc', '<Plug>ToggleComment', desc="Comment current line" },
         {'gc',  '<Plug>ToggleAllComment', mode='v', desc="Comment current line" },
         {'qc',  '<Plug>CommentOperator', desc="Comment Operator"},
         {'ggc', '<Plug>MultiLineComment', mode='v', desc="Comment multiple lines" },
