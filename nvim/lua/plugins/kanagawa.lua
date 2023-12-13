@@ -1,6 +1,6 @@
 return {
     enabled = true,
-    'rebelot/kanagawa.nvim',
+    'cskeeters/kanagawa.nvim',
     init = function() -- must be disabled for ttyd/vhs
         -- Default options:
         require('kanagawa').setup({
