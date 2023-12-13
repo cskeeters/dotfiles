@@ -115,7 +115,7 @@ vim.opt.autoindent = true            -- indent at the same level of the previous
 vim.opt.cindent = true
 vim.opt.smartindent = true           -- New lines start indented appropriately
 vim.opt.wrap = false                 -- wrap long lines
-vim.opt.breakindent = false          -- When wrapping, the next line should be indented the same as the first
+vim.opt.breakindent = true           -- When wrapping, the next line should be indented the same as the first
 
 vim.opt.scrolloff=3                  -- minimum lines to keep above and below cursor
 vim.opt.scrolljump=5                 -- lines to scroll when cursor leaves screen
