@@ -75,14 +75,15 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
-                        [")a"] = { query = "@attribute.outer", desc="Swap attribute with next" },
-                        [")p"] = { query = "@parameter.inner", desc="Swap argument with next" },
-                        [")m"] = { query = "@function.outer", desc="Swap function with next" },
+                        -- FIXME These bindings interfear with navigating from one sentance to another
+                        --[")a"] = { query = "@attribute.outer", desc="Swap attribute with next" },
+                        --[")p"] = { query = "@parameter.inner", desc="Swap argument with next" },
+                        --[")m"] = { query = "@function.outer", desc="Swap function with next" },
                     },
                     swap_previous = {
-                        ["(a"] = { query = "@attribute.outer", desc="Swap attribute with previous" },
-                        ["(p"] = { query = "@parameter.inner", desc="Swap argument with previous" },
-                        ["(m"] = { query = "@function.outer", desc="Swap function with previous" },
+                        --["(a"] = { query = "@attribute.outer", desc="Swap attribute with previous" },
+                        --["(p"] = { query = "@parameter.inner", desc="Swap argument with previous" },
+                        --["(m"] = { query = "@function.outer", desc="Swap function with previous" },
                     }
                 },
                 move = {
