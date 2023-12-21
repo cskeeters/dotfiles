@@ -5,6 +5,7 @@ return {
     init = function()
         require("symbols-outline").setup({
             auto_close = true,
+            width = 70,
         })
     end,
     keys = {
