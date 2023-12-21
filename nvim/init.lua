@@ -332,6 +332,7 @@ vim.cmd("source "..config_path.."/netrw-trash.vim")
 
 
 if vim.g.neovide then
+    vim.o.guifont = "Hack Nerd Font Mono:h15"
     vim.g.neovide_scroll_animation_length = 0.0
     vim.g.neovide_remember_window_size = true
 
