@@ -41,6 +41,9 @@ return {
                 { name = 'luasnip' },
                 -- { name = 'nvim_lsp_signature_help' },
             },
+            completion = {
+                autocomplete = false
+            },
             mapping =  cmp.mapping.preset.insert({
                 ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
