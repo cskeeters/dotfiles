@@ -295,6 +295,8 @@ vim.keymap.set('t', '<C-\\>p', '<C-\\><C-o>p<space>', { desc="Paste to Terminal"
 
 vim.keymap.set('n', '<Leader>gp', 'pv\']=', { desc="Paste and Format" })
 
+vim.keymap.set('n', '<localleader>ggggrmsw', '<cmd>!rm -rf ~/.local/state/nvim/swap/*<CR>', { desc="Removes all neovim swap files" })
+
 -- These get annoying
 -- vim.cmd.iabbrev({ "<expr>", "dts", 'strftime("%FT%T%z")' })
 -- vim.cmd.iabbrev({ "<expr>", "nds",  'strftime("%Y-%m-%d")' })
