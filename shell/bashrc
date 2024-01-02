@@ -102,17 +102,19 @@ fzf_project_jump() {
     fi
 }
 
-if exists fzf; then
-    if [[ -f ~/.fzf.sh ]]; then
-        source ~/.fzf.sh
+if [[ -t 1 ]]; then
+    if exists fzf; then
+        if [[ -f ~/.fzf.sh ]]; then
+            source ~/.fzf.sh
 
-        bind -m emacs-standard '"\ej": "`fzf_project_jump`\e\C-e\C-m"'
+            bind -m emacs-standard '"\ej": "`fzf_project_jump`\e\C-e\C-m"'
 
-        if exists ag; then
-            export FZF_DEFAULT_COMMAND='ag -g ""'
-            _fzf_compgen_path() {
-                ag -g "" "$1"
-            }
+            if exists ag; then
+                export FZF_DEFAULT_COMMAND='ag -g ""'
+                _fzf_compgen_path() {
+                    ag -g "" "$1"
+                }
+            fi
         fi
     fi
 fi
