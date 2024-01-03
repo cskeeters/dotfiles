@@ -95,7 +95,7 @@ fi
 #### FZF Jumping
 
 fzf_project_jump() {
-    D=$(cat $DOTFILES/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
+    D=$(cat $HOME/.paths | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
     # D=$(fzf --bind 'enter:execute(echo {1})+abort')
     if [[ $D != "" ]]; then
         printf 'builtin cd -- %q' "$D"

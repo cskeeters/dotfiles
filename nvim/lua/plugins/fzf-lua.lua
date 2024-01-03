@@ -55,7 +55,7 @@ function GenerateDefaultPaths(fzf_cb)
         local co = coroutine.running()
 
         local HOME = os.getenv("HOME")
-        local path = HOME.."/dotfiles/paths/default"
+        local path = HOME.."/.paths"
         local f = io.open(path, "rb")
         if not f then
             -- signal EOF to fzf and close the named pipe
