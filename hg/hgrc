@@ -47,7 +47,7 @@ glog=--style=$HOME/.hg_log_style
 pager = LESS='FRX' less
 
 [trusted]
-groups = users, wheel, root
+groups = users, dev, wheel, root
 
 [color]
 mode = terminfo
