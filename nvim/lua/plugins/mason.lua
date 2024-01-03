@@ -200,7 +200,7 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
-        vim.lsp.enable('bashls')
+        -- vim.lsp.enable('bashls')
 
         -- MasonInstall css-lsp
         vim.lsp.config('cssls', {
@@ -208,7 +208,7 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
-        vim.lsp.enable('cssls')
+        -- vim.lsp.enable('cssls')
 
 
         -- MasonInstall phpactor (Requires php8.1 which is not available on bullseye)
@@ -217,7 +217,7 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
-        vim.lsp.enable('phpactor')
+        -- vim.lsp.enable('phpactor')
 
         -- MasonInstall pyright
         vim.lsp.config('pyright', {
@@ -225,7 +225,7 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
-        vim.lsp.enable('pyright')
+        -- vim.lsp.enable('pyright')
 
         -- MasonInstall clangd
         vim.lsp.config('clangd', {
@@ -233,14 +233,14 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
-        vim.lsp.enable('clangd')
+        -- vim.lsp.enable('clangd')
 
         -- MasonInstall java-language-server
         -- vim.lsp.config('java_language_server', {
             -- on_attach = on_attach,
             -- flags = lsp_flags,
         -- })
-        vim.lsp.enable('java_language_server')
+        -- vim.lsp.enable('java_language_server')
 
         -- MasonInstall rust-analyzer
         vim.lsp.config('rust_analyzer', {
