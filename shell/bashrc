@@ -55,6 +55,13 @@ load_all()
 
 # Load OS specific configuration
 load_all "$DOTFILES/shell/bashrc.d-$(uname)"
+
+
+if [[ -f /etc/sysconfig/bcst_log_config.yaml ]]; then
+    load_all "$DOTFILES/shell/bashrc.d-bcst"
+fi
+
+
 # Load host specific configuration
 load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
 
