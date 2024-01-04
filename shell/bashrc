@@ -117,6 +117,24 @@ if [[ -t 1 ]]; then
     fi
 fi
 
+#### git
+
+if exists git; then
+    function gd() {
+        git diff ${1}~ ${1}
+    }
+
+    _gd()
+    {
+        local REFS=$(git log --pretty=format:'%h' --abbrev-commit --date=relative --all)
+        local CUR=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=( $(compgen -W "$REFS" -- $CUR) )
+    }
+    complete -F _gd gd
+fi
+
+
+
 #### Fuzzy Style File Completion
 #
 # With autojump, this is not necessary
