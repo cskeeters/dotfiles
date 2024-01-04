@@ -1,30 +1,43 @@
 [user]
   name = Chad Skeeters
   email = chad.skeeters@gmail.com
+
 [credential]
   helper = osxkeychain
+
 [alias]
   s   = status
   st  = status
   sta = status
-  ci = commit
-  br = branch
-  co = checkout
-  d  = diff
-  df = diff
-  ds = diff --staged
-  l  = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative
-  la = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all
+
   gl = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all
   ll = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --max-count=20
+
+  ld   = log -1 -p
+  info = log -1 -p
+
+  ci = commit
+
+  br = branch
+
+  co = checkout
+
+  d  = diff
+  ds = diff --staged
+  dl = diff @~ @
+
+  # This can be used when you don't want to take all changes from the other branch
+  mn = merge --no-ff --no-commit
+
 [merge]
   tool = tabsplice
+
 [mergetool "tabsplice"]
   cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
   trustExitCode = true
+
 [mergetool]
   keepBackup = false
-[pull]
-	rebase = true
+
 [init]
-	defaultBranch = master
+  defaultBranch = master
