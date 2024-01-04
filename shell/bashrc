@@ -119,6 +119,8 @@ fi
 
 #### git
 
+alias G='git'
+
 if exists git; then
     function gd() {
         git diff ${1}~ ${1}
