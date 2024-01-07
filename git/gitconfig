@@ -10,8 +10,8 @@
   st  = status
   sta = status
 
+  l  = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all --max-count=40
   gl = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all
-  ll = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --max-count=20
 
   ld   = log -1 -p
   info = log -1 -p
