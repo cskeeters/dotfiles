@@ -1,43 +1,45 @@
 [user]
-  name = Chad Skeeters
-  email = chad.skeeters@gmail.com
+	name = Chad Skeeters
+	email = chad.skeeters@gmail.com
 
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 
 [alias]
-  s   = status
-  st  = status
-  sta = status
+	s   = status
+	st  = status
+	sta = status
 
-  l  = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all --max-count=40
-  gl = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all
+	l  = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all --max-count=40
+	gl = log --graph --pretty=format:'%C(red)%h%C(reset) %C(yellow)%d%C(reset)%s %Cgreen(%cr) %C(bold blue)<%an>%C(reset)' --abbrev-commit --date=relative --all
 
-  ld   = log -1 -p
-  info = log -1 -p
+	ld   = log -1 -p
+	info = log -1 -p
 
-  ci = commit
+	ci = commit
 
-  br = branch
+	br = branch
 
-  co = checkout
+	co = checkout
 
-  d  = diff
-  ds = diff --staged
-  dl = diff @~ @
+	d  = diff
+	ds = diff --staged
+	dl = diff @~ @
 
-  # This can be used when you don't want to take all changes from the other branch
-  mn = merge --no-ff --no-commit
+	# This can be used when you don't want to take all changes from the other branch
+	mn = merge --no-ff --no-commit
 
 [merge]
-  tool = tabsplice
+	tool = tabsplice
 
 [mergetool "tabsplice"]
-  cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
-  trustExitCode = true
+	cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = true
 
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 
 [init]
-  defaultBranch = master
+	defaultBranch = master
+
+# vim:ft=gitconfig:noexpandtab
