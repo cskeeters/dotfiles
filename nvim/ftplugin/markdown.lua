@@ -26,9 +26,9 @@ vim.keymap.set('n', '<LocalLeader>5', [[I# <Esc>$F#xd0i#####<Esc>0]], { buffer=t
 -- Text styling Bold Italic Fixed-width
 -- Note: "_yiw moves cursor to the beginning of the word affecting any registers.  B doen't work when cursor is already on the first character
 -- Note: Changed E to e because punctuation is more of a problem than hyphens in words needing style
-vim.keymap.set('n', '<LocalLeader>b', [["_yiWi**<Esc>lea**<Esc>]], { buffer=true, desc='Bold word under cursor' })
-vim.keymap.set('n', '<LocalLeader>i', [["_yiWi*<Esc>lea*<Esc>]], { buffer=true, desc='Italicize word under cursor' })
-vim.keymap.set('n', '<LocalLeader>`', [["_yiWi`<Esc>lea`<Esc>]], { buffer=true, desc='Monospace word under cursor' })
+vim.keymap.set('n', '<LocalLeader>b', [["_yiWi**<Esc>ea**<Esc>]], { buffer=true, desc='Bold word under cursor' })
+vim.keymap.set('n', '<LocalLeader>i', [["_yiWi*<Esc>ea*<Esc>]], { buffer=true, desc='Italicize word under cursor' })
+vim.keymap.set('n', '<LocalLeader>`', [["_yiWi`<Esc>ea`<Esc>]], { buffer=true, desc='Monospace word under cursor' })
 
 vim.keymap.set('v', '<LocalLeader>b', [[s**<C-r>"**<Esc>]], { buffer=true, desc='Bold selected text' })
 vim.keymap.set('v', '<LocalLeader>i', [[s*<C-r>"*<Esc>]], { buffer=true, desc='Italicize selected text' })
