@@ -1,6 +1,7 @@
 [user]
 	name = Chad Skeeters
 	email = chad.skeeters@gmail.com
+	signingkey = 00ec5b68a71e0bf1b5aed7ce989e8e68f3b6aefa
 
 [credential]
 	helper = osxkeychain
@@ -46,5 +47,11 @@
 
 [init]
 	defaultBranch = master
+
+[gpg "x509"]
+	program = smimesign
+
+[gpg]
+	format = x509
 
 # vim:ft=gitconfig:noexpandtab
