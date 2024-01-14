@@ -11,6 +11,8 @@
 	st  = status
 	sta = status
 
+	sw  = switch
+
 	l   = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(80,trunc)%s %C(yellow)%<(15)%D%C(reset)' --abbrev-commit --date=relative --all --max-count=40
 	ls  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset) %n%C(cyan)%GS%C(reset)' --abbrev-commit --date=relative --all --max-count=40
 	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset)  %<(60,trunc)%s  %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
