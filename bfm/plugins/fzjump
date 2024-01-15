@@ -27,9 +27,11 @@ if [ -n "$sel" ]; then
 
     if [ -f "$sel" ]; then
         # File, cd to parent, then jump cursor to file
-        DIRNAME=$(dirname "$sel")
+        DIRNAME=$(dirname "$sel") # this will return . when selected file is in the current dir
         BASENAME=$(basename "$sel")
-        echo "cd $CUR_DIR/$DIRNAME" >> "$CMD_FILE"
+        if [ "$DIRNAME" != "." ]; then # Don't cd to "."
+            echo "cd $CUR_DIR/$DIRNAME" >> "$CMD_FILE"
+        fi
         echo "select $BASENAME" >> "$CMD_FILE"
     else
         # directory
