@@ -79,9 +79,6 @@ return {
         local status, lsp = pcall(require, 'cmp_nvim_lsp')
         if status then
             capabilities = require('cmp_nvim_lsp').default_capabilities()
-            --vim.notify("cmp_nvim_lsp was loaded, lsp capabilities will be associated to the completion engine", vim.log.levels.INFO, { title = "Mason", })
-        else
-            vim.notify("cmp_nvim_lsp was not loaded, lsp capabilities will not be associated to the completion engine", vim.log.levels.WARN, { title = "Mason", })
         end
 
 
