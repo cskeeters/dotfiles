@@ -18,7 +18,7 @@ end
 
 local function fzf_rcs_changed_files()
     if inGit() then
-        vim.cmd('lua require("fzf-lua").files({cmd = "git status -s"})')
+        vim.cmd([[lua require("fzf-lua").files({cmd = "git status -s | awk '{print $2}' "})]])
     elseif inHg() then
         vim.cmd('lua require("fzf-lua").files({cmd = "hg status -n"})')
     else
