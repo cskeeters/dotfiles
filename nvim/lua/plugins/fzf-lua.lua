@@ -155,14 +155,14 @@ return {
     require("fzf-lua").setup({})
 
     local find = "find"
-    if vim.fn.executable('fd') then
+    if vim.fn.executable('fd') == 1 then
         -- brew install fd
         find = 'fd'
     end
 
     -- brew install fdfind (same program as fd)
     -- Debian renamed fd to fdfind https://packages.debian.org/bullseye/fd-find
-    if vim.fn.executable('fdfind') then
+    if vim.fn.executable('fdfind') == 1 then
         find = 'fdfind'
     end
 
