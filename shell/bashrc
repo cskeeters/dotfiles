@@ -64,6 +64,10 @@ alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
 alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
 alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 
+if exists fdfind; then
+    alias fd=fdfind
+fi
+
 # Path
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
