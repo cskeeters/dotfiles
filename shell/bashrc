@@ -122,6 +122,7 @@ if [[ -t 1 ]]; then
     fi
 fi
 
+
 #### git
 
 alias G='git'
