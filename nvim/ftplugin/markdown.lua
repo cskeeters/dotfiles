@@ -43,7 +43,7 @@ vim.keymap.set('v', '<LocalLeader>`', [[s`<C-r>"`<Esc>]], { buffer=true, desc='M
 
 -- HTML Keyboard Wrapper
 vim.keymap.set('n', '<LocalLeader>k', [["_yiwcw<kbd><C-r>"</kbd><Esc>]], { buffer=true, desc='Adds <kbd></kbd> around word under cursor' })
-vim.keymap.set('v', '<LocalLeader>k', [[s<kbd><C-r>"<kbd><Esc>]], { buffer=true, desc='Adds <kbd></kbd> for selected text' })
+vim.keymap.set('v', '<LocalLeader>k', [[s<kbd><C-r>"</kbd><Esc>]], { buffer=true, desc='Adds <kbd></kbd> for selected text' })
 
 -- Table Heading
 vim.keymap.set('n', '<LocalLeader>t', [[yypV:s/[^\|]/-/g<cr><cmd>noh<cr>yyp<cmd>s/-/ /g | noh<cr>]], { buffer=true, desc='Create header separator for Table' })
