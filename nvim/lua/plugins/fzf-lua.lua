@@ -160,7 +160,7 @@ return {
         find = 'fd'
     end
 
-    -- brew install fdfind (same program as fd)
+    -- apt-get install fd-find
     -- Debian renamed fd to fdfind https://packages.debian.org/bullseye/fd-find
     if vim.fn.executable('fdfind') == 1 then
         find = 'fdfind'
