@@ -49,6 +49,14 @@ alias .....='cd ../../../..'
 alias l='ls -lh'
 alias la='ls -lAh'
 alias ll='ls -lh'
+alias lm='ls -lhtr'
+
+if exists exa; then
+    alias l='exa -l --icons'
+    alias la='exa -la --icons'
+    alias ll='exa -l --icons'
+    alias lm='exa -l --icons -s modified'
+fi
 
 alias vi='vim'
 
