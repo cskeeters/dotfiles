@@ -18,8 +18,8 @@
 	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset)  %<(60,trunc)%s  %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
 	gls = log --graph --pretty=format:'%C(cyan)%G?%C(reset) %C(red)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
 	# HW will have extra space after; CRW will also have extra space
-	fgl = "!f() { HW=16; CRW=15; RW=$(git --no-pager log --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
-	fgls = "!f() { HW=16; CRW=15; RW=$(git --no-pager log --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%GS%C(reset)\" --all $* ; }; f"
+	glf = "!f() { HW=16; CRW=15; RW=$(git --no-pager log --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
+	glfs = "!f() { HW=16; CRW=15; RW=$(git --no-pager log --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%GS%C(reset)\" --all $* ; }; f"
 
 	ld   = log -1 -p
 	info = log -1 -p
