@@ -51,13 +51,6 @@ alias la='ls -lAh'
 alias ll='ls -lh'
 alias lm='ls -lhtr'
 
-if exists exa; then
-    alias l='exa -l --icons'
-    alias la='exa -la --icons'
-    alias ll='exa -l --icons'
-    alias lm='exa -l --icons -s modified'
-fi
-
 alias vi='vim'
 
 alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
@@ -148,6 +141,15 @@ if exists git; then
 fi
 
 
+#### exa
+
+if exists exa; then
+    echo aliasing exa
+    alias l='exa -l --icons'
+    alias la='exa -la --icons'
+    alias ll='exa -l --icons'
+    alias lm='exa -l --icons -s modified'
+fi
 
 #### Fuzzy Style File Completion
 #
