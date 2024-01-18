@@ -103,8 +103,47 @@ function ChangeProject()
     require'fzf-lua'.fzf_exec(GenerateDefaultPaths, opts)
 end
 
+function GeneratePrinters(fzf_cb)
+    coroutine.wrap(function()
+        local co = coroutine.running()
+
+        local printers = vim.fn.systemlist("lpstat -p | sed -nre 's/printer ([^[:space:]]+) .*/\\1/p'")
+
+        for _, printer in ipairs(printers) do
+            -- coroutine.resume only gets called once uv.write completes
+            fzf_cb(printer, function() coroutine.resume(co) end)
+
+            -- wait here until 'coroutine.resume' is called which only happens
+            -- once 'uv.write' completes (i.e. the line was written into fzf)
+            -- this frees neovim to respond and open the UI
+            coroutine.yield()
+        end
+
+        -- signal EOF to fzf and close the named pipe
+        -- this also stops the fzf "loading" indicator
+        fzf_cb()
+    end)()
+end
+
+function SetDefaultPrinter()
+    local opts = {
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, printer_name in ipairs(selected) do
+                    vim.cmd("!lpoptions -d "..printer_name)
+                    vim.notify("Set "..printer_name.." as default");
+                end
+            end
+        },
+    }
+
+    require'fzf-lua'.fzf_exec(GeneratePrinters, opts)
+end
 
 vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
+vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
 
 
 return {

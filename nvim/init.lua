@@ -301,6 +301,12 @@ vim.keymap.set('n', 'q:', '<nop>', { desc="Disables command history" })
 vim.keymap.set('n', 'q/', '<nop>', { desc="Disables command history" })
 vim.keymap.set('n', 'q?', '<nop>', { desc="Disables command history" })
 
+function Hardcopy()
+    vim.cmd([[w !lp - ]])
+end
+
+vim.api.nvim_create_user_command('Hardcopy', Hardcopy, {force = true})
+vim.keymap.set('n', '<C-p>', Hardcopy, { desc="Hardcopy (Print)" })
 
 -- Helper Functions
 -- NOTE: can also use print(vim.inspect(data))
