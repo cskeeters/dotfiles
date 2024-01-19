@@ -64,7 +64,7 @@ vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!pandoc -f markdown+yaml_metadat
 
 -- eMASS A&A commands
 --vim.keymap.set('n', '<LocalLeader>gc', [[gg0df"ggh/Supp<Cr>ggh/Potential A<Cr>ggh/Examine:<Cr>i<Cr><Esc>ggp/Interview:<Cr>ggp/Test:<Cr>ggpggh/"<C-v><Tab><Cr>2s<Cr><Esc>d3f<Tab>i<Cr><Cr><Esc>/<C-v><Tab>"<Cr>2s<Cr><Cr><Esc>/"<C-v><Tab><Cr>2s<Cr><Cr><Esc>]], { remap=true, buffer=true, desc='Convert title to Markdown' })
-vim.keymap.set('n', '<LocalLeader>gc', [[gg0xG$xo<Cr><Esc>gg0,gho<Esc>gg0/^Supplemental Guidance:<Cr>,gho<Esc>gg0/^Potential Assessment<Cr>,gho<Esc>gg0/^Justification to Select:<Cr>,ghgg0/^Regulatory Statutory Reference:<Cr>,ghgg0/^Examine:<Cr>,gpgg0/^Interview:<Cr>,gpgg0/^Test:<Cr>,gp]], { remap=true, buffer=true, desc='Convert RMF Control Information to Markdown' })
+vim.keymap.set('n', '<LocalLeader>gc', [[gg0xG$xo<Cr># Assessment Procedure List<Esc>gg0,gho<Esc>gg0/^Supplemental Guidance:<Cr>,gho<Esc>gg0/^Potential Assessment<Cr>,gho<Esc>gg0/^Justification to Select:<Cr>,ghgg0/^Regulatory Statutory Reference:<Cr>,ghgg0/^Examine:<Cr>,gpgg0/^Interview:<Cr>,gpgg0/^Test:<Cr>,gp]], { remap=true, buffer=true, desc='Convert RMF Control Information to Markdown' })
 
 vim.keymap.set('n', '<LocalLeader>gh', [[0i# <Esc>f:D0<Esc>]], { buffer=true, desc='Convert title to Markdown' })
 vim.keymap.set('n', '<LocalLeader>gp', [[0i## <Esc>f:s<Cr><Cr><Esc>}j]], { buffer=true, desc='Convert potential assessment method to Markdown' })
