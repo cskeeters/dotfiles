@@ -13,9 +13,11 @@
 
 	sw  = switch
 
-	l   = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(80,trunc)%s %C(yellow)%<(15)%D%C(reset)' --abbrev-commit --date=relative --all --max-count=40
-	ls  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset) %n%C(cyan)%GS%C(reset)' --abbrev-commit --date=relative --all --max-count=40
-	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset)  %<(60,trunc)%s  %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
+	l   = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%<(15)%D%C(reset)' --abbrev-commit --date=relative --all --max-count=40
+	la  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %C(bold blue)<%an>%C(reset) %C(yellow)%<(15)%D%C(reset) %n%<(80,trunc)%B' --abbrev-commit --date=relative --all --max-count=40
+	ls  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset) %n%C(cyan)%GS%C(reset)' --abbrev-commit --date=relative --all --max-count=40
+	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
+	gla = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
 	gls = log --graph --pretty=format:'%C(cyan)%G?%C(reset) %C(red)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
 	# HW will have extra space after; CRW will also have extra space
 	glf = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
