@@ -60,8 +60,8 @@ return {
         vim.keymap.set('n', ']d',             vim.diagnostic.goto_next,  { noremap=true, silent=true })
         vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, { noremap=true, silent=true })
 
-        vim.keymap.set('n', '<LocalLeader>lspi', ':LspInstall<cr>',   { desc="Install LSP Server" })
-        vim.keymap.set('n', '<LocalLeader>lspu', ':LspUninstall<cr>', { desc="Uninstall LSP Server" })
+        vim.keymap.set('n', '<Leader><Leader>lspi', ':LspInstall<cr>',   { desc="Install LSP Server" })
+        vim.keymap.set('n', '<Leader><Leader>lspu', ':LspUninstall<cr>', { desc="Uninstall LSP Server" })
 
         local lsp_flags = {
             -- This is the default in Nvim 0.7+
