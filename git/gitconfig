@@ -164,4 +164,7 @@
 [gpg "ssh"]
 	allowedSignersFile = /Users/chad/.ssh/git_allowed_signers
 
+[safe]
+	directory = *
+
 # vim:ft=gitconfig:noexpandtab
