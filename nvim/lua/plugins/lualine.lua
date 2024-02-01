@@ -1,3 +1,4 @@
+-- A blazing fast and easy to configure Neovim statusline written in Lua.
 return {
     enabled = true,
     'cskeeters/lualine.nvim',
