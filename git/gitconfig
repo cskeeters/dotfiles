@@ -92,4 +92,7 @@
 [advice]
 	detachedHead = false
 
+[safe]
+	directory = *
+
 # vim:ft=gitconfig:noexpandtab
