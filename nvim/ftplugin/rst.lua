@@ -1,5 +1,5 @@
 vim.bo.textwidth=80
-vim.bo.wrap=true
+vim.wo.wrap=true
 
 -- Setext style headers
 vim.keymap.set('n', '<LocalLeader>h', 'yypVr=', { buffer=true, desc='Make Header 1'})
