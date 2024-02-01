@@ -1,4 +1,5 @@
 #### LLVM
-#export PATH="/usr/local/opt/llvm/bin:$PATH"
-#export LDFLAGS="-L$BREW_PREFIX/opt/llvm/lib -Wl,-rpath,$BREW_PREFIX/opt/llvm/lib"
-#export CPPFLAGS="-I$BREW_PREFIX/opt/llvm/include"
+# required when llvm installed via brew
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L$BREW_PREFIX/opt/llvm/lib/c++ -Wl,-rpath,$BREW_PREFIX/opt/llvm/lib/c++"
+export CPPFLAGS="-I$BREW_PREFIX/opt/llvm/include"
