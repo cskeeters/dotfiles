@@ -380,7 +380,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins")
+require("lazy").setup({
+    spec = {
+        import = "plugins",
+    },
+    change_detection = {
+        enabled = false,
+        notify = false
+    },
+})
 
 vim.keymap.set('n', '<Leader><Leader>l', ':Lazy<cr>', { desc="Opens the Lazy Package Manager UI" })
 
