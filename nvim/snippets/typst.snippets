@@ -1,0 +1,89 @@
+snippet main
+	#import "template.typ": *
+
+	#let title = "Test Document"
+
+	#show: project.with(
+		title: title,
+		authors: (
+			(name: "Chad Skeeters", email: "chad.skeeters@redcedarconsultancy.com"),
+		),
+		date: "February 6, 2024",
+		logo: "337th Patch FINAL Cropped.png"
+	)
+
+	= Introduction
+	#lorem(60)
+snippet figure
+	#figure(
+		table(
+			columns: 4,
+			[t], [1], [2], [3],
+			[y], [0.3s], [0.4s], [0.8s],
+		),
+		caption: [${1:Caption}],
+	)
+snippet h1
+	= ${1:Chapter 1}
+snippet h2
+	== ${1:Section 1}
+snippet bold
+	*${1:text}*
+snippet italic
+	_${1:text}_
+snippet inline-code
+	`code`
+snippet fensed-code
+	```bash
+	echo hi
+	```
+snippet landscape
+	#page(flipped: true)[
+		= Landscape Page Title
+		Page Text
+	]
+snippet footnote
+	#footnote[https://typst.app/docs]
+snippet center
+	#set align(center)
+snippet color
+	#set text(red)
+snippet highlight
+	#highlight[${1:important}]
+snippet upper
+	#upper[${1:Chapter 1}]
+snippet underline
+	#underline[${1:link}]
+snippet smallcaps
+	#smallcaps(it)
+snippet lower
+	#lower[${1:Lowercase}]
+snippet linebreak
+	${1:text} \ 
+snippet pagebreak
+	#pagebreak(weak: true)
+snippet quote
+	#quote(
+		block: true,
+		attribution: [JFK]
+	)[
+		Ich bin ein Berliner.
+	]
+snippet link
+	#link("http://www.google.com")
+snippet columns
+	#grid(
+		columns: (1fr, 1fr),
+		align(center)[
+			Therese Tungsten \
+			Artos Institute \
+			#link("mailto:tung@artos.edu")
+		],
+		align(center)[
+			Dr. John Doe \
+			Artos Institute \
+			#link("mailto:doe@artos.edu")
+		]
+	)
+snippet acronym
+	*${1:text}*: _${2:description}_\ 
