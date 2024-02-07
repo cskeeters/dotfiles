@@ -162,5 +162,17 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
         })
+
+        require'lspconfig'.typst_lsp.setup{
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+                -- Not sure if this is supported in neovim
+                exportPdf = "never" -- Choose onType, onSave or never.
+                -- serverPath = "" -- There is no need if .typ file is in git repository
+            }
+        }
+
     end
 }
