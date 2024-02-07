@@ -1,6 +1,10 @@
 snippet main
 	package main
-	import "fmt"
+
+	import (
+		"fmt"
+	)
+
 	func main() {
 		fmt.Println("hello world")
 	}
@@ -21,3 +25,26 @@ snippet err
 	if err != nil {
 		log.Fatal(err)
 	}
+snippet append
+	append(${1:slice}, ${2:value})
+snippet print
+	fmt.Printf("${1:field}: %d\n", ${1})
+snippet sprint
+	${2:str} := fmt.Sprintf("${1:field}: %d\n", ${1})
+snippet slice
+	// slices point to backing array, but data is copied into slice
+	s := []int{}
+	append(slice, value)
+	len(s)
+snippet channel
+	func f(exit <-chan bool, exited chan<- bool)
+	// Channels are reference types
+	done := make(chan bool)
+	done <- false
+	_ = <-done
+snippet string_builder
+	sb := strings.Builder{}
+	sb.WriteString("")
+	str := sb.String()
+snippet sleep
+	time.Sleep(0.8 * time.Second)
