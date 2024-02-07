@@ -57,7 +57,6 @@ vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc
 vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
 -- vim-marked command
-vim.keymap.set('n', '<C-k>v', [[<Cmd>MarkedOpen<cr>]], { buffer=true, desc='View in Marked' })
 vim.keymap.set('n', '<C-k>r', [[<Cmd>silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with redcarpet' })
 vim.keymap.set('n', '<C-k>k', [[<Cmd>silent !~/kramdown/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with kramdown' })
 vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render to docx with pandoc' })
