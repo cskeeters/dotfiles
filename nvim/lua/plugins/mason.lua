@@ -40,6 +40,10 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<LocalLeader>ca', vim.lsp.buf.code_action, { noremap=true, silent=true, buffer=bufnr, desc="LSP Fix (Code action)" })
     vim.keymap.set('v', '<LocalLeader>ca', vim.lsp.buf.code_action, { noremap=true, silent=true, buffer=bufnr, desc="LSP Fix (Code action)" })
     vim.keymap.set('n', '<LocalLeader>f', function() vim.lsp.buf.format { async = true } end, { noremap=true, silent=true, buffer=bufnr, desc="Format current file (LSP)" })
+
+    -- vim.diagnostic.setloclist()
+    -- vim.diagnostic.setqflist()
+    vim.keymap.set('n', '<Leader>D',  "<cmd>lua vim.diagnostic.setqflist()<cr>", { noremap=true, silent=true, buffer=bufnr, desc="Load diagnostics in Quickfix" })
 end
 
 return {
