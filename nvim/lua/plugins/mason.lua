@@ -46,6 +46,16 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<Leader>D',  "<cmd>lua vim.diagnostic.setqflist()<cr>", { noremap=true, silent=true, buffer=bufnr, desc="Load diagnostics in Quickfix" })
 end
 
+-- Generates table for ltex-ls dictionary
+local spelling_words = function()
+    local words = {}
+    local spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+    for word in io.open(spellfile, "r"):lines() do
+        table.insert(words, word)
+    end
+    return words
+end
+
 return {
     enabled = true,
     'williamboman/mason.nvim',
@@ -177,6 +187,26 @@ return {
                 -- serverPath = "" -- There is no need if .typ file is in git repository
             }
         }
+        require'lspconfig'.ltex.setup{
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+                ltex = {
+                    language = "en-US",
 
+                    -- see https://valentjn.github.io/ltex/settings.html#ltexdictionary
+                    dictionary = {
+                        -- ["en-US"] = {'Callsign', 'callsign'} -- works
+                        ["en-US"] = spelling_words()
+                    },
+                    -- https://valentjn.github.io/ltex/settings.html#ltexdisabledrules
+                    -- https://community.languagetool.org/rule/list?lang=en-US
+                    disabledRules = {
+                        ['en-US'] = { 'PROFANITY', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' }
+                    },
+                },
+            }
+        }
     end
 }
