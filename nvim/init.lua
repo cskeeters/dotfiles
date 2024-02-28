@@ -100,6 +100,7 @@ vim.opt.smarttab = true              -- Make shiftwidth affect spaces added when
 vim.opt.linebreak = true
 
 vim.opt.spell = false
+vim.opt.spellfile = "~/.config/nvim/spell/en.utf-8.add"
 vim.opt.spelllang="en_us"
 vim.opt.dictionary="/usr/share/dict/words"
 vim.opt.thesaurus="~/dotfiles/mthesaur.txt"
@@ -306,7 +307,7 @@ vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
 vim.keymap.set('n', '<localleader>g120', '<cmd>lua vim.opt.textwidth=120<cr>', { desc="Sets textwidth to 120 to enable hard wrapping" })
-
+vim.keymap.set('n', '<localleader><localleader>gs', [[<cmd>exec 'mkspell! ' . &spellfile . '.spl' &spellfile<cr>]], { desc="Regenerate Spelling file (.spl)" })
 
 function Hardcopy()
     vim.cmd([[w !lp - ]])
