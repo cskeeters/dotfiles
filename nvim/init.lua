@@ -302,8 +302,8 @@ vim.keymap.set('n', 'q/', '<nop>', { desc="Disables command history" })
 vim.keymap.set('n', 'q?', '<nop>', { desc="Disables command history" })
 
 -- Enables user to select lines and move them and automatically adjust indent
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
 vim.keymap.set('n', '<localleader>g120', '<cmd>lua vim.opt.textwidth=120<cr>', { desc="Sets textwidth to 120 to enable hard wrapping" })
 
