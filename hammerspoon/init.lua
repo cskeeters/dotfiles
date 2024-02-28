@@ -46,5 +46,14 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
     hs.reload()
 end)
 
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
+    local output, status, type, rc = hs.execute([[pbpaste | /usr/local/bin/kb_reg]])
+    if rc == 0 then
+        hs.alert.show("Copied to KB")
+    else
+        hs.alert.show("Error occurred.  Check ~/.local/log/kb_reg.log")
+    end
+end)
+
 hs.alert.show("Hammerspoon config loaded!")
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
