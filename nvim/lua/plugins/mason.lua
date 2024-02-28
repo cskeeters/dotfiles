@@ -29,9 +29,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap=true, silent=true, buffer=bufnr, desc="Show references (LSP)" })
 
     -- Workspace
-    vim.keymap.set('n', '<LocalLeader>wa', vim.lsp.buf.add_workspace_folder, { noremap=true, silent=true, buffer=bufnr, desc="Add workspace folder" })
-    vim.keymap.set('n', '<LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, { noremap=true, silent=true, buffer=bufnr, desc="Remove workspace folder" })
-    vim.keymap.set('n', '<LocalLeader>wl', function()
+    vim.keymap.set('n', '<LocalLeader><LocalLeader>wa', vim.lsp.buf.add_workspace_folder, { noremap=true, silent=true, buffer=bufnr, desc="Add workspace folder" })
+    vim.keymap.set('n', '<LocalLeader><LocalLeader>wr', vim.lsp.buf.remove_workspace_folder, { noremap=true, silent=true, buffer=bufnr, desc="Remove workspace folder" })
+    vim.keymap.set('n', '<LocalLeader><LocalLeader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { noremap=true, silent=true, buffer=bufnr, desc="Show workspace folders" })
 
