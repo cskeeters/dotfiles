@@ -72,9 +72,9 @@ th:first-child {
 /* Media queries */
 
 @media only screen and (min-width: 1100px) {
-  body { 
+  body {
     font-size:120%;
-    max-width:900px; 
+    max-width:900px;
   }
 }
 
@@ -86,7 +86,7 @@ th:first-child {
 }
 
 @media only screen and (max-width: 850px) {
-  body { 
+  body {
     font-size:100%;
     width:90%;
   }
