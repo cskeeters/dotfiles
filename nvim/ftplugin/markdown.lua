@@ -12,7 +12,7 @@ if vim.fn.has("patch-7.4-353") == 0 then
 end
 
 vim.opt_local.conceallevel=0
-vim.bo.commentstring=[[<!--\ %s\ -->]]
+vim.bo.commentstring=[[<!-- %s -->]]
 
 -- Since vim overrides this, we need a way to reset it
 
