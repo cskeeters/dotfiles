@@ -100,7 +100,7 @@ vim.opt.smarttab = true              -- Make shiftwidth affect spaces added when
 vim.opt.linebreak = true
 
 vim.opt.spell = false
-vim.opt.spellfile = "~/.config/nvim/spell/en.utf-8.add"
+vim.opt.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
 vim.opt.spelllang="en_us"
 vim.opt.dictionary="/usr/share/dict/words"
 vim.opt.thesaurus="~/dotfiles/mthesaur.txt"
