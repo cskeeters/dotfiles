@@ -47,7 +47,7 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
-    local output, status, type, rc = hs.execute([[pbpaste | /usr/local/bin/kb_reg]])
+    local output, status, type, rc = hs.execute([[pbpaste | /usr/local/bin/kb_reg -r -k .]])
     if rc == 0 then
         hs.alert.show("Copied to KB")
     else
