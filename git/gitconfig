@@ -39,6 +39,9 @@
 	# This can be used when you don't want to take all changes from the other branch
 	mn = merge --no-ff --no-commit
 
+[pull]
+	ff = only
+
 [merge]
 	tool = tabsplice
 
