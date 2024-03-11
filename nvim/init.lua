@@ -309,6 +309,13 @@ vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<localleader>g120', '<cmd>lua vim.opt.textwidth=120<cr>', { desc="Sets textwidth to 120 to enable hard wrapping" })
 vim.keymap.set('n', '<localleader><localleader>gs', [[<cmd>exec 'mkspell! ' . &spellfile . '.spl' &spellfile<cr>]], { desc="Regenerate Spelling file (.spl)" })
 
+-- use v to mark the current cursor position
+-- <C-w> removes '<,'> that gets inserted by default when pressing ":" in visual block mode
+-- %s applies substitute to the entire file, but \%V limits to current visual block selection
+-- \u will uppercase the next letter
+-- \< matches the start of a word, '.' matches one character.
+vim.keymap.set('v', '<localleader>gc', [=[mv:<C-w>%s/\%V\<.[^[:space:]]\{3\}/\u&/g<enter><esc>`v<cmd>noh<cr>]=], { desc="Capitalize First Letter of each Word" })
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
