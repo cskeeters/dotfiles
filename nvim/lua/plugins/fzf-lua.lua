@@ -92,9 +92,9 @@ function ChangeProject()
             ['default'] = function(selected, _)
                 for _, line in ipairs(selected) do
                     local _, _, dir = string.find(line, '^(.*)	')
-                    vim.cmd("tcd "..dir)
+                    vim.cmd("lcd "..dir)
                     vim.cmd("e .")
-                    vim.notify("cd "..dir);
+                    vim.notify("lcd "..dir);
                 end
             end
         },
