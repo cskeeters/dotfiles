@@ -140,7 +140,7 @@ return {
             capabilities = capabilities,
         }
 
-        -- MasonInstall phpactor
+        -- MasonInstall phpactor (Requires php8.1 which is not available on bullseye)
         require('lspconfig').phpactor.setup{
             on_attach = on_attach,
             flags = lsp_flags,
