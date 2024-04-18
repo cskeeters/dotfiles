@@ -17,7 +17,7 @@ return {
     enabled = true,
     'L3MON4D3/LuaSnip',
     lazy = false,
-    build = "make install_jsregexp",
+    build = "CC=clang make install_jsregexp",
 
     init = function()
         doReloadSnippets()
