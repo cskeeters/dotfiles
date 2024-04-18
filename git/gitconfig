@@ -61,4 +61,7 @@
 [gpg]
 	format = x509
 
+[stash]
+	showPatch = true
+
 # vim:ft=gitconfig:noexpandtab
