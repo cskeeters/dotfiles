@@ -323,6 +323,14 @@ end
 vim.api.nvim_create_user_command('Hardcopy', Hardcopy, {force = true})
 vim.keymap.set('n', '<C-p>', Hardcopy, { desc="Hardcopy (Print)" })
 
+
+-- This enables the lines in the current Quickfix window to be updated after modification (i.e. cdo s/old/new/)
+function UpdateQuickfix()
+    vim.cmd([[call setqflist(map(getqflist(), 'extend(v:val, {"text":get(getbufline(v:val.bufnr, v:val.lnum),0)})'))]])
+end
+vim.keymap.set('n', 'gqq', UpdateQuickfix, { desc="Update Quickfix" })
+
+
 -- Helper Functions
 -- NOTE: can also use print(vim.inspect(data))
 local function dump(o)
