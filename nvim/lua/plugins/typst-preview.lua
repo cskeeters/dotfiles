@@ -2,6 +2,7 @@
 return {
     enabled = true,
     'chomosuke/typst-preview.nvim',
+    enabled = false,
     lazy = true,
     ft = {'typst'},
     build = function() require 'typst-preview'.update() end,
