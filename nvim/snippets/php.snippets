@@ -32,3 +32,7 @@ snippet slim_read_post
 
 	// Get a single POST parameter
 	$foo = $params['foo'];
+snippet foreach
+	foreach (\$${1:$list} as \$${2:value}) {
+		$3
+	}
