@@ -206,7 +206,7 @@ return {
     vim.keymap.set('n', '<Leader>jm', ':FzfLua marks<cr>',  { desc="Jump to line from mark (fzf)" })
 
     -- Misc
-    vim.keymap.set('n', '<Leader>pr', ':FzfLua register<cr>',  { desc="Paste register (fzf)" })
+    vim.keymap.set('n', '<Leader>pr', ':FzfLua registers<cr>',  { desc="Paste register (fzf)" })
     vim.keymap.set('n', '<Leader><Leader>ft', ':FzfLua filetypes<cr>',  { desc="Select filetype to by applied to the current buffer setf (fzf)" })
     vim.keymap.set('n', '<LocalLeader>.', ':FzfLua spell_suggest<cr>',  { desc="Suggest spelling (fzf)" })
 
