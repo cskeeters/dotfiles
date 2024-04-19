@@ -20,7 +20,7 @@ function FugitiveDiffTab()
     Normal([[O<Leader>fD]]);
 end
 
-vim.keymap.set('n', '<leader>p', FugitivePush, { buffer=true, desc='Fugitive/git push' })
+vim.keymap.set('n', '<leader>gp', FugitivePush, { buffer=true, desc='Fugitive/git push' })
 vim.keymap.set('n', 'go', FugitiveOpen, { buffer=true, desc='Open file in current window' })
 vim.keymap.set('n', 'gd', FugitiveDiffTab, { buffer=true, desc='vimdiff on current file object' })
 
