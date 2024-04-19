@@ -1,6 +1,6 @@
 return {
     enabled = true,
-    'cskeeters/kanagawa.nvim',
+    'rebelot/kanagawa.nvim',
     init = function() -- must be disabled for ttyd/vhs
         -- Default options:
         require('kanagawa').setup({
@@ -19,7 +19,11 @@ return {
                 theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
             },
             overrides = function(colors) -- add/modify highlights
-                return {}
+                return {
+                    -- Override bold and italic for markdown
+                    ["@markup.strong"] = { fg = colors.theme.syn.operator, bold = true },
+                    ["@markup.italic"] = { fg = colors.theme.syn.identifier, italic = true },
+                }
             end,
             theme = "dragon",              -- Load "wave" theme when 'background' option is not set
             background = {               -- map the value of 'background' option to a theme

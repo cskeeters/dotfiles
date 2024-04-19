@@ -8,7 +8,7 @@
   "git-worktree.nvim": { "branch": "master", "commit": "f247308e68dab9f1133759b05d944569ad054546" },
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
   "javadoc.vim": { "branch": "master", "commit": "c762c7c066d04f8485465180e017c65726c29089" },
-  "kanagawa.nvim": { "branch": "master", "commit": "dd5ad01ada4aba15d39e9c9988562170e44cc313" },
+  "kanagawa.nvim": { "branch": "master", "commit": "bfa818c7bf6259152f1d89cf9fbfba3554c93695" },
   "lazy.nvim": { "branch": "main", "commit": "31ddbea7c10b6920c9077b66c97951ca8682d5c8" },
   "lualine.nvim": { "branch": "master", "commit": "c0cb29e17199b24c6a3109950968dc4034c60925" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
