@@ -177,6 +177,7 @@ return {
             capabilities = capabilities,
         })
 
+        -- MasonInstall typst-lsp
         require'lspconfig'.typst_lsp.setup{
             on_attach = on_attach,
             flags = lsp_flags,
@@ -187,6 +188,8 @@ return {
                 -- serverPath = "" -- There is no need if .typ file is in git repository
             }
         }
+
+        -- MasonInstall ltex-ls
         require'lspconfig'.ltex.setup{
             on_attach = on_attach,
             flags = lsp_flags,
