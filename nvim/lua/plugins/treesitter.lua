@@ -41,6 +41,8 @@ return {
 
             highlight = {
                 enable = true,
+                -- In case treesitter is not working fully for markdown, uncomment this
+                -- additional_vim_regex_highlighting = {'markdown','markdown_inline'},
             },
 
             incremental_selection = {
