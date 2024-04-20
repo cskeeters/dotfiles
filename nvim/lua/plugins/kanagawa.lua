@@ -23,6 +23,8 @@ return {
                     -- Override bold and italic for markdown
                     ["@markup.strong"] = { fg = colors.theme.syn.operator, bold = true },
                     ["@markup.italic"] = { fg = colors.theme.syn.identifier, italic = true },
+                    ["@markup.raw"] = { fg = colors.theme.syn.string },
+                    ["@markup.raw.block"] = { fg = colors.theme.syn.string },
                 }
             end,
             theme = "dragon",              -- Load "wave" theme when 'background' option is not set
