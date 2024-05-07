@@ -156,17 +156,10 @@ return {
     -- calling `setup` is optional for customization
     require("fzf-lua").setup({{'fzf-native'},winopts={fullscreen=true}})
 
-    local find = "find"
-    if vim.fn.executable('fd') == 1 then
-        -- brew install fd
-        find = 'fd'
-    end
-
+    -- To speed up, install fd.  This will automatically be used
+    -- brew install fd
     -- apt-get install fd-find
     -- Debian renamed fd to fdfind https://packages.debian.org/bullseye/fd-find
-    if vim.fn.executable('fdfind') == 1 then
-        find = 'fdfind'
-    end
 
     -- https://github.com/ibhagwan/fzf-lua#commands
     vim.env.FZF_DEFAULT_OPTS = nil
@@ -190,7 +183,7 @@ return {
 
 
     -- Open file
-    vim.keymap.set('n', '<Leader>of', ':FzfLua files cmd="'..find..'"<cr>',     { desc="Open file in current directory tree (fzf)" })
+    vim.keymap.set('n', '<Leader>of', ':FzfLua files<cr>',     { desc="Open file in current directory tree (fzf)" })
     vim.keymap.set('n', '<Leader>or', fzf_rcs_files, { desc="Open file in git repository (fzf/git/hg)" })
     vim.keymap.set('n', '<Leader>om', fzf_rcs_changed_files, { desc="Open file modified in repository (fzf/git/hg)" })
 
@@ -199,9 +192,9 @@ return {
     vim.keymap.set('n', '<Leader>ob', ':FzfLua buffers <cr>', { desc="Open Buffer (selected via fzf)" })
 
     -- Specific, commonly opened locations
-    vim.keymap.set('n', '<Leader>oc', ':FzfLua files cmd="'..find..'" cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
-    vim.keymap.set('n', '<Leader>op', ':FzfLua files cmd="'..find..'" cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
-    vim.keymap.set('n', '<Leader>on', ':FzfLua files cmd="'..find..'" cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
+    vim.keymap.set('n', '<Leader>oc', ':FzfLua files cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
+    vim.keymap.set('n', '<Leader>op', ':FzfLua files cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
+    vim.keymap.set('n', '<Leader>on', ':FzfLua files cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
 
     -- Jump to line
     vim.keymap.set('n', '<Leader>jb', ':FzfLua blines<cr>', { desc="Jump to line in current buffer (fzf)" })
