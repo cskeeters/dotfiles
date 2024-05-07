@@ -150,6 +150,7 @@ return {
   "cskeeters/fzf-lua",
   -- cskeeters branch customizes keymap format
   branch = "cskeeters",
+  enabled = true,
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
@@ -162,7 +163,6 @@ return {
     -- Debian renamed fd to fdfind https://packages.debian.org/bullseye/fd-find
 
     -- https://github.com/ibhagwan/fzf-lua#commands
-    vim.env.FZF_DEFAULT_OPTS = nil
 
     -- Replace vim.ui.select menu
     -- vim.cmd[[FzfLua register_ui_select]]
