@@ -14,9 +14,12 @@ vim.keymap.set('c', '<C-f>', '<Right>', { desc="Forward one character (Command)"
 --vim.keymap.set('c', '<Esc><C-f>', '<S-Right>', { desc="Forward one word (Command)" })
 --vim.keymap.set('c', '<Esc><C-b>', '<S-Left>', { desc="Back one word (Command)" })
 
--- These will only work in Neovide where alt doesn't get converted to <Esc> and exit command mode
-vim.keymap.set('c', '∫', '<S-Left>', { desc="Back one word (Command)" })
-vim.keymap.set('c', 'ƒ', '<S-Right>', { desc="Forward one word (Command)" })
+if vim.g.neovide ~= nil then
+    print("neovide")
+    -- These will only work in Neovide where alt doesn't get converted to <Esc> and exit command mode
+    vim.keymap.set('c', '∫', '<S-Left>', { desc="Back one word (Command)" })
+    vim.keymap.set('c', 'ƒ', '<S-Right>', { desc="Forward one word (Command)" })
+end
 
 vim.keymap.set('c', '<C-d>', '<Del>', { desc="Delete character (Command)" })
 vim.keymap.set('c', '<C-k>', '<C-\\>estrpart(getcmdline(),0,getcmdpos()-1)<CR>', { desc="Kill remaining part of the command" })
