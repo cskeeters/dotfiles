@@ -199,6 +199,7 @@ return {
     -- Specific, commonly opened locations
     vim.keymap.set('n', '<Leader>oc', ':FzfLua files cmd="'..find..'" cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
     vim.keymap.set('n', '<Leader>op', ':FzfLua files cmd="'..find..'" cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
+    vim.keymap.set('n', '<Leader>on', ':FzfLua files cmd="'..find..'" cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
 
     -- Jump to line
     vim.keymap.set('n', '<Leader>jb', ':FzfLua blines<cr>', { desc="Jump to line in current buffer (fzf)" })
