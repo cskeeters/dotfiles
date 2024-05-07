@@ -240,7 +240,7 @@ linkdot vim/vimrc
 link nvim .config
 link bfm .config
 
-link bat/config .config/bat
+link bat .config
 
 # Helps ctags with markdown
 linkdot ctags

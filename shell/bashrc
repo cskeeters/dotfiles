@@ -142,6 +142,11 @@ if exists git; then
 fi
 
 
+#### bat
+
+export BAT_THEME=kanagawa
+
+
 #### exa
 
 if exists exa; then
