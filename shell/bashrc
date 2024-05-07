@@ -147,13 +147,13 @@ fi
 export BAT_THEME=kanagawa
 
 
-#### exa
+#### eza
 
-if exists exa; then
-    alias l='exa -l --icons'
-    alias la='exa -la --icons'
-    alias ll='exa -l --icons'
-    alias lm='exa -l --icons -s modified'
+if exists eza; then
+    alias l='eza -l --icons'
+    alias la='eza -la --icons'
+    alias ll='eza -l --icons'
+    alias lm='eza -l --icons -s modified'
 fi
 
 #### Fuzzy Style File Completion
