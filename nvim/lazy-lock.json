@@ -41,6 +41,7 @@
   "vim-hg": { "branch": "master", "commit": "fae59b33a55124735bd63ac250ee2c224bf90874" },
   "vim-indent-object": { "branch": "master", "commit": "8ab36d5ec2a3a60468437a95e142ce994df598c6" },
   "vim-java": { "branch": "master", "commit": "9cac6549a00e27b35ae404b29bcc0e9b9bb881d4" },
+  "vim-jump": { "branch": "master", "commit": "8be4252a289f6968236ad75c19b43eb7df15999d" },
   "vim-leave-window": { "branch": "master", "commit": "a0ffbf46f1e015caafa17653737fb4a3d30686f0" },
   "vim-log4j": { "branch": "master", "commit": "482e2df09d88d7893ca7d9ed5ee3b363007e2c25" },
   "vim-make": { "branch": "master", "commit": "a36de3b22f003d27302623d40e29fb33a4bb62e0" },
