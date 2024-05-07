@@ -4,7 +4,7 @@
   "closer.vim": { "branch": "master", "commit": "464012744288f7f453b97763f7a8ff40f0020c51" },
   "d2-vim": { "branch": "master", "commit": "981c87dccb63df2887cc41b96e84bf550f736c57" },
   "dash.vim": { "branch": "master", "commit": "25b17d9488454a1fcdbb2cbe829a23226f95e3c2" },
-  "fzf-lua": { "branch": "main", "commit": "213da0b65bf81e8849d1ebf2a3d47f32a7dc9000" },
+  "fzf-lua": { "branch": "cskeeters", "commit": "5592120e7c3666adcfb43401f753c40d62baaa41" },
   "git-worktree.nvim": { "branch": "master", "commit": "f247308e68dab9f1133759b05d944569ad054546" },
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
   "javadoc.vim": { "branch": "master", "commit": "c762c7c066d04f8485465180e017c65726c29089" },

@@ -147,12 +147,14 @@ vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Pri
 
 
 return {
-  "ibhagwan/fzf-lua",
+  "cskeeters/fzf-lua",
+  -- cskeeters branch customizes keymap format
+  branch = "cskeeters",
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     -- calling `setup` is optional for customization
-    require("fzf-lua").setup({})
+    require("fzf-lua").setup({{'fzf-native'},winopts={fullscreen=true}})
 
     local find = "find"
     if vim.fn.executable('fd') == 1 then
