@@ -25,6 +25,8 @@ return {
                     ["@markup.italic"] = { fg = colors.theme.syn.identifier, italic = true },
                     ["@markup.raw"] = { fg = colors.theme.syn.string },
                     ["@markup.raw.block"] = { fg = colors.theme.syn.string },
+                    ["@markup.link.label"] = { fg = colors.theme.syn.operator },
+                    ["@markup.link.url"] = { fg = colors.theme.syn.string },
                 }
             end,
             theme = "dragon",              -- Load "wave" theme when 'background' option is not set
