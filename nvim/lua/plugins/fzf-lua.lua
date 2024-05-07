@@ -84,7 +84,7 @@ end
 function ChangeProject()
     local opts = {
         fzf_opts = {
-            ['--delimiter'] = [['	']],
+            ['--delimiter'] = [[	]],
             ['--with-nth'] = '2..',
         },
         debug_cmd=false, -- change to true and use :messages to see fzf command issued
