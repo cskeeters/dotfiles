@@ -31,6 +31,9 @@ return {
         --require('telescope').load_extension('ui-select')
         require("telescope").load_extension("git_worktree")
 
+        -- 'nvim-telescope/telescope-fzf-native.nvim',
+        require('telescope').load_extension('fzf')
+
         vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
 
         -- local builtin = require('telescope.builtin')
