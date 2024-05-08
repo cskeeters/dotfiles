@@ -12,11 +12,39 @@ return {
     },
     init = function()
         local actions = require("telescope.actions")
+        local action_layout = require("telescope.actions.layout")
+
         require("telescope").setup({
             defaults = {
+                layout_strategy = 'cursor',
+                layout_config = {
+                    height = 0.99,
+                    width = 0.99,
+                    cursor = {
+                        preview_width = 0.4,
+                        width = 0.99,
+                        height = 0.99,
+                    },
+                    center = {
+                        preview_cutoff = 1,
+                        prompt_position = "top",
+                        width = 0.99,
+                        height = 0.99,
+                    },
+
+                },
+                cycle_layout_list = {
+                    "center",
+                    "cursor",
+                },
+                sorting_strategy = "ascending",
                 mappings = {
                     i = {
-                        ["<esc>"] = actions.close,
+                        -- :help telescope.actions
+                        --["<esc>"] = actions.close, -- esc enters normal mode
+                        ["<C-j>"] = actions.move_selection_next,
+                        ["<C-k>"] = actions.move_selection_previous,
+                        ["<F2>"] = action_layout.cycle_layout_next,
                     },
                 },
             },
