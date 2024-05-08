@@ -1,38 +1,125 @@
 #!/bin/bash
 
-#set FZF_HOME to the detected home of fzf
-for dir in /usr/share /usr/local/opt ~/.vim/plugged; do
-    [[ -d $dir/fzf ]] && FZF_HOME="$dir/fzf"
-done
+# Setup fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
-if [[ -d $FZF_HOME ]]; then
-    shell=${shell:-$(basename $SHELL)}
+# Use o instead of i no not overwrite mapping for Tab
+export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
+"--reverse "\
+"--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "\
+"--bind 'ctrl-/:change-preview-window(right,60%|bottom,40%|right,30%)' "\
+"--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
+"--bind 'shift-up:preview-top,shift-down:preview-bottom' "\
+"--bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down' "\
+"--bind 'alt-p:preview-page-up,alt-n:preview-page-down' "\
+"--bind 'f2:toggle-preview' "\
+""
 
-    # Disable fzf-tmux
-    hash tmux 2>/dev/null || export FZF_TMUX=0
+# Due to Caret Notation, don't map the following:
+# ^H : Backspace
+# ^I : Tab
+# ^M : Enter
+# ^[ : Escape
 
-    export FZF_DEFAULT_OPTS="--select-1 --exit-0 --height=100%"
-    if [[ $TERM =~ konsole.* ]]; then
-        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color fg+:5,hl+:6"
-    fi
+# FZF comes with the following useful default bindings
+#    See man fzf AVAILABLE ACTIONS and KEY/EVENT BINDINGS
+#
+#### Program
+#
+# abort                        ctrl-c  ctrl-g  ctrl-q  esc
+# accept                       enter   double-click
+#
+## Selection
+# toggle+down                  ctrl-i  (tab)
+# toggle+up                    btab (shift-tab)
+#
+#### Cursor Navigation
+#
+# backward-char                ctrl-b  left
+# forward-char                 ctrl-f  right
+#
+# forward-word                 alt-f   shift-right
+# backward-kill-word           alt-bs
+# backward-word                alt-b   shift-left
+#
+# beginning-of-line            ctrl-a  home
+# end-of-line                  ctrl-e  end
+#
+#### Input Modification
+#
+# backward-delete-char         ctrl-h  bspace
+#
+# kill-line                    (UNMAPPED)
+# kill-word                    alt-d
+#
+#### Selection Navigation
+#
+# down                         ctrl-j  ctrl-n  down
+# up                           ctrl-k  ctrl-p  up
+# half-page-down               (UNMAPPED)
+# half-page-up                 (UNMAPPED)
+# next-selected                (UNMAPPED)
+# prev-selected                (UNMAPPED)
+#
+#### Preview Window Manipulation
+#
+# toggle-preview               (UNMAPPED)
+# preview-page-down            (UNMAPPED)
+# preview-page-up              (UNMAPPED)
+# preview-half-page-down       (UNMAPPED)
+# preview-half-page-up         (UNMAPPED)
+# preview-bottom               (UNMAPPED)
+# preview-top
 
-    # Setup fzf
-    # ---------
-    if [[ ! "$PATH" == *$FZF_HOME/bin* ]]; then
-    export PATH="$PATH:$FZF_HOME/bin"
-    fi
 
-    # Man path
-    # --------
-    if [[ ! "$MANPATH" == *$FZF_HOME/man* && -d "$FZF_HOME/man" ]]; then
-    export MANPATH="$MANPATH:$FZF_HOME/man"
-    fi
+#",ctrl-y:preview-page-up,ctrl-e:preview-page-down"\
+# To make it appear like a popup below the current command, use this:
+# --height=80% --min-height=20
 
-    # Auto-completion
-    # ---------------
-    [[ $- == *i* ]] && source "$FZF_HOME/shell/completion.$shell" 2> /dev/null
+#",ctrl-u:preview-page-up,ctrl-d:preview-page-down"\ # Conflicts with git diff in hash select
 
-    # Key bindings
-    # ------------
-    source "$FZF_HOME/shell/key-bindings.$shell"
+# Use fd if it's installed
+if command -v fd &> /dev/null; then
+    # Use fd instead of find
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --strip-cwd-prefix --exclude .git --exclude .hg"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git --exclude .hg"
+
+    # Use fd for listing path candidates
+    _fzf_compgen_path() {
+        fd --hidden --exclude .git --exclude .hg . "$1"
+    }
+    _fzf_compgen_dir() {
+        fd --type=d --hidden --exclude .git --exclude .hg . "$1"
+    }
 fi
+
+# Setup bash bindings for git
+if [[ -d ~/fzf-git.sh ]]; then
+    # https://github.com/junegunn/fzf-git.sh
+    # cd ~; git clone https://github.com/junegunn/fzf-git.sh.git
+
+    source ~/fzf-git.sh/fzf-git.sh
+
+    # Redefine this function to change the options
+    # TAB or SHIFT-TAB to select multiple objects
+    # CTRL-/ to change preview window layout
+    # CTRL-O to open the object in the web browser (in GitHub URL scheme)
+    _fzf_git_fzf() {
+        fzf --layout=reverse --multi --border \
+            --border-label-pos=2 \
+            --color='header:italic:underline,label:blue' \
+            "$@"
+    }
+fi
+
+# Customize preview based on command
+_fzf_comprun() {
+    local command=$1
+    shift
+
+    case "$command" in
+        cd)    fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+        *)     fzf --preview 'bat -n --color=always --line-range :500 {}' "$@" ;;
+    esac
+}
