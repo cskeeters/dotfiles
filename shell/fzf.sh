@@ -7,12 +7,12 @@ eval "$(fzf --bash)"
 export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
 "--reverse "\
 "--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "\
-"--bind 'ctrl-/:change-preview-window(right,60%|bottom,40%|right,30%)' "\
 "--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
 "--bind 'shift-up:preview-top,shift-down:preview-bottom' "\
 "--bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down' "\
 "--bind 'alt-p:preview-page-up,alt-n:preview-page-down' "\
 "--bind 'f2:toggle-preview' "\
+"--bind 'f3:change-preview-window(right,60%|bottom,40%|right,30%)' "\
 ""
 
 # Due to Caret Notation, don't map the following:
