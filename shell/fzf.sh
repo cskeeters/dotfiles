@@ -3,10 +3,23 @@
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
+PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
+if command -v bat > /dev/null; then
+    PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
+fi
+if command -v batcat > /dev/null; then
+    PREVIEW="--preview 'batcat -n --color=always {}' --preview-window='right,30%,border-left' --border "
+fi
+
+TREE="ls -l {}"
+if command -v eza > /dev/null; then
+    TREE="eza --tree --color=always {} | head -200"
+fi
+
 # Use o instead of i no not overwrite mapping for Tab
 export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
 "--reverse "\
-"--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "\
+"$PREVIEW"\
 "--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
 "--bind 'shift-up:preview-top,shift-down:preview-bottom' "\
 "--bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down' "\
@@ -119,7 +132,7 @@ _fzf_comprun() {
     shift
 
     case "$command" in
-        cd)    fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-        *)     fzf --preview 'bat -n --color=always --line-range :500 {}' "$@" ;;
+        cd)    fzf --preview "$TREE" "$@" ;;
+        *)     fzf "$@" ;;
     esac
 }
