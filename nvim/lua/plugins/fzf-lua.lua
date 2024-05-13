@@ -155,7 +155,12 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     -- calling `setup` is optional for customization
-    require("fzf-lua").setup({{'fzf-native'},winopts={fullscreen=true}})
+    require("fzf-lua").setup({
+        {'default'},
+        winopts = {
+            fullscreen = true
+        },
+    })
 
     -- To speed up, install fd.  This will automatically be used
     -- brew install fd
