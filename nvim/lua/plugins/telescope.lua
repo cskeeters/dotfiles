@@ -16,35 +16,35 @@ return {
 
         require("telescope").setup({
             defaults = {
-                layout_strategy = 'cursor',
+                layout_strategy = 'horizontal',
                 layout_config = {
                     height = 0.99,
                     width = 0.99,
-                    cursor = {
+                    horizontal = {
                         preview_width = 0.4,
-                        width = 0.99,
-                        height = 0.99,
+                        prompt_position = "top",
                     },
                     center = {
-                        preview_cutoff = 1,
+                        preview_cutoff = 1,           -- don't show preview if it can't be this many lines tall
                         prompt_position = "top",
-                        width = 0.99,
-                        height = 0.99,
                     },
 
                 },
                 cycle_layout_list = {
                     "center",
-                    "cursor",
+                    "horizontal",
                 },
                 sorting_strategy = "ascending",
                 mappings = {
                     i = {
+                        -- See https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#default-mappings
                         -- :help telescope.actions
-                        --["<esc>"] = actions.close, -- esc enters normal mode
+                        ["<esc>"] = actions.close, -- esc enters normal mode
+                        --["<ctrl-c>"] = actions.exit normal mode (don't see an action for this)
+                        --["<ctrl-c>"] = "<esc>",
                         ["<C-j>"] = actions.move_selection_next,
                         ["<C-k>"] = actions.move_selection_previous,
-                        ["<F2>"] = action_layout.cycle_layout_next,
+                        ["<F2>"] = action_layout.cycle_layout_next, -- this effectively disables the preview, which matches fzf
                     },
                 },
             },
