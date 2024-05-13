@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     'cskeeters/vim-status',
     dependencies = {
         'cskeeters/vim-vcvars'
