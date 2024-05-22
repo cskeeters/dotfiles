@@ -180,7 +180,7 @@ return {
 
     -- Execute Keymap
     vim.keymap.set('n', '<Leader>k', ':FzfLua keymaps<cr>', { desc="Execute keymap" })
-    vim.keymap.set('n', '<Leader>c', ':FzfLua commands<cr>', { desc="Execute command" })
+    --vim.keymap.set('n', '<Leader>c', ':FzfLua commands<cr>', { desc="Execute command" })
     vim.keymap.set('n', '<Leader>H', ':FzfLua command_history<cr>', { desc="Execute command from history" })
 
     -- This slows down exiting macros
@@ -188,18 +188,18 @@ return {
 
 
     -- Open file
-    vim.keymap.set('n', '<Leader>of', ':FzfLua files<cr>',     { desc="Open file in current directory tree (fzf)" })
-    vim.keymap.set('n', '<Leader>or', fzf_rcs_files, { desc="Open file in git repository (fzf/git/hg)" })
-    vim.keymap.set('n', '<Leader>om', fzf_rcs_changed_files, { desc="Open file modified in repository (fzf/git/hg)" })
+    -- vim.keymap.set('n', '<Leader>of', ':FzfLua files<cr>',     { desc="Open file in current directory tree (fzf)" })
+    -- vim.keymap.set('n', '<Leader>or', fzf_rcs_files, { desc="Open file in git repository (fzf/git/hg)" })
+    -- vim.keymap.set('n', '<Leader>om', fzf_rcs_changed_files, { desc="Open file modified in repository (fzf/git/hg)" })
 
 
-    vim.keymap.set('n', '<Leader>oo', ':FzfLua oldfiles<cr>',  { desc="Open Old file from history (fzf)" })
-    vim.keymap.set('n', '<Leader>ob', ':FzfLua buffers <cr>', { desc="Open Buffer (selected via fzf)" })
+    -- vim.keymap.set('n', '<Leader>oo', ':FzfLua oldfiles<cr>',  { desc="Open Old file from history (fzf)" })
+    -- vim.keymap.set('n', '<Leader>ob', ':FzfLua buffers <cr>', { desc="Open Buffer (selected via fzf)" })
 
     -- Specific, commonly opened locations
-    vim.keymap.set('n', '<Leader>oc', ':FzfLua files cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
-    vim.keymap.set('n', '<Leader>op', ':FzfLua files cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
-    vim.keymap.set('n', '<Leader>on', ':FzfLua files cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
+    -- vim.keymap.set('n', '<Leader>oc', ':FzfLua files cwd=~/.config/nvim<cr>', { desc="Open vim Config file (fzf)" })
+    -- vim.keymap.set('n', '<Leader>op', ':FzfLua files cwd=~/.local/share/nvim<cr>', { desc="Open vim Plugin file (fzf)" })
+    -- vim.keymap.set('n', '<Leader>on', ':FzfLua files cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
 
     -- Jump to line
     vim.keymap.set('n', '<Leader>jb', ':FzfLua blines<cr>', { desc="Jump to line in current buffer (fzf)" })

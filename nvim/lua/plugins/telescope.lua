@@ -1,3 +1,18 @@
+-- Pros for telescope over fzf-lua
+--  * can hide the preview window (F2) by cycling layouts
+--  * luasnip extention for searching snippets (could be converted)
+--  * less display artifacts
+--  * can load results into quickfix list
+-- Cons for telescope over fzf-lua
+--  * No Ctrl+a Ctrl+e beginning/end of line
+--  * Slower to search through many files
+--  * Stops searching after first characters typed
+--  * have to hit escape twice or lose normal mode bindings/actions gg/G, H, M, L
+--
+-- fzf.vim
+-- * Has same bindings in shell as in vim (though Ctrl-/) doen't work
+-- * Can change preview location (f3) or disable preview (f2)
+-- * The fastest
 return {
     enabled = true,
     'nvim-telescope/telescope.nvim',
@@ -64,11 +79,20 @@ return {
 
         vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
 
-        -- local builtin = require('telescope.builtin')
+        local builtin = require('telescope.builtin')
         -- NOTE: Currently Using fzf-lua
-        --vim.keymap.set('n', '<leader>ff', ':Telescope find_files hidden=true<cr>', {desc= "Find File"})
+        --vim.keymap.set('n', '<leader>of', ':Telescope find_files<cr>', {desc= "Open file in current directory tree (fzf)"})
+        --vim.keymap.set('n', '<leader>of', '<Cmd>lua require("telescope.builtin").find_files({find_command={"fd", "--type", "f"}})<cr>', {desc= "Open file in current directory tree (fzf)"})
+        --vim.keymap.set('n', '<leader>om', builtin.marks, {desc="Find Buffer"})
+
+        --vim.keymap.set('n', '<leader>oc', ':Telescope find_files cwd=~/.config/nvim<cr>',                       {desc= "Open vim Config file (fzf)"})
+        --vim.keymap.set('n', '<Leader>op', ':Telescope find_files cwd=~/.local/share/nvim<cr>',                  {desc="Open neovim Plugin file (fzf)" })
+        --vim.keymap.set('n', '<leader>on', ':Telescope find_files cwd=~/Library/CloudStorage/Dropbox/notes<cr>', {desc= "Open Note (fzf)"})
+        --vim.keymap.set('n', '<Leader>od', ':Telescope find_files cwd=~/working/bcst-doc<cr>',                   {desc="Open bcst-doc file (fzf)" })
+
+        vim.keymap.set('n', '<leader>gm', ':Telescope marks<cr>', {desc="Goto Mark (fzf)"})
+
         --vim.keymap.set('n', '<leader>fg', builtin.live_grep, {desc="Live Grep"})
-        --vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc="Find Buffer"})
         --vim.keymap.set('n', '<leader>fh', builtin.help_tags, {desc="Find Help"})
         --vim.keymap.set('n', '<leader>k',  builtin.keymaps, {desc="Find Keymap"})
     end
