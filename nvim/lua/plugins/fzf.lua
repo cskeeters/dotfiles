@@ -12,6 +12,9 @@ return {
         -- bind from FZF_DEFAULT_OPTS do apply but Ctrl+/ doesn't work
         -- print(vim.env.FZF_DEFAULT_OPTS)
 
+        -- Add reverse to default opts
+        vim.env.FZF_DEFAULT_OPTS = '--reverse '..vim.env.FZF_DEFAULT_OPTS
+
         vim.keymap.set('n', '<Leader>of', ':FZF! <cr>',                                     { desc="Open file in current directory tree (fzf)" })
         vim.keymap.set('n', '<Leader>oc', ':FZF! ~/.config/nvim<cr>',                       { desc="Open neovim config file (fzf)" })
         vim.keymap.set('n', '<Leader>op', ':FZF! ~/.local/share/nvim<cr>',                  { desc="Open plugin (fzf)" })
