@@ -18,7 +18,6 @@ fi
 
 # Use o instead of i no not overwrite mapping for Tab
 export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
-"--reverse "\
 "$PREVIEW"\
 "--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
 "--bind 'shift-up:preview-top,shift-down:preview-bottom' "\
