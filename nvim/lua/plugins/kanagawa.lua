@@ -20,13 +20,19 @@ return {
             },
             overrides = function(colors) -- add/modify highlights
                 return {
-                    -- Override bold and italic for markdown
+                    ["@markup.heading"] = { link = "Number" },
+                    ["@markup.heading.1"] = { link = "ModeMsg" },
+                    ["@markup.heading.2"] = { link = "Boolean" },
+                    ["@markup.heading.3"] = { link = "Constant" },
+
                     ["@markup.strong"] = { fg = colors.theme.syn.operator, bold = true },
                     ["@markup.italic"] = { fg = colors.theme.syn.identifier, italic = true },
+
                     ["@markup.raw"] = { fg = colors.theme.syn.string },
                     ["@markup.raw.block"] = { fg = colors.theme.syn.string },
-                    ["@markup.link.label"] = { fg = colors.theme.syn.operator },
-                    ["@markup.link.url"] = { fg = colors.theme.syn.string },
+
+                    ["@markup.link.label"] = { link = "PreProc" },
+                    ["@markup.link.url"] = { link = "Whitespace" },
                 }
             end,
             theme = "dragon",              -- Load "wave" theme when 'background' option is not set
