@@ -6,11 +6,6 @@ function FugitiveLog()
     vim.cmd([[0G log --oneline]]);
 end
 
-function FugitiveBlame()
-    vim.cmd([[G blame]]);
-    vim.cmd([[wincmd p]]);
-end
-
 return {
     enabled = true,
     'tpope/vim-fugitive',
@@ -18,7 +13,7 @@ return {
     init = function()
         vim.keymap.set('n', '<leader>fs', FugitiveStatus, { desc="Fugitive/git status" });
         vim.keymap.set('n', '<leader>fl', FugitiveLog, { desc="Fugitive/git log" });
-        vim.keymap.set('n', '<leader>fb', FugitiveBlame, { desc="Fugitive/git blame" });
+        vim.keymap.set('n', '<leader>fb', ":G blame<cr>", { desc="Fugitive/git blame" });
 
         vim.keymap.set('n', '<leader>fd', ":Gdiffsplit<cr><C-w>l", { desc="vimdiff unstaged changes on current file" });
         vim.keymap.set('n', '<leader>fD', ":Gdiffsplit @<cr><C-w>l", { desc="vimdiff staged changes on current file" });
