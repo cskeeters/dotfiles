@@ -44,7 +44,7 @@
 
 [merge]
 	tool = tabsplice
-	conflictstyle = diff3
+	#conflictstyle = diff3
 
 [mergetool "tabsplice"]
 	cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
@@ -66,7 +66,7 @@
 	showPatch = true
 
 [core]
-	pager = delta
+	#pager = delta
 
 [interactive]
 	diffFilter = delta --color-only
