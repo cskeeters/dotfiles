@@ -145,6 +145,13 @@ end
 vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
 vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
 
+local border
+border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
+local profile = "default"
+if not vim.g.nerd_font then
+    border = "single"
+    profile = "max-perf"
+end
 
 return {
   "cskeeters/fzf-lua",
@@ -156,9 +163,16 @@ return {
   config = function()
     -- calling `setup` is optional for customization
     require("fzf-lua").setup({
-        {'default'},
+        { profile },
         winopts = {
-            fullscreen = true
+            fullscreen = true,
+            -- Use square corners when nerd font is not installed
+            border = border,
+            preview = {
+                -- el7 doesn't have bat
+                default="cat",
+                --border = 'noborder',
+            }
         },
     })
 

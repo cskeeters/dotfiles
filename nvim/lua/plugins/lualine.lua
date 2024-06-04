@@ -19,12 +19,20 @@ return {
         --vim.cmd([[autocmd BufEnter * :lua find_hg_dir() ]])
         --vim.cmd([[augroup end]])
 
+        local component_separators = { left = ' ', right = ' '}
+        local section_separators = { left = ' ', right = ' '}
+
+        if vim.g.nerd_font then
+            component_separators = { left = '', right = ''}
+            section_separators = { left = '', right = ''}
+        end
+
         require('lualine').setup({
             options = {
-                icons_enabled = true,
+                icons_enabled = vim.g.nerd_font,
                 theme = 'auto',
-                component_separators = { left = '', right = ''},
-                section_separators = { left = '', right = ''},
+                component_separators = component_separators,
+                section_separators = section_separators,
                 disabled_filetypes = {
                     statusline = {},
                     winbar = {},

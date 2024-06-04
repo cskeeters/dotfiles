@@ -52,7 +52,22 @@ if Speed > 0 then
     vim.opt.regexpengine=1           -- 1: Old regex engine
 end
 
--- This will be overwritten if vim-statusline is loaded
+-- This is used for configuring lualine
+vim.g.nerd_font = false
+local term = os.getenv("TERM")
+if term ~= nil then
+    if string.find(term, "alacritty") then
+        vim.g.nerd_font = true
+    end
+    if string.find(term, "iTerm2") then
+        vim.g.nerd_font = true
+    end
+    if string.find(term, "xterm-265color") then
+        vim.g.nerd_font = true
+    end
+end
+
+-- This will be overwritten if lualine or vim-statusline is loaded
 vim.opt.statusline="  %1* %{getcwd()} %0*" ..                       -- current root or dir
                    "  %2* %f%m %0*" ..                              -- Filename/Modified
                    "%=" ..                                          -- Right Aligned
