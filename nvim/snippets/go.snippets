@@ -26,7 +26,7 @@ snippet err
 		log.Fatal(err)
 	}
 snippet append
-	append(${1:slice}, ${2:value})
+	${1:slice} = append(${1}, ${2:value})
 snippet print
 	fmt.Printf("${1:field}: %d\n", ${1})
 snippet sprint
