@@ -48,3 +48,8 @@ snippet string_builder
 	str := sb.String()
 snippet sleep
 	time.Sleep(0.8 * time.Second)
+snippet scanner
+	scanner := bufio.NewScanner(strings.NewReader(msg))
+	for scanner.Scan() {
+		log.Printf("%s", scanner.Text())
+	}
