@@ -242,6 +242,8 @@ link bfm .config
 
 link bat .config
 
+linkdot alacritty/alacritty.toml
+
 # Helps ctags with markdown
 linkdot ctags
 
