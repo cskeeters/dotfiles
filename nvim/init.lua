@@ -316,6 +316,10 @@ vim.keymap.set('n', '<localleader><localleader>gs', [[<cmd>exec 'mkspell! ' . &s
 -- \< matches the start of a word, '.' matches one character.
 vim.keymap.set('v', '<localleader>gc', [=[mvugv:<C-w>%s/\%V\<.[^[:space:]]\{3\}/\u&/g<enter><esc>`v<cmd>noh<cr>]=], { desc="Capitalize First Letter of each Word" })
 
+vim.keymap.set('n', '<C-S-l>', [=[<Cmd>vertical resize -1<Cr>]=], { desc="Decrease Vertical Window Size" })
+vim.keymap.set('n', '<C-S-h>', [=[<Cmd>vertical resize +1<Cr>]=], { desc="Increase Vertical Window Size" })
+
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
