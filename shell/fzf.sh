@@ -3,6 +3,25 @@
 # Setup fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
+fzfpreview() {
+    if [[ -d $1 ]]; then
+        if command -v eza > /dev/null; then
+            eza -l --icons $1
+        else
+            ls -l $1
+        fi
+    else
+        if command -v bat > /dev/null; then
+            bat -n --color=always -r :55 $1
+        elif command -v batcat > /dev/null; then
+            batcat -n --color=always -r :55 $1
+        else
+            head -n 55 $1
+        fi
+    fi
+}
+export -f fzfpreview
+
 PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
 if command -v bat > /dev/null; then
     PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
@@ -11,6 +30,8 @@ fi
 if command -v batcat > /dev/null; then
     PREVIEW="--preview 'batcat -n --color=always {}' --preview-window='right,30%,border-left' --border "
 fi
+
+PREVIEW="--preview 'fzfpreview {}' --preview-window='right,30%,border-left' --border "
 
 TREE="ls -l {}"
 if command -v eza > /dev/null; then
