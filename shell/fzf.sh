@@ -7,6 +7,7 @@ PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
 if command -v bat > /dev/null; then
     PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
 fi
+# Debian and Ubuntu named bat batcat
 if command -v batcat > /dev/null; then
     PREVIEW="--preview 'batcat -n --color=always {}' --preview-window='right,30%,border-left' --border "
 fi
