@@ -191,12 +191,15 @@ return {
 
         -- MasonInstall ltex-ls
         require'lspconfig'.ltex.setup{
+            -- Override filetypes in server_configuration/ltex to enable typst
+            filetypes = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
             settings = {
                 ltex = {
                     language = "en-US",
+                    enabled = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
 
                     -- see https://valentjn.github.io/ltex/settings.html#ltexdictionary
                     dictionary = {
