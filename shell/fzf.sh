@@ -6,9 +6,9 @@ eval "$(fzf --bash)"
 fzfpreview() {
     if [[ -d $1 ]]; then
         if command -v eza > /dev/null; then
-            eza -l --icons "$1"
+            eza -1 --icons=always --color=always "$1"
         else
-            ls -l "$1"
+            ls -1 "$1"
         fi
     else
         if command -v bat > /dev/null; then
