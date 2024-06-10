@@ -6,17 +6,17 @@ eval "$(fzf --bash)"
 fzfpreview() {
     if [[ -d $1 ]]; then
         if command -v eza > /dev/null; then
-            eza -l --icons $1
+            eza -l --icons "$1"
         else
-            ls -l $1
+            ls -l "$1"
         fi
     else
         if command -v bat > /dev/null; then
-            bat -n --color=always -r :55 $1
+            bat -n --color=always -r :55 "$1"
         elif command -v batcat > /dev/null; then
-            batcat -n --color=always -r :55 $1
+            batcat -n --color=always -r :55 "$1"
         else
-            head -n 55 $1
+            head -n 55 "$1"
         fi
     fi
 }
