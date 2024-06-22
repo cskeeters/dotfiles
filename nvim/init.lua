@@ -334,6 +334,8 @@ vim.keymap.set('v', '<localleader>gc', [=[mvugv:<C-w>%s/\%V\<.[^[:space:]]\{3\}/
 vim.keymap.set('n', '<C-S-l>', [=[<Cmd>vertical resize -1<Cr>]=], { desc="Decrease Vertical Window Size" })
 vim.keymap.set('n', '<C-S-h>', [=[<Cmd>vertical resize +1<Cr>]=], { desc="Increase Vertical Window Size" })
 
+vim.keymap.set('n', '<Leader><Leader>i', [=[<Cmd>Inspect<Cr>]=], { desc="Inspect Tree-sitter Highlighting" })
+vim.keymap.set('n', '<Leader><Leader>t', [=[<Cmd>InspectTree<Cr>]=], { desc="Tree-sitter Tree (TSPlayground)" })
 
 function Hardcopy()
     vim.cmd([[w !lp - ]])
