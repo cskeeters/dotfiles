@@ -11,25 +11,47 @@ fzfpreview() {
             ls -1 "$1"
         fi
     else
-        if command -v bat > /dev/null; then
-            bat -n --color=always -r :55 "$1"
-        elif command -v batcat > /dev/null; then
-            batcat -n --color=always -r :55 "$1"
+        if [[ $1 =~ (pdf|PDF)$  ]]; then
+            if command -v imgcat > /dev/null; then
+                if command -v pdftoppm > /dev/null; then
+                    pdftoppm -singlefile -jpeg -jpegopt quality=75 "$1" | imgcat -W 100
+                fi
+            fi
+        elif [[ $1 =~ (jpg|jpeg|JPG|JPEG)$ ]]; then
+            if command -v imgcat > /dev/null; then
+                imgcat -W 100 "$1"
+            fi
+        elif [[ $1 =~ (nef|NEF)$ ]]; then
+            if command -v imgcat > /dev/null; then
+                imgcat -W 100 "$1"
+            fi
+        elif [[ $1 =~ (png|PNG)$ ]]; then
+            if command -v imgcat > /dev/null; then
+                imgcat -W 100 "$1"
+            fi
         else
-            head -n 55 "$1"
+            # All other file types use bat or head
+            if command -v bat > /dev/null; then
+                bat -n --color=always -r :55 "$1"
+            elif command -v batcat > /dev/null; then
+                batcat -n --color=always -r :55 "$1"
+            else
+                head -n 55 "$1"
+            fi
         fi
     fi
 }
 export -f fzfpreview
 
-PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
-if command -v bat > /dev/null; then
-    PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
-fi
-# Debian and Ubuntu named bat batcat
-if command -v batcat > /dev/null; then
-    PREVIEW="--preview 'batcat -n --color=always {}' --preview-window='right,30%,border-left' --border "
-fi
+
+# PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
+# if command -v bat > /dev/null; then
+#     PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
+# fi
+# # Debian and Ubuntu named bat batcat
+# if command -v batcat > /dev/null; then
+#     PREVIEW="--preview 'batcat -n --color=always {}' --preview-window='right,30%,border-left' --border "
+# fi
 
 PREVIEW="--preview 'fzfpreview {}' --preview-window='right,30%,border-left' --border "
 
