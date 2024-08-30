@@ -17,7 +17,7 @@ return {
 
         vim.keymap.set('n', '<Leader>of', ':FZF! <cr>',                                     { desc="Open file in current directory tree (fzf)" })
         vim.keymap.set('n', '<Leader>oc', ':FZF! ~/.config/nvim<cr>',                       { desc="Open neovim config file (fzf)" })
-        vim.keymap.set('n', '<Leader>op', ':FZF! ~/.local/share/nvim<cr>',                  { desc="Open plugin (fzf)" })
+        vim.keymap.set('n', '<Leader>op', ':FZF! ~/.local/share/nvim<cr>',                  { desc="Open plugin from .local (fzf)" })
         vim.keymap.set('n', '<Leader>on', ':FZF! ~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open note (fzf)" })
         vim.keymap.set('n', '<Leader>od', ':FZF! ~/working/bcst-doc<cr>',                   { desc="Open bcst-doc file (fzf)" })
 
