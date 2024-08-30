@@ -128,8 +128,8 @@ vim.opt.splitbelow = true            -- Place new window below the current one
 ---- Editing
 vim.opt.virtualedit = "block"        -- Block mode allows cursor to go where spaces don't exist
 vim.opt.autoindent = true            -- indent at the same level of the previous line
-vim.opt.cindent = true
-vim.opt.smartindent = true           -- New lines start indented appropriately
+vim.opt.smartindent = false          -- New lines start indented appropriately
+vim.opt.cindent = false
 vim.opt.wrap = false                 -- wrap long lines
 vim.opt.breakindent = true           -- When wrapping, the next line should be indented the same as the first
 
