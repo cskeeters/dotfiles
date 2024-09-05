@@ -14,7 +14,7 @@ if ! type fzf >/dev/null 2>&1; then
     exit 1
 fi
 
-sel=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:execute(echo {1})+abort')
+sel=$(cat $HOME/dotfiles/paths/default | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:become(echo {1})')
 
 if [ -n "$sel" ]; then
     if [ "$sel" = "." ] || { ! [ -d "$sel" ] && ! [ -f "$sel" ]; }; then
