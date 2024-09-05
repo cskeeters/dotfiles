@@ -89,9 +89,6 @@ if exists nvim; then
     alias vim='nvim'
 fi
 
-#### Rust Language
-# export PATH="$HOME/.cargo/bin:$PATH"
-
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 
