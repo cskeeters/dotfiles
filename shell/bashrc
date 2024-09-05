@@ -83,12 +83,6 @@ load_all "$DOTFILES/shell/bashrc.d-$(uname)"
 # Load host specific configuration
 load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
 
-#### Neovim
-if exists nvim; then
-    alias vi='nvim'
-    alias vim='nvim'
-fi
-
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 
