@@ -1,9 +1,3 @@
--- args is a table, where 1 is the text in Placeholder 1, 2 the text in
--- placeholder 2,...
-local function copy(args)
-	return args[1]
-end
-
 -- This will load snippets from any directory named 'snippets' in the runtime path of vim.
 local doReloadSnippets = function()
     local from_snipmate = require("luasnip.loaders.from_snipmate")
