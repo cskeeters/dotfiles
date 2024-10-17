@@ -277,6 +277,8 @@ vim.keymap.set('n', '\\2', ':setlocal sw=2 ts=2<cr>', { noremap = true, desc="Sw
 vim.keymap.set('n', '\\3', ':setlocal sw=3 ts=3<cr>', { noremap = true, desc="Switch to 3 space indention" })
 vim.keymap.set('n', '\\4', ':setlocal sw=4 ts=4<cr>', { noremap = true, desc="Switch to 4 space indention" })
 vim.keymap.set('n', '\\8', ':setlocal sw=8 ts=8<cr>', { noremap = true, desc="Switch to 8 space indention" })
+vim.keymap.set('n', ',,i16', ':setlocal sw=16 ts=16<cr>', { noremap = true, desc="Switch to 16 space indention" })
+vim.keymap.set('n', ',,i32', ':setlocal sw=32 ts=32<cr>', { noremap = true, desc="Switch to 32 space indention" })
 vim.keymap.set('n', '\\t', ':setlocal noexpandtab<cr>', { noremap = true, desc="Switch to using tabs" })
 vim.keymap.set('n', '\\T', ':setlocal expandtab<cr>', { noremap = true, desc="Switch to using spaces" })
 
