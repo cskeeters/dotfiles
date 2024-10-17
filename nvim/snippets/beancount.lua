@@ -20,6 +20,7 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.conditions")
 local conds_expand = require("luasnip.extras.conditions.expand")
 
+vim.b.decimal_column = 60
 
 local dt = function()
     return os.date("%Y-%m-%d")
@@ -42,6 +43,8 @@ local toTextNodes = function(optionStrings)
     return nodes
 end
 
+-- returns choice node of account names in the current file that
+--   are open at the end of the file
 local openAccounts = function()
     local openAccounts = {}
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
@@ -63,6 +66,48 @@ local openAccounts = function()
     return c(1, toTextNodes(openAccounts))
 end
 
+local spaceAmt = function(args, -- text from i(2) in this example i.e. { { "456" } }
+                          _,   -- parent snippet or parent node
+                          _) -- user_args from opts.user_args
+    -- print(vim.inspect(args[2]))
+    local account = args[1][1]
+    local amount = args[2][1]
+
+    local amountToDecimal = string.find(amount, "." , 1, true)
+    if amountToDecimal == nil then
+        amountToDecimal = string.len(amount)+1 -- decimal is 1 *after* amount
+    end
+
+    local width = vim.b.decimal_column - 4 - string.len(account) - amountToDecimal
+    print(width)
+    local str = "";
+    for count = 1, width, 1 do
+        str = str .. " ";
+    end
+    return str;
+end
+
+local decimalAndCents = function(args, _, _)
+    local amount = args[1][1]
+    if string.len(amount) == 0 then
+        return "0.00"
+    end
+
+    local amountToDecimal = string.find(amount, "." , 1, true)
+    if amountToDecimal == nil then
+        return ".00"
+    end
+
+    digits_after_decimal = string.len(amount) - amountToDecimal
+    if digits_after_decimal == 0 then
+        return "00"
+    end
+    if digits_after_decimal == 1 then
+        return "0"
+    end
+    return ""
+end
+
 return {
     s("dt", {
         f(dt),
@@ -74,9 +119,11 @@ return {
         option "operating_currency" "USD"
 
         {} open Equity:OpeningBalances
+        {} open Expenses:Tax
         {} open Assets:{}:Checking
         ]], {
             i(1, "My Ledger"),
+            f(dt),
             f(dt),
             f(dt),
             i(2, "WellsFargo"),
@@ -95,7 +142,7 @@ return {
 
     s("tx", fmt([[
         {} * "{}"
-            {}                                  {} USD
+            {}{}{}{} USD
             {}]],
         {
             f(dt),
@@ -103,12 +150,15 @@ return {
             d(2, function()
                 return sn(nil, openAccounts())
             end, {}),
-            i(3, "-0.00"),
+            f(spaceAmt, {2, 3}),
+            i(3, "0.00"),
+            f(decimalAndCents, {3}),
             d(4, function()
                 return sn(nil, openAccounts())
             end, {}),
         }
     )),
+
     s("acc", {
         d(1, function()
             return sn(nil, openAccounts())
