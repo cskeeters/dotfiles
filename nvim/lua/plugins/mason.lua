@@ -76,6 +76,9 @@ return {
     },
     lazy=false,
     init = function()
+        local lspconfig = require 'lspconfig'
+        local util = require 'lspconfig.util'
+
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "gopls", "tinymist", "harper_ls"},
@@ -109,7 +112,7 @@ return {
 
 
         -- MasonInstall lua-language-server
-        require("lspconfig").lua_ls.setup {
+        lspconfig.lua_ls.setup {
             on_attach = on_attach,
 
             flags = lsp_flags,
@@ -139,58 +142,58 @@ return {
         }
 
         -- MasonInstall bash-language-server
-        require('lspconfig').bashls.setup{
+        lspconfig.bashls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
         -- MasonInstall css-lsp
-        require('lspconfig').cssls.setup{
+        lspconfig.cssls.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
         -- MasonInstall phpactor (Requires php8.1 which is not available on bullseye)
-        require('lspconfig').phpactor.setup{
+        lspconfig.phpactor.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
         -- MasonInstall pyright
-        require('lspconfig').pyright.setup{
+        lspconfig.pyright.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
         -- MasonInstall clangd
-        require('lspconfig').clangd.setup{
+        lspconfig.clangd.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         }
 
         -- MasonInstall java-language-server
-        -- require('lspconfig').java_language_server.setup{
+        -- lspconfig.java_language_server.setup{
             -- on_attach = on_attach,
             -- flags = lsp_flags,
         -- }
 
         -- MasonInstall rust-analyzer
-        -- require("lspconfig").rust_analyzer.setup {}
+        -- lspconfig.rust_analyzer.setup {}
 
         -- MasonInstall gopls
-        require("lspconfig").gopls.setup({
+        lspconfig.gopls.setup({
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         })
 
         -- MasonInstall typst-lsp
-        require'lspconfig'.typst_lsp.setup{
+        --lspconfig.typst_lsp.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
