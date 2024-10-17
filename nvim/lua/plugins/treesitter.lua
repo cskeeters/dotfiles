@@ -12,7 +12,9 @@ return {
             sync_install = false,
 
             -- A list of parser names, or "all" (the four listed parsers should always be installed)
+            -- Fenced code blocks in markdown documentation will be highlighted if the language is in this list
             ensure_installed = {
+                "bash",
                 "c",
                 "cpp",
                 "css",
@@ -20,6 +22,7 @@ return {
                 "html",
                 "java",
                 "javascript",
+                "latex",
                 "lua",
                 "make",
                 "markdown",
@@ -29,8 +32,11 @@ return {
                 "rst",
                 "rust",
                 "sql",
+                "toml",
+                "typst",
                 "vhs",
                 "vim",
+                "yaml",
             },
 
             -- Automatically install missing parsers when entering buffer
