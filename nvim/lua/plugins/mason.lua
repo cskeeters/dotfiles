@@ -77,7 +77,9 @@ return {
     lazy=false,
     init = function()
         require("mason").setup()
-        require("mason-lspconfig").setup()
+        require("mason-lspconfig").setup({
+            ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "gopls", "tinymist", "harper_ls"},
+        })
 
         vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true })
         vim.keymap.set('n', '[d',             vim.diagnostic.goto_prev,  { noremap=true, silent=true })
