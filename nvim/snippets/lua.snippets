@@ -1,2 +1,31 @@
-snippet print
+snippet print Prints file with value
 	print("${1:field}: "..${1})
+
+snippet inspect Prints table in human readable format in neovim
+	print(vim.inspect(${1:table}))
+
+snippet for Iterate over table
+	for i, ${1:value} in ipairs(${2:table}) do
+		${3}
+	end
+
+snippet find Finds needle in string
+	index_start, index_end = string.find(${1:heystack_string}, "${2:needle}")
+
+snippet match Returns captures from regex-like pattern
+	local captures = string.match(${1:s}, ${2:pattern} [, init])
+	if captures == nil then
+		-- Handle error
+	end
+
+snippet insert Adds value into table (insert/push_back)
+	table.insert(${1:table}, ${2:value})
+
+snippet remove Removes value from table (erase)
+	table.remove(${1:table}, ${2:value})
+
+snippet eprint Print to stderr
+	function eprint(f, ...)
+		local m = string.format(f.."\n",table.unpack({...}))
+		io.stderr:write(m)
+	end

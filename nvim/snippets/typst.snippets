@@ -1,4 +1,82 @@
-snippet main
+snippet import-local Import (Local)
+	#import "@local/${1:article}:0.1.0": *
+snippet import-local Import (Preview)
+	#import "@preview/${1:tablem}:0.1.0": *
+snippet tabelm Markdown Table Support
+	#import "@preview/tablem:0.1.0": tablem
+
+	#tablem[
+		| *Name* | *Location* | *Height* | *Score* |
+		| ------ | ---------- | -------- | ------- |
+		| John   | Second St. | 180 cm   |  5      |
+		| Wally  | Third Av.  | 160 cm   |  10     |
+	]
+snippet set Set Rule
+	#set page(numbering: "(i)")
+	#{
+		set align(center)
+		text([hi])
+	}
+snippet show Show
+	show table.cell.where(y: 0): set text(weight: "bold")
+snippet show_set Show-Set
+	show list: set block(above: 1.2em, below: 1.2em)
+snippet page-setup Page Setup
+	#set page(
+		paper: "us-letter",
+		margin: (top: 2in, bottom: 1in, x:1in),
+		//margin: (y:1in, x:1in),
+		header: context {
+			if not hardcopy or calc.odd(here().page()) {
+				align(right, {
+					[Paper Title]
+					h(1mm)
+					[$|$]
+					h(1mm)
+					counter(page).display("1")
+				})
+			} else { // even
+			}
+		},
+		numbering: "1",
+	)
+snippet page-number Page Number
+	#set page(numbering: "(i)")
+	#set page(numbering: "1")
+	#counter(page).display()
+snippet align Align
+	#align(center+horizon, ${1:[hi]})
+snippet align_block Align Block
+	#align(center+horizon, {
+		${1:[hi]}
+	})
+snippet setup_raw Setup for raw (Fenced Code Block)
+	//wget https://raw.githubusercontent.com/chriskempson/base16-textmate/master/Themes/base16-default-light.tmTheme
+	//#set raw(theme:"base16-default-light.tmTheme")
+
+	#show raw: it => {
+		let fonts = (
+			"SF Mono",
+			"Hack Nerd Font Mono",
+			"DejaVu Sans Mono",
+			"Consolas",
+			"Courier",
+			"Courier New",
+		)
+
+		block(
+			// Make black with it.text
+			//text(size:.9em, weight:700, it)
+			text(font: fonts, size:.9em, weight:600, it)
+			//text(size:.9em, weight:700, it)
+			//text(size:.9em, weight:550, it.text)
+		)
+	}
+snippet lorem_ipsum Lorem Ipsum
+	#lorem(40)
+snippet multi-column Multi-Column Layout
+	#show: rest => columns(2, rest)
+snippet main A basic template
 	#import "template.typ": *
 
 	#let title = "Test Document"
@@ -12,31 +90,108 @@ snippet main
 		logo: "337th Patch FINAL Cropped.png"
 	)
 
-	= Introduction
+	#set heading(numbering: "1.", supplement: [Section])
+
+	= Introduction <introduction>
 	#lorem(60)
-snippet figure
+snippet format-heading Formats Headings
+	// Simpler
+	//#show heading.where(level:1): it => block(
+	//  above:1.3em,
+	//  below:.8em,
+	//  {
+	//    //set text(size: 18pt)
+	//    if (it.numbering != none) {
+	//      counter(heading).display()
+	//      h(6pt)
+	//    }
+	//    smallcaps(it.body)
+	//  }
+	//)
+
+	#show heading: it => {
+		// Defaults
+		let above = 1em
+		let below = .7em
+		let style = "normal"
+
+		if (it.level == 1) {
+			above = 1.3em
+			below = .8em
+		} else if (it.level == 2) {
+			above = 1.3em
+			below = .8em
+			style = "italic"
+		}
+
+		set text(style:style)
+
+		block(
+			above: above, below: below,
+			{
+				it
+			}
+		)
+	}
+
+snippet table-figure Adds table as figure
 	#figure(
 		table(
-			columns: 4,
-			[t], [1], [2], [3],
-			[y], [0.3s], [0.4s], [0.8s],
+			stroke: none,
+			columns: (auto, auto), // for full width table, use 1fr
+			table.hline(stroke: 1pt),
+				[*First*], [*Last*],
+			table.hline(stroke: .5pt),
+				[Chad], [Skeeters],
+			table.hline(stroke: 1pt),
 		),
-		caption: [${1:Caption}],
+		caption: [@BCS-T Applications],
 	)
-snippet h1
-	= ${1:Chapter 1}
-snippet h2
-	== ${1:Section 1}
+snippet table-complex Example of multi-row table
+	#figure(
+		table(
+			stroke: none,
+			columns: (auto, auto, auto, auto), // for full width table, use 1fr
+			column-gutter:8pt,
+			align: (left, center, center, center),
+			table.header(
+				table.hline(stroke: 1.2pt),
+					[], table.cell(colspan:2, align:center, [_name_]), [_demo_],
+				table.hline(stroke: .2pt, start:1, end:3),
+				table.hline(stroke: .2pt, start:3, end:4),
+					[*ID*], [*First*], [*Last*], [*Age*],
+				table.hline(stroke: .6pt),
+			),
+			[1], [Chad], [Skeeters], [46],
+			[2], [Jimmy], [Gaddy], [60],
+			table.hline(stroke: 1.2pt),
+		),
+		caption: [System Engineers],
+	)
 snippet bold
 	*${1:text}*
 snippet italic
 	_${1:text}_
+snippet underline
+	#underline[${1:link}]
+snippet upper
+	#upper[${1:text}]
+snippet lower
+	#lower[${1:text}]
+snippet sc Smallcaps
+	#smallcaps[${1:text}]
 snippet inline-code
 	`code`
-snippet fensed-code
-	```bash
+snippet fenced-code
+	\`\`\`bash
 	echo hi
-	```
+	\`\`\`
+snippet h Horizantal Space
+	#h(1fr)
+	#h(1in, weak:false)
+snippet h Vertical Space
+	#v(1fr)
+	#v(1in, weak:false)
 snippet landscape
 	#page(flipped: true)[
 		= Landscape Page Title
@@ -50,12 +205,6 @@ snippet color
 	#set text(red)
 snippet highlight
 	#highlight[${1:important}]
-snippet upper
-	#upper[${1:Chapter 1}]
-snippet underline
-	#underline[${1:link}]
-snippet smallcaps
-	#smallcaps(it)
 snippet lower
 	#lower[${1:Lowercase}]
 snippet linebreak
@@ -87,3 +236,73 @@ snippet columns
 	)
 snippet acronym
 	*${1:text}*: _${2:description}_\ 
+snippet gls Reference glossary entry (or use @TERM)
+	#gls("${1:SPP}")
+snippet glsl Reference glossary entry (long)
+	#gls("${1:SPP}", long=true)
+snippet glspl Reference glossary entry (plurl)
+	#glspl("${1:SPP}")
+snippet setup-glossaries Glossaries for Typst (glossarium)
+	// See https://github.com/typst/packages/tree/main/packages/preview/glossarium/0.4.1
+	#import "afigloss.typ": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required to be just below import
+
+	// Put at the end
+	#generate-glossaries(acronyms:acronyms)
+snippet toc Table of Contents
+	#import "@preview/outrageous:0.1.0"
+
+	#show outline.entry: outrageous.show-entry.with(
+		// the typst preset retains the normal Typst appearance
+		..outrageous.presets.typst,
+		// we only override a few things:
+		// level-1 entries are italic, all others keep their font style
+		font-weight: (900, 400),
+		// no fill for level-1 entries, a thin gray line for all deeper levels
+		fill: (repeat[~~.], repeat[~~.], repeat[~~.]),
+		// Has to be none due to issue #1 https://github.com/RubixDev/typst-outrageous/issues/1
+		vspace: (1.2em, none),
+	)
+
+	#outline(title: "Table of Contents", indent:auto)
+snippet glossaries Glossaries/Acronyms
+	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required just below import
+
+	#pagebreak(weak: true)
+	#print-glossary(
+		disable-back-references: false,
+		(
+			(
+				key: "ISSM",
+				short: "ISSM",
+				long: "Information System Security Manager",
+				group: "Acronyms",
+			),
+			(
+				key: "oidc",
+				short: "OIDC",
+				long: "OpenID Connect",
+				desc: [OpenID is an open standard and decentralized authentication protocol promoted by the non-profit
+				#link("https://en.wikipedia.org/wiki/OpenID#OpenID_Foundation")[OpenID Foundation].],
+				group: "Acronyms",
+			),
+		)
+	)
+snippet secret Secret Stamps
+  place(dy:0in, dx:2in, rotate(-8deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+  place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+snippet grid Grid
+	#grid(
+		//columns: (2in, 1fr),
+		columns: (1fr, 1fr),
+		${1:[Left]},
+		${2:[Right]}
+	)
+snippet block Block
+	#block(
+		fill: luma(230),
+		inset: 8pt,
+		radius: 4pt,
+		${1:lorem(30)}
+	)

@@ -1,0 +1,304 @@
+# NOTE: Use <space>jb and Search for #### to jump to heading
+
+#### Helpers
+
+snippet \\
+	\\${1:section}{${2:Introduction}}
+
+snippet begin
+	\begin{${1:abstract}}
+	\end{${1}}
+
+
+#### Title page
+snippet today Set date to the today
+	\date{\today}
+
+snippet thanks A footnote without a number
+	\thanks{To your mother}
+
+
+#### Setup
+
+snippet setup-hyperref Add hyperref package
+	\usepackage[
+		plainpages=false,
+		pdfpagelabels,
+		pdftitle={\mytitle},
+		pagebackref,
+		pdfauthor={\myauthor},
+		pdfkeywords={\mykeywords}
+		]{hyperref}
+
+	% No colored borders on links
+	\hypersetup{pdfborder=0 0 0}
+
+snippet noindent Disable paragraph indenting
+	\setlength\parindent{0pt}
+
+snippet setup-glossary Template for DoD-style glossaries
+	\usepackage[nopostdot,nonumberlist,nogroupskip,acronym,toc]{glossaries}
+	% style=indexgroup
+	\makenoidxglossaries
+
+	\newacronym{HTML}{HTML}{Hyper-Text Markup Language}
+
+	% Output Glossaries (each type will have a heading
+	% \printglossaries[type=\acronymtype]
+	\printnoidxglossaries
+
+#### Setup/Fonts
+
+snippet setup-font-ncm Configures New Computer Modern Font
+	\usepackage[regular]{newcomputermodern}
+
+snippet setup-font-mlmodern Configures Medium Latin Modern (MLModern) Font
+	\usepackage{mlmodern}
+
+snippet setup-font-libertine Configures Linux Libertine Font
+	% tlmgr install libertine
+	\usepackage{libertine}
+
+snippet setup-font-libertinus Configures Linux Libertinus Font
+	\usepackage{libertinus}
+	%% Package Options
+	% oldstyle, osf      old-style figures
+	% lining, nf, lf     lining figures (default)
+	% proportional, p    varying-width figures
+	% tabular, t         fixed-width figures (default)
+	% semibold, sb       semibold version
+	% bold               bold version (default)
+
+	% ScaleRM            scaling for the serif font, preset to 1
+	% ScaleSF            scaling for the sans serif font, preset to 1
+	% ScaleTT            scaling for the mono font, preset to MatchLowercase
+	% StretchTT          value (0..1) for the mono font stretch (FakeStretch)
+
+	% defaultfeatures    valid only for \rmfamily and \sffamily
+	% uni                argument is passed to unicode-math
+	% mathfeature        argument is passed to \setmath font
+	% greek              set some greek letters for directly use
+	% nomath             Do not load package unicode-math and no math font setting
+	% greekitalic        Set some greek italic letters for directly use in the input
+
+	\usepackage[T1]{fontenc}
+
+
+	% Use Semi-Bold
+	\LibertinusSerifSB
+
+	% Use Semi-Bold
+	\bfseries SemiBold 0123456}
+	% Serif +onum
+	\LibertinusSerifOsF normal weight 0123456
+	% Sans-Serif +onum
+	\LibertinusSansOsF normal weight 0123456
+
+snippet setup-custom-font Specifies custom font to use
+	\usepackage{fontspec}
+	\setmainfont[Path=/Users/username/Downloads/]{SpecialFont.ttf}
+
+#### Content
+
+#### Content/Formatting
+
+snippet rules
+	\toprule
+	\midrule
+	\bottomrule
+
+
+#### Content/Spacing
+
+snippet vspace Move the cursor down (Vertical Space)
+	\vspace{${1:1em}}
+
+
+
+#### Content/Character
+
+snippet bold Bold font (Strong)
+	\textbf{${1:text}}
+
+snippet italic Italic font (Emphasis)
+	\textit{${1:text}}
+
+snippet raw Monospace (tt - teletype)
+	\texttt{${1:text}}
+
+snippet size Font size options
+	\Huge
+	\huge
+	\LARGE
+	\Large
+	\large
+	\normalsize
+	\small
+	\footnotesize
+	\scriptsize
+	\tiny
+
+snippet upper Uppercase
+	\MakeUppercase{${1:Abstract}}
+
+snippet roman Roman Numeral
+	\Roman{${1:chapter}}
+
+
+#### Content/Paragraph
+
+snippet center Center
+	\begin{center}
+	${1}
+	\end{center}
+
+snippet right Right
+	\begin{flushright}
+	${1}
+	\end{flushright}
+	or
+	\raggedleft
+
+#### Content/Stuff
+
+snippet url URL
+	\url{${1:http://google.com}}
+
+snippet fn Footnote
+	\footnote{${1:runs only macOS}}
+
+snippet ol Ordered list (Enumeration)
+	\begin{enumerate}
+	\item letter
+	\end{enumerate}
+
+snippet ul Unordered list / Bulletted List
+	\begin{itemize}
+	\item article
+	\end{itemize}
+
+snippet dl Definition list
+	\begin{description}
+	\item[article\label{article}]{Article is \ldots}
+	\end{description}
+
+snippet headings Outputs all possible heading levels
+	\part{part} \label{p1}
+	\chapter{chapter} \label{ch1}
+	\section{section} \label{ch1}
+	\subsection{subsection} \label{ss1}
+	\subsubsection{subsubsection} \label{sss1}
+	\paragraph{paragraph} \label{p1}
+	\subparagraph{subparagraph} \label{sp1}
+
+snippet acr Acronym Definition
+	\newacronym{${1:HTML}}{$1}{$2}
+
+snippet gls Glossary/Acronym Entry
+	\gls{${1:HTML}}
+snippet glspl Glossary/Acronym Entry (Plural)
+	\glspl{${1:HTML}}
+
+snippet hline Horizontal Rule/Line
+	\hline
+
+snippet table Table
+	% tlmgr install booktabs arydshln
+	% \usepackage{float}
+	% \usepackage{booktabs}
+	% \usepackage{arydshln}
+	% optional: \usepackage{siunitx} with S[table-format=2.1, scientific-notation=fixed, round-integer-to-decimal=true, round-mode=places, round-precision=1]
+	% \caption*{text} % * means no figure 1 and don't add to list of tables
+
+	% [H] means put HERE (not at top or bottom of the page - float)
+	\begin{table}[H]
+		\begin{center}
+
+			\begin{tabular}{ll}
+				\toprule
+					\textbf{Character} & \textbf{Code} \\\\
+				\midrule
+					A  & 1 \\\\
+				\hdashline
+					B  & 2 \\\\
+				\bottomrule
+			\end{tabular}
+		\end{center}
+
+		\caption{${1:Special \LaTeX\ characters}}
+		\label{fig:chars}
+	\end{table}
+
+	\begin{table}
+		\begin{center}
+
+			\begin{tabular}{lcccccl}
+				\toprule
+					& \multicolumn{3}{c}{\$\text{tol}=U_\text{single}\$} & \multicolumn{3}{c}{\$\text{tol}=U_\text{double}\$} \\\\
+					\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+							& \$mv$  & Rel.~err & Time    & \$mv$  & Rel.~err & Time\\\\
+				\midrule
+					\\\\trigmv    & 11034 & 1.3e-7 & 3.9 & 15846 & 2.7e-11 & 5.6 \\\\
+					\\\\trigexpmv & 21952 & 1.3e-7 & 6.2 & 31516 & 2.7e-11 & 8.8 \\\\
+				\hdashline
+					\\\\trigblock & 15883 & 5.2e-8 & 7.1 & 32023 & 1.1e-11 & 1.4e1\\\\
+					\\\\expleja   & 11180 & 8.0e-9 & 4.3 & 17348 & 1.5e-11 & 6.6 \\\\
+				\bottomrule
+			\end{tabular}
+		\end{center}
+
+		\caption{Caption text}
+		\label{fig:data}
+	\end{table}
+
+snippet image Inserts an image into the TeX source as a figure
+	\begin{figure}[H]
+	\centering
+	\includegraphics{screenshot.png}
+	\end{figure}
+
+snippet cite Citation/reference
+	Documented in \cite{doe}.
+
+	\begin{thebibliography}{9}
+	\bibitem[Doe]{doe} \emph{First and last \LaTeX{} example.},
+	John Doe 50 B.C.
+	\end{thebibliography}
+
+#### References
+
+snippet pageref Inserts page reference to marker (\label)
+	\pageref{${1:intro}}
+
+snippet ref Inserts reference to marker (\label)
+	Section \ref{${1:intro}}
+	\hyperref[$1]{Section \ref{$1}}
+	See autoref
+
+# snippet ar Inserts autoref to marker (\label)
+# 	% This includes both "Chapter " and the \ref text in the link
+# 	\autoref{$1}
+
+#### Formatting
+
+snippet stretch Stretch (like 1fr)
+	\stretch{${1:1}}
+	A \hspace{ \stretch{1} } B \hspace{ \stretch{3} } C
+
+snippet break Page Break
+	\newpage
+
+	% Works when only thing on the page is a float too
+	\clearpage
+
+#### Other
+
+snippet lorem Lorem Ipsom
+	\usepackage{lipsum}
+
+	% Generate paragraph 2
+	\lipsum[2]
+
+	% Generate paragraph 1 through 4
+	\lipsum[1-4]
+

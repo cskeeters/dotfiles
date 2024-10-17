@@ -1,0 +1,27 @@
+autosnippet fcb
+	\`\`\`${1}
+	\`\`\`
+
+snippet typst
+	\`\`\`typst
+	${1}
+	\`\`\`
+
+snippet c
+	[//]: ${1}
+
+snippet raw
+	\`\`\`{=${1:typst}}
+	${2}
+	\`\`\`
+snippet mermaid
+	\`\`\`mermaid {caption="${1:Every Process a Nike}"}
+	---
+	config:
+	  theme: neutral
+	  flowchart:
+	    htmlLabels: false
+	---
+	flowchart LR
+	    START(Start) --> DOIT[Just Do It] --> END(End)
+	\`\`\`

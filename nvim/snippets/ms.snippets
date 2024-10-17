@@ -1,0 +1,104 @@
+snippet zapf_chancery
+	.ft ZCMI
+snippet book
+	.PRINTSTYLE TYPESET
+	\"
+	.PDF_BOOKMARKS_OPEN 2
+	\"
+	.DOC_COVER DOCTITLE AUTHOR
+	.DOCTYPE CHAPTER
+	.EPIGRAPH_FONT I
+	\".DROPCAP_FAMILY T
+	\"
+	.HEADING_STYLE 1 PREFIX_CHAPTER NUMBER
+	.HEADING_STYLE 2 PREFIX_CHAPTER NUMBER
+	.HEADING_STYLE 3 PREFIX_CHAPTER NUMBER SIZE -4
+	\"
+	.LIGATURES
+	.PARA_SPACE .5v \" Default spacing between paragraphs
+	\"
+	.DOCTITLE "A New Start"
+	.TITLE "${1:My new Document}"
+	.AUTHOR "${2:Chad Skeeters}"
+	.REVISION 2
+	.COPYRIGHT "2024 ${2}"
+	\"
+	.TOC_HEADER_STRING "Table of Contents"
+	.AUTO_RELOCATE_TOC \" Move table of contents to the top of the doc
+	.SPACE_TOC_ITEMS   \" Prettify TOC spacing
+	.TOC_PADDING 1     \" Only one placeholder for page numbers
+	\"
+	.TOC_HEADING "Part I"
+	\"
+	.CHAPTER 1
+	.CHAPTER_TITLE "The DMCA Nazis"
+	\"
+	.START
+	.HEADING 1 NAMED wagner "Wagner: Lohengrin to The Ring"
+	.PP
+	.DROPCAP L 2 COND 90
+	orem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id nunc sodales, eleifend eros eu, varius ex. Cras volutpat euismod lectus sed porta. Aliquam iaculis dignissim risus ac varius. Phasellus porta elit vitae enim ultrices, sed aliquam eros rutrum. Pellentesque lectus ex, aliquam vel maximus vel, semper nec tellus. Nunc tellus ex, congue ut convallis sed, ultricies sit amet lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris et cursus enim. Nam fermentum interdum tortor, ut vestibulum leo pretium id. Suspendisse id mollis erat. Nullam aliquet ut magna ut finibus. Nulla lectus tellus, tempor eget tortor at, ullamcorper lacinia orci. Vestibulum vel pulvinar quam, at cursus magna. Duis non semper lacus, sed consectetur sem.
+	.PP
+	Maecenas pulvinar, tortor a finibus tempus, mauris turpis aliquam sem, ac elementum neque leo quis nisi. Aenean sed efficitur nulla. Praesent nulla enim, sagittis eget accumsan id, malesuada id tortor. Cras semper tellus eget massa congue, non gravida quam maximus. Vivamus laoreet, tellus ac elementum fringilla, erat mi vehicula tellus, vitae laoreet nisi velit eget justo. Quisque pulvinar sit amet velit id venenatis. Mauris tortor nisl, congue vitae aliquet sit amet, auctor eget tellus. Sed a risus purus. In ultrices lacus sem, vitae molestie libero feugiat eu. Sed ipsum felis, volutpat ut turpis id, malesuada semper lorem. Donec eros elit, pretium nec felis non, rhoncus elementum augue. Morbi in pellentesque nulla, in blandit ante. Nulla bibendum placerat felis, non blandit eros lacinia ac. Vestibulum ut eros vel ligula dapibus fringilla.
+	.FINIS_STRING "FIN"
+	.FINIS
+snippet cover
+	.COVER TITLE AUTHOR DOCTYPE COPYRIGHT
+	.COVER_TITLE_SIZE +5
+	.COVER_ATTRIBUTE_STYLE SIZE +2 SPACE .25v
+	.COVER_AUTHOR_STYLE SIZE +2 LEAD 18
+	.COVER_DOCTYPE_STYLE SIZE +4 UNDERLINE DOUBLE 1
+	.COVER_COPYRIGHT_SIZE -.5
+snippet heading
+	.HEADING 1 NAMED ${1:wagner} "${2:Wagner: Lohengrin to The Ring}"
+	.PP
+	${3:Lorem ipsum dolor sit amet.}
+snippet pheading
+	.PP
+	.HEADING 2 PARAHEAD NAMED ${1:issm} "${2:ISSM Responsibilities}."
+	${3:Lorem ipsum dolor sit amet.}
+snippet toc
+	.AUTO_RELOCATE_TOC \" Move table of contents to the top of the doc
+	.SPACE_TOC_ITEMS   \" Prettify TOC spacing
+	.TOC_PADDING 1     \" Only one placeholder for page numbers
+
+	.TOC
+snippet rule
+	\*[RULE]
+snippet hr
+	.RULE_WEIGHT 1.25
+	.DHR
+	.DHR .5 \" always in points
+snippet fin
+	.FINIS_STRING "FIN"
+	.FINIS
+snippet chapter
+	\"
+	.COLLATE
+	.CHAPTER ${1:1}
+	.CHAPTER_TITLE "${2:The DMCA Nazis}"
+	.DOCTYPE CHAPTER
+	\"
+	.START
+	.HEADING 1 "Stalin"
+	.PP
+	This is a test.
+snippet link
+	.PDF_LINK_COLOR #ff0000
+	.PDF_WWW_LINK ${1:http://www.google.com} "${2:Google}"
+snippet reference
+	.PDF_TARGET ${1:ch1} ${2:"Will Highlight on Click"}
+	.PDF_LINK ${1}
+snippet table
+	.TS
+	center;
+	cb | cb
+	=  =  =
+	n  |  r .
+	value	name
+	3	three
+	3.141592654	pi
+	4	four
+	.TE
+snippet image
+	.PSPIC -L sample.eps 4
