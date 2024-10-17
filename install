@@ -261,6 +261,8 @@ link openfolder .config/nnn/plugins
 link vim .config/nnn/plugins
 link lua .local/share
 
+linkdot hammerspoon
+
 # Run OS specific installation
 run_all "$DOTFILES/install.d-$(uname)"
 # Run host specific installation
