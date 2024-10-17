@@ -4,6 +4,13 @@ local moveIt = hs.loadSpoon("MoveIt")
 -- moveIt.centerKey = 'c'
 moveIt:init()
 
+local cleanClip = hs.loadSpoon("CleanClip")
+cleanClip:init()
+
+-- CleanClip starts in Off mode.  Uncomment one of the following to change.
+-- cleanClip:setMode(cleanClip.TEXT_ONLY)
+-- cleanClip:setMode(cleanClip.TEXT_EXCEL)
+
 function SerializeTable(val, name, skipnewlines, depth)
     skipnewlines = skipnewlines or false
     depth = depth or 0
@@ -56,4 +63,3 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "C", function()
 end)
 
 hs.alert.show("Hammerspoon config loaded!")
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "V", function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
