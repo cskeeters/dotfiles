@@ -36,9 +36,9 @@ vim.keymap.set('n', '<LocalLeader>t', [[yypV:s/[^\|]/-/g<cr><cmd>noh<cr>yyp<cmd>
 vim.keymap.set('n', '<LocalLeader>[', [[yiwi[<Esc>ea](<C-r>")<Esc>]], { buffer=true, desc='Makes word a [link](url)' })
 vim.keymap.set('n', '<LocalLeader>l', [[lBi<<Esc>Ea><Esc>]],          { buffer=true, desc='Makes word a <link>' })
 
-
 vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc='Makes selected text a [link](url)' })
 vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
 -- build
-vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!typst compile '%' '%:r.pdf' && open '%:r.pdf'<cr>]], { buffer=true, desc='Build/Compile to PDF' })
+vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!typst compile '%' '%:r.pdf' && open '%:r.pdf'<cr>]], { buffer=true, desc='Build/Compile to PDF open in Default app (Acrobat)' })
+vim.keymap.set('n', '<C-k>p', [[<Cmd>update<cr>:!typst compile '%' '%:r.pdf' && open -a Preview.app '%:r.pdf'<cr>]], { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })

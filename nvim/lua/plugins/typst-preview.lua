@@ -5,7 +5,12 @@ return {
     lazy = true,
     ft = {'typst'},
     build = function() require 'typst-preview'.update() end,
+    -- Binding to only this file type can most easily be done with keys
+    keys = {
+        { '<C-k>v', '<Cmd>TypstPreview<Cr>',           ft="typst", mode = 'n', silent=true, desc="Toggle Typst Preview" },
+        { '<C-k><C-j>', '<Cmd>TypstPreviewSyncCursor<Cr>', ft="typst", mode = 'n', silent=true, desc="Sync Cursor (Typst)" },
+    },
     config = function()
-        vim.keymap.set('n', '<C-k>v', '<Cmd>TypstPreviewToggle<Cr>', { buffer=true, silent=true, desc="Toggle Typst Preview" })
+        vim.cmd[[TypstPreviewNoFollowCursor]]
     end
 }
