@@ -8,6 +8,16 @@
 --            flags = lsp_flags,
 --        }
 
+
+-- vim.diagnostic.config({
+--   underline = {
+--     severity = { max = vim.diagnostic.severity.INFO }
+--   },
+--   virtual_text = {
+--     severity = { min = vim.diagnostic.severity.WARN }
+--   }
+-- })
+
 local on_attach = function(client, bufnr)
     -- vim.notify("on_attach called")
     -- Enable completion triggered by <c-x><c-o>
