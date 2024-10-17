@@ -2,9 +2,9 @@ return {
     "iamcco/markdown-preview.nvim",
     lazy = true,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
+    ft = { "markdown", "quarto" },
     build = function() vim.fn["mkdp#util#install"]() end,
     config = function()
-        vim.keymap.set('n', '<C-k>v', '<Cmd>MarkdownPreviewToggle<Cr>', { buffer=true, silent=true, desc="Toggle Markdown Preview" })
+        vim.g.mkdp_filetypes = { "markdown", "quarto" }
     end
 }

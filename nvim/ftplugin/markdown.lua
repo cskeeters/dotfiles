@@ -56,10 +56,29 @@ vim.keymap.set('n', '<LocalLeader>l', [[lBi<<Esc>Ea><Esc>]],          { buffer=t
 vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc='Makes selected text a [link](url)' })
 vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
--- vim-marked command
+vim.keymap.set('n', '<C-k>v', '<Cmd>MarkdownPreviewToggle<Cr>', { buffer=true, silent=true, desc="Toggle Markdown Preview" })
+
+-- Rendering
 vim.keymap.set('n', '<C-k>r', [[<Cmd>silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with redcarpet' })
 vim.keymap.set('n', '<C-k>k', [[<Cmd>silent !~/kramdown/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with kramdown' })
-vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!pandoc -f markdown+yaml_metadata_block+simple_tables '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render to docx with pandoc' })
+vim.keymap.set('n', '<C-k>h', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.html' && open '%:r.html'<cr>]], { buffer=true, desc='Render to docx with pandoc (plain)' })
+vim.keymap.set('n', '<C-k>p', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render to docx with pandoc (plain)' })
+vim.keymap.set('n', '<C-k>i', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables --reference-doc=$HOME/RCC/pandoc/minutes.docx '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render minutes to docx with pandoc' })
+vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables --reference-doc=$HOME/RCC/pandoc/doc.docx '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render document to docx with pandoc' })
+vim.keymap.set('n', '<C-k>m', [[<Cmd>update<cr>:!mmd2pdf '%' && open '%:r.pdf'<cr>]], { buffer=true, desc='Render document to pdf with multimarkdown' })
+vim.keymap.set('n', '<C-k>a', [[<Cmd>update<cr>:!pandoc -t typst --template md-article.template % -o %:r.typ<cr>]], { buffer=true, desc='Render document to typst article with pandoc' })
+
+-- Just
+vim.keymap.set('n', '<C-j>w', [[<Cmd>update<cr>:!just word %:t<cr>]], { buffer=true, desc='Use just to make docx and open Word' })
+vim.keymap.set('n', '<C-j>o', [[<Cmd>update<cr>:!just --unstable open %:t<cr>]], { buffer=true, desc='Use just to make PDF and Open' })
+--vim.keymap.set('n', '<C-j>l', [[:let g:justfile=%:t<cr>:tabnew<cr>:execute "term just watch ".g:justfile<cr>]], { buffer=true, desc='Use just to make PDF and open' })
+vim.keymap.set('n', '<C-j>l', [[:let g:justfile=expand('%:t')<cr>:execute "tabedit term://just watch ".g:justfile<cr>:tabprevious<cr>]], { buffer=true, desc='Use just to watch for changes and produce PDFs' })
+vim.keymap.set('n', '<C-j>t', [[<Cmd>update<cr>:!just typ %:t<cr>:e %:t:r.typ<cr>]], { buffer=true, desc='Edit Typst source from previous' })
+
+
+-- Quarto
+vim.keymap.set('n', '<C-k>q', [[<Cmd>QuartoPreview<cr>]], { buffer=true, desc='Preview Quarto' })
+
 
 -- eMASS A&A commands
 --vim.keymap.set('n', '<LocalLeader>gc', [[gg0df"ggh/Supp<Cr>ggh/Potential A<Cr>ggh/Examine:<Cr>i<Cr><Esc>ggp/Interview:<Cr>ggp/Test:<Cr>ggpggh/"<C-v><Tab><Cr>2s<Cr><Esc>d3f<Tab>i<Cr><Cr><Esc>/<C-v><Tab>"<Cr>2s<Cr><Cr><Esc>/"<C-v><Tab><Cr>2s<Cr><Cr><Esc>]], { remap=true, buffer=true, desc='Convert title to Markdown' })
