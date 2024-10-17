@@ -96,6 +96,16 @@ if [[ -t 1 ]]; then
     fi
 fi
 
+#### Command Line Snippets
+
+if [[ -t 1 ]]; then
+    # cmdsnip requires fzf
+    if exists fzf; then
+        if [[ -f ~/.cmdsnip.sh ]]; then
+            source ~/.cmdsnip.sh
+        fi
+    fi
+fi
 
 #### git
 
