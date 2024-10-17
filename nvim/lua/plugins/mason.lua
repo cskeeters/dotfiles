@@ -3,7 +3,7 @@
 -- 2. Run :Mason and install it
 -- 3. Add a section of config like:
 --
---        require('lspconfig').bashls.setup{
+--        lspconfig.bashls.setup{
 --            on_attach = on_attach,
 --            flags = lsp_flags,
 --        }
