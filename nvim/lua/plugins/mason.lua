@@ -19,7 +19,7 @@ local on_attach = function(client, bufnr)
 
     -- Context Help
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { noremap=true, silent=true, buffer=bufnr, desc="Show method definition in hovering window" })
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { noremap=true, silent=true, buffer=bufnr, desc="Show signature help" })
+    vim.keymap.set('n', ',<C-k>', vim.lsp.buf.signature_help, { noremap=true, silent=true, buffer=bufnr, desc="Show signature help" })
     vim.keymap.set('n', '<LocalLeader>D', vim.lsp.buf.type_definition, { noremap=true, silent=true, buffer=bufnr, desc="Show type definition" })
 
     -- Jumping
