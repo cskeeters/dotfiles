@@ -339,6 +339,19 @@ vim.keymap.set('n', '<C-S-h>', [=[<Cmd>vertical resize +1<Cr>]=], { desc="Increa
 vim.keymap.set('n', '<Leader><Leader>i', [=[<Cmd>Inspect<Cr>]=], { desc="Inspect Tree-sitter Highlighting" })
 vim.keymap.set('n', '<Leader><Leader>t', [=[<Cmd>InspectTree<Cr>]=], { desc="Tree-sitter Tree (TSPlayground)" })
 
+vim.keymap.set('n', [[<LocalLeader>']], [["_yiWi'<Esc>ea'<Esc>]], { buffer=true, desc='Add single quotes around word' })
+vim.keymap.set('n', [[<LocalLeader>"]], [["_yiWi"<Esc>ea"<Esc>]], { buffer=true, desc='Add double quotes around word' })
+vim.keymap.set('n', [[<LocalLeader>(]], [["_yiWi(<Esc>ea)<Esc>]], { buffer=true, desc='Add parenthisis around word' })
+vim.keymap.set('n', [[<LocalLeader>[]], [["_yiWi[<Esc>ea]<Esc>]], { buffer=true, desc='Add bracket around word' })
+vim.keymap.set('n', [[<LocalLeader>{]], [["_yiWi{<Esc>ea}<Esc>]], { buffer=true, desc='Add brace around word' })
+
+vim.keymap.set('v', [[<LocalLeader>']], [[s'<C-r>"'<Esc>]], { buffer=true, desc='Add single quotes around visual selection' })
+vim.keymap.set('v', [[<LocalLeader>"]], [[s"<C-r>""<Esc>]], { buffer=true, desc='Add double quotes around visual selection' })
+vim.keymap.set('v', [[<LocalLeader>(]], [[s(<C-r>")<Esc>]], { buffer=true, desc='Add parenthisis around visual selection' })
+vim.keymap.set('v', [[<LocalLeader>[]], [[s[<C-r>"]<Esc>]], { buffer=true, desc='Add bracket around visual selection' })
+vim.keymap.set('v', [[<LocalLeader>{]], [[s{<C-r>"}<Esc>]], { buffer=true, desc='Add brace around visual selection' })
+
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
