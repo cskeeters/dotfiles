@@ -216,8 +216,8 @@ return {
     -- vim.keymap.set('n', '<Leader>on', ':FzfLua files cwd=~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open Note (fzf)" })
 
     -- Jump to line
-    vim.keymap.set('n', '<Leader>jb', ':FzfLua blines<cr>', { desc="Jump to line in current buffer (fzf)" })
-    vim.keymap.set('n', '<Leader>jB', ':FzfLua lines<cr>',  { desc="Jump to line in open buffers (fzf)" })
+    vim.keymap.set('n', '<Leader>jb', ':FzfLua blines previewer=none<cr>', { desc="Jump to line in current buffer (fzf)" })
+    vim.keymap.set('n', '<Leader>jB', ':FzfLua lines previewer=none<cr>',  { desc="Jump to line in open buffers (fzf)" })
     vim.keymap.set('n', '<Leader>jm', ':FzfLua marks<cr>',  { desc="Jump to line from mark (fzf)" })
 
     -- Misc

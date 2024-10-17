@@ -78,6 +78,8 @@ return {
         require('telescope').load_extension('fzf')
 
         vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
+        -- Not sure why, but backspace is needed to remove 'A' from the search string in telegram
+        vim.keymap.set('i', '<C-s>', '<Esc><Cmd>Telescope luasnip<cr>', {desc= "Search for Snippet"})
 
         local builtin = require('telescope.builtin')
         -- NOTE: Currently Using fzf-lua
