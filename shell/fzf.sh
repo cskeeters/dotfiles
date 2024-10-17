@@ -43,7 +43,6 @@ fzfpreview() {
 }
 export -f fzfpreview
 
-
 # PREVIEW="--preview 'cat {}' --preview-window='right,30%,border-left' --border "
 # if command -v bat > /dev/null; then
 #     PREVIEW="--preview 'bat -n --color=always {}' --preview-window='right,30%,border-left' --border "
@@ -134,10 +133,19 @@ export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100
 
 #",ctrl-u:preview-page-up,ctrl-d:preview-page-down"\ # Conflicts with git diff in hash select
 
+if exists ag; then
+    export FZF_DEFAULT_COMMAND='ag -g ""'
+
+    # Use ag for listing path candidates
+    _fzf_compgen_path() {
+        ag -g "" "$1"
+    }
+fi
+
 # Use fd if it's installed
 if command -v fd &> /dev/null; then
     # Use fd instead of find
-    export FZF_DEFAULT_COMMAND="fd --type f --hidden --strip-cwd-prefix --exclude .git --exclude .hg"
+    export FZF_DEFAULT_COMMAND="fd --type f --hidden --no-ignore-vcs --exclude .git/objects --exclude .hg"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git --exclude .hg"
 
@@ -179,3 +187,14 @@ _fzf_comprun() {
         *)     fzf "$@" ;;
     esac
 }
+
+#### FZF Jumping
+
+fzf_project_jump() {
+    D=$(cat $HOME/.paths | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:become(echo {1})')
+    if [[ $D != "" ]]; then
+        printf 'builtin cd -- %q' "$D"
+    fi
+}
+bind -m emacs-standard '"\ej": "`fzf_project_jump`\e\C-e\C-m"'
+

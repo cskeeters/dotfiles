@@ -86,28 +86,12 @@ load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
 
-#### FZF Jumping
-
-fzf_project_jump() {
-    D=$(cat $HOME/.paths | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:become(echo {1})')
-    if [[ $D != "" ]]; then
-        printf 'builtin cd -- %q' "$D"
-    fi
-}
+#### FZF
 
 if [[ -t 1 ]]; then
     if exists fzf; then
         if [[ -f ~/.fzf.sh ]]; then
             source ~/.fzf.sh
-
-            bind -m emacs-standard '"\ej": "`fzf_project_jump`\e\C-e\C-m"'
-
-            if exists ag; then
-                export FZF_DEFAULT_COMMAND='ag -g ""'
-                _fzf_compgen_path() {
-                    ag -g "" "$1"
-                }
-            fi
         fi
     fi
 fi
@@ -145,14 +129,5 @@ if exists eza; then
     alias ll='eza -l --icons'
     alias lm='eza -l --icons -s modified'
 fi
-
-#### Fuzzy Style File Completion
-#
-# With autojump, this is not necessary
-#
-#if exists _cd; then
-#    # Enable fuzzy style completions
-#    [[ -f ~/.completions ]] && source ~/.completions
-#fi
 
 # vim:ft=sh
