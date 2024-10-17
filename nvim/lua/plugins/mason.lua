@@ -190,29 +190,62 @@ return {
         }
 
         -- MasonInstall ltex-ls
-        require'lspconfig'.ltex.setup{
-            -- Override filetypes in server_configuration/ltex to enable typst
-            filetypes = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
-            on_attach = on_attach,
-            flags = lsp_flags,
-            capabilities = capabilities,
-            settings = {
-                ltex = {
-                    language = "en-US",
-                    enabled = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
+        -- lspconfig.ltex.setup{
+        --     -- Override filetypes in server_configuration/ltex to enable typst
+        --     filetypes = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
+        --     --filetypes = { "latex", "typst", "typ", "bib", "plaintex", "tex" },
+        --     on_attach = on_attach,
+        --     flags = lsp_flags,
+        --     capabilities = capabilities,
+        --     settings = {
+        --         ltex = {
+        --             language = "en-US",
+        --             enabled = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
 
-                    -- see https://valentjn.github.io/ltex/settings.html#ltexdictionary
-                    dictionary = {
-                        -- ["en-US"] = {'Callsign', 'callsign'} -- works
-                        ["en-US"] = spelling_words()
-                    },
-                    -- https://valentjn.github.io/ltex/settings.html#ltexdisabledrules
-                    -- https://community.languagetool.org/rule/list?lang=en-US
-                    disabledRules = {
-                        ['en-US'] = { 'PROFANITY', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' }
-                    },
-                },
-            }
+        --             -- see https://valentjn.github.io/ltex/settings.html#ltexdictionary
+        --             dictionary = {
+        --                 -- ["en-US"] = {'Callsign', 'callsign'} -- works
+        --                 ["en-US"] = spelling_words()
+        --             },
+        --             -- https://valentjn.github.io/ltex/settings.html#ltexdisabledrules
+        --             -- https://community.languagetool.org/rule/list?lang=en-US
+        --             disabledRules = {
+        --                 ['en-US'] = { 'PROFANITY', 'MORFOLOGIK_RULE_EN_US', 'WHITESPACE_RULE' }
+        --             },
+        --         },
+        --     }
+        -- }
+
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#harper_ls
+        lspconfig.harper_ls.setup {
+            on_attach = on_attach,
+            filetypes = { "text", "markdown", "rust", "typescript", "typescriptreact", "javascript", "python", "go", "c", "cpp", "ruby", "swift", "cs", "toml", "lua", "gitcommit", "java", "html" },
+            settings = {
+                ["harper-ls"] = {
+                    userDictPath = "~/.config/nvim/harper_dict.txt",
+                    diagnosticSeverity = "hint", -- Can also be "information", "warning", or "error"
+                    linters = {
+                        spell_check = true,
+                        spelled_numbers = true,
+                        an_a = true,
+                        sentence_capitalization = true,
+                        unclosed_quotes = true,
+                        wrong_quotes = false,
+                        long_sentences = true,
+                        repeated_words = true,
+                        spaces = false,
+                        matcher = true,
+                        correct_number_suffix = true,
+                        number_suffix_capitalization = true,
+                        multiple_sequential_pronouns = true,
+                        linking_verbs = false,
+                        avoid_curses = true,
+                        terminating_conjunctions = true
+                    }
+                }
+            },
+        }
+
         }
     end
 }
