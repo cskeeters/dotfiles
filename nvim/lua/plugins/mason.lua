@@ -192,15 +192,17 @@ return {
             capabilities = capabilities,
         })
 
-        -- MasonInstall typst-lsp
-        --lspconfig.typst_lsp.setup{
+        -- MasonInstall tinymist
+        lspconfig.tinymist.setup{
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
+            offset_encoding = "utf-8",
             settings = {
-                -- Not sure if this is supported in neovim
-                exportPdf = "never" -- Choose onType, onSave or never.
-                -- serverPath = "" -- There is no need if .typ file is in git repository
+                -- See https://github.com/Myriad-Dreamin/tinymist/issues/528
+                --exportPdf = "onType",
+                --exportPdf = "onSave",
+                --outputPath = "$root/$dir/$name",
             }
         }
 
@@ -261,6 +263,5 @@ return {
             },
         }
 
-        }
     end
 }
