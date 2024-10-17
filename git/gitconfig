@@ -82,4 +82,7 @@
 [diff]
 	colorMoved = default
 
+[advice]
+	detachedHead = false
+
 # vim:ft=gitconfig:noexpandtab
