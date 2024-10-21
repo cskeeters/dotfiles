@@ -11,6 +11,14 @@ return {
         { '<C-k><C-j>', '<Cmd>TypstPreviewSyncCursor<Cr>', ft="typst", mode = 'n', silent=true, desc="Sync Cursor (Typst)" },
     },
     config = function()
+        require 'typst-preview'.setup({
+            -- Setting debug to true will route tinymist's stderr to :messages
+            debug = true,
+            dependencies_bin = {
+                ['tinymist'] = "/opt/homebrew/bin/tinymist",
+            },
+        })
+
         vim.cmd[[TypstPreviewNoFollowCursor]]
     end
 }
