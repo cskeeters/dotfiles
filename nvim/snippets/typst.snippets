@@ -145,7 +145,16 @@ snippet table-figure Adds table as figure
 				[Chad], [Skeeters],
 			table.hline(stroke: 1pt),
 		),
-		caption: [@BCS-T Applications],
+		caption: [BCS-T Applications],
+	)
+snippet table-figure-local Adds a table with local/format-table
+	#figure(
+		table(
+			columns: (auto, auto), // for full width table, use 1fr
+			table.header([*First*], [*Last*]),
+			[Chad], [Skeeters],
+		),
+		caption: [BCS-T Applications],
 	)
 snippet table-complex Example of multi-row table
 	#figure(
