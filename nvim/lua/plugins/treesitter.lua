@@ -18,6 +18,7 @@ return {
                 "c",
                 "cpp",
                 "css",
+                "diff",
                 "go",
                 "html",
                 "java",
