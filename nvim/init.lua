@@ -176,7 +176,8 @@ end
 --augroup END
 --]]
 
-
+-- Insert mode for new teriminals
+vim.cmd[[autocmd TermOpen * startinsert]]
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
