@@ -61,3 +61,15 @@ snippet scanner
 	for scanner.Scan() {
 		log.Printf("%s", scanner.Text())
 	}
+snippet tmpfile
+	f, err := os.CreateTemp("", "LABEL-")
+	if err != nil {
+		log.Fatal(err)
+	}
+	f.WriteString("test1")
+	f.WriteString("test2")
+	f.Close()
+
+	fmt.Println(f.Name())
+
+	tmppath := filepath.Join(os.TempDir(), f.Name())
