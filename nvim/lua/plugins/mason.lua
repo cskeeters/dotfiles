@@ -134,6 +134,7 @@ return {
 
         vim.keymap.set('n', '<Leader><Leader>lspi', ':LspInstall<cr>',   { desc="Install LSP Server" })
         vim.keymap.set('n', '<Leader><Leader>lspu', ':LspUninstall<cr>', { desc="Uninstall LSP Server" })
+        vim.keymap.set('n', '<Leader><Leader>lspr', ':LspRestart<cr>', { desc="Restart LSP Server" })
 
         local lsp_flags = {
             -- This is the default in Nvim 0.7+
