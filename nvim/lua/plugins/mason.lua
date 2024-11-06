@@ -307,8 +307,6 @@ return {
             },
         }
 
-<<<<<<< Updated upstream
-=======
         require('lspconfig').yamlls.setup {
             settings = {
                 yaml = {
@@ -332,6 +330,5 @@ return {
             }
         }
 
->>>>>>> Stashed changes
     end
 }
