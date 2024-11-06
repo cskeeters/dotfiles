@@ -10,6 +10,7 @@
 	s   = status
 	st  = status
 	sta = status
+	re  = remote -v
 
 	sw  = switch
 
