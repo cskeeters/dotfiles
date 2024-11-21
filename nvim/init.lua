@@ -201,6 +201,10 @@ vim.keymap.set('n', 'Y', 'y$', { noremap=true, silent=true, desc="Copies text fr
 vim.keymap.set('n', 'x', '"_x', { noremap=true, silent=true, desc="Remove character without affecting the unnamed register" })
 vim.keymap.set('v', 'x', '"_x', { noremap=true, silent=true, desc="Remove character(s) without affecting the unnamed register" })
 vim.keymap.set('n', 'X', '"_X', { noremap=true, silent=true, desc="Remove character before without affecting the unnamed register" })
+vim.keymap.set('n', 'c', '"oc', { noremap=true, silent=true, desc="Change operator (current value to o register)" })
+vim.keymap.set('v', 'c', '"oc', { noremap=true, silent=true, desc="Change the selected text (current value to o register)" })
+vim.keymap.set('n', 'C', '"oC', { noremap=true, silent=true, desc="Replace the rest of the line without affecting clipboard" })
+-- Use P to paste without wiping out unnamed register
 
 vim.keymap.set('v', '<LocalLeader>d', '"_d', { noremap=true, desc="Remove selected text without affecting the unnamed register" })
 
