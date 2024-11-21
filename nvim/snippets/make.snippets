@@ -1,0 +1,29 @@
+snippet variable_target AV: Target of the rule
+	$@
+snippet variable_first_prerequisite AV: First prerequisite
+	$<
+snippet variable_second_prerequisite AV: Second prerequisite
+	$(word 2,$^)
+snippet variable_all_newer_prerequisites AV: All newer prerequisites
+	$?
+snippet variable_all_prerequisites_no_dups AV: All prerequisites (no duplicates)
+	$^
+snippet variable_all_prerequisites AV: All prerequisites (as listed)
+	$+
+snippet list Substitue file extensions
+	SRCS   = $(OBJS:.o=.c++)
+snippet subst_ext Substitue file extensions
+	SRCS   = $(OBJS:.o=.c++)
+snippet rule_wildcard Rule with wildcard
+	%.o: %.c++
+		$(CXX) $(OUTPUT_OPTION) -c $(CXXFLAGS) $(INCLUDES) $< $(DEPFLAGS)
+		$(INSTALL_DEP)
+snippet variable
+	OBJS = f1.o \
+	       f2.o
+snippet variable_push Add to variable list
+	OBJS += f3.o
+snippet include
+	include ${1:other.makefile}
+snippet phony Creates a line for marking rules as not relating to the creation of files
+	.PHONY: build clean
