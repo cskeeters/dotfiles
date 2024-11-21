@@ -191,7 +191,7 @@ _fzf_comprun() {
 #### FZF Jumping
 
 fzf_project_jump() {
-    D=$(cat $HOME/.paths | fzf -d '	' --with-nth 2,3,4,5,6 --bind 'enter:become(echo {1})')
+    D=$(cat $HOME/.paths | fzf -d '	' --with-nth 2.. --bind 'enter:become(echo {1})')
     if [[ $D != "" ]]; then
         printf 'builtin cd -- %q' "$D"
     fi
