@@ -61,8 +61,8 @@ vim.keymap.set('n', '<C-k>v', '<Cmd>MarkdownPreviewToggle<Cr>', { buffer=true, s
 -- Rendering
 vim.keymap.set('n', '<C-k>r', [[<Cmd>silent !~/redcarpet/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with redcarpet' })
 vim.keymap.set('n', '<C-k>k', [[<Cmd>silent !~/kramdown/render.rb '%' && open '%:r'.html<cr>]], { buffer=true, desc='Render to html with kramdown' })
-vim.keymap.set('n', '<C-k>h', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.html' && open '%:r.html'<cr>]], { buffer=true, desc='Render to docx with pandoc (plain)' })
-vim.keymap.set('n', '<C-k>p', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render to docx with pandoc (plain)' })
+vim.keymap.set('n', '<C-k>h', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.html' && open '%:r.html'<cr>]], { buffer=true, desc='Render to html with pandoc (plain)' })
+vim.keymap.set('n', '<C-k>w', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render to docx with pandoc (plain)' })
 vim.keymap.set('n', '<C-k>i', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables --reference-doc=$HOME/RCC/pandoc/minutes.docx '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render minutes to docx with pandoc' })
 vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!pandoc -f markdown+simple_tables --reference-doc=$HOME/RCC/pandoc/doc.docx '%' -o '%:r.docx' && open '%:r.docx'<cr>]], { buffer=true, desc='Render document to docx with pandoc' })
 vim.keymap.set('n', '<C-k>m', [[<Cmd>update<cr>:!mmd2pdf '%' && open '%:r.pdf'<cr>]], { buffer=true, desc='Render document to pdf with multimarkdown' })
