@@ -142,8 +142,62 @@ function SetDefaultPrinter()
     require'fzf-lua'.fzf_exec(GeneratePrinters, opts)
 end
 
-vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
-vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
+function StartLSP()
+    require'fzf-lua'.fzf_exec(require('lspconfig.util').available_servers(), {
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, name in ipairs(selected) do
+                    vim.notify("Starting LSP " .. name);
+                    -- vim.lsp.stop_client(id, true)
+                    vim.cmd("LspStart "..name)
+
+                    -- local config = require('lspconfig.configs')[server_name]
+                    -- if config then
+                        -- config.launch()
+                        -- return
+                    -- end
+
+                end
+            end
+        },
+    })
+end
+
+function StopLSP()
+    local options = {}
+    for _, client in ipairs(vim.lsp.get_clients()) do
+        local option = string.format("%s (%d)", client.name, client.id)
+        table.insert(options, option)
+    end
+
+    require'fzf-lua'.fzf_exec(options, {
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, opt in ipairs(selected) do
+                    local s, _, name, id_str = string.find(opt, "(.*) %(([%d]+)%)")
+                    if s ~= nil then
+                        local id = tonumber(id_str)
+                        if id ~= nil then
+                            vim.notify("Disabling LSP " .. name .. " (" .. id .. ")");
+                            vim.lsp.stop_client(id, true)
+                            -- Could also execute
+                            -- vim.cmd("LspStop "..id_str.." ++force")
+                        else
+                            vim.notify("ID (" .. id_str .. ") not a number ");
+                        end
+                    else
+                        vim.notify("Could not parse result (" .. opt .. ")");
+                    end
+
+                end
+            end
+        },
+    })
+end
 
 local border
 border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' }
@@ -255,6 +309,13 @@ return {
 
     --vim.keymap.set({'n'}, '<Leader>flg', ':FzfLua grep_last<cr>', { desc="Find text with last search" })
     -- vim.keymap.set({'n'}, '<Leader><Tab>', '<Plug>(fzf-maps-n)', { desc="Search normal mode maps" })
+
+    vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
+
+    vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
+
+    vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
+    vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })
 
     if not vim.fn.has("gui_running") then
         vim.keymap.set('i', '<c-x><c-k>', '<Plug>(fzf-complete-word)', { desc="Use fzf to find word to insert" })
