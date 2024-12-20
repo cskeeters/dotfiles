@@ -37,3 +37,7 @@ snippet eprint Print to stderr
 		local m = string.format(f.."\n",table.unpack({...}))
 		io.stderr:write(m)
 	end
+
+snippet format String formatter
+	local r = string.format("%s\n", variable)
+
