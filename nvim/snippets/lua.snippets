@@ -4,6 +4,14 @@ snippet print Prints file with value
 snippet inspect Prints table in human readable format in neovim
 	print(vim.inspect(${1:table}))
 
+snippet for_dict Iterate over dictionary (table)
+	t = {}
+	t["k"] = 5
+	-- here we use pairs instead of ipairs
+	for k,v in pairs(t) do
+		print(k.." => "..tostring(v))
+	end
+
 snippet for Iterate over table
 	for i, ${1:value} in ipairs(${2:table}) do
 		${3}
