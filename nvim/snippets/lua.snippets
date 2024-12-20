@@ -41,3 +41,40 @@ snippet eprint Print to stderr
 snippet format String formatter
 	local r = string.format("%s\n", variable)
 
+snippet vim_fzf_lua_table Custom FZF with action
+	function Foo()
+		-- options is table of strings
+		local options = {}
+		table.insert(options, string.format("%s (%d)", "Foo", 1))
+		table.insert(options, string.format("%s (%d)", "Bar", 2))
+		table.insert(options, string.format("%s (%d)", "Baz", 3))
+
+		require'fzf-lua'.fzf_exec(options, {
+			debug_cmd=false, -- change to true and use :messages to see fzf command issued
+			actions = {
+				['default'] = function(selected, _)
+					-- We loop here, but only one will actually be selected
+					for _, opt in ipairs(selected) do
+						local s, _, name, id_str = string.find(opt, "(.*) %(([%d]+)%)")
+						if s ~= nil then
+							local id = tonumber(id_str)
+							if id ~= nil then
+								vim.notify("DO FOO " .. name .. " (" .. id .. ")");
+							else
+								vim.notify("ID (" .. id_str .. ") not a number ");
+							end
+						else
+							vim.notify("Could not parse result (" .. opt .. ")");
+						end
+					end
+				end
+			},
+			-- Use this if you want to hide some of the data
+			-- fzf_opts = {
+				-- -- hide client_id
+				-- ["--delimiter"] = "[,]",
+				-- ["--with-nth"]  = '2..',
+			-- },
+		})
+	end
+	vim.keymap.set('n', '<localleader>asdf', Foo, { desc="FZF DO FOO" })
