@@ -9,20 +9,41 @@
 --        }
 
 
--- vim.diagnostic.config({
---   underline = {
---     severity = { max = vim.diagnostic.severity.INFO }
---   },
---   virtual_text = {
---     severity = { min = vim.diagnostic.severity.WARN }
---   }
--- })
+-- May create bindings for the following later...
+-- vim.diagnostic.enable()
+-- vim.diagnostic.disable()
+
+-- vim.diagnostic.show()
+-- vim.diagnostic.hide()
+
+-- Severity level to jump to in goto routines
+local goto_opts = { severity=vim.diagnostic.severity.HINT }
+
+local set_diag_severity = function(severity)
+    print("Setting to "..vim.diagnostic.severity[severity])
+
+    vim.diagnostic.config({
+        underline = {
+            severity = { min=severity }
+        },
+        virtual_text = {
+            severity = { min=level }
+        }
+        -- signs = {
+            -- text = {}
+            -- linehl = {}
+            -- numhl = {}
+        -- }
+    })
+
+    goto_opts = { severity=severity }
+end
 
 local on_attach = function(client, bufnr)
     -- vim.notify("on_attach called")
+
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf=bufnr })
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -54,6 +75,22 @@ local on_attach = function(client, bufnr)
     -- vim.diagnostic.setloclist()
     -- vim.diagnostic.setqflist()
     vim.keymap.set('n', '<Leader>D',  "<cmd>lua vim.diagnostic.setqflist()<cr>", { noremap=true, silent=true, buffer=bufnr, desc="Load diagnostics in Quickfix" })
+
+    vim.keymap.set('n', '<LocalLeader>le', function()
+        set_diag_severity(vim.diagnostic.severity.ERROR)
+    end, { noremap=true, silent=true, buffer=bufnr, desc="Set diagnostic severity min to ERROR" })
+
+    vim.keymap.set('n', '<LocalLeader>lw', function()
+        set_diag_severity(vim.diagnostic.severity.WARN)
+    end, { noremap=true, silent=true, buffer=bufnr, desc="Set diagnostic severity min to WARN" })
+
+    vim.keymap.set('n', '<LocalLeader>li', function()
+        set_diag_severity(vim.diagnostic.severity.INFO)
+    end, { noremap=true, silent=true, buffer=bufnr, desc="Set diagnostic severity min to INFO" })
+
+    vim.keymap.set('n', '<LocalLeader>lh', function()
+        set_diag_severity(vim.diagnostic.severity.HINT)
+    end, { noremap=true, silent=true, buffer=bufnr, desc="Set diagnostic severity min to HINT" })
 end
 
 -- Generates table for ltex-ls dictionary
@@ -85,8 +122,14 @@ return {
         })
 
         vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true })
-        vim.keymap.set('n', '[d',             vim.diagnostic.goto_prev,  { noremap=true, silent=true })
-        vim.keymap.set('n', ']d',             vim.diagnostic.goto_next,  { noremap=true, silent=true })
+
+        vim.keymap.set('n', '[d', function()
+            vim.diagnostic.goto_prev(goto_opts)
+        end,  { noremap=true, silent=true })
+        vim.keymap.set('n', ']d', function()
+            vim.diagnostic.goto_next(goto_opts)
+        end,  { noremap=true, silent=true })
+
         vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, { noremap=true, silent=true })
 
         vim.keymap.set('n', '<Leader><Leader>lspi', ':LspInstall<cr>',   { desc="Install LSP Server" })
@@ -263,5 +306,31 @@ return {
             },
         }
 
+<<<<<<< Updated upstream
+=======
+        require('lspconfig').yamlls.setup {
+            settings = {
+                yaml = {
+                    validate = true,
+                    -- disable the schema store
+                    schemaStore = {
+                        enable = false,
+                        url = "",
+                    },
+                    -- manually select schemas
+                    schemas = {
+                        ['/Users/chad/RCC/schema/expense_schema.json'] = 'expense*.yml',
+                        -- ['/Users/chad/RCC/schema/invoice_schema.json'] = 'invoice*.yml',
+                        ['/Users/chad/RCC/schema/financials_schema.json'] = 'financials.yml',
+                        ['/Users/chad/RCC/schema/test.json'] = 'test*.yml',
+                        -- ['https://json.schemastore.org/kustomization.json'] = 'kustomization.{yml,yaml}',
+                        -- ['https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json'] = 'docker-compose*.{yml,yaml}',
+                        -- ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-application.yaml",
+                    }
+                }
+            }
+        }
+
+>>>>>>> Stashed changes
     end
 }
