@@ -79,6 +79,9 @@ vim.keymap.set('n', '<C-j>t', [[<Cmd>update<cr>:!just typ %:t<cr>:e %:t:r.typ<cr
 -- Quarto
 vim.keymap.set('n', '<C-k>q', [[<Cmd>QuartoPreview<cr>]], { buffer=true, desc='Preview Quarto' })
 
+-- Pandoc-Typst-PDF (ptp)
+vim.keymap.set('n', '<C-k>h', [[<Cmd>!ptp -hv '%'<Cr>]], { buffer=true, desc='Render to Hardcopy PDF via Typst (ptp)' })
+vim.keymap.set('n', '<C-k>p', [[<Cmd>!ptp -v '%'<Cr>]], { buffer=true, desc='Render to PDF via Typst (ptp)' })
 
 -- eMASS A&A commands
 --vim.keymap.set('n', '<LocalLeader>gc', [[gg0df"ggh/Supp<Cr>ggh/Potential A<Cr>ggh/Examine:<Cr>i<Cr><Esc>ggp/Interview:<Cr>ggp/Test:<Cr>ggpggh/"<C-v><Tab><Cr>2s<Cr><Esc>d3f<Tab>i<Cr><Cr><Esc>/<C-v><Tab>"<Cr>2s<Cr><Cr><Esc>/"<C-v><Tab><Cr>2s<Cr><Cr><Esc>]], { remap=true, buffer=true, desc='Convert title to Markdown' })
