@@ -33,6 +33,8 @@ nnn
 php
 TOC
 OTF
+SPR
+SAH
 ARSR
 CDRL
 CLIN
@@ -55,6 +57,10 @@ Z420
 Z440
 eMMC
 enum
+ALSA
+STIG
+NVMe
+PDFs
 ARM64
 CDRLs
 CLINs
@@ -94,6 +100,7 @@ bootable
 callsign
 renderer
 fleurons
+underrun
 Kickstart
 Uncomment
 auditable
@@ -107,11 +114,14 @@ uninvoiced
 selectable
 financials
 financials
+Ghostscript
 FriendlyElec
 deliverables
 kickstarting
 unsubsidized
 unassociated
+DemoRecorder
+distributable
 Scholarshipowl
 microcontroller
 microcontrollers
