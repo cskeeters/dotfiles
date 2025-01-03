@@ -55,7 +55,7 @@ runsnippet() {
                 fi
                 #echo "$i -> $DEFAULT"
 
-                CMD=$(echo "$CMD" | sed -re 's/\$\{'"$i"'.*\}/'"$VALUE"'/g')
+                CMD=$(echo "$CMD" | sed -re 's/\$\{'"$i"'[^\}]*\}/'"$VALUE"'/g')
             fi
         done
 
