@@ -265,6 +265,6 @@ link lua .local/share
 linkdot hammerspoon
 
 # Run OS specific installation
-run_all "$DOTFILES/install.d-$(uname)"
+run_all "$dotfiles/install.d-$(uname)"
 # Run host specific installation
-run_all "$DOTFILES/install.d-$(hostname -s)"
+run_all "$dotfiles/install.d-$(hostname -s)"
