@@ -22,6 +22,9 @@
 local obj = {
 }
 
+-- Requires: luarocks install luaposix
+local executil = require("executil")
+
 -- Metadata
 obj.name = "CleanClip"
 obj.version = "1.0"
@@ -37,6 +40,7 @@ local old_uti = "vnd.sqlite3"               -- Should be a valid UTI that is not
 obj.OFF = 0
 obj.TEXT_ONLY = 1
 obj.TEXT_EXCEL = 2
+obj.MARKDOWN = 3
 
 obj.mode = 0
 
@@ -55,11 +59,15 @@ function obj:setMode(m)
         hs.alert.show("CleanClip Mode: Text / Excel")
         SetExcel()
     end
+    if obj.mode == obj.MARKDOWN then
+        hs.alert.show("CleanClip Mode: Markdown")
+        SetMarkdown()
+    end
 end
 
 function obj:changeMode()
     local m = obj.mode + 1
-    if (m > obj.TEXT_EXCEL) then
+    if (m > obj.MARKDOWN) then
         m = obj.OFF
     end
 
@@ -108,16 +116,43 @@ local function cleanExcel(data)
     return table.concat(mlines, "\n")
 end
 
+function Turndown(html)
+    -- This turndown script has turndown in node_modules in a sub-directory
+    local exit_status, markdown, _ = executil.run(html, "/opt/homebrew/bin/node", "/usr/local/bin/turndown/turndown.js")
+    -- print(string.format("Ran Turndown with exit %d\n", exit_status))
+
+    if exit_status ~= 0 then
+        error("error running turndown")
+        return ""
+    else
+        return markdown
+    end
+end
+
 -- Returns true when new data is detected and copied
 function save_raw()
-    -- In case we need to see what UTIs are being set
-    -- local types = hs.pasteboard.contentTypes()
-    -- print("types")
-    -- for _,v in ipairs(types) do
-        -- print(v)
-    -- end
-
     local all_data = hs.pasteboard.readAllData()
+
+    if all_data[text_uti] ~= nil then
+        all_data["markdown"] = all_data[text_uti] -- default for no public.html
+    else
+        all_data["markdown"] = ""
+    end
+
+    -- In case we need to see what UTIs are being set
+    local types = hs.pasteboard.contentTypes()
+    -- print("types")
+    for _,type in ipairs(types) do
+        -- print(type)
+        if type == "public.html" then
+            -- print(all_data[type])
+            local markdown = Turndown(all_data[type])
+
+            -- print(markdown)
+            all_data["markdown"] = markdown
+        end
+    end
+
     if all_data ~= nil then
         if all_data[old_uti] == nil then
             current_all_data = all_data
@@ -177,6 +212,21 @@ function SetExcel()
     end
 end
 
+function SetMarkdown()
+    if current_all_data ~= nil then
+        -- If the current data has no value for text_uti, leave the raw data in place
+        if current_all_data[text_uti] ~= nil then
+            local all_data = {}
+            -- skip copying all other UTIs
+            all_data[text_uti] = current_all_data.markdown
+            all_data[old_uti] = "1"
+            if hs.pasteboard.writeAllData(all_data) ~= true then
+                hs.alert.show("Error setting clipboard")
+            end
+        end
+    end
+end
+
 function obj:clipboardCallback()
     -- print("clipboardCallback")
     if save_raw() then
@@ -186,6 +236,9 @@ function obj:clipboardCallback()
         end
         if obj.mode == obj.TEXT_EXCEL then
             SetExcel()
+        end
+        if obj.mode == obj.MARKDOWN then
+            SetMarkdown()
         end
     end
 end
