@@ -241,7 +241,6 @@ return {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-            offset_encoding = "utf-8",
             settings = {
                 -- See https://github.com/Myriad-Dreamin/tinymist/issues/528
                 --exportPdf = "onType",
