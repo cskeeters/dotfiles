@@ -71,6 +71,7 @@ Sherm
 Typst
 eMASS
 macOS
+Gaddy
 Cappex
 Common
 DietPI
@@ -85,6 +86,8 @@ TELMOC
 nVidia
 rebase
 Novela
+Booton
+Popken
 AArch64
 Arduino
 Grapher
