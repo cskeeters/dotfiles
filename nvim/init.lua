@@ -196,6 +196,9 @@ vim.keymap.set('n', '<c-w>]', ':vertical wincmd ]<cr>', { noremap=true, silent=t
 
 ---- Keyboard Mappings: Built-in
 
+vim.keymap.set('n', '<leader>w',  ':bdelete<cr>',  { noremap=true, silent=true, desc="Closes a buffer" })
+vim.keymap.set('n', '<leader>gw', ':bdelete!<cr>', { noremap=true, silent=true, desc="Closes a buffer (Without Saving!)" })
+
 -- Yank from the cursor to the end of the line, to be consistent with C and D.
 vim.keymap.set('n', 'Y', 'y$', { noremap=true, silent=true, desc="Copies text from cursor to the end of the line"})
 
