@@ -67,7 +67,7 @@ if term ~= nil then
     end
 end
 
--- This will be overwritten if lualine or vim-statusline is loaded
+-- This will be overwritten if lualine is loaded
 vim.opt.statusline="  %1* %{getcwd()} %0*" ..                       -- current root or dir
                    "  %2* %f%m %0*" ..                              -- Filename/Modified
                    "%=" ..                                          -- Right Aligned
