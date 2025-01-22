@@ -75,7 +75,7 @@ git_select_modified() {
 }
 
 git_select_staged() {
-    git diff --name-only --staged | fzf --height="90%"--preview 'git diff --staged --color=always {}' --preview-window='top,50%'
+    git diff --name-only --staged | fzf --height="90%" --preview 'git diff --staged --color=always {}' --preview-window='top,50%'
 }
 
 git_tags() {
