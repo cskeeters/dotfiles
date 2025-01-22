@@ -8,7 +8,7 @@ return {
     -- Binding to only this file type can most easily be done with keys
     keys = {
         { '<C-k>v', '<Cmd>TypstPreview<Cr>',           ft="typst", mode = 'n', silent=true, desc="Toggle Typst Preview" },
-        { '<C-k><C-j>', '<Cmd>TypstPreviewSyncCursor<Cr>', ft="typst", mode = 'n', silent=true, desc="Sync Cursor (Typst)" },
+        { '<C-k><C-j>', '<Cmd>TypstPreviewSyncCursor<Cr>', ft="typst", mode = 'n', silent=true, desc="Scroll Browswer Preview to Vim Cursor (Typst) (Be on second letter of a word)" },
     },
     config = function()
         require 'typst-preview'.setup({
