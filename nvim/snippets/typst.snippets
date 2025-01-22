@@ -2,6 +2,13 @@ snippet import-local Import (Local)
 	#import "@local/${1:article}:0.1.0": *
 snippet import-local Import (Preview)
 	#import "@preview/${1:tablem}:0.1.0": *
+
+snippet rcc-logo RCC Logo
+	#import "@local/rcc:0.1.0": *
+	rcc_logo(width:100pt)
+snippet rch-logo RCH Logo
+	#import "@local/rch:0.1.0": *
+	rch_logo(width:100pt)
 snippet tabelm Markdown Table Support
 	#import "@preview/tablem:0.1.0": tablem
 
