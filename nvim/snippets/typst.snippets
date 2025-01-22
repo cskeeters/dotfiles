@@ -9,6 +9,25 @@ snippet rcc-logo RCC Logo
 snippet rch-logo RCH Logo
 	#import "@local/rch:0.1.0": *
 	rch_logo(width:100pt)
+
+snippet signature Signature Block
+	grid(
+		align: (left+bottom, bottom),
+		columns: (1fr, auto),
+		{
+		},
+		{
+			box(
+				align(left, {
+					set block(spacing: 5pt)
+					v(1in) // Height of signature
+					line(stroke:1.5pt, length:3.5in)
+					text(weight: 500, upper(reported_by))
+				})
+			)
+		}
+	)
+
 snippet tabelm Markdown Table Support
 	#import "@preview/tablem:0.1.0": tablem
 
