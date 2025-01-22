@@ -51,7 +51,8 @@ snippet page-setup Page Setup
 	#set page(
 		paper: "us-letter",
 		margin: (top: 2in, bottom: 1in, x:1in),
-		//margin: (y:1in, x:1in),
+		// margin: (y:1in, x:1in),
+		// flipped: true, // Landscape
 		header: context {
 			if not hardcopy or calc.odd(here().page()) {
 				align(right, {
