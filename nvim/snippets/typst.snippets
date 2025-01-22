@@ -330,8 +330,12 @@ snippet secret Secret Stamps
   place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
 snippet grid Grid
 	#grid(
-		//columns: (2in, 1fr),
 		columns: (1fr, 1fr),
+
+		//gutter: 5pt,
+		row-gutter: 5pt,
+		column-gutter: 5pt,
+
 		${1:[Left]},
 		${2:[Right]}
 	)
