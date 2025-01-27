@@ -255,7 +255,10 @@ snippet quote
 		Ich bin ein Berliner.
 	]
 snippet link
-	#link("http://www.google.com")
+	#link("http://www.google.com")[Google]
+snippet link_cross_reference Cross reference (link)
+	#link(<Introduction>)
+	#link(<Introduction>)[Introduction]
 snippet columns
 	#grid(
 		columns: (1fr, 1fr),
@@ -345,4 +348,14 @@ snippet block Block
 		inset: 8pt,
 		radius: 4pt,
 		${1:lorem(30)}
+	)
+snippet image Image
+	image("molecular.jpg", width: 80%),
+snippet figure_image Image with caption
+	#figure(
+		image("molecular.jpg", width: 80%),
+		caption: [
+			A step in the molecular testing
+			pipeline of our lab.
+		],
 	)

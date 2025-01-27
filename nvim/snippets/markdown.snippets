@@ -25,3 +25,11 @@ snippet mermaid
 	flowchart LR
 	    START(Start) --> DOIT[Just Do It] --> END(End)
 	\`\`\`
+snippet execute_typst
+	```{=typst}
+	#heading("Table of Contents", outlined: false, bookmarked:true)
+	#outline(title: none)
+	#set heading(numbering: "1.1")
+
+	#pagebreak(weak: true)
+	```
