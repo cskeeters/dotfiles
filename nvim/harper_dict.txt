@@ -106,6 +106,7 @@ callsign
 renderer
 fleurons
 underrun
+Homebrew
 Kickstart
 Uncomment
 auditable
