@@ -129,9 +129,38 @@ function Turndown(html)
     end
 end
 
+local safe_read_all_data = function()
+    -- Calling any of the following results in an added bookmark
+    -- hs.pasteboard.readAllData()
+    -- hs.pasteboard.readDataForUTI("com.microsoft.Link-Source") -- bad
+    -- hs.pasteboard.readDataForUTI("com.microsoft.ObjectLink") -- bad
+
+    local all_data = {}
+
+    local types = hs.pasteboard.contentTypes()
+    for i, type in ipairs(types) do
+
+        if type == "com.microsoft.ObjectLink" then
+            goto continue
+        end
+
+        if type == "com.microsoft.Link-Source" then
+            goto continue
+        end
+
+        -- Safe to read data without creating bookmark in MS Word
+        local data = hs.pasteboard.readDataForUTI(type)
+        all_data[type] = data
+
+        ::continue::
+    end
+
+    return all_data
+end
+
 -- Returns true when new data is detected and copied
 function save_raw()
-    local all_data = hs.pasteboard.readAllData()
+    local all_data = safe_read_all_data()
 
     if all_data[text_uti] ~= nil then
         all_data["markdown"] = all_data[text_uti] -- default for no public.html
