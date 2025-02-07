@@ -27,7 +27,7 @@ local set_diag_severity = function(severity)
             severity = { min=severity }
         },
         virtual_text = {
-            severity = { min=level }
+            severity = { min=severity }
         }
         -- signs = {
             -- text = {}
