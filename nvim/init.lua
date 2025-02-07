@@ -184,6 +184,7 @@ vim.g.maplocalleader = ","
 
 ---- Non Plugin Mappings
 
+vim.keymap.set({'n'}, '<Leader>b', '<Cmd>tabnew<Cr>', { silent=true })
 vim.keymap.set({'n','v'}, '<Leader>', '<Nop>', { silent=true })
 vim.keymap.set({'n','v'}, 'Q', ':echom "Exmode Disabled"<cr>', { noremap=true, silent=true, desc="Does nothing"})
 
