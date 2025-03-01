@@ -14,11 +14,6 @@ end
 vim.opt_local.conceallevel=0
 vim.bo.commentstring=[[<!-- %s -->]]
 
--- Since vim overrides this, we need a way to reset it
-
-vim.keymap.set('n', [[\c]], [[<cmd>setlocal commentstring=<!--\ %s\ --><cr>]], { buffer=true, desc='Changes comment to html/xml style' })
-
-
 -- Setext style headers
 vim.keymap.set('n', '<LocalLeader>h', [[yypVr=]], { buffer=true, desc='Heading 1' })
 vim.keymap.set('n', '<LocalLeader>j', [[yypVr-]], { buffer=true, desc='Heading 2' })
