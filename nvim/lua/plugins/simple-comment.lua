@@ -1,3 +1,8 @@
+local function UseHash()
+    vim.bo.commentstring = '# %s';
+    vim.notify('Using # Comment')
+end
+
 local function UseDoubleSlash()
     vim.bo.commentstring = '// %s';
     vim.notify("Using // Comment")
@@ -34,13 +39,14 @@ return {
     keys = {
         -- {'gcc', '<Plug>ToggleComment', desc="Comment current line" },
         {'gc',  '<Plug>ToggleAllComment', mode='v', desc="Comment current line" },
-        {'qc',  '<Plug>CommentOperator', desc="Comment Operator"},
+        -- {'qc',  '<Plug>CommentOperator', desc="Comment Operator"},
         {'ggc', '<Plug>MultiLineComment', mode='v', desc="Comment multiple lines" },
 
-        { '\\/', UseDoubleSlash,     noremap = true, desc="Changes comment string to //" },
-        { '\\*', UseMultiLine, noremap = true, desc="Changes comment string to /* */" },
-        { '\\!', UseHTML, noremap = true, desc="Changes comment string to <!-- -->" },
-        { '\\-', UseLua, noremap = true, desc="Changes comment string to --" },
-        { '\\"', UseQuote, noremap = true, desc='Changes comment string to "' },
+        { '\\#', UseHash,        noremap = true, desc="Changes comment string to #" },
+        { '\\/', UseDoubleSlash, noremap = true, desc="Changes comment string to //" },
+        { '\\*', UseMultiLine,   noremap = true, desc="Changes comment string to /* */" },
+        { '\\!', UseHTML,        noremap = true, desc="Changes comment string to <!-- -->" },
+        { '\\-', UseLua,         noremap = true, desc="Changes comment string to --" },
+        { '\\"', UseQuote,       noremap = true, desc='Changes comment string to "' },
     },
 }
