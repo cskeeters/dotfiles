@@ -286,7 +286,7 @@ return {
                     diagnosticSeverity = "hint", -- Can also be "information", "warning", or "error"
                     linters = {
                         spell_check = true,
-                        spelled_numbers = true,
+                        spelled_numbers = false,
                         an_a = true,
                         sentence_capitalization = true,
                         unclosed_quotes = true,
