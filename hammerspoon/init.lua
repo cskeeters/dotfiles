@@ -8,7 +8,7 @@ local cleanClip = hs.loadSpoon("CleanClip")
 cleanClip:init()
 
 -- CleanClip starts in Off mode.  Uncomment one of the following to change.
--- cleanClip:setMode(cleanClip.TEXT_ONLY)
+cleanClip:setMode(cleanClip.TEXT_ONLY)
 -- cleanClip:setMode(cleanClip.TEXT_EXCEL)
 
 function SerializeTable(val, name, skipnewlines, depth)
