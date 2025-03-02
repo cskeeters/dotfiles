@@ -78,3 +78,51 @@ snippet vim_fzf_lua_table Custom FZF with action
 		})
 	end
 	vim.keymap.set('n', '<localleader>asdf', Foo, { desc="FZF DO FOO" })
+snippet luasnip_helpers LuaSnip helpers
+	local ls = require("luasnip")
+	local s = ls.snippet
+	local sn = ls.snippet_node
+	local t = ls.text_node
+	local i = ls.insert_node
+	local f = ls.function_node
+	local c = ls.choice_node
+	local d = ls.dynamic_node
+	local r = ls.restore_node
+	local l = require("luasnip.extras").lambda
+	local rep = require("luasnip.extras").rep
+	local p = require("luasnip.extras").partial
+	local m = require("luasnip.extras").match
+	local n = require("luasnip.extras").nonempty
+	local dl = require("luasnip.extras").dynamic_lambda
+	local fmt = require("luasnip.extras.fmt").fmt
+	local fmta = require("luasnip.extras.fmt").fmta
+	local types = require("luasnip.util.types")
+	local conds = require("luasnip.extras.conditions")
+	local conds_expand = require("luasnip.extras.conditions.expand")
+
+snippet tutorial_table
+	local t = {}
+	table.insert(t, "Foo")
+
+	local t2 = {"Chad", "Skeeters"}
+
+	for i,v in ipairs(t) do
+		print(i.." => "..tostring(v))
+	end
+
+snippet tutorial_dict
+	-- init can have values with equals sign
+	local d = {}
+	d = {bar="chad"}
+
+	-- Either Works
+	d["foo"] = "hi"
+	d.foo = "hi2"
+
+	-- Either Works
+	print(d.foo)
+	print(d["foo"])
+
+	for k,v in pairs(t) do
+		print(k.." => "..tostring(v))
+	end
