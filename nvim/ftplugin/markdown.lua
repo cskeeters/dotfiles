@@ -86,3 +86,61 @@ vim.keymap.set('n', '<LocalLeader>gh', [[0i# <Esc>f:D0<Esc>]], { buffer=true, de
 vim.keymap.set('n', '<LocalLeader>gp', [[0i## <Esc>f:s<Cr><Cr><Esc>}j]], { buffer=true, desc='Convert potential assessment method to Markdown' })
 vim.keymap.set('n', '<LocalLeader>ga', [[0i## [  ] <Esc>f<Tab>s Summary (<Esc>ea)<Cr><Cr><Esc>df:xf<Tab>2s<Cr><Cr><Esc>/"<C-v><Tab><Cr>2s<Cr><Cr><Esc>A<Cr><Esc>j]], { buffer=true, desc='Convert Assessment Procedure to Markdown' })
 vim.keymap.set('n', '<LocalLeader>gl', [[0i## [  ] <Esc>f<Tab>s Summary (<Esc>ea)<Cr><Cr><Esc>df:xf<Tab>2s<Cr><Cr><Esc>/"<cr>cf"<Cr><Esc>/"<Cr>C<Cr><Cr><Esc>j]], { buffer=true, desc='Convert Assessment Procedure (alt) to Markdown' })
+
+local split_lines = function(s)
+  local lines = {}
+  for line in s:gmatch("[^\n\r]+") do
+    table.insert(lines, line)
+  end
+  return lines
+end
+
+local conceal = function(line, find, replace, row)
+  -- syntax match Entity "­" conceal cchar=⌿
+  local s,e = line:find(find)
+  if s ~= nil then
+    -- Apply a test conceal to the first character of the document
+    vim.api.nvim_buf_set_extmark(
+      vim.api.nvim_get_current_buf(),
+      vim.api.nvim_create_namespace("conceal"),
+      row, s-1,
+      {
+          end_col = e, -- Conceal the first character
+          conceal = replace,
+          priority = 111,
+      }
+    )
+  end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local parser = vim.treesitter.get_parser(bufnr, "markdown")
+    local tree = parser:parse()[1]
+    -- Query to match the root document node
+    local query = vim.treesitter.query.parse("markdown", [[
+      ((inline) @special_char)
+    ]])
+
+    for _, node in query:iter_captures(tree:root(), bufnr, 0, -1) do
+      local start_row, start_col, end_row, end_col = node:range()
+      local text = vim.treesitter.get_node_text(node, bufnr)
+      -- print("found match "..tostring(start_row).." - "..tostring(end_row))
+      -- print("text: "..text)
+
+      local lines = split_lines(text)
+      for n, line in ipairs(lines) do
+
+        -- syntax match Entity "­" conceal cchar=⌿
+        -- syntax match Entity "​" conceal cchar=~
+        conceal(line, "­", "⌿", start_row+n-1)       -- Soft Hyphen
+        conceal(line, "​", "~", start_row+n-1)  -- Zero Width Space
+        conceal(line, ":%+1:",  "👍", start_row+n-1) -- Github Emoji
+
+      end -- for split_lines
+
+    end -- for nodes
+  end,
+})
