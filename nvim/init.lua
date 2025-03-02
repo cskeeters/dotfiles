@@ -361,6 +361,20 @@ vim.keymap.set('v', [[<LocalLeader>[]], [[s[<C-r>"]<Esc>]], { buffer=true, desc=
 vim.keymap.set('v', [[<LocalLeader>{]], [[s{<C-r>"}<Esc>]], { buffer=true, desc='Add brace around visual selection' })
 
 
+function ToggleConceal()
+    if vim.opt.conceallevel:get() == 0 then
+        vim.opt.conceallevel = 2
+    else
+        vim.opt.conceallevel = 0
+    end
+end
+
+vim.keymap.set('n', [[\c]], ToggleConceal, { buffer=true, desc='Conceal: Toggle' })
+
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c0', '<Cmd>set conceallevel=0<Cr>', { buffer=true, desc='Conceal: Disable' })
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c2', '<Cmd>set conceallevel=2<Cr>', { buffer=true, desc='Conceal: Replace with cchar (set list-style)' })
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c3', '<Cmd>set conceallevel=3<Cr>', { buffer=true, desc='Conceal: Hide' })
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
