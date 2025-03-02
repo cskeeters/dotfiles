@@ -78,6 +78,28 @@ snippet vim_fzf_lua_table Custom FZF with action
 		})
 	end
 	vim.keymap.set('n', '<localleader>asdf', Foo, { desc="FZF DO FOO" })
+
+snippet dump Dump table/map
+	-- Helper Functions
+	-- NOTE: can also use print(vim.inspect(data))
+	local function dump(o)
+		if type(o) == 'table' then
+			local s = '{ '
+			for k,v in pairs(o) do
+				if type(k) ~= 'number' then k = '"'..k..'"' end
+				s = s .. '['..k..'] = ' .. dump(v) .. ','
+			end
+			return s .. '} '
+		else
+			return tostring(o)
+		end
+	end
+
+snippet sleep Sleep Function
+	function sleep(n)
+		os.execute("sleep " .. tonumber(n))
+	end
+
 snippet luasnip_helpers LuaSnip helpers
 	local ls = require("luasnip")
 	local s = ls.snippet
