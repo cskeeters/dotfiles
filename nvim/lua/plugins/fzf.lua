@@ -22,7 +22,7 @@ return {
         vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open note (fzf)" })
         vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                   { desc="Open bcst-doc file (fzf)" })
         vim.keymap.set('n', '<Leader>ou',
-           ':Files! /opt/homebrew/Cellar/neovim/0.10.2_1/share/nvim/runtime<cr>',             { desc="Open neovim runtime file (fzf)" })
+           ':Files! /opt/homebrew/Cellar/neovim/0.10.4/share/nvim/runtime<cr>',             { desc="Open neovim runtime file (fzf)" })
 
         vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                    { desc="Open Buffer (fzf)" })
         vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                    { desc="Open Old file from history (fzf)" })
