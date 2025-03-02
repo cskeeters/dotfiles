@@ -316,7 +316,7 @@ vim.keymap.set('n', '<LocalLeader>w', ':%s/\\s\\+$//<cr>', { desc="Removes all t
 -- I may not need this
 --vim.keymap.set('n', '<LocalLeader>p', ':put "<cr>:normal ddkP<cr>', { desc="Paste buffer as a sparate line" })
 
-vim.keymap.set('n', '<Leader><Leader>m', ':make<cr>', { desc="Runs make" })
+-- vim.keymap.set('n', '<Leader><Leader>m', ':make<cr>', { desc="Runs make" })
 
 vim.keymap.set('t', '<C-\\>p', '<C-\\><C-o>p<space>', { desc="Paste to Terminal" })
 
@@ -452,4 +452,4 @@ require("lazy").setup({
 })
 
 vim.keymap.set('n', '<Leader><Leader>l', ':Lazy<cr>', { desc="Opens the Lazy Package Manager UI" })
-
+vim.keymap.set('n', '<Leader><Leader>m', ':Mason<cr>', { desc="Runs Mason (Language Server Manager)" })
