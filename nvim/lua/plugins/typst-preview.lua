@@ -16,6 +16,7 @@ return {
             debug = true,
             dependencies_bin = {
                 ['tinymist'] = "/opt/homebrew/bin/tinymist",
+                -- ['tinymist'] = "/Users/chad/working/src/tinymist/target/release/tinymist",
             },
         })
 
