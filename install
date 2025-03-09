@@ -254,13 +254,14 @@ linkbin offline/tabsplice
 linkbin offline/myvim
 
 # nnn
-link acrobatpro .config/nnn/plugins
-link addjump .config/nnn/plugins
-link fzjump .config/nnn/plugins
-link fzcd .config/nnn/plugins
-link openfolder .config/nnn/plugins
-link vim .config/nnn/plugins
-link lua .local/share
+link nnn/acrobatpro .config/nnn/plugins
+link nnn/addjump .config/nnn/plugins
+link nnn/fzjump .config/nnn/plugins
+link nnn/fzcd .config/nnn/plugins
+link nnn/openfolder .config/nnn/plugins
+link nnn/vim .config/nnn/plugins
+link nnn/lua .local/share
+
 
 # Run OS specific installation
 run_all "$dotfiles/install.d-$(uname)"
