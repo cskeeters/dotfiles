@@ -182,6 +182,9 @@ vim.cmd[[autocmd TermOpen * startinsert]]
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+vim.keymap.set('n', '<Leader><Leader>l', ':Lazy<cr>', { desc="Opens the Lazy Package Manager UI" })
+vim.keymap.set('n', '<Leader><Leader>m', ':Mason<cr>', { desc="Runs Mason (Language Server Manager)" })
+
 ---- Non Plugin Mappings
 
 vim.keymap.set({'n'}, '<Leader>b', '<Cmd>tabnew<Cr>', { silent=true })
@@ -389,7 +392,6 @@ function UpdateQuickfix()
 end
 vim.keymap.set('n', 'gqq', UpdateQuickfix, { desc="Update Quickfix" })
 
-
 -- Helper Functions
 -- NOTE: can also use print(vim.inspect(data))
 local function dump(o)
@@ -464,6 +466,3 @@ require("lazy").setup({
         notify = false
     },
 })
-
-vim.keymap.set('n', '<Leader><Leader>l', ':Lazy<cr>', { desc="Opens the Lazy Package Manager UI" })
-vim.keymap.set('n', '<Leader><Leader>m', ':Mason<cr>', { desc="Runs Mason (Language Server Manager)" })
