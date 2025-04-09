@@ -226,6 +226,7 @@ linkdot shell/completions
 linkdot shell/inputrc
 linkdot shell/dir_colors
 linkdot shell/iterm2_shell_integration.bash
+linkdot shell/cmdsnip.sh
 
 linkdot git/gitconfig
 linkdot git/gitignore
