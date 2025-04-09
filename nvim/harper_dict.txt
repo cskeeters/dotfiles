@@ -64,6 +64,9 @@ RCK
 RxD
 EIA
 XON
+ODP
+GTS
+ADI
 ARSR
 CDRL
 CLIN
@@ -110,6 +113,15 @@ DoDI
 NUCC
 SISO
 XOFF
+ODPs
+ACTC
+SwRI
+Ctrl
+GDIT
+ADCS
+ATOs
+CCSD
+MPLS
 ARM64
 CDRLs
 CLINs
@@ -130,6 +142,9 @@ JTIDS
 ARSR4
 RS232
 Async
+CNSSD
+L2VPN
+JAMIS
 Cappex
 Common
 DietPI
@@ -152,6 +167,9 @@ STROMB
 VMWare
 Sensis
 Nunios
+DSPAVs
+FlexLM
+STIG'd
 AArch64
 Arduino
 Grapher
@@ -162,6 +180,10 @@ LuckyCM
 symlink
 MPS1000
 ASTERIX
+Joffrey
+Kokoros
+TACLANE
+AFNORTH
 Callsign
 Harmonia
 Makefile
@@ -177,6 +199,7 @@ Homebrew
 OneDrive
 symlinks
 Longport
+Paschall
 Kickstart
 Uncomment
 auditable
@@ -186,6 +209,7 @@ requestor
 kickstart
 DevSecOps
 Lantronix
+Wireshark
 Dockerfile
 retransmit
 uninvoiced
@@ -193,8 +217,12 @@ selectable
 financials
 financials
 Geospatial
+Carrabelle
+Designator
 Ghostscript
 Hammerspoon
+Southmaster
+Pseudowires
 FriendlyElec
 deliverables
 kickstarting
@@ -204,6 +232,8 @@ DemoRecorder
 distributable
 cybersecurity
 Preprocessing
+Releasability
+Multiprotocol
 Scholarshipowl
 interoperation
 microcontroller
