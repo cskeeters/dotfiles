@@ -5,16 +5,17 @@ return {
   opts = {
       rocks = {
           "luautf8",
+          -- "lrexlib-pcre", Needed for kokoro, but better to install manually
+          --
+          -- Debian:
+          --   apt-get install libpcre3-dev
+          --   luarocks install lrexlib-pcre --lua-version=5.1 PCRE_LIBDIR=/usr/lib/aarch64-linux-gnu
+          --   ?? apt-get install lua-rex-pcre
 
-          -- Better to run: luarocks install lrexlib-pcre --lua-version=5.1
+          -- MacOS:
+          -- luarocks install lrexlib-pcre --lua-version=5.1
           -- Test: lua print(require("rex_pcre") ~= nil and "Loaded" or "Failed")
           -- "lrexlib-pcre",
-      },
-      extra_options = {
-        -- "--with-pcre2=/opt/homebrew", -- Points to Homebrew's PCRE2 prefix
-        -- Alternatively, use these if the above doesn't work:
-        -- "--with-pcre2-include=/opt/homebrew/include",
-        -- "--with-pcre2-lib=/opt/homebrew/lib",
       },
   }
 }
