@@ -1,10 +1,15 @@
 #### Command Line Snippets
 
+export SED=sed
+if command -v gsed &> /dev/null; then
+    export SED=gsed
+fi
+
 getsnippet() {
     TRIGGER="$1"
     while IFS= read -r -d $'\0' file; do
         if egrep "^snippet $TRIGGER" "$file" > /dev/null; then
-            gsed -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
+            $SED -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
         fi
     done < <(find ~/.config/cmd -type f -print0)
 }
@@ -83,7 +88,7 @@ git_tags() {
 }
 
 conda_envs() {
-    conda env list | gsed -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
+    conda env list | $SED -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
 }
 ollama_local_models() {
     ollama list | grep -v "NAME" | cut -d " " -f 1 | fzf
