@@ -142,6 +142,127 @@ function SetDefaultPrinter()
     require'fzf-lua'.fzf_exec(GeneratePrinters, opts)
 end
 
+local function split2(inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
+
+function split(inputstr, sep)
+    sep=sep or '%s'
+    local t={}
+    for field, s in string.gmatch(inputstr, "([^"..sep.."]*)("..sep.."?)") do
+        table.insert(t,field)
+        if s=="" then
+            return t
+        end
+    end
+end
+
+function GenerateUnicode(fzf_cb)
+    local utf8 = require 'lua-utf8'
+
+    coroutine.wrap(function()
+        local co = coroutine.running()
+
+        -- Load Unicode category map
+        local categories = {}
+        for line in io.lines(os.getenv("HOME").."/.local/share/unicode/categories") do
+            local _, _, abbr, category = line:find("^(..) (.*)")
+            categories[abbr] = category
+        end
+
+        -- Iterate through lines that store data about each unicode character
+        -- From (Can modify to meet you needs:
+        --   https://www.unicode.org/Public/UNIDATA/UnicodeData.txt
+        -- * Can modify with:
+        --     g/;CJK COMP/d
+        --     g/Private Use/d
+        for line in io.lines(os.getenv("HOME").."/.local/share/unicode/UnicodeData.txt") do
+            local data = split(line, ";")
+            -- print(vim.inspect(split(line, ";")))
+
+            -- Generate Name
+            local name = data[2]
+            local name_1 = data[11]
+            if name_1 ~= nil then
+                if name_1 ~= "" then
+                    if name == "<control>" then
+                        -- Nice to use Unicode 1.0 names for characters that have the name: <control>
+                        name = name_1
+                    end
+                end
+            end
+
+            -- Generate desc from name/category
+            local category_abbr = data[3]
+
+            local category = category_abbr
+
+            if categories[category_abbr] ~= nil then
+                category = string.format("%s - %s", category_abbr, categories[category_abbr])
+            end
+
+            local desc = string.format("%s (%s)", name, category)
+
+            -- Generate fzf_line for fzf (Use tab delimiter instead of ; for generated lines)
+            local code = data[1]
+            local fzf_line = string.format("%s	%-80s	%s (%s)", code, desc, " ", code)
+            if name ~= "<control>" then
+                fzf_line = string.format("%s	%-80s	%s (%s)", code, desc,  utf8.char(tonumber(code, 16)), code)
+            end
+
+            -- coroutine.resume only gets called once uv.write completes
+            fzf_cb(fzf_line, function() coroutine.resume(co) end)
+
+            -- wait here until 'coroutine.resume' is called which only happens
+            -- once 'uv.write' completes (i.e. the line was written into fzf)
+            -- this frees neovim to respond and open the UI
+            coroutine.yield()
+        end
+
+        -- signal EOF to fzf and close the named pipe
+        -- this also stops the fzf "loading" indicator
+        fzf_cb()
+    end)()
+end
+
+function SelectUnicode()
+    local utf8 = require 'lua-utf8'
+
+    local opts = {
+        debug_cmd=true, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, char in ipairs(selected) do
+                    local code = tonumber(char, 16)
+                    if code then
+                        -- vim.fn.setreg('*', utf8.char(code))
+                        vim.cmd.normal('i' .. utf8.char(code))
+                        vim.notify("Set register "..char);
+                    else
+                        vim.notify(string.format("Code %s is not a number.", char));
+                    end
+                end
+            end
+        },
+        fzf_opts = {
+            ["-d"] = "	",
+            ["--tabstop"] = '1',
+            ["--with-nth"] = '2..',
+            ["--accept-nth"] = 1,
+        }
+    }
+
+    require'fzf-lua'.fzf_exec(GenerateUnicode, opts)
+end
+
 function StartLSP()
     require'fzf-lua'.fzf_exec(require('lspconfig.util').available_servers(), {
         debug_cmd=false, -- change to true and use :messages to see fzf command issued
@@ -313,6 +434,7 @@ return {
     vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
 
     vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
+    vim.keymap.set('n', '<leader><leader>u', SelectUnicode, { desc="Select Unicode" })
 
     vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
     vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })
