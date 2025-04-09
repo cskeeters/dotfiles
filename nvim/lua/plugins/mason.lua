@@ -118,10 +118,11 @@ return {
 
         require("mason").setup()
         require("mason-lspconfig").setup({
+            automatic_installation = true,
             ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "gopls", "tinymist", "harper_ls"},
         })
 
-        vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true })
+        vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true, desc="Open Diagnostic Float" })
 
         vim.keymap.set('n', '[d', function()
             vim.diagnostic.goto_prev(goto_opts)
