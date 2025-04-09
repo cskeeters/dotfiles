@@ -82,3 +82,13 @@ git_tags() {
     git tag -l | fzf --height="90%" --preview 'git log --color=always --graph --oneline -3 {}' --preview-window='top,10%'
 }
 
+conda_envs() {
+    conda env list | gsed -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
+}
+ollama_local_models() {
+    ollama list | grep -v "NAME" | cut -d " " -f 1 | fzf
+}
+
+uv_tools() {
+    uv tool list | grep -v "^-" | cut -d " " -f 1 | fzf
+}
