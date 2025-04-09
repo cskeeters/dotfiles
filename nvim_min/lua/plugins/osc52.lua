@@ -1,5 +1,5 @@
 return {
-    enabled = false, -- only enable on servers accessed via SSH
+    enabled = true, -- only enable on servers accessed via SSH
     'ojroques/nvim-osc52',
     lazy = false,
     init = function()
