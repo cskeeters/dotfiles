@@ -5,7 +5,7 @@ vim.opt_local.wrap = true
 -- table.insert(vim.opt_local.briopt,'list:-1')
 vim.opt_local.briopt="list:-1"
 vim.opt_local.formatlistpat="^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}\\|^[>[:space:]]\\+\\s\\+"
-
+vim.g.table_mode_corner='|'
 
 if vim.fn.has("patch-7.4-353") == 0 then
     vim.bo.list = false
@@ -135,7 +135,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
         -- syntax match Entity "­" conceal cchar=⌿
         -- syntax match Entity "​" conceal cchar=~
-        conceal(line, "­", "⌿", start_row+n-1)       -- Soft Hyphen
+        conceal(line, "­", "-", start_row+n-1)       -- Soft Hyphen
+        conceal(line, "⁠", "⌿", start_row+n-1)  -- Word Joiner
         conceal(line, "​", "~", start_row+n-1)  -- Zero Width Space
         conceal(line, ":%+1:",  "👍", start_row+n-1) -- Github Emoji
 
