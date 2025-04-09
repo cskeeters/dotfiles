@@ -59,7 +59,7 @@ return {
             if ls.choice_active() then
                 ls.change_choice(1)
             end
-        end, {silent = true})
+        end, {silent = true, desc = "Change choice for luasnip field"})
 
         -- Use vim.ui.select to select from choices
         -- Install nvim-telescope/telescope-ui-select.nvim to use telescope
