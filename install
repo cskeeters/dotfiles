@@ -262,6 +262,9 @@ link nnn/openfolder .config/nnn/plugins
 link nnn/vim .config/nnn/plugins
 link nnn/lua .local/share
 
+# unicode
+link unicode/UnicodeData.txt .local/share/unicode
+link unicode/categories .local/share/unicode
 
 # Run OS specific installation
 run_all "$dotfiles/install.d-$(uname)"
