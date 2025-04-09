@@ -100,6 +100,9 @@ snippet sleep Sleep Function
 		os.execute("sleep " .. tonumber(n))
 	end
 
+snippet unpack_helper Adds statement to ensure unpack will be successful
+	local unpack = unpack or table.unpack
+
 snippet luasnip_helpers LuaSnip helpers
 	local ls = require("luasnip")
 	local s = ls.snippet
