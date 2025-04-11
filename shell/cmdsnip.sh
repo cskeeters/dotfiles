@@ -50,7 +50,10 @@ runsnippet() {
 
         for ((i=1;i<10;i++)); do
             if echo $SNIPPET | egrep '\$\{'"$i"'.*\}' > /dev/null; then
-                DEFAULT=$(echo $SNIPPET | sed -nre 's/.*\$\{'"$i"':([^\}]*)\}.*/\1/p')
+                DEFAULT=$(echo $SNIPPET | sed -nre 's/.*\$\{'"$i"':([^\}]*)\}.*/\1/p') || {
+                    echo "Error extracting default"
+                    return
+                }
                 echo "Populating: $CMD"
                 if [[ $DEFAULT =~ ^(.*)\(\)$ ]]; then
                     INPUTFUNC=${BASH_REMATCH[1]}
@@ -60,7 +63,10 @@ runsnippet() {
                 fi
                 #echo "$i -> $DEFAULT"
 
-                CMD=$(echo "$CMD" | sed -re 's/\$\{'"$i"'[^\}]*\}/'"$VALUE"'/g')
+                CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^\}]*\};'"$VALUE"';g') || {
+                    echo "Error using supplied value in CMD"
+                    return
+                }
             fi
         done
 
