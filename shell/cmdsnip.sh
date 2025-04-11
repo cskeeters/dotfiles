@@ -103,3 +103,7 @@ ollama_local_models() {
 uv_tools() {
     uv tool list | grep -v "^-" | cut -d " " -f 1 | fzf
 }
+
+deb_installed_packages() {
+    dpkg -l | sed '1,/===/d' | cut -d ' ' -f 3 | fzf
+}
