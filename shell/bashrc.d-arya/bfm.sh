@@ -1,6 +1,10 @@
 #### bfm
 b() {
-    tmux new-session -n BFM bfm $*
+    if [[ -n "$TMUX" ]]; then
+        bfm $*
+    else
+        tmux new-session -n BFM bfm $*
+    fi
 
     LASTD="$HOME/.local/state/bfm.lastd"
 
