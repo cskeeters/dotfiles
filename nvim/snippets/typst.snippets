@@ -357,6 +357,7 @@ snippet block Block
 	)
 snippet img Image
 	#image("${1:molecular.jpg}", width: 80%)
+
 snippet fimg Image with caption
 	#figure(
 		image("molecular.jpg", width: 80%),
@@ -365,13 +366,17 @@ snippet fimg Image with caption
 			pipeline of our lab.
 		],
 	)
+
 snippet link_universe
-    #link("https://typst.app/universe/package/${1:cetz}")[$1]
+	#link("https://typst.app/universe/package/${1:cetz}")[$1]
+
 snippet letter_spacing_tracking Letter Spacing (tracking)
-    text(tracking: 1.0pt)
+	text(tracking: 1.0pt)
+
 snippet qr QR Code
-    #import "@preview/tiaoma:0.2.1"
-    #qrcode("${1:http://www.google.com}", width: 2in)
+	#import "@preview/tiaoma:0.2.1"
+	#qrcode("${1:http://www.google.com}", width: 2in)
+
 snippet nbsp Non-breaking Space
 	#sym.space.nobreak;
 snippet word-joiner Word Joiner
