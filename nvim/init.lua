@@ -40,6 +40,7 @@ vim.opt.scrolloff = 6                -- Min num lines of context
 vim.opt.signcolumn = "yes"           -- Show the sign column
 vim.opt.modeline = true              -- enables "vim: tw=80 noet sw=2" in files to change settings
 vim.opt.showcmd = true               -- Shows partial key sequences
+vim.opt.joinspaces = true            -- When joining lines that end with sentance punctuation, use two spaces
 
 if Speed < 1 then
     vim.opt.cursorline = true
@@ -148,7 +149,8 @@ vim.opt.history=1000                 -- command history size
 
 
 ---- Movement
-table.insert(vim.opt.cpo,'J')  -- Recognize sentences by two spaces after punctuation
+vim.opt.cpo:append("J") -- Recognize sentences by two spaces after punctuation
+-- vim.opt.cpo:remove("J")
 vim.opt.tags = {
   'tags',
   '../tags',
