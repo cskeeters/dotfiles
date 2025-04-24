@@ -20,6 +20,9 @@ return {
             },
             overrides = function(colors) -- add/modify highlights
                 return {
+                    -- Make Conceal a bit darker to indicate difference
+                    Conceal = { fg = colors.palette.dragonBlack6, bold = false },
+
                     ["@markup.heading"] = { link = "Number" },
                     ["@markup.heading.1"] = { link = "ModeMsg" },
                     ["@markup.heading.2"] = { link = "Boolean" },
