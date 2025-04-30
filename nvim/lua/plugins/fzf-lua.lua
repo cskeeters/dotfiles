@@ -232,11 +232,11 @@ function GenerateUnicode(fzf_cb)
     end)()
 end
 
-function SelectUnicode()
+function SelectUnicode2()
     local utf8 = require 'lua-utf8'
 
     local opts = {
-        debug_cmd=true, -- change to true and use :messages to see fzf command issued
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
         actions = {
             ['default'] = function(selected, _)
                 -- We loop here, but only one will actually be selected
@@ -261,6 +261,136 @@ function SelectUnicode()
     }
 
     require'fzf-lua'.fzf_exec(GenerateUnicode, opts)
+end
+
+function LoadUnicodeCategories()
+    -- Load Unicode category map
+    local categories = {}
+    for line in io.lines(os.getenv("HOME").."/.local/share/unicode/categories") do
+        local _, _, abbr, category = line:find("^(..) (.*)")
+        categories[abbr] = category
+    end
+    return categories
+end
+
+
+function LoadUnicodeOptions(categories)
+    local utf8 = require 'lua-utf8'
+
+    local options = {}
+    for line in io.lines(os.getenv("HOME").."/.local/share/unicode/UnicodeData.txt") do
+        local data = split(line, ";")
+        -- print(vim.inspect(split(line, ";")))
+
+        -- Generate Name
+        local name = data[2]
+        local name_1 = data[11]
+        if name_1 ~= nil then
+            if name_1 ~= "" then
+                if name == "<control>" then
+                    -- Nice to use Unicode 1.0 names for characters that have the name: <control>
+                    name = name_1
+                end
+            end
+        end
+
+        -- Generate desc from name/category
+        local category_abbr = data[3]
+
+        local category = category_abbr
+
+        if categories[category_abbr] ~= nil then
+            category = string.format("%s - %s", category_abbr, categories[category_abbr])
+        end
+
+        local desc = string.format("%s (%s)", name, category)
+
+        -- Generate fzf_line for fzf (Use tab delimiter instead of ; for generated lines)
+        local code = data[1]
+        local fzf_line = string.format("%s	%-80s	%s (%s)", code, desc, " ", code)
+        if name ~= "<control>" then
+            fzf_line = string.format("%s	%-80s	%s (%s)", code, desc,  utf8.char(tonumber(code, 16)), code)
+        end
+
+        table.insert(options, fzf_line)
+    end
+
+    return options
+end
+
+function SelectUnicode()
+    local utf8 = require 'lua-utf8'
+
+    local categories = LoadUnicodeCategories()
+    local unicode_options = LoadUnicodeOptions(categories)
+
+    vim.ui.select(unicode_options, {
+        prompt = "Select a character to enter:",
+        kind = "unicode_select",
+    }, function(choice)
+        if choice then
+            local s, e, char = string.find(choice, "([^%s]+)	")
+
+            if s == nil then
+                vim.notify("Error parsing choice", vim.log.levels.ERROR)
+            else
+                vim.notify(string.format("Found %s at (%d, %d) in %s", char, s, e, choice), vim.log.levels.TRACE)
+                local code = tonumber(char, 16)
+                if code then
+                    -- vim.fn.setreg('*', utf8.char(code))
+                    vim.cmd.normal('i' .. utf8.char(code))
+                    vim.notify("Set register "..char);
+                else
+                    vim.notify(string.format("Code %s is not a number.", char), vim.log.levels.ERROR);
+                end
+            end
+        end
+    end)
+end
+
+
+function GenerateGitEmoji(fzf_cb)
+    coroutine.wrap(function()
+        local co = coroutine.running()
+
+        for line in io.lines(os.getenv("HOME").."/.local/share/github/emojis.txt") do
+            -- coroutine.resume only gets called once uv.write completes
+            fzf_cb(line, function() coroutine.resume(co) end)
+
+            -- Wait here until 'coroutine.resume' is called which only happens
+            -- Once 'uv.write' completes (i.e. the line was written into fzf)
+            -- This frees neovim to respond and open the UI
+            coroutine.yield()
+        end
+
+        -- Signal EOF to fzf and close the named pipe
+        -- This also stops the fzf "loading" indicator
+        fzf_cb()
+    end)()
+end
+
+function SelectGitEmoji()
+    local utf8 = require 'lua-utf8'
+
+    local opts = {
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, markup in ipairs(selected) do
+                    vim.cmd.normal('i' .. markup)
+                end
+            end
+        },
+        fzf_opts = {
+            ["-d"] = "	",
+            ["--tabstop"] = '4', -- number of spaces to advance cursor on tab
+            -- ["--with-nth"] = '2..',
+            ["--accept-nth"] = 2,
+        }
+    }
+
+    require'fzf-lua'.fzf_exec(GenerateGitEmoji, opts)
 end
 
 function StartLSP()
@@ -359,7 +489,6 @@ return {
     -- https://github.com/ibhagwan/fzf-lua#commands
 
     -- Replace vim.ui.select menu
-    -- vim.cmd[[FzfLua register_ui_select]]
     require("fzf-lua").register_ui_select()
 
     vim.keymap.set({'n'}, '<Leader>r', ':FzfLua resume<cr>', { desc="Reopen fzf dialog" })
@@ -435,6 +564,7 @@ return {
 
     vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
     vim.keymap.set('n', '<leader><leader>u', SelectUnicode, { desc="Select Unicode" })
+    vim.keymap.set('n', '<leader><leader>e', SelectGitEmoji, { desc="Select GitHub Emoji" })
 
     vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
     vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })
