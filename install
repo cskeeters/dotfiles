@@ -240,6 +240,7 @@ linkdot vim/gvimrc
 linkdot vim/vimrc
 
 link nvim .config
+link yazi .config
 link bfm .config
 
 link bat .config
