@@ -151,3 +151,10 @@ snippet tutorial_dict
 	for k,v in pairs(t) do
 		print(k.." => "..tostring(v))
 	end
+
+snippet module Lua Module
+    local M = {}
+    M.foo = function(opts)
+        ${1}
+    end
+    return M
