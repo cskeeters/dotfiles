@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     'ThePrimeagen/git-worktree.nvim',
     lazy = false,
     keys = {
