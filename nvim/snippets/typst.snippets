@@ -295,6 +295,24 @@ snippet setup-glossaries Glossaries for Typst (glossarium)
 	// Put at the end
 	#generate-glossaries(acronyms:acronyms)
 snippet toc Table of Contents
+
+
+	// This allows for outline formatting without the outrageous package
+	// set outline.entry(fill: repeat([.~~])) // Optional
+	// set outline.entry(fill: repeat([\_]))  // Optional
+	#show outline.entry: it => link(
+		it.element.location(),
+
+		if (it.level == 1) {
+			v(4pt)
+			// it.indented(it.prefix(), text(rcc_red, weight:700, it.inner()))
+			it.indented(it.prefix(), text(black, weight:700, it.inner()))
+		} else {
+			it.indented(it.prefix(), it.inner())
+		}
+	)
+
+	// Use outrageous
 	#import "@preview/outrageous:0.1.0"
 
 	#show outline.entry: outrageous.show-entry.with(
@@ -309,7 +327,14 @@ snippet toc Table of Contents
 		vspace: (1.2em, none),
 	)
 
+
 	#outline(title: "Table of Contents", indent:auto)
+
+	// Or keep the heading separate
+	#heading("Table of Contents", outlined: false, bookmarked:true)
+	#outline(title: none, indent:auto)
+
+
 snippet glossaries Glossaries/Acronyms
 	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl
 	#show: make-glossary // Required just below import

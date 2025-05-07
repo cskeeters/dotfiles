@@ -1,20 +1,25 @@
-autosnippet fcb
+### Basic Markdown Syntax
+
+autosnippet fcb Fenced code block
 	\`\`\`${1}
 	\`\`\`
 
-snippet typst
+snippet typst Add type fenced code block
 	\`\`\`typst
 	${1}
 	\`\`\`
 
-snippet c
+snippet c Add Comment
 	[//]: # "${1}"
 
-snippet raw
-	\`\`\`{=${1:typst}}
-	${2}
-	\`\`\`
-snippet mermaid
+snippet fn Footnote
+	[^1]
+	[^1]: ${1:Footnote}
+
+
+### Extended Markdown Support
+
+snippet mermaid Add mermaid flowchart
 	\`\`\`mermaid {caption="${1:Every Process a Nike}"}
 	---
 	config:
@@ -25,7 +30,59 @@ snippet mermaid
 	flowchart LR
 	    START(Start) --> DOIT[Just Do It] --> END(End)
 	\`\`\`
-snippet execute_typst
+
+
+
+### Pandoc Typst Support
+
+snippet filter_pagebreak Filter Config: Pagebreak
+	filters:
+		- pagebreak.lua
+snippet filter_link_footnote Filter Config: Link Footnote
+	filters:
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+snippet filter_internal_link Filter Config: Internal Link
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+snippet filter_acronyms Filter Config: Acronyms
+	filters:
+		- pandoc-acronyms/0.1.0/acronyms.lua
+snippet filter_table_figure Filter Config: Table Figure
+	filters:
+		- pandoc-table-figure/0.1.0/figure.lua
+snippet filter_wordjoin Filter Config: Word Join
+	words:
+		- BCS-T
+		- CS/SCOI
+	filters:
+		- wordjoin.lua
+snippet filter_kbd Filter Config: Keyboard Keys
+	filters:
+		- pandoc-kbd/0.1.0/kbd.lua
+
+snippet pagebreak Pagebreak
+	\pagebreak
+snippet internal_link Internal Link
+	Jump to the [Introduction](#introduction).
+	# Introduction
+snippet acronyms Filter Config: Acronyms
+	acronyms:
+		LAN: Local Area Network
+		WAN: Wide Area Network
+	filters:
+		- pandoc-acronyms/0.1.0/acronyms.lua
+snippet table_figure Filter Config: Table Figure
+	| First | Last     |
+	|-------|----------|
+	| John  | Doe      |
+
+	Table:  People I know {#tbl:people}
+
+	See the people I know in +tbl:people.
+snippet filter_kbd Filter Config: Keyboard Keys
+	To reboot, press +KBD(Ctrl)++KBD(Alt)++KBD(Del).
+
+snippet execute_typst Add Typst code to be processed
 	\`\`\`{=typst}
 	#heading("Table of Contents", outlined: false, bookmarked:true)
 	#outline(title: none)
@@ -33,12 +90,13 @@ snippet execute_typst
 
 	#pagebreak(weak: true)
 	\`\`\`
-snippet SPP
+
+
+### Frequently Typed Text
+
+snippet SPP Security Policies and Procedures
 	*Security Policies and Procedures* (SPP)
-snippet USP
+snippet USP Unit Security Plan
 	337th ACS *Unit Security Plan* (USP)
-snippet EAL
+snippet EAL Entry Authority List
 	*Entry Authority List* (EAL)
-snippet fn
-	[^1]
-	[^1]: ${1:Footnote}
