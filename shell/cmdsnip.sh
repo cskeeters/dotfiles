@@ -36,7 +36,7 @@ export -f snippreview
 runsnippet() {
     local DEFAULT
 
-    S=$(cat $HOME/.config/cmd/* | egrep '^snippet' | \
+    S=$(cat $HOME/.config/cmd/*.snippets | egrep '^snippet' | \
         fzf -d ' ' --with-nth 3.. --bind 'enter:become(echo {2})' \
             --preview-window='top,10%' \
             --preview 'snippreview {}'
