@@ -1,32 +1,26 @@
 return {
-    enabled = false,
+    enabled = true,
     'rcarriga/nvim-notify',
     lazy = false,
-    keys = {
-        {'<LocalLeader><LocalLeader>n', '<cmd>Notifications<cr>', desc="Show a list of notificiations" },
-    },
-    init = function()
+
+    config = function()
+
+        require("notify").setup({
+            -- Minimum level for display.  Lower level msgs will be added to the history.
+            level = vim.log.levels.WARN,
+            top_down = false,
+
+            -- Ensure the notification popup can't be switched to with Ctrl+w
+            on_open = function (win)
+                vim.api.nvim_win_set_config(win, { focusable = false })
+            end,
+        })
+
         -- Override the default vim.notify method
         vim.notify = require("notify")
 
-        --vim.notify("This is an error message.\nSomething went wrong!", "error", {
-        --    title = plugin,
-        --    on_open = function()
-        --        vim.notify("Attempting recovery.", vim.log.levels.WARN, {
-        --        title = plugin,
-        --        })
-        --        local timer = vim.loop.new_timer()
-        --        timer:start(2000, 0, function()
-        --        vim.notify({ "Fixing problem.", "Please wait..." }, "info", {
-        --            title = plugin,
-        --            timeout = 3000,
-        --            on_close = function()
-        --            vim.notify("Problem solved", nil, { title = plugin })
-        --            vim.notify("Error code 0x0395AF", 1, { title = plugin })
-        --            end,
-        --        })
-        --        end)
-        --    end,
-        --    })
+        vim.keymap.set('n', '<Leader>n',  require('notify').dismiss,   { desc="Dismiss notifications" })
+        vim.keymap.set('n', '<Leader>N',  '<Cmd>Notifications<cr>',    { desc="List notifications" })
+        vim.keymap.set('n', '<Leader>gn', '<Cmd>Telescope notify<cr>', { desc="List notifications with telescope" })
     end,
 }
