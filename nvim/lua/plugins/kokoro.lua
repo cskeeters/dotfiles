@@ -1,7 +1,16 @@
 return {
     enabled = true,
-    'cskeeters/kokoro.nvim',
+
+    -- Local plugin under development
+    name="kokoro.nvim",
+    dir=os.getenv("HOME").."/working/nvim-plugins/kokoro.nvim",
+
     lazy = false,
+
+    dependencies = {
+        'libnotify.nvim',
+    },
+
     config = function()
         -- Verify it loads
         local ok, rex = pcall(require, "rex_pcre")
@@ -14,10 +23,12 @@ return {
         require 'kokoro'.setup({
             -- Setting debug to true will route tinymist's stderr to :messages
             debug = false,
-            path = os.getenv("HOME")..'/working/kokoro-tts',
-            player = "afplay",
+            notify_min_level = vim.log.levels.TRACE,
 
-            conda_env = "kokoro",
+            path = os.getenv("HOME")..'/working/kokoro-tts',
+            uv = true,
+
+            player = "afplay",
 
             load_voices = true,
 
