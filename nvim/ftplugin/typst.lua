@@ -37,5 +37,92 @@ vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc
 vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
 -- build
-vim.keymap.set('n', '<C-k>d', [[<Cmd>update<cr>:!typst compile '%' '%:r.pdf' && open '%:r.pdf'<cr>]], { buffer=true, desc='Build/Compile to PDF open in Default app (Acrobat)' })
-vim.keymap.set('n', '<C-k>p', [[<Cmd>update<cr>:!typst compile '%' '%:r.pdf' && open -a Preview.app '%:r.pdf'<cr>]], { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
+function typst_compile_open(app)
+    return function()
+
+        local uv = vim.uv
+        local notifier = require('libnotify').get_notifier("typst_compile_open", vim.log.levels.INFO)
+
+        -- This ensures that files can have single quotes in the filenames
+        local src = vim.fn.shellescape(vim.fn.expand("%"))
+        local out = vim.fn.shellescape(vim.fn.expand("%:r"))..".pdf"
+        vim.cmd.update()
+
+        -- Run and show error message
+        -- local open = 'open ' .. out
+        -- if app ~= nil then
+        --     open = 'open -a '..app..' '..out
+        -- end
+        -- local cmd = 'typst compile '..src..' '..out..' && '..open
+        -- vim.cmd("!"..cmd)
+
+        -- execute, no error message
+        -- local err = os.execute(cmd)
+        -- if err == 0 then
+            -- if app == nil then
+                -- os.execute('open '..out)
+            -- else
+                -- os.execute('open -a '..app..' '..out)
+            -- end
+        -- else
+            -- notifier.error("Error executing: "..cmd)
+        -- end
+
+
+        local stdout = uv.new_pipe()
+        local stderr = uv.new_pipe()
+
+        -- local cmd = 'typst compile '..src..' '..out
+        local cmd = 'echo "hi"'
+        local err = {}
+
+        local handle, pid = uv.spawn('typst', {
+            args = {
+                'compile',
+                vim.fn.expand("%"),
+                vim.fn.expand("%:r")..".pdf",
+            },
+            stdio = {nil, stdout, stderr}
+        }, function(code, signal) -- on exit
+            local notifier = require('libnotify').get_notifier("typst_compile_open", vim.log.levels.WARN)
+            if code == 0 then
+                notifier.info("Successfully built: "..out)
+                local open = 'open ' .. out
+                if app ~= nil then
+                    open = 'open -a '..app..' '..out
+                end
+                os.execute(open)
+            else
+                notifier.info("Error building: "..out)
+
+                uv.read_start(stderr, function(err, data)
+                    if err then
+                        notifier.error("Error reading stderr")
+                    else
+                        if data then
+                            notifier.error("Error building: "..out.."\n"..data)
+                        end
+                    end
+                end)
+
+            end
+
+            -- print("exit code", code)
+            -- print("exit signal", signal)
+        end)
+
+        notifier.info("Compiling "..vim.fn.expand("%"))
+
+        -- uv.shutdown(stdin, function()
+            -- print("stdin shutdown", stdin)
+            -- uv.close(handle, function()
+                -- print("process closed", handle, pid)
+            -- end)
+        -- end)
+
+
+    end
+end
+
+vim.keymap.set('n', '<C-k>d', typst_compile_open(),              { buffer=true, desc='Build/Compile to PDF, open in Default app (Acrobat)' })
+vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"), { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
