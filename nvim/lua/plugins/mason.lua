@@ -338,7 +338,7 @@ return {
             },
         }
 
-        require('lspconfig').yamlls.setup {
+        lspconfig.yamlls.setup {
             settings = {
                 yaml = {
                     validate = true,
