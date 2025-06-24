@@ -119,7 +119,7 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             automatic_installation = true,
-            ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "gopls", "tinymist", "harper_ls"},
+            ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "rust_analyzer", "gopls", "tinymist", "harper_ls"},
         })
 
         vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true, desc="Open Diagnostic Float" })
@@ -239,7 +239,27 @@ return {
         -- }
 
         -- MasonInstall rust-analyzer
-        -- lspconfig.rust_analyzer.setup {}
+        lspconfig.rust_analyzer.setup({
+            on_attach = on_attach,
+            settings = {
+                ["rust-analyzer"] = {
+                    imports = {
+                        granularity = {
+                            group = "module",
+                        },
+                        prefix = "self",
+                    },
+                    cargo = {
+                        buildScripts = {
+                            enable = true,
+                        },
+                    },
+                    procMacro = {
+                        enable = true
+                    },
+                }
+            }
+        })
 
         -- MasonInstall gopls
         lspconfig.gopls.setup({
