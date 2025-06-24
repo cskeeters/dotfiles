@@ -334,6 +334,21 @@ snippet toc Table of Contents
 	#heading("Table of Contents", outlined: false, bookmarked:true)
 	#outline(title: none, indent:auto)
 
+snippet index Index
+	#import "@preview/in-dexter:0.7.0": *
+
+	// The word in index is not emitted
+	Ethernet #index[Ethernet]
+
+	#pagebreak()
+	// Use a separate heading to control outlined AND bookmarked
+	#heading("Index", outlined: false, bookmarked:true)
+	#columns(2)[
+	#make-index(
+		use-bang-grouping: false,
+		sort-order: upper,
+	)
+	]
 
 snippet glossaries Glossaries/Acronyms
 	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl

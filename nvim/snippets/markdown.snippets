@@ -35,6 +35,56 @@ snippet mermaid Add mermaid flowchart
 
 ### Pandoc Typst Support
 
+snippet yaml_frontmatter Yaml Frontmatter #ptp
+	---
+	title: ${1:title}
+	template: ${2:rch.typ}
+	date: date${3}
+	keywords:
+		- A802
+	filters:
+	- pandoc-internal-link/0.1.0/internal-link.lua
+	- pandoc-link-footnote/0.1.0/link-footnote.lua
+	- pagebreak.lua
+	- pandoc-table-figure/0.1.0/table-figure.lua
+	- pandoc-acronyms/0.1.0/acronyms.lua
+	- pandoc-diagram/main/diagram.lua
+	---
+
+snippet template_doc doc template #ptp
+	---
+	title: ${1:Title}
+	contractor: Red Cedar Consultancy
+	contractor_url: www.redcedarconsultancy.com
+	template: doc.typ
+	keywords: ${2:keywords}
+	color: true
+	filters:
+	- pandoc-internal-link/0.1.0/internal-link.lua
+	- pandoc-link-footnote/0.1.0/link-footnote.lua
+	- pagebreak.lua
+	- pandoc-table-figure/0.1.0/table-figure.lua
+	- pandoc-acronyms/0.1.0/acronyms.lua
+	- pandoc-diagram/main/diagram.lua
+	---
+
+snippet template_sfnet sfnet template
+	---
+	title: ${1:Title}
+	footer_title: ${2:Subtitle}
+	template: rch_sfnet.typ
+	toc: true
+	keywords:
+	- headlamp
+	filters:
+	- pandoc-internal-link/0.1.0/internal-link.lua
+	- pandoc-link-footnote/0.1.0/link-footnote.lua
+	- pagebreak.lua
+	- pandoc-table-figure/0.1.0/table-figure.lua
+	- pandoc-acronyms/0.1.0/acronyms.lua
+	- pandoc-diagram/main/diagram.lua
+	---
+
 snippet filter_pagebreak Filter Config: Pagebreak
 	filters:
 		- pagebreak.lua
@@ -91,6 +141,11 @@ snippet execute_typst Add Typst code to be processed
 	#pagebreak(weak: true)
 	\`\`\`
 
+
+snippet typst_landscape Horizantal page orientation (flipped)
+	\`\`\`{=typst}
+	#set page(flipped: ${1:true})
+	\`\`\`
 
 ### Frequently Typed Text
 
