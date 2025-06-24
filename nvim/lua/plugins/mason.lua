@@ -17,7 +17,7 @@
 -- vim.diagnostic.hide()
 
 -- Severity level to jump to in goto routines
-local goto_opts = { severity=vim.diagnostic.severity.HINT }
+local goto_opts = {}
 
 local set_diag_severity = function(severity)
     print("Setting to "..vim.diagnostic.severity[severity])
@@ -125,10 +125,21 @@ return {
         vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true, desc="Open Diagnostic Float" })
 
         vim.keymap.set('n', '[d', function()
-            vim.diagnostic.goto_prev(goto_opts)
+            vim.diagnostic.jump({
+                count=-1,
+                wrap=true,
+                severity=vim.diagnostic.severity.HINT,
+                -- float=true,
+            })
         end,  { noremap=true, silent=true })
+
         vim.keymap.set('n', ']d', function()
-            vim.diagnostic.goto_next(goto_opts)
+            vim.diagnostic.jump({
+                count=1,
+                wrap=true,
+                severity=vim.diagnostic.severity.HINT,
+                -- float=true,
+            })
         end,  { noremap=true, silent=true })
 
         vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist, { noremap=true, silent=true })
