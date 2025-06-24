@@ -1,14 +1,14 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "p"]
 run  = "plugin fzcd"
 desc = "Go ~/.paths | FZF"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "j"]
 run  = "plugin autojump"
 desc = "autojump"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "J"]
 run  = "plugin autojump -- FZF"
 desc = "autojump | FZF"
