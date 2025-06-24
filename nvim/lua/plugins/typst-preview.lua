@@ -13,7 +13,7 @@ return {
     config = function()
         require 'typst-preview'.setup({
             -- Setting debug to true will route tinymist's stderr to :messages
-            debug = true,
+            debug = false,
             dependencies_bin = {
                 ['tinymist'] = "/opt/homebrew/bin/tinymist",
                 -- ['tinymist'] = "/Users/chad/working/src/tinymist/target/release/tinymist",
