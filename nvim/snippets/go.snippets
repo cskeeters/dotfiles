@@ -35,7 +35,9 @@ snippet err
 	}
 snippet append
 	${1:slice} = append(${1}, ${2:value})
-snippet print
+snippet print Basic Printf Statement
+	fmt.Printf("\n")
+snippet print_field Printf for field
 	fmt.Printf("${1:field}: %d\n", ${1})
 snippet sprint
 	${2:str} := fmt.Sprintf("${1:field}: %d\n", ${1})
