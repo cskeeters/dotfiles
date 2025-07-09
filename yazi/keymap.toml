@@ -12,3 +12,13 @@ desc = "autojump"
 on   = ["g", "J"]
 run  = "plugin autojump -- FZF"
 desc = "autojump | FZF"
+
+[[mgr.prepend_keymap]]
+on   = "T"
+run  = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"
+
+[[mgr.prepend_keymap]]
+on   = "F"
+run  = "shell --confirm 'open .'"
+desc = "Open the current directory in Finder"
