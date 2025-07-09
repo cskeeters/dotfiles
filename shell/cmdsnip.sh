@@ -85,6 +85,10 @@ find_files() {
     find . -type f | fzf --height="90%"
 }
 
+fd_files() {
+    fd | fzf --height="90%"
+}
+
 git_select_modified() {
     git ls-files -m | fzf --height="90%" --preview 'git diff --color=always {}' --preview-window='top,50%'
 }
