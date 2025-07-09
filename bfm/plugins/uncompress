@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source "$(dirname $0)/helper.sh"
 
@@ -53,32 +53,32 @@ cd $CUR_DIR
 EXTDIR=$(mktemp -d) || die "Error creating temp directory for extraction"
 trap 'rm -rf -- "$EXTDIR"' EXIT
 
-ZIP_RE='\.zip$'
-GZ_RE='\.gz$'
 TARGZ_RE='\.tar\.gz$'
 TGZ_RE='\.tgz$'
 TARBZ_RE='\.tar\.bz2$'
 TAR_RE='\.(tar)$'
+ZIP_RE='\.zip$'
+GZ_RE='\.gz$'
 
 if [[ "$CUR_DIR/$HOVERED_FILE" =~ $TARGZ_RE ]]; then
-    tar -zxf "$CUR_DIR/$HOVERED_FILE"
     # Works in Bash 3.2 (macOS), unlike ${HOVERED_FILE::-4}
     STEM=${HOVERED_FILE%???????}
+    tar -zxf "$CUR_DIR/$HOVERED_FILE" -C "$EXTDIR"
     to_sub
 
 elif [[ "$CUR_DIR/$HOVERED_FILE" =~ $TGZ_RE ]]; then
-    tar -zxf "$CUR_DIR/$HOVERED_FILE"
     STEM=${HOVERED_FILE%????}
+    tar -zxf "$CUR_DIR/$HOVERED_FILE" -C "$EXTDIR"
     to_sub
 
 elif [[ "$CUR_DIR/$HOVERED_FILE" =~ $TARBZ_RE ]]; then
     STEM=${HOVERED_FILE%????????}
-    tar -jxf "$CUR_DIR/$HOVERED_FILE"
+    tar -jxf "$CUR_DIR/$HOVERED_FILE" -C "$EXTDIR"
     to_sub
 
 elif [[ "$CUR_DIR/$HOVERED_FILE" =~ $TAR_RE ]]; then
     STEM=${HOVERED_FILE%????}
-    tar -xf "$CUR_DIR/$HOVERED_FILE"
+    tar -xf "$CUR_DIR/$HOVERED_FILE" -C "$EXTDIR"
     to_sub
 
 elif [[ "$CUR_DIR/$HOVERED_FILE" =~ $ZIP_RE ]]; then
