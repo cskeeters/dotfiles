@@ -8,6 +8,7 @@ return {
           -- "lrexlib-pcre", Needed for kokoro, but better to install manually
           --
           -- Debian:
+          --   apt-get install luarocks
           --   apt-get install libpcre3-dev
           --   luarocks install lrexlib-pcre --lua-version=5.1 PCRE_LIBDIR=/usr/lib/aarch64-linux-gnu
           --   ?? apt-get install lua-rex-pcre
