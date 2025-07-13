@@ -5,18 +5,7 @@ return {
   opts = {
       rocks = {
           "luautf8",
-          -- "lrexlib-pcre", Needed for kokoro, but better to install manually
-          --
-          -- Debian:
-          --   apt-get install luarocks
-          --   apt-get install libpcre3-dev
-          --   luarocks install lrexlib-pcre --lua-version=5.1 PCRE_LIBDIR=/usr/lib/aarch64-linux-gnu
-          --   ?? apt-get install lua-rex-pcre
-
-          -- MacOS:
-          -- luarocks install lrexlib-pcre --lua-version=5.1
-          -- Test: lua print(require("rex_pcre") ~= nil and "Loaded" or "Failed")
-          -- "lrexlib-pcre",
+          -- "lrexlib-pcre" needed for kokoro.  See notes/neovim.md
       },
   }
 }
