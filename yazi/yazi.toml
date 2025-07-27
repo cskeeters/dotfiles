@@ -4,9 +4,12 @@ sort_dir_first = false
 sort_by = "mtime"
 sort_reverse = true
 
+[tasks]
+image_bound = [65535, 65535]
+
 [preview]
-max_width       = 1000
-max_height       = 1600
+max_width       = 9000
+max_height       = 9000
 
 [opener]
 acrobat = [
