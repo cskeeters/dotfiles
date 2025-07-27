@@ -45,6 +45,19 @@ snippet struct Struct
 	}
 
 #### Macros
+snippet assert Assert statements
+	assert!(boo, "Not true: {}", boo);
+	assert!(a>b, "b is larger than a: a:{} b:{}", a, b);
+snippet assert_eq Assert equal statements
+	let a = 3;
+	let b = 1 + 2;
+	assert_eq!(a, b);
+	assert_eq!(a, b, "we are testing addition with {} and {}", a, b);
+
+snippet assert_debug Assert debug statements
+	// Only panic in Debug builds
+	debug_assert_eq!(3, 2);
+
 snippet pl println
 	println!("{}", ${1:foo});
 
