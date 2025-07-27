@@ -89,7 +89,7 @@ function typst_compile_open(app)
                 notifier.info("Successfully built: "..out)
                 local open = 'open ' .. out
                 if app ~= nil then
-                    open = 'open -a '..app..' '..out
+                    open = 'open -a "'..app..'" '..out
                 end
                 os.execute(open)
             else
@@ -124,5 +124,5 @@ function typst_compile_open(app)
     end
 end
 
-vim.keymap.set('n', '<C-k>d', typst_compile_open(),              { buffer=true, desc='Build/Compile to PDF, open in Default app (Acrobat)' })
+vim.keymap.set('n', '<C-k>d', typst_compile_open("Adobe Acrobat.app"), { buffer=true, desc='Build/Compile to PDF, open in Default app (Acrobat)' })
 vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"), { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
