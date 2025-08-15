@@ -274,10 +274,12 @@ if not vim.g.nerd_font then
 end
 
 return {
-  "cskeeters/fzf-lua",
-  -- cskeeters branch customizes keymap format
-  branch = "cskeeters",
   enabled = true,
+
+  "ibhagwan/fzf-lua",
+  -- "cskeeters/fzf-lua",
+  -- cskeeters branch customizes keymap format
+  -- branch = "cskeeters",
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
@@ -294,6 +296,10 @@ return {
                 --border = 'noborder',
             }
         },
+        -- keymaps = {
+            -- show_desc         = true,
+            -- show_details      = true,
+        -- }
     })
 
     -- To speed up, install fd.  This will automatically be used
