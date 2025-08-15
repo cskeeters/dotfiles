@@ -437,3 +437,129 @@ snippet soft-hyphen Soft Hyphen (Tell where to break)
 	#sym.hyph-soft; or -?
 snippet zero-width-space Zero Width Space
 	#sym.zws;
+snippet heading Heading Styling
+	#import "@local/format-headings:0.1.0": *
+
+	// Numbering
+	#set heading(numbering: "1.1")
+
+	// Text to prepend to reference numbering (@intro)
+	#show heading.where(level:1): set heading(supplement: "Chapter")
+	#show heading.where(level:2): set heading(supplement: "Section")
+	#show heading.where(level:3): set heading(supplement: "Subsection")
+
+
+	// Font Styling Per Level
+	#show heading.where(level:1): it => { text(weight: 800, it) }
+	#show heading.where(level:2): it => { text(weight: 600, style: "italic", it) }
+	#show heading.where(level:3): it => { text(weight: 600, it) }
+
+	// Set Heading Fonts
+	#show heading: it => {
+	// https://beautifulwebtype.com/vollkorn/
+	set text(font: "Vollkorn", number-width: "proportional", features: ("pnum", "lnum"))
+	it
+	}
+
+	// Set Heading Spacing
+	#show: format_headings_spacing
+
+	// Set Heading Underline
+	#show heading.where(level:1): it => heading_underline(it)
+	// #show heading.where(level:2): it => heading_underline(it)
+	// #show heading.where(level:3): it => heading_underline(it)
+
+	// Set Page break Before Heading.  This has to be last
+	#show heading.where(level:1): it => { pagebreak(weak: true); it }
+snippet cdate Current Date
+	datetime.today().display("[year]-[month]-[day]")
+	datetime.today().display("[year]-[month repr:short]-[day]")
+	datetime.today().display("[month repr:long] [day], [year]")
+	datetime.today().display("[month]/[day]/[year]")
+
+snippet include Include directive
+	#include "${1:file}.typ"
+
+snippet template_sfnet Template: RCH sfnet
+	#import "@local/contract-util:0.2.0": *
+	#import "@local/rch:0.1.0": *
+	#import "@local/sfnet:0.1.0": *
+
+	#let title = ""
+	#let subtitle = ""
+	#let footer_title = ""
+
+	#set document(
+	title: title,
+	author: "Red Cedar Harmonia",
+	keywords: "",
+	)
+
+	#show: frontmatter.with(logo:none)
+
+	#Cover(
+	logo: rch_logo(width:100pt),
+	title: title,
+	subtitle: subtitle,
+	company: [
+		*Red Cedar Harmonia* \
+		161 Fort Evans Rd NE, Suite 200 \
+		Leesburg, VA-20176 \
+
+		#link("mailto:contact@redcedarconsultancy.com")[contact\@redcedarconsultancy.com] \
+		TEL: +1 703 214 2778 \
+		UEI: W8H3LZS24EB3
+	]
+	)
+
+	#TOC()
+
+	#show: mainmatter.with(title:title, footer_title:footer_title)
+
+	#include "ch1.typ"
+	#include "ch2.typ"
+	#include "ch3.typ"
+	#include "ch4.typ"
+
+snippet template_doc Template: doc
+	#import "@local/doc:0.1.0": *
+
+	#let metadata = (
+		title: "",
+		project: "",
+		contractor_url: "",
+		contractor: "",
+		address: [
+		],
+		contract: "",
+		task_order: "",
+		keywords: "",
+	)
+
+	// Set PDF properties https://typst.app/docs/reference/model/document/
+	#set document(
+		title: metadata.title,
+		author: metadata.contractor,
+		keywords: metadata.keywords,
+	)
+
+	#show: make-glossary // Required just below import.  Enables @TERM syntax via show ref:
+	//#show: glossary-autoref
+
+	#show: setup.with(
+		hardcopy: true,
+		typst_version: typst_version,
+	)
+
+	#show: colored_links
+
+	// Q: Should this move into the body with shortcodes of some sort?
+	#titlepage(metadata:metadata)
+
+	#show: frontmatter.with(hardcopy:hardcopy)
+
+	#show: toc.with(hardcopy:hardcopy)
+
+	#show: mainmatter.with(metadata:metadata,
+	                       hardcopy:hardcopy,
+	                       typst_version:typst_version)
