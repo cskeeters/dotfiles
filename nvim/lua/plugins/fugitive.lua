@@ -3,7 +3,11 @@ function FugitiveStatus()
 end
 
 function FugitiveLog()
-    vim.cmd([[0G log --oneline]]);
+    vim.cmd([[0G log --graph --oneline --decorate]]);
+end
+
+function FugitiveLogAll()
+    vim.cmd([[0G log --graph --all --oneline --decorate]]);
 end
 
 return {
@@ -13,6 +17,7 @@ return {
     init = function()
         vim.keymap.set('n', '<leader>fs', FugitiveStatus, { desc="Fugitive/git status" });
         vim.keymap.set('n', '<leader>fl', FugitiveLog, { desc="Fugitive/git log" });
+        vim.keymap.set('n', '<leader>fa', FugitiveLogAll, { desc="Fugitive/git log --all" });
         vim.keymap.set('n', '<leader>fb', ":G blame<cr>", { desc="Fugitive/git blame" });
 
         vim.keymap.set('n', '<leader>fd', ":Gdiffsplit<cr><C-w>l", { desc="vimdiff unstaged changes on current file" });
