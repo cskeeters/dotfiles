@@ -385,7 +385,7 @@ function Hardcopy()
 end
 
 vim.api.nvim_create_user_command('Hardcopy', Hardcopy, {force = true})
-vim.keymap.set('n', '<C-p>', Hardcopy, { desc="Hardcopy (Print)" })
+vim.keymap.set('n', '<space><space><C-p>', Hardcopy, { desc="Hardcopy (Print)" })
 
 
 -- This enables the lines in the current Quickfix window to be updated after modification (i.e. cdo s/old/new/)
