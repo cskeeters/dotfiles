@@ -1,4 +1,5 @@
 return {
+    enabled = true,
     'tpope/vim-abolish',
     lazy = false,
     keys = {
