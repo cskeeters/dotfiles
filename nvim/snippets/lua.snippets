@@ -125,6 +125,21 @@ snippet luasnip_helpers LuaSnip helpers
 	local conds = require("luasnip.extras.conditions")
 	local conds_expand = require("luasnip.extras.conditions.expand")
 
+snippet snip_fmt
+	s("tx", fmt([[
+		if {} then
+		  {} -- indent matches indent_string
+		end
+		]],
+		{
+		i(1, "true"),
+		i(2, "return "),
+	}, {
+		indent_string = "  " -- indent prefix for format
+	}
+	)),
+
+
 snippet tutorial_table
 	local t = {}
 	table.insert(t, "Foo")
