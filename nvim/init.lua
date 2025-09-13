@@ -395,6 +395,10 @@ end
 vim.keymap.set('n', 'gqq', UpdateQuickfix, { desc="Update Quickfix" })
 
 -- Helper Functions
+
+---Outputs all fields and sub-objects of the object provided
+---@param o (object) the object to dump
+---@return nil
 -- NOTE: can also use print(vim.inspect(data))
 local function dump(o)
    if type(o) == 'table' then
