@@ -21,6 +21,7 @@ local conds = require("luasnip.extras.conditions")
 local conds_expand = require("luasnip.extras.conditions.expand")
 
 vim.b.decimal_column = 60
+vim.b.default_open_only = true
 
 local dt = function()
     return os.date("%Y-%m-%d")
@@ -43,22 +44,31 @@ local toTextNodes = function(optionStrings)
     return nodes
 end
 
+function trim(s)
+   return string.match(s, "^%s*(.-)%s*$")
+end
+
 -- returns choice node of account names in the current file that
 --   are open at the end of the file
-local openAccounts = function()
+local openAccounts = function(openOnly)
+    openOnly = openOnly or default_open_only
+
     local openAccounts = {}
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     for _, line in ipairs(lines) do
-        local account = line:match("open (.*)")
+        local account = line:match("open ([^;]*)")
         if account ~= nil then
-            table.insert(openAccounts, account)
+            print(type(trim(account)))
+            table.insert(openAccounts, trim(account))
         end
 
-        account = line:match("close (.*)")
-        if account ~= nil then
-            local j = indexOf(openAccounts, account)
-            if j ~= nil then
-                table.remove(openAccounts,j)
+        if openOnly then
+            account = line:match("close ([^;]*)")
+            if account ~= nil then
+                local j = indexOf(openAccounts, trim(account))
+                if j ~= nil then
+                    table.remove(openAccounts,j)
+                end
             end
         end
     end
