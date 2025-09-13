@@ -16,7 +16,7 @@ return {
     lazy = false,
     init = function()
         vim.keymap.set('n', '<leader>fs', FugitiveStatus, { desc="Fugitive/git status" });
-        vim.keymap.set('n', '<leader>fl', FugitiveLog, { desc="Fugitive/git log" });
+        -- vim.keymap.set('n', '<leader>fl', FugitiveLog, { desc="Fugitive/git log" });
         vim.keymap.set('n', '<leader>fa', FugitiveLogAll, { desc="Fugitive/git log --all" });
         vim.keymap.set('n', '<leader>fb', ":G blame<cr>", { desc="Fugitive/git blame" });
 
