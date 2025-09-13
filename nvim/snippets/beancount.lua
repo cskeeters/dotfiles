@@ -88,7 +88,7 @@ local spaceAmt = function(args, -- text from i(2) in this example i.e. { { "456"
         amountToDecimal = string.len(amount)+1 -- decimal is 1 *after* amount
     end
 
-    local width = vim.b.decimal_column - 4 - string.len(account) - amountToDecimal
+    local width = vim.b.decimal_column - vim.bo.shiftwidth - string.len(account) - amountToDecimal
     print(width)
     local str = "";
     for count = 1, width, 1 do
@@ -152,8 +152,8 @@ return {
 
     s("tx", fmt([[
         {} * "{}"
-            {}{}{}{} USD
-            {}]],
+          {}{}{}{} USD
+          {}]],
         {
             f(dt),
             i(1, "Food"),
@@ -166,6 +166,8 @@ return {
             d(4, function()
                 return sn(nil, openAccounts())
             end, {}),
+        }, {
+            indent_string = "  "
         }
     )),
 
