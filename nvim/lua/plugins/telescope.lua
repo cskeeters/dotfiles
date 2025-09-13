@@ -20,7 +20,7 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'benfowler/telescope-luasnip.nvim',
-        'rcarriga/nvim-notify',
+        -- 'rcarriga/nvim-notify',
         --'nvim-telescope/telescope-ui-select.nvim',
     },
 
@@ -72,7 +72,7 @@ return {
         })
 
         require('telescope').load_extension('luasnip')
-        require('telescope').load_extension('notify')
+        -- require('telescope').load_extension('notify')
         --require('telescope').load_extension('ui-select')
         -- require("telescope").load_extension("git_worktree")
 
