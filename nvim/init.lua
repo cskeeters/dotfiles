@@ -90,6 +90,9 @@ if vim.fn.has('multi_byte') then
         -- vim.opt.listchars = "trail:·,precedes:«,extends:»,tab:▸·,nbsp:·eol:↲"
 end
 
+-- border for hover windows like the popup window for K
+vim.o.winborder = "rounded"
+
 ---- Filetypes
 vim.opt.encoding = 'utf8'            -- String encoding to use
 vim.opt.fileencoding = 'utf8'        -- File encoding to use
