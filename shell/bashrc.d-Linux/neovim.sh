@@ -1,3 +1,8 @@
+if exists nvim; then
+    alias vi='nvim'
+    alias vim='nvim'
+fi
+
 if [[ -d /opt/neovim ]]; then
     export NEOVIM_HOME=/opt/neovim
     export PATH=$NEOVIM_HOME/bin:$PATH
