@@ -11,7 +11,7 @@ getsnippet() {
         if egrep "^snippet $TRIGGER" "$file" > /dev/null; then
             $SED -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
         fi
-    done < <(find ~/.config/cmd -type f -print0)
+    done < <(find ~/.config/cmd -name \*.snippets -print0)
 }
 
 export -f getsnippet
