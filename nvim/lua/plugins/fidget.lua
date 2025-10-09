@@ -10,7 +10,6 @@ return {
         },
     },
     init = function()
-        vim.notify("fidget config")
         -- require("telescope").extensions.fidget.fidget()
         require("telescope").load_extension("fidget")
 
