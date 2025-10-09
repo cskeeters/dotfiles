@@ -74,6 +74,8 @@ WEG
 D1C
 SSP
 RTP
+HPE
+SFP
 ARSR
 CDRL
 CLIN
@@ -142,6 +144,7 @@ DCSA
 POCs
 CSRC
 PCMU
+TSSC
 ARM64
 CDRLs
 CLINs
@@ -168,6 +171,7 @@ JAMIS
 Eglin
 ERIGE
 C5ISR
+PCRE2
 Cappex
 Common
 DietPI
@@ -194,6 +198,7 @@ DSPAVs
 FlexLM
 STIG'd
 jQuery
+Trixie
 AArch64
 Arduino
 Grapher
@@ -231,6 +236,8 @@ Paschall
 extmarks
 Postgres
 Wetstone
+iptables
+nftables
 Kickstart
 Uncomment
 auditable
@@ -247,6 +254,7 @@ Versitron
 Issuances
 Latencies
 multicast
+Netfilter
 Dockerfile
 retransmit
 uninvoiced
