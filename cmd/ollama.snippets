@@ -1,10 +1,10 @@
-snippet ollama_start Start Ollama #ollama
+snippet ollama_start ollama: Start Ollama
 	ollama serve
-snippet ollama_run Choose model and run #ollama
+snippet ollama_run ollama: Choose model and run
 	ollama run ${1:ollama_local_models()}
-snippet ollama_list List models #ollama
+snippet ollama_list ollama: List models
 	ollama list
-snippet ollama_rm Remove model #ollama
+snippet ollama_rm ollama: Remove model
 	ollama rm ${1:ollama_local_models()}
-snippet ollama_update Update all downloaded models #ollama
+snippet ollama_update ollama: Update all downloaded models
 	ollama list | awk 'NR>1 && !/reviewer/ {system("ollama pull "$1)}'

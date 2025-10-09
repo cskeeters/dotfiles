@@ -1,9 +1,9 @@
-snippet find_grep Finds files by modified with in N days #gnu
+snippet find_grep find: Finds files by modified with in N days
 	find . -mtime -${1:14}
-snippet find_grep Finds files by name #gnu
+snippet find_grep find: Finds files by name
 	find . | grep -i ${1:bash}
-snippet psaux Finds process by name #gnu
+snippet psaux ps: Finds process by name
 	ps aux | grep -i ${1:bash}
-snippet hello Greeting Test
+snippet hello echo: Greeting Test
 	echo "Hello ${1:Chad}"
 	echo "Mr. ${2:Skeeters}"

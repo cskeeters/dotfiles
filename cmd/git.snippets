@@ -1,30 +1,30 @@
-snippet git_branch Create a branch #git
+snippet git_branch git: Create a branch
 	git co -b ${1:feature_name}
-snippet git_branch_push Push a branch #git
+snippet git_branch_push git: Push a branch
 	git push -u origin ${1:feature_name}
-snippet git_branch_clean Create a clean (orphan) branch #git
+snippet git_branch_clean git: Create a clean (orphan) branch
 	git switch --orphan ${1:branch_name}
-snippet git_show_ignored Show Ignored files
+snippet git_show_ignored git: Show Ignored files
 	git status --ignored
-snippet git_tag Tag repo #git
+snippet git_tag git: Tag repo
 	git tag ${1:v0.0.1}
-snippet git_bare Clone bare #git
+snippet git_bare git: Clone bare
 	git clone --bare ${1:url_or_path}
-snippet git_unstage Unstage file #git
+snippet git_unstage git: Unstage file
 	git restore --staged ${1:git_select_staged()}
-snippet git_discard Discard changes in file #git
+snippet git_discard git: Discard changes in file
 	git restore ${1:git_select_modified()}
-snippet git_clean Discard untracked files #git
+snippet git_clean git: Discard untracked files
 	git clean -f
-snippet git_mrproper Discard untracked and ignored files #git
+snippet git_mrproper git: Discard untracked and ignored files
 	git clean -fdX
-snippet git_tag_delete Delete a Tag #git
+snippet git_tag_delete git: Delete a Tag
 	git tag -d ${1:git_tags()}
-snippet git_tag_push Push a Tag #git
+snippet git_tag_push git: Push a Tag
 	git push origin tag ${1:git_tags()}
-snippet git_restore Restore file to commit #git
+snippet git_restore git: Restore file to commit
 	git restore ${1:fd_files()}
-snippet git_restore_all Restore all to commit #git
+snippet git_restore_all git: Restore all to commit
 	git restore .
-snippet git_rm_untracked Remove all untracked #git
+snippet git_rm_untracked git: Remove all untracked
 	git clean -fd

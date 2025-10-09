@@ -1,42 +1,42 @@
-snippet apt_update Update package info (apt cache) #apt
+snippet apt_update apt: Update package info (apt cache)
 	apt-get update
 
-snippet apt_install Install debian package #apt
+snippet apt_install apt: Install debian package
 	apt-get install ${1:fzf}
 
-snippet apt_remove Remove debian package #apt
+snippet apt_remove apt: Remove debian package
 	apt-get remove ${1:fzf}
-snippet apt_purge Remove debian package and config (purge) #apt
+snippet apt_purge apt: Remove debian package and config (purge)
 	apt-get purge ${1:deb_installed_packages()}
 
-snippet apt_upgrade Upgrade all installed packages #apt
+snippet apt_upgrade apt: Upgrade all installed packages
 	apt-get upgrade
-snippet apt_dist_upgrade Upgrade distribution #apt
+snippet apt_dist_upgrade apt: Upgrade distribution
 	apt-get dist-upgrade
 
-snippet apt_autoclean Remove interruped downloads (autoclean) #apt
+snippet apt_autoclean apt: Remove interruped downloads (autoclean)
 	apt-get autoclean
-snippet apt_autoremove Remove package dependancies no longer required (autoremove) #apt
+snippet apt_autoremove apt: Remove package dependancies no longer required (autoremove)
 	apt-get autoremove
 
-snippet apt_search Search for package #apt
+snippet apt_search apt: Search for package
 	apt-cache search query
-snippet apt_show Show info about an uninstalled package #apt
+snippet apt_show apt: Show info about an uninstalled package
 	apt-cache search query
 
-snippet apt_status Compare installed vs available version (policy) #apt
+snippet apt_status apt: Compare installed vs available version (policy)
 	apt-cache policy ${1:deb_installed_packages()}
 
-snippet apt_depend Show package dependencies #apt
+snippet apt_depend apt: Show package dependencies
 	apt-cache depends ${1:pkg}
-snippet apt_rdepend Show packages that depend on #apt
+snippet apt_rdepend apt: Show packages that depend on
 	apt-cache rdepends ${1:pkg}
 
-snippet dpkg_install Install package from .deb file #dpkg
+snippet dpkg_install dpkg: Install package from .deb file
 	dpkg -i ${1:file.deb}
-snippet dpkg_list List installed packages #dpkg
+snippet dpkg_list dpkg: List installed packages
 	dpkg -l
-snippet dpkg_files List files included in package #dpkg
+snippet dpkg_files dpkg: List files included in package
 	dpkg -L ${1:deb_installed_packages()}
-snippet dpkg_contains Output package name containing path #dpkg
+snippet dpkg_contains dpkg: Output package name containing path
 	dpkg -S ${1:path}

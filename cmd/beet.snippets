@@ -1,16 +1,16 @@
-snippet beet_ls List #beets
+snippet beet_ls beet: List
 	beet ls ${1:Radiohead}
-snippet beet_ls_song List Song #beets
+snippet beet_ls_song beet: List Song
 	beet ls title:${1:Kid A}
-snippet beet_update Reload metadata (update) #beets
+snippet beet_update beet: Reload metadata (update)
 	beet update ${1:Kid A}
-snippet beet_remove Remove DB entry (remove) #beets
+snippet beet_remove beet: Remove DB entry (remove)
 	beet remove ${1:Kid A}
-snippet beet_remove_delete Remove DB entry and Delete (remove -d) #beets
+snippet beet_remove_delete beet: Remove DB entry and Delete (remove -d)
 	beet remove -d ${1:Kid A}
-snippet beet_import Import song (Copy, Add) #beets
+snippet beet_import beet: Import song (Copy, Add)
 	beet -vv import ${1:.}
-snippet beet_lyrics Download Lyrics #beets
+snippet beet_lyrics beet: Download Lyrics
 	beet -vv lyrics ${1:search}
-snippet beet_scrub Scrub (bad) id3 tags #beets
+snippet beet_scrub beet: Scrub (bad) id3 tags
 	beet scrub ${1:search}

@@ -1,23 +1,23 @@
-snippet uv_run Run command in venv #uv
+snippet uv_run uv: Run command in venv
 	uv run ${1:.}
-snippet uv_pip Run pip in venv #uv
+snippet uv_pip uv: Run pip in venv
 	uv pip install ${1:.}
-snippet uv_install Init environment #uv
+snippet uv_install uv: Init environment
 	uv init ${1:.}
-snippet uv_install Install program #uv
+snippet uv_install uv: Install program
 	uv tool install ${1}
-snippet uv_list List installed tools #uv
+snippet uv_list uv: List installed tools
 	uv tool list
-snippet uv_upgrade Upgrade tool by name #uv
+snippet uv_upgrade uv: Upgrade tool by name
 	uv tool upgrade ${1:uv_tools()}
-snippet uv_upgrade_all Upgrade all tools #uv
+snippet uv_upgrade_all uv: Upgrade all tools
 	uv tool upgrade --all
-snippet uv_remove Uninstall/remove program #uv
+snippet uv_remove uv: Uninstall/remove program
 	uv tool uninstall ${1:uv_tools()}
-snippet uv_bump Bump a specific package
+snippet uv_bump uv: Bump a specific package
 	uv lock --upgrade-package <package>
 	Prune unused packages
-snippet uv_prune Prune unused packages from uv cache
+snippet uv_prune uv: Prune unused packages from uv cache
 	uv cache prune
-snippet uv_clean Remove all cached packages
+snippet uv_clean uv: Remove all cached packages
 	uv cache clean

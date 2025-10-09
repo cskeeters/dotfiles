@@ -1,24 +1,24 @@
-snippet conda_current Output the current conda environment #conda
+snippet conda_current conda: Output the current conda environment
 	conda env list | gsed -nre 's/([^[:space:]]+)([[:space:]]+)\*.*/\1/p'
-snippet conda_env_list List Environments #conda
+snippet conda_env_list conda: List Environments
 	conda env list
 
-snippet conda_create Create environment #conda
+snippet conda_create conda: Create environment
 	conda create -n ${1:kokoro} python=3.10
-snippet conda_wipe Remove environment completely #conda
+snippet conda_wipe conda: Remove environment completely
 	conda remove -n ${1:conda_envs()} --all
 
-snippet conda_activate Activate environment #conda
+snippet conda_activate conda: Activate environment
 	conda activate ${1:conda_envs()}
-snippet conda_deactivate Deactivate environment #conda
+snippet conda_deactivate conda: Deactivate environment
 	conda deactivate
 
-snippet conda_activate_base_disable Disables auto activation of base env #conda
+snippet conda_activate_base_disable conda: Disables auto activation of base env
 	conda config --set auto_activate_base false
-snippet conda_activate_base_enable Enable auto activation of base env #conda
+snippet conda_activate_base_enable conda: Enable auto activation of base env
 	conda config --set auto_activate_base true
 
-snippet conda_disable_ps1 Disable PS1 modification #conda
+snippet conda_disable_ps1 conda: Disable PS1 modification
 	conda config --set changeps1 False
-snippet conda_enable_ps1 Enable PS1 modification #conda
+snippet conda_enable_ps1 conda: Enable PS1 modification
 	conda config --set changeps1 True

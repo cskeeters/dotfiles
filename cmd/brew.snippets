@@ -1,18 +1,18 @@
-snippet brew_list List installed packages #brew
+snippet brew_list brew: List installed packages
 	brew list
-snippet brew_leaves List leaves (installed packages that are not a dependancy of some other package) #brew
+snippet brew_leaves brew: List leaves (installed packages that are not a dependancy of some other package)
 	brew leaves
-snippet brew_list_cask List installed casks #brew
+snippet brew_list_cask brew: List installed casks
 	brew list --cask
-snippet brew_install Install package #brew
+snippet brew_install brew: Install package
 	brew install ${1:tinymist}
-snippet brew_install_dry Dry run install package #brew
+snippet brew_install_dry brew: Dry run install package
 	brew install --dry-run ${1:tinymist}
-snippet brew_install_head Install HEAD from source #brew
+snippet brew_install_head brew: Install HEAD from source
 	brew install --HEAD ${1:tinymist}
-snippet brew_upgrade_head Fetch changes and upgrade HEAD #brew
+snippet brew_upgrade_head brew: Fetch changes and upgrade HEAD
 	brew upgrade ${1:tinymist} --fetch-HEAD
-snippet brew_remove Remove software #brew
+snippet brew_remove brew: Remove software
 	brew uninstall ${1:tinymist}
-snippet brew_unlink Unlink software #brew
+snippet brew_unlink brew: Unlink software
 	brew unlink ${1:tinymist}

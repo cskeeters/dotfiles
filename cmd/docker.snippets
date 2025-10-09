@@ -1,4 +1,4 @@
-snippet docker_exec Start a process on a running container #docker
+snippet docker_exec docker: Start a process on a running container
 	docker exec ${1:container} ${2:/bin/bash}
-snippet docker_cp Copy files from docer container (no -r required) #docker
+snippet docker_cp docker: Copy files from docer container (no -r required)
 	docker cp ${1:container}:${1:/hedgedoc/public/docs} .

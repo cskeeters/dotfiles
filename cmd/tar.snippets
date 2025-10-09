@@ -1,33 +1,33 @@
-snippet tar Tar
+snippet tar tar: archive
 	tar -cf "${1}" "${2}"
-snippet untar UnTar
+snippet untar tar: restore
 	tar -xf "${1:file.tar}"
-snippet untar_list List files in tarball
+snippet untar_list tar: List files
 	tar -tf "${1:file.tar}"
 
-snippet tar_tgz Tar with gzip compression
+snippet tar_tgz tar: archive with gzip compression
 	tar -zcf "${1:file.tgz}" "${2:dir}"
-snippet tar_tgz_progress Tar with gzip compression and progress bar
+snippet tar_tgz_progress tar: archive with gzip compression and progress bar
 	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | gzip > ${1}.tgz
-snippet untar_gz UnTar with gzip compression
+snippet untar_gz tar: restore from archive with gzip compression
 	tar -zxf "${1:file.tgz}"
-snippet untar_gz_list List files in gz tarball
+snippet untar_gz_list tar: List files in archive with gzip compression
 	tar -ztf "${1:file.tar}"
 
-snippet tar_bz Tar with bzip2 compression
+snippet tar_bz tar: archive with bzip2 compression
 	tar -jcf "${1:file.bz2}" "${2:dir}"
-snippet tar_bz_progress Tar with bzip2 compression and progress bar
+snippet tar_bz_progress tar: archive with bzip2 compression and progress bar
 	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | bzip2 > ${1}.tar.bz2
-snippet untar_bz UnTar with bzip2 compression
+snippet untar_bz tar: restore from archive with bzip2 compression
 	tar -jxf "${1:file.tar.bz2}"
-snippet untar_bz_list List files in bzip2 tarball
+snippet untar_bz_list tar: List files in archive with bzip2 compression
 	tar -jtf "${1:file.tar}"
 
-snippet tar_xz Tar with xz compression
+snippet tar_xz tar: archive with xz compression
 	tar -Jcf "${1:file.bz2}" "${2:dir}"
-snippet tar_xz_progress Tar with xz compression and progress bar
+snippet tar_xz_progress tar: archive with xz compression and progress bar
 	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | xz > ${1}.tar.xz
-snippet untar_xz UnTar with xz compression
+snippet untar_xz tar: restore from archive with xz compression
 	tar -Jxf "${1:file.tar.xz}"
-snippet untar_xz_list List files in xz tarball
+snippet untar_xz_list tar: List files in archive with xz compression
 	tar -Jtf "${1:file.tar}"
