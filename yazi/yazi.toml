@@ -8,8 +8,10 @@ sort_reverse = true
 image_bound = [65535, 65535]
 
 [preview]
-max_width       = 9000
-max_height       = 9000
+# 1200 is a good balance between visible and slow
+image_quality = 50
+max_width       = 800
+max_height       = 800
 
 [opener]
 acrobat = [
