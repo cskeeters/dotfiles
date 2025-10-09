@@ -238,6 +238,7 @@ Postgres
 Wetstone
 iptables
 nftables
+Kerberos
 Kickstart
 Uncomment
 auditable
