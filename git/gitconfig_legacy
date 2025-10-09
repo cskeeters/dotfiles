@@ -1,0 +1,93 @@
+[user]
+	name = Chad Skeeters
+	email = chad.skeeters@gmail.com
+	signingkey = 00ec5b68a71e0bf1b5aed7ce989e8e68f3b6aefa
+
+[credential]
+	helper = osxkeychain
+
+[alias]
+	s   = status
+	st  = status
+	sta = status
+	re  = remote -v
+
+	sw  = switch
+
+	# in the logs, %ah needs to be changed to %cr
+	l   = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %s %C(yellow)%<(15)%D%C(reset)' --abbrev-commit --date=relative --all --max-count=40
+	la  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %C(bold blue)<%an>%C(reset) %C(yellow)%<(15)%D%C(reset) %n%<(80,trunc)%B' --abbrev-commit --date=relative --all --max-count=40
+	ls  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset) %n%C(cyan)%GS%C(reset)' --abbrev-commit --date=relative --all --max-count=40
+	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %s %C(yellow)%D%C(reset)' --abbrev-commit --date=relative
+	gla  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %s %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
+	glu = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative
+	glua = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%cr%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
+	gls = log --graph --pretty=format:'%C(cyan)%G?%C(reset) %C(red)%h%C(reset) %C(green)%<(15,trunc)%cr%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
+
+	# HW will have extra space after; CRW will also have extra space
+	glf = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%cr%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
+	glfs = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%cr%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%GS%C(reset)\" --all $* ; }; f"
+
+	ld   = log -1 -p
+	info = log -1 -p
+
+	ci = commit
+
+	br = branch
+
+	co = checkout
+
+	d  = diff
+	ds = diff --staged
+	dl = diff @~ @
+
+	# This can be used when you don't want to take all changes from the other branch
+	mn = merge --no-ff --no-commit
+
+[pull]
+	ff = only
+
+[merge]
+	tool = tabsplice
+	#conflictstyle = diff3
+
+[mergetool "tabsplice"]
+	cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = true
+
+[mergetool]
+	keepBackup = false
+
+[init]
+	defaultBranch = master
+
+[gpg "x509"]
+	program = smimesign
+
+[gpg]
+	format = x509
+
+[stash]
+	showPatch = true
+
+[core]
+	#pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	side-by-side = true
+
+	# delta detects terminal colors automatically; set one of these to disable auto-detection
+	# dark = true
+	# light = true
+
+[diff]
+	colorMoved = default
+
+[advice]
+	detachedHead = false
+
+# vim:ft=gitconfig:noexpandtab
