@@ -1,5 +1,9 @@
+local enable = true
+if os.getenv("TERM") == "linux" then
+    enable = false
+end
 return {
-    enabled = true,
+    enabled = enable,
     'rebelot/kanagawa.nvim',
     init = function() -- must be disabled for ttyd/vhs
         -- Default options:

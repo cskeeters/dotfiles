@@ -112,6 +112,7 @@ vim.opt.fileencoding = 'utf8'        -- File encoding to use
 
 ---- Theme
 vim.opt.syntax = "ON"                -- Allow syntax highlighting
+vim.opt.termguicolors = true         -- Used for terminal emulator or console
 --This needs to be turned off for ttyd/vhs
 vim.opt.termguicolors = true         -- If term supports ui color then enable
 if os.getenv("TERM") == "linux" then
