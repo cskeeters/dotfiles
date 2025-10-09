@@ -1,0 +1,16 @@
+snippet beet_ls List #beets
+	beet ls ${1:Radiohead}
+snippet beet_ls_song List Song #beets
+	beet ls title:${1:Kid A}
+snippet beet_update Reload metadata (update) #beets
+	beet update ${1:Kid A}
+snippet beet_remove Remove DB entry (remove) #beets
+	beet remove ${1:Kid A}
+snippet beet_remove_delete Remove DB entry and Delete (remove -d) #beets
+	beet remove -d ${1:Kid A}
+snippet beet_import Import song (Copy, Add) #beets
+	beet -vv import ${1:.}
+snippet beet_lyrics Download Lyrics #beets
+	beet -vv lyrics ${1:search}
+snippet beet_scrub Scrub (bad) id3 tags #beets
+	beet scrub ${1:search}
