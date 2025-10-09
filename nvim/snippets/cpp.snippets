@@ -43,19 +43,19 @@ snippet inc
 snippet Inc
 	#include "${1:string}.h"
 snippet cout
-	std::cout << "${1:text}" << std::endl;
+	cout << "${1:text}" << endl;
 snippet cerr
-	std::cerr << "${1:Error: }${2}" << std::endl;
+	cerr << "${1:Error: }${2}" << endl;
 snippet vec
-	std::vector<${1:std::string}> ${2:bar};
+	vector<${1:std::string}> ${2:bar};
 snippet str
-	std::string ${1}
+	string ${1}
 snippet ts
-	std::to_string(${1})
+	to_string(${1})
 snippet sp
-	std::shared_ptr<${1}>
+	shared_ptr<${1}>
 snippet ms
-	std::make_shared<${1}>(${2})
+	make_shared<${1}>(${2})
 snippet log
 	#include <UTILS/log.h>
 snippet lef
@@ -70,3 +70,25 @@ snippet li
 	LOG_INFO("${1}");
 snippet ld
 	LOG_DEBUG("${1}");
+snippet regex Regular Expression (std::regex)
+	#include <regex>
+
+	try {
+		// Use Raw String (c++11)
+		const zip_re pattern(R"zip: (\d{5})");
+
+		// std::smatch is the object that will hold the results of the match
+		std::smatch match_results;
+		if (std::regex_search("zip: 12345", match_results, pattern)) {
+
+			cout << "Match successful! Captured groups: " << match_results.size() << endl;
+			string match = match_results[0];
+			string zip = match_results[1];
+		} else {
+			cout << "No match found." << endl;
+		}
+
+	} catch (const std::regex_error& e) {
+		std::cerr << "Regex error: " << e.what() << " (Code: " << e.code() << ")" << std::endl;
+		return 1;
+	}

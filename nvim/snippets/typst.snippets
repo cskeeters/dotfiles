@@ -563,3 +563,12 @@ snippet template_doc Template: doc
 	#show: mainmatter.with(metadata:metadata,
 	                       hardcopy:hardcopy,
 	                       typst_version:typst_version)
+snippet graph_lilaq
+	#let pairs = ((1, 2), (2, 4), (3, 1), (4, 5))
+
+	#let x-values = pairs.map(p => p.at(0)) // (1, 2, 3, 4)
+	#let y-values = pairs.map(p => p.at(1)) // (2, 4, 1, 5)
+
+	#lq.diagram(
+		lq.plot(x-values, y-values)
+	)

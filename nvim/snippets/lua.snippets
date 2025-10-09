@@ -173,3 +173,17 @@ snippet module Lua Module
         ${1}
     end
     return M
+
+snippet error Vim ERROR log notification
+	vim.notify("${1:ERROR}", vim.log.levels.ERROR)
+snippet warn Vim WARN log notification
+	vim.notify("${1:ERROR}", vim.log.levels.WARN)
+snippet info Vim INFO log notification
+	vim.notify("${1:ERROR}", vim.log.levels.INFO)
+snippet debug Vim DEBUG log notification
+	vim.notify("${1:ERROR}", vim.log.levels.DEBUG)
+snippet trace Vim TRACE log notification
+	vim.notify("${1:TRACE}", vim.log.levels.TRACE)
+
+snippet field Vim log/inspect field value
+	vim.notify("${1:field}: $1", vim.log.levels.ERROR)

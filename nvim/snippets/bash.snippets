@@ -1,0 +1,5 @@
+snippet re
+	re='Chad is (.*)'
+	if [[ 'Chad is good' =~ $re ]]; then
+		echo ${BASH_REMATCH[1]}
+	fi
