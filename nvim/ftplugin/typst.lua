@@ -1,6 +1,9 @@
 vim.opt_local.wrap = true
 -- vim.opt.showbreak = "   "  -- When text is indented, it will be sub indented to work well for numbered and bulleted lists
 
+-- Support words in kebab-case
+vim.opt.iskeyword:append('-')
+
 -- This doesn't work
 -- table.insert(vim.opt_local.briopt,'list:-1')
 vim.opt_local.briopt="list:-1"
