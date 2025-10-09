@@ -1,0 +1,20 @@
+snippet luarocks_install Install rock for #luarocks
+	luarocks install ${1:lrexlib-pcre} ${2:--lua-version=5.1}
+
+snippet luarocks_uninstall Remove/Uninstall rock for #luarocks
+	luarocks remove ${1:lrexlib-pcre} ${2:--lua-version=5.1}
+
+snippet luarocks_search Search servers for rock #luarocks
+	luarocks search ${1:lrexlib-pcre} ${2:--lua-version=5.1}
+
+snippet luarocks_installed Show installed rocks #luarocks
+	luarocks list ${1:--lua-version=5.1}
+
+snippet luarocks_installed Show installed rocks #luarocks
+	luarocks list ${1:--lua-version=5.1}
+
+snippet luarocks_show Show info for package #luarocks
+	luarocks show ${1:lrexlib-pcre} ${2:--lua-version=5.1}
+
+snippet luarocks_paths Show paths #luarocks
+	luarocks path ${1:--lua-version=5.1}

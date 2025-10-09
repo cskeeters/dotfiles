@@ -1,0 +1,10 @@
+snippet go_build Build go project #go
+	go build
+snippet go_build_file Compile go file #go
+	go build ${1:main.go}
+snippet go_mod_init Initialize go project for modules #go #mod
+	go mod init ${1:bracketed_paste}
+snippet go_mod_tidy Auto add go modules #go #mod
+	go mod tidy
+snippet go_mod_update Update go moduels #go #mod
+	go get -u

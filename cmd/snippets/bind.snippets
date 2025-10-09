@@ -1,0 +1,20 @@
+snippet bind_shell Bind key to shell function #readline
+	bind -x '"${1:\C-x\C-j}": ${2:runsnippet}'
+snippet bind_remove Remove binding
+	bind -r '${1:\C-x\C-j}'
+snippet bind_show_shell Show shell bindings #readline
+	bind -X
+snippet bind_show_functions List readline functions #readline
+	bind -l
+snippet bind_show_macros List bindings to macros #readline
+	bind -s
+
+snippet bind_show_bindings List function names and bindings #readline
+	bind -P
+snippet bind_show_bindings_input List function names and bindings for user input #readline
+	bind -p
+
+snippet bind_show_variables List variables #readline
+	bind -V
+snippet bind_show_bindings_input List variables for input #readline
+	bind -v

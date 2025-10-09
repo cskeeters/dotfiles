@@ -1,0 +1,21 @@
+# restic -r ${1:/tmp/restic} --password-file ~/.resticpw init
+snippet restic_init Initial new restic repository #restic
+	restic init
+
+snippet restic_select Activate restic repository #restic
+	activate_restic_repository
+
+snippet restic_backup Backup path #restic
+	restic backup "${2:$HOME/RCC}"
+
+snippet restic_restore Restore snapshot #restic
+	restic restore latest --path "${2:$HOME/RCC}" --target /tmp/restore
+
+snippet restic_restore_file Restore file #restic
+	restic restore latest --path "${1:$HOME/RCC}" --target /tmp/restore --include ${2:include}
+
+snippet restic_mount Mount snapshot #restic
+	restic mount "${2:/tmp/mount}"
+
+snippet restic_forget Forget all but N snapshots of PATH
+	restic forget --keep-last 1 --prune

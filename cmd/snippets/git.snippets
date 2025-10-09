@@ -1,0 +1,30 @@
+snippet git_branch Create a branch #git
+	git co -b ${1:feature_name}
+snippet git_branch_push Push a branch #git
+	git push -u origin ${1:feature_name}
+snippet git_branch_clean Create a clean (orphan) branch #git
+	git switch --orphan ${1:branch_name}
+snippet git_show_ignored Show Ignored files
+	git status --ignored
+snippet git_tag Tag repo #git
+	git tag ${1:v0.0.1}
+snippet git_bare Clone bare #git
+	git clone --bare ${1:url_or_path}
+snippet git_unstage Unstage file #git
+	git restore --staged ${1:git_select_staged()}
+snippet git_discard Discard changes in file #git
+	git restore ${1:git_select_modified()}
+snippet git_clean Discard untracked files #git
+	git clean -f
+snippet git_mrproper Discard untracked and ignored files #git
+	git clean -fdX
+snippet git_tag_delete Delete a Tag #git
+	git tag -d ${1:git_tags()}
+snippet git_tag_push Push a Tag #git
+	git push origin tag ${1:git_tags()}
+snippet git_restore Restore file to commit #git
+	git restore ${1:fd_files()}
+snippet git_restore_all Restore all to commit #git
+	git restore .
+snippet git_rm_untracked Remove all untracked #git
+	git clean -fd

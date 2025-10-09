@@ -1,0 +1,14 @@
+snippet cargo_init Initialize a new project #cargo
+	cargo init ${1:foo}
+snippet cargo_add Add a dependency #cargo
+	cargo add ${1:tokio}
+snippet cargo_install Install Cargo Package #cargo
+	cargo install ${1:typship}
+snippet cargo_uninstall Uninstall/Remove Cargo Package #cargo
+	cargo uninstall ${1:typship}
+snippet cargo_list List Installed Cargo Packages #cargo
+	cargo install --list
+snippet cargo_upgrade Upgrade rust dependancies (crates) #cargo
+	cargo upgrade
+snippet rustup_update Update rustc, cargo, and other rust tools #rust #cargo
+	cargo upgrade

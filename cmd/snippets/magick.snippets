@@ -1,0 +1,6 @@
+snippet magick_batch_2048_80 Batch convert images (2048 80)
+	find . -name "${1:*.JPG}" | parallel -v magick {} -resize "\"2048x2048>\"" -quality 80 compressed/{}
+snippet magick_batch_2048_60 Batch convert images (2048 60)
+	find . -name "${1:*.JPG}" | parallel -v magick {} -resize "\"2048x2048>\"" -quality 60 compressed/{}
+snippet magick_batch_1600_60 Batch convert images (1600 60)
+	find . -name "${1:*.JPG}" | parallel -v magick {} -resize "\"1600x1600>\"" -quality 60 compressed/{}

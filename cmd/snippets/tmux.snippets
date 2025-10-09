@@ -1,0 +1,2 @@
+snippet tmux_attach Attach to selected session #tmux
+	tmux a -t $(tmux ls | fzf -1 -d ":" --accept-nth 1)

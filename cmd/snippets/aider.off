@@ -1,0 +1,2 @@
+snippet aider_run Runs aider
+	OLLAMA_API_BASE=http://127.0.0.1:11434 aider --no-auto-commits --model ollama_chat/${1:ollama_local_models()}
