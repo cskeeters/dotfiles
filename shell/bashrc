@@ -83,6 +83,12 @@ if exists fdfind; then
     alias fd=fdfind
 fi
 
+#### Lazygit
+
+if exists lazygit; then
+    alias lg=lazygit
+fi
+
 
 #### Asciidoc
 # export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
