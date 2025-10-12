@@ -61,9 +61,6 @@ if exists fdfind; then
     alias fd=fdfind
 fi
 
-# Path
-[[ -d ~/bin ]] && export PATH=~/bin:$PATH
-
 load_all()
 {
     if [[ -d "$1" ]]; then
