@@ -76,7 +76,10 @@ alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
 alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
 alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 
+#### fd
+
 if exists fdfind; then
+    # Debian installs as fdfind
     alias fd=fdfind
 fi
 
