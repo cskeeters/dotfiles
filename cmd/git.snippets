@@ -28,5 +28,7 @@ snippet git_restore_all git: Restore all to commit
 	git restore .
 snippet git_rm_untracked git: Remove all untracked
 	git clean -fd
+snippet git_set_upstream git: Get Upstream
+	git rev-parse --abbrev-ref @{upstream}
 snippet git_set_upstream git: Set Upstream
 	git branch --set-upstream-to=${1:origin}/${2:master} ${3:master}
