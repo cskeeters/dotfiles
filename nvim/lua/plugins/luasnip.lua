@@ -31,6 +31,7 @@ return {
             updateevents = "TextChanged,TextChangedI",
             -- Autosnippets are snippets that are automatically expanded.  Enable here.
             enable_autosnippets = true,
+            cut_selection_keys = "<tab>",
 
             ext_opts = {
                 -- Enables ghost text indicating the node type
