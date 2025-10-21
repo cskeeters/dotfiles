@@ -206,11 +206,7 @@ chmod a+x offline/tabsplice
 cache https://raw.githubusercontent.com/cskeeters/myvim/master/myvim
 chmod a+x offline/myvim
 
-
 clone https://github.com/chriskempson/base16-shell
-
-# Use Nerd Font instead
-# clone https://github.com/powerline/fonts
 
 if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
     echo "Finished Downloading.  Exiting"
