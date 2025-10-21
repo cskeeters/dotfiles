@@ -1,0 +1,2 @@
+snippet ffmpeg_hflip ffmpeg: Flip horizantally
+	ffmpeg -i "${1:input.mp4}" -vf hflip -c:a copy "${2:output.mp4}"
