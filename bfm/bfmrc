@@ -1,7 +1,10 @@
-[[WdReplacement]]
+default_plugins = true
+default_bindings = true
+
+[[wd_replacements]]
 real = "Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC"
 repl = "=OneDrive="
 
-[[WdReplacement]]
+[[wd_replacements]]
 real = "Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC"
 repl = "=OneDrive Sharad="
