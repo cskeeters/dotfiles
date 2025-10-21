@@ -248,6 +248,13 @@ linkdot ctags
 
 linkdot tmux.conf
 
+if [[ $(uname) == "Darwin" ]]; then
+    echo macos
+    link lazygit/config.yml "Library/Application Support/lazygit"
+else
+    link lazygit/config.yml .config/lazygit
+fi
+
 linkbin offline/tabsplice
 linkbin offline/myvim
 
