@@ -1,38 +1,45 @@
-snippet lb Line Break
-	${1:text} \ 
-snippet pb Page Break
-	#pagebreak(weak: true)
-snippet import-local Import (Local)
-	#import "@local/${1:article}:0.1.0": *
-snippet import-local Import (Preview)
-	#import "@preview/${1:contract-util}:0.1.0": *
-
-snippet rcc-logo RCC Logo
-	#import "@local/rcc:0.1.0": *
-	rcc_logo(width:100pt)
-snippet rch-logo RCH Logo
-	#import "@local/rch:0.1.0": *
-	rch_logo(width:100pt)
-
-snippet signature Signature Block
-	grid(
-		align: (left+bottom, bottom),
-		columns: (1fr, auto),
-		{
-		},
-		{
-			box(
-				align(left, {
-					set block(spacing: 5pt)
-					v(1in) // Height of signature
-					line(stroke:1.5pt, length:3.5in)
-					text(weight: 500, upper(reported_by))
-				})
-			)
-		}
+snippet lorem_ipsum Lorem Ipsum
+	#lorem(40)
+snippet pdf PDF Metadata
+	#set document(
+		title: title,
+		author: author,
+		keywords: "chemistry",
 	)
-
-snippet tabelm Markdown Table Support
+snippet page-setup Page Setup
+	#set page(
+		paper: "us-letter",
+		margin: (top: 1in, bottom: 1in, x:1in),
+		// margin: (y:1in, x:1in),
+		// flipped: true, // Landscape
+		header: context {
+			if not hardcopy or calc.odd(here().page()) {
+				align(right, {
+					text(features: ("c2sc", "smcp"), title)
+					h(1mm)
+					[$|$]
+					h(1mm)
+					counter(page).display("1")
+				})
+			} else { // even
+				align(left, {
+					counter(page).display("1")
+					h(1mm)
+					[$|$]
+					h(1mm)
+					text(features: ("c2sc", "smcp"), title)
+				})
+			}
+		},
+		numbering: "1",
+	)
+snippet page_number Page Number
+	#set page(numbering: "(i)")
+	#set page(numbering: "1")
+	#counter(page).display()
+snippet multi_column Change to Multi-Column Layout (Mid page)
+	#show: it => columns(2, it)
+snippet markdown_table Markdown Table
 	#import "@preview/tablem:0.1.0": tablem
 
 	#tablem[
@@ -41,64 +48,11 @@ snippet tabelm Markdown Table Support
 		| John   | Second St. | 180 cm   |  5      |
 		| Wally  | Third Av.  | 160 cm   |  10     |
 	]
-snippet set Set Rule
-	#set page(numbering: "(i)")
-	#{
-		set align(center)
-		text([hi])
-	}
-snippet show Show
+    return c(1, to_text_nodes(markers))
+snippet table_bold_header Bolds the table header
 	show table.cell.where(y: 0): set text(weight: "bold")
-snippet show_set Show-Set
-	show list: set block(above: 1.2em, below: 1.2em)
-snippet page-setup Page Setup
-	#set page(
-		paper: "us-letter",
-		margin: (top: 2in, bottom: 1in, x:1in),
-		// margin: (y:1in, x:1in),
-		// flipped: true, // Landscape
-		header: context {
-			if not hardcopy or calc.odd(here().page()) {
-				align(right, {
-					[Paper Title]
-					h(1mm)
-					[$|$]
-					h(1mm)
-					counter(page).display("1")
-				})
-			} else { // even
-			}
-		},
-		numbering: "1",
-	)
-snippet page-setup-margins Page Setup Margins
-	#set page(
-		margin: (x:1in, y:1in, bottom:.6in),
-	)
-snippet title_header Title plus Logo
-	#import "@local/rcc:0.1.0": *
-	#grid(
-		align: (bottom, bottom),
-		columns: (1fr, auto),
-		// pad(left:.6in, text(2em, weight:900, "Title")),
-		text(2em, weight:900, "Title"),
-		rcc_logo(width:100pt)
-	)
-snippet swoop Swoop
-	#import "@local/page-util:0.1.0": *
-	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
 snippet full_width_img Full Width Image
-  full-width(spacing:20pt, image("bg.jpg", width:100%))
-snippet page-number Page Number
-	#set page(numbering: "(i)")
-	#set page(numbering: "1")
-	#counter(page).display()
-snippet align Align
-	#align(center+horizon, ${1:[hi]})
-snippet align_block Align Block
-	#align(center+horizon, {
-		${1:[hi]}
-	})
+	full-width(spacing:20pt, image("bg.jpg", width:100%))
 snippet setup_raw Setup for raw (Fenced Code Block)
 	//wget https://raw.githubusercontent.com/chriskempson/base16-textmate/master/Themes/base16-default-light.tmTheme
 	//#set raw(theme:"base16-default-light.tmTheme")
@@ -127,27 +81,75 @@ snippet raw_synhi Custom Syntax Highlighting fro raw
 		#show regex("(if|else|match)"): set text(color: conditionalColor)
 	]
 	// https://gitlab.com/TheZoq2/typst-common/-/blob/main/highlight.typ
-snippet lorem_ipsum Lorem Ipsum
-	#lorem(40)
-snippet multi-column Multi-Column Layout
-	#show: rest => columns(2, rest)
-snippet main A basic template
-	#import "template.typ": *
+snippet swoop Swoop
+	#import "@local/page-util:0.1.0": *
+	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
+snippet school_paper_main Template for school paper
+	#import "@local/school-paper:0.1.0": *
 
 	#let title = "Test Document"
+	#let author = "Chad Skeeters"
 
-	#show: project.with(
+	#set document(
 		title: title,
-		authors: (
-			(name: "Chad Skeeters", email: "chad.skeeters@redcedarconsultancy.com"),
-		),
-		date: "February 6, 2024",
-		logo: "337th Patch FINAL Cropped.png"
+		author: author,
+		keywords: "Chemistry",
 	)
+
+	#show: setup
+
+	#maketitle(
+		title: title
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
+	#lorem(60)
+
+snippet doc_main Template for doc
+	#import "@local/doc:0.1.0": *
+
+	#let title = "Test Document"
+	#let hardcopy = true
+
+	#let metadata = (
+	title: title,
+	)
+
+	#set page(
+	paper: "us-letter",
+	margin: (y:1in, x:1in),
+	)
+
+	#show: setup.with(hardcopy: hardcopy)
 
 	#set heading(numbering: "1.", supplement: [Section])
 
+	#titlepage(metadata:metadata)
+
+	#set page(
+	header: context {
+		if not hardcopy or calc.odd(here().page()) {
+		align(center, {
+			text(features: ("c2sc", "smcp"), title)
+		})
+		} else { // even
+		align(center, {
+			text(features: ("c2sc", "smcp"), title)
+		})
+		}
+	},
+	numbering: "1",
+	)
+
 	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
 	#lorem(60)
 snippet format-heading Formats Headings
 	// Simpler
@@ -250,10 +252,10 @@ snippet fenced-code
 	\`\`\`bash
 	echo hi
 	\`\`\`
-snippet h Horizantal Space
+snippet h_space Horizantal Space
 	#h(1fr)
 	#h(1in, weak:false)
-snippet h Vertical Space
+snippet v_space Vertical Space
 	#v(1fr)
 	#v(1in, weak:false)
 snippet landscape
@@ -263,8 +265,6 @@ snippet landscape
 	]
 snippet footnote
 	#footnote[https://typst.app/docs]
-snippet center
-	#set align(center)
 snippet color
 	#set text(red)
 snippet highlight
@@ -383,17 +383,6 @@ snippet glossaries Glossaries/Acronyms
 snippet secret Secret Stamps
   place(dy:0in, dx:2in, rotate(-8deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
   place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
-snippet grid Grid
-	#grid(
-		columns: (1fr, 1fr),
-
-		//gutter: 5pt,
-		row-gutter: 5pt,
-		column-gutter: 5pt,
-
-		${1:[Left]},
-		${2:[Right]}
-	)
 snippet block Block
 	#block(
 		fill: luma(230),
@@ -437,6 +426,11 @@ snippet soft-hyphen Soft Hyphen (Tell where to break)
 	#sym.hyph-soft; or -?
 snippet zero-width-space Zero Width Space
 	#sym.zws;
+snippet format_enum Format Enumerated (Bulleted) Lists
+	#import "@local/format-enum:0.1.0": *
+	#show: format_enum_diamonds
+	// #show: format_enum_word
+	// #show: format_enum_unicode
 snippet heading Heading Styling
 	#import "@local/format-headings:0.1.0": *
 
@@ -572,3 +566,10 @@ snippet graph_lilaq
 	#lq.diagram(
 		lq.plot(x-values, y-values)
 	)
+
+
+snippet vollkorn Vollkorn Font
+	#set text(font:"Vollkorn", features: ("ss11", "ss14", "ss17", "zero"))
+snippet novela Novela Font
+	//lnum gets rid of the sideways zero
+	#set text(font:"Novela", features: ("lnum"))
