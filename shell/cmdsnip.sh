@@ -1,6 +1,8 @@
 #### Command Line Snippets
 
 export SED=sed
+
+# On macOS we need to use gsed
 if command -v gsed &> /dev/null; then
     export SED=gsed
 fi
