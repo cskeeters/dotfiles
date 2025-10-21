@@ -3,7 +3,7 @@
 -- 2. Run :Mason and install it
 -- 3. Add a section of config like:
 --
---        lspconfig.bashls.setup{
+--        vim.lsp.config.bashls.setup{
 --            on_attach = on_attach,
 --            flags = lsp_flags,
 --        }
@@ -107,20 +107,15 @@ return {
     enabled = true,
     'williamboman/mason.nvim',
     dependencies = {
-        'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
-        --'hrsh7th/cmp-nvim-lsp',
     },
     lazy=false,
     init = function()
-        local lspconfig = require 'lspconfig'
-        local util = require 'lspconfig.util'
-
         require("mason").setup()
-        require("mason-lspconfig").setup({
-            automatic_installation = true,
-            ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "rust_analyzer", "gopls", "tinymist", "harper_ls"},
-        })
+        -- require("mason-lspconfig").setup({
+        --     automatic_installation = true,
+        --     ensure_installed = { "lua_ls", "bashls", "cssls", "clangd", "rust_analyzer", "gopls", "tinymist", "harper_ls"},
+        -- })
 
         vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float, { noremap=true, silent=true, desc="Open Diagnostic Float" })
 
@@ -161,14 +156,15 @@ return {
         -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 
         local capabilities = nil
-        local status, lsp = pcall(require, 'cmp_nvim_lsp')
+
+        local status, _ = pcall(require, 'blink.cmp')
         if status then
-            capabilities = require('cmp_nvim_lsp').default_capabilities()
+            capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
         end
 
 
         -- MasonInstall lua-language-server
-        lspconfig.lua_ls.setup {
+        vim.lsp.config('lua_ls', {
             on_attach = on_attach,
 
             flags = lsp_flags,
@@ -195,57 +191,65 @@ return {
                 },
             },
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('lua_ls')
 
         -- MasonInstall bash-language-server
-        lspconfig.bashls.setup{
+        vim.lsp.config('bashls', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('bashls')
 
         -- MasonInstall css-lsp
-        lspconfig.cssls.setup{
+        vim.lsp.config('cssls', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('cssls')
+
 
         -- MasonInstall phpactor (Requires php8.1 which is not available on bullseye)
-        lspconfig.phpactor.setup{
+        vim.lsp.config('phpactor', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('phpactor')
 
         -- MasonInstall pyright
-        lspconfig.pyright.setup{
+        vim.lsp.config('pyright', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('pyright')
 
         -- MasonInstall clangd
-        lspconfig.clangd.setup{
+        vim.lsp.config('clangd', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-        }
+        })
+        vim.lsp.enable('clangd')
 
         -- MasonInstall java-language-server
-        -- lspconfig.java_language_server.setup{
+        -- vim.lsp.config('java_language_server', {
             -- on_attach = on_attach,
             -- flags = lsp_flags,
-        -- }
+        -- })
+        vim.lsp.enable('java_language_server')
 
         -- MasonInstall rust-analyzer
-        lspconfig.rust_analyzer.setup({
+        vim.lsp.config('rust_analyzer', {
             on_attach = on_attach,
             settings = {
                 ["rust-analyzer"] = {
                     imports = {
                         granularity = {
-                            group = "module",
+                            group = "item",
                         },
                         prefix = "self",
                     },
@@ -260,16 +264,18 @@ return {
                 }
             }
         })
+        vim.lsp.enable('rust_analyzer')
 
         -- MasonInstall gopls
-        lspconfig.gopls.setup({
+        vim.lsp.config('gopls', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
         })
+        vim.lsp.enable('gopls')
 
         -- MasonInstall tinymist
-        lspconfig.tinymist.setup{
+        vim.lsp.config('tinymist', {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
@@ -279,10 +285,11 @@ return {
                 --exportPdf = "onSave",
                 --outputPath = "$root/$dir/$name",
             }
-        }
+        })
+        vim.lsp.enable('tinymist')
 
         -- MasonInstall ltex-ls
-        -- lspconfig.ltex.setup{
+        -- vim.lsp.config('ltex', {
         --     -- Override filetypes in server_configuration/ltex to enable typst
         --     filetypes = { "latex", "typst", "typ", "bib", "markdown", "plaintex", "tex" },
         --     --filetypes = { "latex", "typst", "typ", "bib", "plaintex", "tex" },
@@ -306,10 +313,11 @@ return {
         --             },
         --         },
         --     }
-        -- }
+        -- })
+        -- vim.lsp.enable('ltex')
 
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#harper_ls
-        lspconfig.harper_ls.setup {
+        vim.lsp.config('harper_ls', {
             on_attach = on_attach,
             filetypes = { "text", "markdown", "rust", "typescript", "typescriptreact", "javascript", "python", "go", "c", "cpp", "ruby", "swift", "cs", "toml", "lua", "gitcommit", "java", "html" },
             settings = {
@@ -336,9 +344,10 @@ return {
                     }
                 }
             },
-        }
+        })
+        vim.lsp.enable('harper_ls')
 
-        lspconfig.yamlls.setup {
+        vim.lsp.config('yamlls', {
             settings = {
                 yaml = {
                     validate = true,
@@ -359,7 +368,8 @@ return {
                     }
                 }
             }
-        }
+        })
+        vim.lsp.enable('yamlls')
 
     end
 }
