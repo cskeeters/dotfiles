@@ -1,7 +1,13 @@
-snippet joffery_mount_opt mount: Mount joffrey:/opt
-	mount -t nfs joffrey.local:/opt ~/working/joffrey/
-snippet joffery_mount_storage mount: Mount joffrey:/storage
-	mount -t nfs joffrey.local:/storage ~/working/joffrey/
-snippet joffery_unmount umount: unmount jofffrey
+snippet jext_mount_opt mount: Mount jext:/opt to ~/working/joffrey
+	sshfs jext:/opt ~/working/joffrey
+snippet jext_mount_storage mount: Mount jext:/storage to ~/working/joffrey
+	sshfs jext:/storage ~/working/joffrey
+
+snippet joffery_mount_opt mount: Mount joffery:/opt to ~/working/joffrey
+	sshfs joffrey:/opt ~/working/joffrey
+snippet joffery_mount_storage mount: Mount joffrey:/storage to ~/working/joffrey
+	sshfs joffrey:/storage ~/working/joffrey
+
+snippet joffery_unmount umount: unmount ~/working/jofffrey
 	umount ~/working/joffrey/
 
