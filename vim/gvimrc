@@ -1,18 +1,6 @@
 "Default : aegimrLtT  linux : aciM
 set guioptions=rLt
 
-if has("gui_macvim")
-    "set guifont=Monospace\ 13
-
-    let g:airline_powerline_fonts = 1
-    "set guifont=Meslo\ LG\ S\ for\ Powerline:h15
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h15
-elseif has("x11")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
-else
-    set guifont=Consolas:h13
-endif
-
 " MacVim specific settings
 if has("gui_macvim")
     " allows option to be used as alt with <M>

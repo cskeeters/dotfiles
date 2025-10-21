@@ -7,11 +7,9 @@
 "  3 : Disables syntax highlighting all together
 let g:speed=0
 
-" vim: set ft=vim:
-
 set nocompatible
-" vi-compatible sentences have two spaces after them.
-set cpo+=J " Recognize sentences by two spaces after punctuation
+" J: Recognize sentences by two spaces after punctuation
+set cpo+=J
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -21,16 +19,12 @@ set tags=tags
 set tags+=../tags
 set tags+=../../tags
 set tags+=../../../tags
-"set tags+=../../../../tags
-"set tags+=../../../../../tags
+
+" To include /usr/include into tags
 " mkdir -p tags
 " cd ~/tags
 " ctags -R /usr/include
 "set tags+=/home/chad/tags/tags.inc
-
-if &shell =~# 'fish$'
-    set shell=sh
-endif
 
 set expandtab                   " tabs are spaces, not tabs (et)
 set shiftwidth=4                " use indents of 4 spaces (sw)
@@ -236,8 +230,8 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Global Settings
-let mapleader = ','
-let maplocalleader = ' '
+let mapleader = ' '
+let maplocalleader = ','
 
 nnoremap <c-w>f :call FocusWindow(140)<cr>
 
@@ -246,10 +240,6 @@ nnoremap Q :echom "Exmode Disabled"<cr>
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 nnoremap x "_x
-
-if has('osx')
-    nmap <silent> K <Plug>DashSearch
-endif
 
 " Make any necesary parent directories
 command! -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
@@ -376,27 +366,11 @@ nnoremap \W :set nowrap<cr>  " Exit wrap mode
 
 nnoremap \\v :source $MYVIMRC<cr>
 
-" junegunn/rainbow_parentheses.vim
-nnoremap \r :RainbowParentheses!!<cr>
-
 " tpope/vim-commentary
 " For changing comment characters in html/script/style
 nnoremap \c/  :set commentstring=//\ %s<cr>
 nnoremap \c*  :set commentstring=/*\ %s\ */<cr>
 nnoremap \c-  :set commentstring=<!--\ %s\ --><cr>
-
-" mhinz/vim-signify
-nmap \+ :SignifyToggle<cr>
-" jlfwong/vim-mercenary'
-nmap \b :HGblame<cr>
-" cskeeters/vim-hg
-nmap \a :HgAnnotate<cr>
-" gd - go diff when cursor is over number
-nmap \l :HgGLog<cr>
-" gd - go diff when cursor is over number
-
-" Toggle diff
-nmap <space>d :ToggleDiff<cr>
 
 " When text doesn't highlight
 nnoremap \\5 :syntax sync minlines=500<cr>
@@ -405,20 +379,17 @@ nnoremap \\x :syntax sync fromstart<cr>
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Directory
 
 " Change Working Directory to that of the current file
-nnoremap <c-j>. :lcd %:p:h<cr>
-nnoremap <c-j>u :lcd ..<cr>
-nnoremap <c-j>1 :lcd ..<cr>
-nnoremap <c-j>2 :lcd ../..<cr>
-nnoremap <c-j>3 :lcd ../../..<cr>
+nnoremap <leader>. :lcd %:p:h<cr>
+nnoremap <leader>u :lcd ..<cr>
+nnoremap <leader>1 :lcd ..<cr>
+nnoremap <leader>2 :lcd ../..<cr>
+nnoremap <leader>3 :lcd ../../..<cr>
 
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Jumping
 
 "majutsushi/tagbar (outline)
-nnoremap <silent> <leader>o :TagbarToggle<CR>
-
-"beloglazov/vim-online-thesaurus
-nnoremap <leader>d :OnlineThesaurusCurrentWord<cr>
+nnoremap <silent> <leader>t :TagbarToggle<CR>
 
 "Jump to tag in vertical split instead of horizonal (default)
 nnoremap <c-w>] :vertical wincmd ]<cr>
@@ -436,13 +407,6 @@ if !has("gui_running")
     nnoremap <c-j>s :HgFiles<CR>
 endif
 
-" Edit the snippets for the filetype of the current buffer
-" cskeeters/vim-snippets
-nnoremap <C-j>es :OpenSnips<cr>
-
-" Edit the maps file for the filetype of the current buffer
-nnoremap <C-j>em :OpenMaps<cr>
-
 " cskeeters/vim-jump
 nmap <leader>gj <Plug>Jump
 nnoremap <leader>mz :call GetMark('z')<cr>
@@ -454,29 +418,20 @@ nnoremap <leader>mv :call GetMark('v')<cr>
 "cskeeters/closer.vim
 nmap <silent> <C-j>c <Plug>OpenCloser
 
-" cskeeters/vim-status
-nmap <silent> <C-j>s :OpenStatus<CR>
-
-nmap <silent> <leader>t :tabclose<cr>
-
 if !has("gui_running")
     "junegunn/fzf.vim
-    noremap <C-j>b :Buffers<CR>
-    noremap _      :Buffers<CR>
+    noremap <leader>ob :Buffers<CR>
+    noremap _          :Buffers<CR>
 endif
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File Search
 
 if !has("gui_running")
     "junegunn/fzf.vim
-    noremap <C-j>h :History<CR>
-    noremap <C-j>m :Marks<CR>
-    noremap <C-j>v :Files ~/.vim/plugged<CR>
+    noremap <leader>oo :History<CR>
+    noremap <leader>oc :Files ~/.vim<CR>
 
-    noremap <C-j><C-j> :Files<CR>
-    noremap <C-j>f :Files<CR>
-
-    noremap <C-j>g :Ag<space>
+    noremap <leader>of :Files<CR>
 endif
 
 
@@ -491,7 +446,6 @@ noremap <leader>i/ :LAckWindow <cword><cr>
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: File
 
-noremap <Leader>s :update<CR>
 " Use sudo and tee to write the file as root
 nmap <leader><leader>w :w !sudo tee % >/dev/null<cr>
 
@@ -544,18 +498,12 @@ nmap <localleader>cu <Plug>Commentary<Plug>Commentary
 " mbbill/undotree
 nnoremap <localleader><localleader>u :UndotreeToggle<CR>
 
-" junegunn/vim-easy-align
-vmap <Enter> <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Abbr
 
 iab <expr> dts strftime("%FT%T%z")
 iab <expr> ds strftime("%Y-%b-%d")
 
 """"""""""""""""""""""""""""""""" Keyboard Mappings: Other
-
-nmap <C-k> :make<cr>
 
 " cskeeters/vim-make
 nmap g<C-k> :RootBuild<CR>
@@ -581,34 +529,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'https://github.com/vim-scripts/argtextobj.vim'
-" cia (change, in, argument)
-Plug 'https://github.com/michaeljsmith/vim-indent-object'
-" cii (change, in, indent)
-
-Plug 'https://github.com/vim-scripts/visualrepeat'
-Plug 'https://github.com/cskeeters/vim-smooth-scroll'
-"let g:ms_per_line = 20
-Plug 'https://github.com/tpope/vim-repeat'
-
-"Plug '~/working/base16-builder-php/templates/vim'
-
 if version > 800
     " Addresses a possible bug where vim (term) doesn't fall back to underline
     " from undercurl
     let &t_Cs = "\e[4:3m"
     let &t_Ce = "\e[4:0m"
 endif
-
-Plug 'https://github.com/chriskempson/base16-vim',
-    \ { 'do': 'git clone https://github.com/chriskempson/base16-shell.git ~/.vim/base16-shell' }
-if $TERM != "konsole"
-    " As a work around for the following bugs in kde4's konsole:
-    " https://github.com/chriskempson/base16-shell/issues/31
-    let g:base16_shell_path = $HOME."/.vim/base16-shell/scripts"
-    let base16colorspace=256
-endif
-set background=dark
 
 Plug 'https://github.com/junegunn/rainbow_parentheses.vim'
 let g:rainbow#max_level = 16
@@ -709,30 +635,10 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 """"""""""""""""""""""""""""""""" Plugins: snippets
 
-if g:speed < 1
-    " Use tag 3.2 for python2 support
-    Plug 'https://github.com/SirVer/ultisnips', { 'tag': '3.2' }
-endif
-"let g:UltiSnipsSnippetsDir = "~/.vim/plugged/vim-snippets/UltiSnips"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"let g:UltiSnipsExpandTrigger="<c-b>"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-"Plug 'https://github.com/tomtom/tlib_vim'
-"Plug 'https://github.com/MarcWeber/vim-addon-mw-utils'
-"Plug 'https://github.com/garbas/vim-snipmate'
-
 " vim runtime/filetype autoload/dist/ft.vim will detect htmldjango.
 " This dot syntax makes html snippets accessible
 autocmd FileType htmldjango set ft=htmldjango.js.css.html
 autocmd FileType html set ft=js.css.html
-
-" Personal snippets
-Plug 'https://github.com/cskeeters/vim-snippets'
-
 
 """"""""""""""""""""""""""""""""" Plugins: DRCS git/hg
 
@@ -858,16 +764,9 @@ function! FocusWindow(target_width)
 endfunction
 
 """"""""""""""""""""""""""""""""" Configuration: colorscheme
-if has('nvim')
-    if $TERM_PROGRAM == "iTerm.app"
-        set termguicolors
-    endif
-endif
 
-" Allow color schemes to do bright colors without forcing bold.
-if &t_Co == 8 && $TERM !~# '^Eterm'
-  set t_Co=16
-endif
+set background=dark
+colorscheme habamax
 
 if g:speed < 1
     " Load matchit.vim, but only if the user hasn't installed a newer version.
@@ -880,12 +779,9 @@ if g:speed < 2
     if has('autocmd')
         filetype plugin indent on
     endif
-
-    colorscheme base16-default-dark
-    " Vim 8 sets cterm=underline, reset that here
-    highlight CursorLine   ctermbg=18 term=NONE cterm=NONE
-    highlight CursorLineNr ctermbg=18 term=NONE cterm=NONE
 elseif g:speed > 2
     hi clear
     syntax off
 endif
+
+" vim: set ft=vim:
