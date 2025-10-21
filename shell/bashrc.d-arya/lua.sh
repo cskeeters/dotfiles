@@ -1,1 +1,1 @@
-export LUA_PATH="$HOME/.local/share/lua/?.lua;;"
+eval $(luarocks path --lua-version 5.1)
