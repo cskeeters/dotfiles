@@ -221,7 +221,17 @@ vim.keymap.set('n', 'C', '"oC', { noremap=true, silent=true, desc="Replace the r
 
 vim.keymap.set('v', '<LocalLeader>d', '"_d', { noremap=true, desc="Remove selected text without affecting the unnamed register" })
 
-vim.keymap.set('n', '<C-l>', ':nohlsearch<cr>', { noremap=true, silent=true, desc="Disable search highlight" })
+function Reset()
+    vim.cmd('nohlsearch')
+
+    local luasnip = require("luasnip")
+    if luasnip then
+        luasnip.unlink_current()
+    end
+end
+
+
+vim.keymap.set('n', '<C-l>', Reset, { noremap=true, silent=true, desc="Disable search highlight and unlink snippet" })
 
 vim.keymap.set('n', '<Leader>s', ':update<cr>', { noremap=true, silent=true, desc="Save the buffer" })
 
