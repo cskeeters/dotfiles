@@ -1,5 +1,5 @@
 return {
-    enabled = false,
+    enabled = true,
     'majutsushi/tagbar',
     lazy=false,
     init = function()
@@ -7,6 +7,6 @@ return {
         vim.g.tagbar_autoclose=1
     end,
     keys = {
-        {'<Leader>t', ':TagbarToggle<cr>', noremap=true, silent=true, desc="Toggles the Tagbar" },
+        {'<Leader>T', ':TagbarToggle<cr>', noremap=true, silent=true, desc="Toggles the Tagbar" },
     }
 }
