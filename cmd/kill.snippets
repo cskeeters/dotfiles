@@ -1,0 +1,14 @@
+snippet kill_list kill: List signals
+	kill -l
+snippet kill_usr1 kill: Send USR1 to process id
+	kill -USR1 ${1:select_pid()}
+snippet kill_usr2 kill: Send USR2 to process id
+	kill -USR2 ${1:select_pid()}
+snippet kill_term kill: Send TERM to process id
+	kill -TERM ${1:select_pid()}
+snippet kill_kill kill: Send KILL to process id
+	kill -KILL ${1:select_pid()}
+snippet killall_term killall: Send TERM to all processes by name
+	killall -TERM ${1:test}
+snippet killall_kill killall: Send KILL to all processes by name
+	killall -KILL ${1:test}

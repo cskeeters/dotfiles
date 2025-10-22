@@ -87,6 +87,10 @@ find_files() {
     find . -type f | fzf --height="90%"
 }
 
+select_pid() {
+    ps aux | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 1,11.. --accept-nth 2
+}
+
 fd_files() {
     fd | fzf --height="90%"
 }
