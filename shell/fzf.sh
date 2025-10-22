@@ -60,6 +60,16 @@ if command -v eza > /dev/null; then
 fi
 
 # Use o instead of i no not overwrite mapping for Tab
+export FZF_NO_PREVIEW_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
+"--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
+"--bind 'shift-up:preview-top,shift-down:preview-bottom' "\
+"--bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down' "\
+"--bind 'alt-p:preview-page-up,alt-n:preview-page-down' "\
+"--bind 'f2:toggle-preview' "\
+"--bind 'f3:change-preview-window(right,60%|bottom,40%|right,30%)' "\
+""
+
+# Use o instead of i no not overwrite mapping for Tab
 export FZF_DEFAULT_OPTS="--walker-skip .git,.hg,node_modules,target --height=100% "\
 "$PREVIEW"\
 "--bind 'alt-k:half-page-up,alt-j:half-page-down' "\
