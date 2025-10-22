@@ -53,6 +53,8 @@ if Speed > 0 then
     vim.opt.regexpengine=1           -- 1: Old regex engine
 end
 
+vim.opt.foldenable = false           -- disable folding completely
+
 -- This is used for configuring lualine
 vim.g.nerd_font = false
 local term = os.getenv("TERM")
