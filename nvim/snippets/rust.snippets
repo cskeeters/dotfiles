@@ -3,8 +3,14 @@
 snippet mo Match Option
 	match ${1:foo} {
 		None => None,
-		Some(i: i32) => Some(i + 1),
+		Some(i: i32) => {
+			println!("i: {}", i);
+		}
 	}
+
+snippet opt_expect Runs expect on option to panic with custom error
+	// expect panics on None with the provided message
+	let age = age_option.expect("no age specified");
 
 snippet mr Match Result
 	match ${1:result} {
@@ -73,6 +79,16 @@ snippet println_round println Decimal Round
 snippet unused_all Allow unused modules
 	#![allow(unused)]
 
+snippet for_i For loop with integer
+	for i in 0..${1:vec}.len() {
+		${2}
+	}
+snippet for_in For loop with in
+	for i in 1..${1:10} {
+		${2}
+	}
+snippet dead Allow dead code
+	#[allow(dead_code)]
 snippet dead_unused Allow dead code and unused_variables in the file
 	#![allow(dead_code, unused_variables)]
 
@@ -85,7 +101,9 @@ snippet test_code Test code
 snippet main Main
 	pub fn main() {
 		// Ensure that backtraces will always be captured
-		std::env::set_var("RUST_BACKTRACE", "1");
+		unsafe {
+			std::env::set_var("RUST_BACKTRACE", "1");
+		}
 
 		println!("Hello World");
 
