@@ -8,7 +8,7 @@ snippet cargo_uninstall cargo: Uninstall/Remove Cargo Package
 	cargo uninstall ${1:typship}
 snippet cargo_list cargo: List Installed Cargo Packages
 	cargo install --list
-snippet cargo_upgrade cargo: Upgrade rust dependancies (crates)
-	cargo upgrade
+snippet cargo_upgrade cargo: Check for outdated dependancies (crates)
+	cargo outdated
 snippet rustup_update cargo: Update rustc, cargo, and other rust tools
-	cargo upgrade
+	cargo update
