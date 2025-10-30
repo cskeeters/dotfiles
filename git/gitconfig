@@ -69,6 +69,7 @@
 	showPatch = true
 
 [core]
+	sshCommand = ssh -q
 	#pager = delta
 
 [interactive]
