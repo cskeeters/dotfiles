@@ -23,7 +23,7 @@ return {
                 "html",
                 "java",
                 "javascript",
-                "latex",
+                -- "latex",
                 "lua",
                 "make",
                 "markdown",
