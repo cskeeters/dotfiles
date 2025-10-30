@@ -35,7 +35,7 @@ snippet fmt
 	// https://docs.rs/chrono/latest/chrono/format/strftime/index.html
 	let msg = format!("{}", ${1:first});
 
-#### Data
+#### Data/Struct/Class
 
 snippet enum Enum
 	enum ${1:Foo} {
@@ -48,6 +48,26 @@ snippet struct Struct
 		username: String,
 		email: String,
 		active: bool,
+	}
+
+snippet struct_init Struct Initialization
+	Account {
+		username: "cskeeters",
+		email: "chad.skeeters@gmail.com",
+		active: true,
+	}
+
+snippet class Class
+	pub struct Foo {
+		first: String,
+	}
+
+	impl Foo {
+		pub fn new(first: String) -> Result<Self, String> {
+			return Ok(Foo {
+				first: first,
+			});
+		}
 	}
 
 #### Macros
@@ -178,3 +198,16 @@ snippet date_parse Parse NaiveDate (No timezone or time)
 
 snippet decimal_parse Parse Decimal
 	let d = Decimal::from_str_exact("3.14159").unwrap();
+
+#### Errors
+
+snippet rr Return Result
+	-> Result<${1:String}>
+snippet ro Return Option
+	-> Option<${1:String}>
+
+snippet anyhow_err return Err
+	return Err(anyhow!("${1:File not found}"));
+
+snippet context Anyhow context
+	.context("${1:Error loading data}")?;
