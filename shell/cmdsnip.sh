@@ -107,6 +107,10 @@ git_tags() {
     git tag -l | fzf --height="90%" --preview 'git log --color=always --graph --oneline -3 {}' --preview-window='top,10%'
 }
 
+git_repo_name() {
+    basename "$(git rev-parse --show-toplevel)"
+}
+
 conda_envs() {
     conda env list | $SED -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
 }
