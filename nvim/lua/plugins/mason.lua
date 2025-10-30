@@ -123,7 +123,7 @@ return {
             vim.diagnostic.jump({
                 count=-1,
                 wrap=true,
-                severity=vim.diagnostic.severity.HINT,
+                severity=vim.diagnostic.severity.ERROR,
                 -- float=true,
             })
         end,  { noremap=true, silent=true })
@@ -132,7 +132,7 @@ return {
             vim.diagnostic.jump({
                 count=1,
                 wrap=true,
-                severity=vim.diagnostic.severity.HINT,
+                severity=vim.diagnostic.severity.ERROR,
                 -- float=true,
             })
         end,  { noremap=true, silent=true })
