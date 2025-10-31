@@ -1,3 +1,4 @@
+link cmd/autojump.snippets                  .config/cmd
 link cmd/ag.snippets                        .config/cmd
 link cmd/beancount.snippets                 .config/cmd
 link cmd/bind.snippets                      .config/cmd

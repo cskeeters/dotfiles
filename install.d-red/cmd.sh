@@ -1,3 +1,4 @@
+link cmd/autojump.snippets                       .config/cmd
 link cmd/apt.snippets                       .config/cmd
 link cmd/git.snippets                       .config/cmd
 link cmd/gnu.snippets                       .config/cmd
