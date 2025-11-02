@@ -122,6 +122,14 @@ uv_tools() {
     uv tool list | grep -v "^-" | cut -d " " -f 1 | fzf
 }
 
+diskutil_disknum_by_parition_name() {
+    diskutil list -plist | \
+        plutil -convert json -o - - | \
+        jq -r '.AllDisksAndPartitions[].Partitions[] | select(has("VolumeName")) | "\(.DeviceIdentifier) \(.VolumeName)"' | \
+        sed -nre "s~disk(.)([^[:space:]]+) (.*)~\1 \3~p" | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 2.. --accept-nth 1
+}
+
 deb_installed_packages() {
     dpkg -l | sed '1,/===/d' | cut -d ' ' -f 3 | fzf
 }

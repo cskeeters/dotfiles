@@ -8,6 +8,7 @@ link cmd/checksum.snippets                  .config/cmd
 link cmd/chroma.snippets                    .config/cmd
 link cmd/copyparty.snippets                 .config/cmd
 link cmd/disc.snippets                      .config/cmd
+link cmd/diskutil.snippets                  .config/cmd
 link cmd/docker.snippets                    .config/cmd
 link cmd/git.snippets                       .config/cmd
 link cmd/gnu.snippets                       .config/cmd
