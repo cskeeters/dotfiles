@@ -10,8 +10,10 @@ local config_path = vim.fn.stdpath("config")
 -- vim.opt.comments="n://"
 -- vim.opt.comments="sr:/***,m:*,elx:***/"
 
--- unnamed allows copies to affect Macos Clipboard
-vim.opt.clipboard='unnamed'
+-- unnamed/unnamedplus allows copies to affect Macos Clipboard
+-- unnamedplus affects the linux clipboard
+-- unnamed affects the linux primary selection (middleclick)
+vim.opt.clipboard='unnamedplus'
 vim.opt.mouse="a"                      -- Use a normally
 vim.opt.mouse="i"                      -- When used in ssh, disabling mouse allows copy and paste
 vim.keymap.set({'i'}, '<S-Insert>', '<MiddleMouse>')
