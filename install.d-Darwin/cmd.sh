@@ -21,4 +21,5 @@ link cmd/rsync.snippets                     .config/cmd
 link cmd/tar.snippets                       .config/cmd
 link cmd/tmux.snippets                      .config/cmd
 link cmd/uv.snippets                        .config/cmd
+link cmd/wttr.snippets                      .config/cmd
 link cmd/zip.snippets                       .config/cmd
