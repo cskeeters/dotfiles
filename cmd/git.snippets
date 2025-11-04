@@ -1,7 +1,13 @@
 snippet git_branch git: Create a branch
 	git co -b ${1:feature_name}
+snippet git_branch_remote git: Create local branch from remote
+	git checkout -b ${1:branch_name} ${2:git_remote_branches()}
+snippet git_branch_track git: Create local branch that tracks remote
+	git checkout -b ${1:branch_name} --track ${2:git_remote_branches()}
 snippet git_branch_push git: Push a branch
 	git push -u origin ${1:feature_name}
+snippet git_switch git: Switch
+	git switch ${1:git_branches()}
 snippet git_branch_clean git: Create a clean (orphan) branch
 	git switch --orphan ${1:branch_name}
 snippet git_show_ignored git: Show Ignored files
@@ -34,3 +40,5 @@ snippet git_set_upstream git: Set Upstream
 	git branch --set-upstream-to=${1:origin}/${2:master} ${3:master}
 snippet git_archive_zip git: Archive
 	git archive --format=${1:zip} --output=${2:git_repo_name()}.${1} master
+snippet git_squash_merge git: Squash Merge (switch master first, commit after)
+	git merge --squash ${1:git_other_branches()}
