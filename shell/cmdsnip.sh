@@ -65,10 +65,16 @@ runsnippet() {
                 fi
                 #echo "$i -> $DEFAULT"
 
-                CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^\}]*\};'"$VALUE"';g') || {
-                    echo "Error using supplied value in CMD"
-                    return
-                }
+                # Glob with ANSI C Quoting
+                if [[ "$VALUE" == *$'\n'* ]]; then
+                    echo "Error with snippet: default value has newline"
+                    echo "  Did you forget to pipe to fzf?"
+                else
+                    CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^\}]*\};'"$VALUE"';g') || {
+                        echo "Error using supplied value in CMD"
+                        return
+                    }
+                fi
             fi
         done
 
