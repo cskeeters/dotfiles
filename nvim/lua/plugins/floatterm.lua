@@ -11,7 +11,7 @@ return {
 
     config = function()
         -- autoclose:   0: do not close   1: do not close on error   2: always close
-        vim.keymap.set('n', '<Leader>gl', ':FloatermNew --height=0.9 --width=0.9 --wintype=float --name=LazyGit --position=center --autoclose=1 lazygit<cr>',
+        vim.keymap.set('n', '<Leader>gl', ':FloatermNew --height=1.0 --width=1.0 --wintype=float --name=LazyGit --position=center --autoclose=1 lazygit<cr>',
                                                                        { desc="Open file in current directory tree (fzf)" })
 
         vim.keymap.set('n', '<F1>', ToggleTermOn,                      { desc="Shows the floating terminal" })
