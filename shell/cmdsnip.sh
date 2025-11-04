@@ -111,6 +111,18 @@ git_repo_name() {
     basename "$(git rev-parse --show-toplevel)"
 }
 
+git_branches() {
+    git branch | cut -c 3-99 | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
+git_other_branches() {
+    git branch | cut -c 3-99 | grep -v master | grep -v main | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
+git_remote_branches() {
+    git branch -r | awk '{print $1}' | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
 conda_envs() {
     conda env list | $SED -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
 }
