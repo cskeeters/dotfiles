@@ -224,6 +224,18 @@ linkdot shell/dir_colors
 linkdot shell/iterm2_shell_integration.bash
 linkdot shell/cmdsnip.sh
 
+link cmd/apt.snippets                       .config/cmd
+link cmd/beancount.snippets                 .config/cmd
+link cmd/beet.snippets                      .config/cmd
+link cmd/git.snippets                       .config/cmd
+link cmd/gnu.snippets                       .config/cmd
+link cmd/luarocks.snippets                  .config/cmd
+link cmd/restic.snippets                    .config/cmd
+link cmd/tar.snippets                       .config/cmd
+link cmd/uv.snippets                        .config/cmd
+link cmd/wttr.snippets                      .config/cmd
+link cmd/zip.snippets                       .config/cmd
+
 linkdot git/gitconfig
 linkdot git/gitignore
 
