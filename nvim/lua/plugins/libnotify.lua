@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
 
     -- Local plugin under development
     name="libnotify.nvim",
