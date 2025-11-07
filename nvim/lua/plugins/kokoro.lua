@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false, -- disable by default for other installations of nvim config
 
     -- Local plugin under development
     name="kokoro.nvim",
