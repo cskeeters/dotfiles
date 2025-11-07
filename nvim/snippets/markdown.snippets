@@ -88,6 +88,27 @@ snippet template_sfnet sfnet template
 	- pandoc-diagram/main/diagram.lua
 	---
 
+snippet template_article article template (supports single page)
+	---
+	title: title
+	subtitle: subtitle
+	subsubtitle: subsubtitle
+	date: date
+	author: Chad Skeeters
+	title-page: true
+	toc: true
+	color: true
+	template: article.typ
+	keywords: word1
+	filters:
+	- pandoc-internal-link/0.1.0/internal-link.lua
+	- pandoc-link-footnote/0.1.0/link-footnote.lua
+	- pagebreak.lua
+	- pandoc-table-figure/0.1.0/table-figure.lua
+	- pandoc-acronyms/0.1.0/acronyms.lua
+	- pandoc-diagram/main/diagram.lua
+	---
+
 snippet filter_pagebreak Filter Config: Pagebreak
 	filters:
 		- pagebreak.lua
