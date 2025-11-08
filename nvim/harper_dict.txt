@@ -135,7 +135,6 @@ NUNIO
 NVMe
 Nagios
 NanoPI
-Neovim
 Netfilter
 Novela
 Nunios
@@ -266,6 +265,7 @@ microcontroller
 microcontrollers
 multicast
 nVidia
+neovim
 nftables
 nnn
 php
