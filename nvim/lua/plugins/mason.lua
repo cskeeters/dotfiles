@@ -334,6 +334,7 @@ return {
                         LongSentences = true,
                         RepeatedWords = true,
                         Spaces = false,
+                        NoFrenchSpaces = false,
                         Matcher = true,
                         CorrectNumberSuffix = true,
                         NumberSuffixCapitalization = true,
