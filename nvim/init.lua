@@ -157,7 +157,9 @@ vim.opt.history=1000                 -- command history size
 -- lua setup for local and system-wide packages
 local HOME = os.getenv("HOME")
 package.cpath = package.cpath .. ";" ..  HOME .. "/.luarocks/lib/lua/5.1/?.so"
--- package.cpath = package.cpath .. ";/usr/lib64/lua/5.1/?.so"
+package.cpath = package.cpath .. ";" ..  HOME .. "/.luarocks/lib64/lua/5.1/?.so"
+package.cpath = package.cpath .. ";/usr/lib/lua/5.1/?.so"
+package.cpath = package.cpath .. ";/usr/lib64/lua/5.1/?.so"
 
 ---- Movement
 vim.opt.cpo:append("J") -- Recognize sentences by two spaces after punctuation
