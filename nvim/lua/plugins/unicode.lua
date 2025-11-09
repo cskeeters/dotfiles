@@ -1,3 +1,9 @@
+-- function is required so that require('unicode') will only execute when key
+-- is pressed after lua is initialized.
+local function select_unicode()
+    require('unicode').select_unicode()
+end
+
 return {
     enabled = true,
     'cskeeters/unicode.nvim',
@@ -8,9 +14,8 @@ return {
     -- dir=os.getenv("HOME").."/working/nvim-plugins/unicode.nvim",
 
     keys = {
-      { "<leader><leader>u", function()
-          require('unicode').select_unicode()
-      end, desc = "Select Unicode" },
+      { mode = "n", "<leader><leader>u", select_unicode, desc = "Select Unicode (normal)" },
+      { mode = "i", "<C-S-u>",           select_unicode, desc = "Select Unicode (insert)" },
     },
     opts = {
         notify_min_level = vim.log.levels.ERROR,
