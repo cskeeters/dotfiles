@@ -277,11 +277,16 @@ return {
   enabled = true,
 
   "ibhagwan/fzf-lua",
+
   -- "cskeeters/fzf-lua",
-  -- cskeeters branch customizes keymap format
-  -- branch = "cskeeters",
+  -- branch = "cskeeters", customizes keymap format
+
+  -- name="fzf-lua",
+  -- dir=os.getenv("HOME").."/working/nvim-plugins/fzf-lua",
+
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
+
   config = function()
     -- calling `setup` is optional for customization
     require("fzf-lua").setup({
