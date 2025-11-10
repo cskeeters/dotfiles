@@ -164,49 +164,6 @@ function split(inputstr, sep)
     end
 end
 
-function GenerateGitEmoji(fzf_cb)
-    coroutine.wrap(function()
-        local co = coroutine.running()
-
-        for line in io.lines(os.getenv("HOME").."/.local/share/github/emojis.txt") do
-            -- coroutine.resume only gets called once uv.write completes
-            fzf_cb(line, function() coroutine.resume(co) end)
-
-            -- Wait here until 'coroutine.resume' is called which only happens
-            -- Once 'uv.write' completes (i.e. the line was written into fzf)
-            -- This frees neovim to respond and open the UI
-            coroutine.yield()
-        end
-
-        -- Signal EOF to fzf and close the named pipe
-        -- This also stops the fzf "loading" indicator
-        fzf_cb()
-    end)()
-end
-
-function SelectGitEmoji()
-    local utf8 = require 'lua-utf8'
-
-    local opts = {
-        debug_cmd=false, -- change to true and use :messages to see fzf command issued
-        actions = {
-            ['default'] = function(selected, _)
-                -- We loop here, but only one will actually be selected
-                for _, markup in ipairs(selected) do
-                    vim.cmd.normal('i' .. markup)
-                end
-            end
-        },
-        fzf_opts = {
-            ["-d"] = "	",
-            ["--tabstop"] = '4', -- number of spaces to advance cursor on tab
-            -- ["--with-nth"] = '2..',
-            ["--accept-nth"] = 2,
-        }
-    }
-
-    require'fzf-lua'.fzf_exec(GenerateGitEmoji, opts)
-end
 
 function StartLSP()
     require'fzf-lua'.fzf_exec(require('lspconfig.util').available_servers(), {
@@ -389,7 +346,6 @@ return {
     vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
 
     vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
-    vim.keymap.set('n', '<leader><leader>e', SelectGitEmoji, { desc="Select GitHub Emoji" })
 
     vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
     vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })
