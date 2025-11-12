@@ -4,4 +4,5 @@ link cmd/copyparty.snippets                 .config/cmd
 link cmd/joffrey.snippets                   .config/cmd
 link cmd/magick.snippets                    .config/cmd
 link cmd/ollama.snippets                    .config/cmd
+link cmd/server.snippets                    .config/cmd
 link cmd/yaml_finance.snippets              .config/cmd
