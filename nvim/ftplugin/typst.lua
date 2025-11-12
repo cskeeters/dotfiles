@@ -44,7 +44,6 @@ function typst_compile_open(app)
     return function()
 
         local uv = vim.uv
-        local notifier = require('libnotify').get_notifier("typst_compile_open", vim.log.levels.INFO)
 
         -- This ensures that files can have single quotes in the filenames
         local src = vim.fn.shellescape(vim.fn.expand("%"))
@@ -68,7 +67,7 @@ function typst_compile_open(app)
                 -- os.execute('open -a '..app..' '..out)
             -- end
         -- else
-            -- notifier.error("Error executing: "..cmd)
+            -- vim.notify("typst_compile_open: Error executing: "..cmd, vim.log.levels.ERROR)
         -- end
 
 
@@ -87,23 +86,22 @@ function typst_compile_open(app)
             },
             stdio = {nil, stdout, stderr}
         }, function(code, signal) -- on exit
-            local notifier = require('libnotify').get_notifier("typst_compile_open", vim.log.levels.WARN)
             if code == 0 then
-                notifier.info("Successfully built: "..out)
+                vim.notify("typst_compile_open: Successfully built: "..out, vim.log.levels.INFO)
                 local open = 'open ' .. out
                 if app ~= nil then
                     open = 'open -a "'..app..'" '..out
                 end
                 os.execute(open)
             else
-                notifier.info("Error building: "..out)
+                vim.notify("typst_compile_open: "..out, vim.log.levels.INFO)
 
                 uv.read_start(stderr, function(err, data)
                     if err then
-                        notifier.error("Error reading stderr")
+                        vim.notify("typst_compile_open: Error reading stderr", vim.log.levels.ERROR)
                     else
                         if data then
-                            notifier.error("Error building: "..out.."\n"..data)
+                            vim.notify("typst_compile_open: Error building: "..out.."\n"..data, vim.log.levels.ERROR)
                         end
                     end
                 end)
@@ -114,7 +112,7 @@ function typst_compile_open(app)
             -- print("exit signal", signal)
         end)
 
-        notifier.info("Compiling "..vim.fn.expand("%"))
+        vim.notify("typst_compile_open: Compiling: "..vim.fn.expand("%"), vim.log.levels.INFO)
 
         -- uv.shutdown(stdin, function()
             -- print("stdin shutdown", stdin)
