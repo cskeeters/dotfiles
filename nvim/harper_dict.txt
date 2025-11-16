@@ -146,6 +146,7 @@ OSI
 OSST
 OTF
 OTTI
+Objectivist
 OneDrive
 OpenLDAP
 Optimux
@@ -160,6 +161,7 @@ PXE
 Pagedjs
 Pandoc
 Paschall
+Pickleball
 Polymorphism
 Popken
 Postgres
