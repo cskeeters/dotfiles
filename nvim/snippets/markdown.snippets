@@ -15,6 +15,9 @@ snippet typst Fenced code block (typst)
 snippet c Add Comment
 	[//]: # "${1}"
 
+snippet img Image (inline)
+	![${1:Alt text}](${2:image_path} "${1}")
+
 snippet fn Footnote
 	[^1]
 	[^1]: ${1:Footnote}
@@ -34,6 +37,19 @@ snippet mermaid Add mermaid flowchart
 	    START(Start) --> DOIT[Just Do It] --> END(End)
 	\`\`\`
 
+snippet mermaid_flowchart Add mermaid sequence diagram
+	```mermaid
+	---
+	config:
+	theme: neutral
+	title: Greetings
+	---
+	sequenceDiagram
+		Note over Alice: Initiator
+		Note over John: Responder
+		Alice->>John: Hello John, how are you?
+		John-->>Alice: Great!
+	```
 
 
 ### Pandoc Typst Support
@@ -46,12 +62,14 @@ snippet yaml_frontmatter Yaml Frontmatter #ptp
 	keywords:
 		- A802
 	filters:
-	- pandoc-internal-link/0.1.0/internal-link.lua
-	- pandoc-link-footnote/0.1.0/link-footnote.lua
-	- pagebreak.lua
-	- pandoc-table-figure/0.1.0/table-figure.lua
-	- pandoc-acronyms/0.1.0/acronyms.lua
-	- pandoc-diagram/main/diagram.lua
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
 	---
 
 snippet template_doc doc template #ptp
@@ -63,12 +81,14 @@ snippet template_doc doc template #ptp
 	keywords: ${2:keywords}
 	color: true
 	filters:
-	- pandoc-internal-link/0.1.0/internal-link.lua
-	- pandoc-link-footnote/0.1.0/link-footnote.lua
-	- pagebreak.lua
-	- pandoc-table-figure/0.1.0/table-figure.lua
-	- pandoc-acronyms/0.1.0/acronyms.lua
-	- pandoc-diagram/main/diagram.lua
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
 	---
 
 snippet template_sfnet sfnet template
@@ -80,12 +100,14 @@ snippet template_sfnet sfnet template
 	keywords:
 	- headlamp
 	filters:
-	- pandoc-internal-link/0.1.0/internal-link.lua
-	- pandoc-link-footnote/0.1.0/link-footnote.lua
-	- pagebreak.lua
-	- pandoc-table-figure/0.1.0/table-figure.lua
-	- pandoc-acronyms/0.1.0/acronyms.lua
-	- pandoc-diagram/main/diagram.lua
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
 	---
 
 snippet template_article article template (supports single page)
@@ -101,12 +123,14 @@ snippet template_article article template (supports single page)
 	template: article.typ
 	keywords: word1
 	filters:
-	- pandoc-internal-link/0.1.0/internal-link.lua
-	- pandoc-link-footnote/0.1.0/link-footnote.lua
-	- pagebreak.lua
-	- pandoc-table-figure/0.1.0/table-figure.lua
-	- pandoc-acronyms/0.1.0/acronyms.lua
-	- pandoc-diagram/main/diagram.lua
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
 	---
 
 snippet filter_pagebreak Filter Config: Pagebreak
