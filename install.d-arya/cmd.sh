@@ -1,3 +1,4 @@
+link cmd/bcst.snippets                      .config/cmd
 link cmd/beancount.snippets                 .config/cmd
 link cmd/chroma.snippets                    .config/cmd
 link cmd/copyparty.snippets                 .config/cmd
