@@ -11,6 +11,8 @@ os:
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
 
 gui:
+  # skipDiscardChangeWarning: true
+
   theme:
     activeBorderColor:
       - '#f2cdcd'
