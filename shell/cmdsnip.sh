@@ -151,3 +151,13 @@ diskutil_disknum_by_parition_name() {
 deb_installed_packages() {
     dpkg -l | sed '1,/===/d' | cut -d ' ' -f 3 | fzf
 }
+
+launchctl_plist() {
+    find /Library/LaunchAgents $HOME/Library/LaunchAgents/ | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
+launchctl_labels() {
+    launchctl list | sed -ne '2,$p' | awk '{ print $3}' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}

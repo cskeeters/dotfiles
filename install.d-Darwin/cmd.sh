@@ -10,6 +10,7 @@ link cmd/git.snippets                       .config/cmd
 link cmd/gnu.snippets                       .config/cmd
 link cmd/go.snippets                        .config/cmd
 link cmd/kill.snippets                      .config/cmd
+link cmd/launchctl.snippets                 .config/cmd
 link cmd/luarocks.snippets                  .config/cmd
 link cmd/mediainfo.snippets                 .config/cmd
 link cmd/net.snippets                       .config/cmd

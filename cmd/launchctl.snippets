@@ -1,0 +1,30 @@
+snippet launchctl_list launchctl: List jobs
+	launchctl list
+
+snippet launchctl_print_disabled_system launchctl: Print disabled (system)
+	launchctl print-disabled system
+snippet launchctl_print_disabled_user launchctl: Print disabled (user)
+	launchctl print-disabled user/$(id -u)
+
+snippet launchctl_enable launchctl: enable (Start on boot)
+	launchctl enable ${1:launchctl_labels()}
+snippet launchctl_disable launchctl: disable (Disable start on boot)
+	launchctl disable ${1:launchctl_labels()}
+
+snippet launchctl_start launchctl: start (Testing)
+	launchctl start ${1:launchctl_labels()}
+snippet launchctl_stop launchctl: stop (Testing)
+	launchctl stop ${1:launchctl_labels()}
+
+snippet launchctl_load launchctl: load (Load and start a job, if not disabled)
+	launchctl load ${1:launchctl_plist()}
+snippet launchctl_unload launchctl: unload (Stop and Unload a job, will not disable)
+	launchctl unload ${1:launchctl_plist()}
+
+snippet launchctl_load_w launchctl: load -w (Enable, Load, and start a job)
+	launchctl load -w ${1:launchctl_plist()}
+snippet launchctl_unload_w launchctl: unload -w (Disable, Unload, and Stop a job)
+	launchctl unload -w ${1:launchctl_plist()}
+
+snippet launchctl_remove launchctl: remove (like unload but don't worry about stopping)
+	launchctl remove ${1:launchctl_plist()}
