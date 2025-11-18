@@ -10,4 +10,4 @@ snippet ollama_update ollama: Update all downloaded models
 	ollama list | awk 'NR>1 && !/reviewer/ {system("ollama pull "$1)}'
 
 snippet oterm_run oterm: Open oterm TUI frontend
-	ollama run ${1:ollama_local_models()}
+	oterm
