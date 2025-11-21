@@ -3,7 +3,7 @@
   "ack.vim": { "branch": "master", "commit": "36e40f9ec91bdbf6f1adf408522a73a6925c3042" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
   "closer.vim": { "branch": "master", "commit": "464012744288f7f453b97763f7a8ff40f0020c51" },
-  "conceal.nvim": { "branch": "master", "commit": "cd7ea1dea27a6241eae6dde91c11982851930414" },
+  "conceal.nvim": { "branch": "master", "commit": "fddfa9e7f377049eed06f1314c294ffd00c2ec33" },
   "d2-vim": { "branch": "master", "commit": "981c87dccb63df2887cc41b96e84bf550f736c57" },
   "dash.vim": { "branch": "master", "commit": "25b17d9488454a1fcdbb2cbe829a23226f95e3c2" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
