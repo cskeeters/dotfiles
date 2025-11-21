@@ -13,7 +13,11 @@ return {
         -- print(vim.env.FZF_DEFAULT_OPTS)
 
         -- Add reverse to default opts
-        vim.env.FZF_DEFAULT_OPTS = '--reverse '..vim.env.FZF_DEFAULT_OPTS
+        if vim.env.FZF_DEFAULT_OPTS ~= nil then
+            vim.env.FZF_DEFAULT_OPTS = '--reverse '..vim.env.FZF_DEFAULT_OPTS
+        else
+            vim.env.FZF_DEFAULT_OPTS = '--reverse'
+        end
 
         vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                      { desc="Open file in current directory tree (fzf)" })
         vim.keymap.set('n', '<Leader>og', ':GitFiles!<cr>',                                   { desc="Open git tracked file (fzf)" })
