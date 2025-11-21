@@ -10,6 +10,10 @@ snippet brew_install_dry brew: Dry run install package
 	brew install --dry-run ${1:tinymist}
 snippet brew_install_head brew: Install HEAD from source
 	brew install --HEAD ${1:tinymist}
+snippet brew_upgrade brew: Upgrade All Packages
+	brew upgrade
+snippet brew_outdated brew: Show outdated packages
+	brew update; brew outdated
 snippet brew_upgrade_head brew: Fetch changes and upgrade HEAD
 	brew upgrade ${1:tinymist} --fetch-HEAD
 snippet brew_remove brew: Remove software
