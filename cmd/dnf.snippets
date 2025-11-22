@@ -1,0 +1,29 @@
+snippet dnf_install dnf: Install
+	dnf install -y ${1:lazygit}
+
+snippet dnf_search dnf: Search
+	dnf search ${1:lazygit}
+
+snippet dnf_upgrade_all dnf: Upgrade all
+	dnf upgrade
+
+snippet dnf_upgrade dnf: Upgrade package
+	dnf upgrade ${1:lazygit}
+
+snippet dnf_info dnf: Info
+	dnf info ${1:lazygit}
+
+snippet dnf_remove dnf: Remove package
+	dnf remove ${1:lazygit}
+
+snippet dnf_list_installed dnf: List installed
+	dnf list --installed
+
+snippet dnf_provides dnf: List packages that provides command
+	dnf provides ${1:lazygit}
+
+snippet dnf_history dnf: List past operations
+	dnf history
+
+snippet dnf_download dnf: Download rpm file with dependencies
+	dnf download --resolve --destdir=yum ${1:lazygit}
