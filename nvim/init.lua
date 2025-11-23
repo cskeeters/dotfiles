@@ -93,7 +93,12 @@ vim.opt.fileencoding = 'utf8'        -- File encoding to use
 vim.opt.syntax = "ON"                -- Allow syntax highlighting
 --This needs to be turned off for ttyd/vhs
 vim.opt.termguicolors = true         -- If term supports ui color then enable
-vim.cmd([[colorscheme habamax]])
+if os.getenv("TERM") == "linux" then
+    -- We're on the console, elflord doesn't look terrible
+    vim.cmd([[colorscheme elflord]])
+else
+    vim.cmd([[colorscheme habamax]])
+end
 
 ---- Search
 vim.opt.incsearch = true             -- Use incremental search
