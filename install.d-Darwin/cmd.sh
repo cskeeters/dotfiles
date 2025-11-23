@@ -1,3 +1,4 @@
+link cmd/apple_container.snippets           .config/cmd
 link cmd/autojump.snippets                  .config/cmd
 link cmd/ag.snippets                        .config/cmd
 link cmd/bind.snippets                      .config/cmd

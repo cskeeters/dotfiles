@@ -1,0 +1,42 @@
+# SYSTEM
+snippet container_system_start container: Start system
+	container system start
+
+snippet container_stop container: Stop system
+	container system stop
+
+
+# CONTAINER
+
+snippet container_start container: Start container by image (Detached)
+	container run -d --rm ${1:container_images()}
+
+snippet container_start_shell container: Start shell in container by image
+	container run -it --rm ${1:container_images()} /bin/bash
+
+snippet container_remove container: Stop container
+	container stop ${1:container_containers()}
+
+snippet container_remove container: Remove container
+	container rm ${1:container_containers()}
+
+snippet container_list container: List containers
+	container list
+
+snippet container_prune container: Remove stopped containers
+	container list --all | grep stopped | awk '{print $1}' | xargs -I {} container rm {}
+
+
+# IMAGE
+
+snippet container_list_images container: List images
+	container image list
+
+snippet container_images_prune container: Prune Images
+	container image prune
+
+
+# VOLUME
+
+snippet container_volume_prune container: Prune Volumes
+	container volume prune
