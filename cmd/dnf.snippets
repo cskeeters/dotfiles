@@ -27,3 +27,9 @@ snippet dnf_history dnf: List past operations
 
 snippet dnf_download dnf: Download rpm file with dependencies
 	dnf download --resolve --destdir=yum ${1:lazygit}
+
+snippet dnf_list_files dnf: List files in (uninstalled) package
+	dnf repoquery -l ${1:lazygit}
+
+snippet dnf_list_files dnf: List files in (installed) package
+	dnf repoquery --installed -l ${1:lazygit}
