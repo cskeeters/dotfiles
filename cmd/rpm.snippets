@@ -1,0 +1,41 @@
+snippet rpm_list_files rpm: List files of installed package
+	rpm -ql ${1:lazygit}
+
+snippet rpm_install rpm: Install (-v verbose -h hash mark progress)
+	rpm -ivh ${1:rpm_files()}
+
+snippet rpm_upgrade rpm: Upgrade package (-v verbose -h hash mark progress)
+	rpm -Uvh ${1:rpm_files()}
+
+snippet rpm_remove rpm: Remove package
+	rpm -e ${1:rpm_installed_packages()}
+
+snippet rpm_remove rpm: Remove package (no scripts)
+	rpm -e --noscripts ${1:rpm_installed_packages()}
+
+snippet rpm_list_file_in_rpm rpm: List files in .rpm
+	rpm -qlp ${1:rpm_files()}
+
+snippet rpm_info_pkg rpm: Info on package
+	rpm -qi ${1:rpm_installed_packages()}
+
+snippet rpm_installed_sort rpm: List installed (--last: Sort by installed datetime, -i include descriptions)
+	rpm -qa --last -i
+
+snippet rpm_dependencies rpm: List dependencies of .rpm
+	rpm -qpR ${1:rpm_files()}
+
+snippet rpm_dependencies_pkg rpm: List dependencies of installed package
+	rpm -qR ${1:rpm_installed_packages()}
+
+snippet rpm_get_package rpm: Package name for installed file
+	rpm -qf filename
+
+snippet rpm_verify_all rpm: Verify files for all packages
+	rpm -Va
+
+snippet rpm_verify_package rpm: Verify files for package
+	rpm -V ${1:rpm_installed_packages()}
+
+snippet rpm_extract rpm: Extract files from rpm to CWD
+	rpm2cpio ${1:rpm_files()} | cpio -idv

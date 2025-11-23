@@ -93,6 +93,15 @@ find_files() {
     find . -type f | fzf --height="90%"
 }
 
+rpm_files() {
+    find . -type f -name \*.rpm | fzf --height="90%"
+}
+
+rpm_installed_packages() {
+    rpm -qa | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
 select_pid() {
     ps aux | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 1,11.. --accept-nth 2
 }
