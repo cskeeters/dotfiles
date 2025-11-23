@@ -181,3 +181,13 @@ container_containers() {
     container list --all | grep -v CPUS | awk '{print $1}' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
 }
+
+lima_templates() {
+    limactl create --list-templates | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
+lima_vms() {
+    limactl list --quiet | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}

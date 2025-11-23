@@ -1,0 +1,24 @@
+snippet lima_start lima: Start VM
+	limactl start ${1:lima_vms()}
+
+snippet lima_stop lima: Stop VM
+	limactl stop ${1:lima_vms()}
+
+snippet lima_rm lima: Delete VM
+	limactl rm ${1:lima_vms()}
+
+snippet lima_list lima: List VMs
+	limactl list
+
+# limactl start --vm-type=qemu --arch=x86_64 template:oraclelinux-10 --name ol10-x86_64
+snippet lima_start_ol10 lima: Start x86_64
+	limactl start --vm-type=qemu --arch=x86_64 template:${1:lima_templates()}
+
+snippet lima_list_templates lima: List Templates
+	limactl create --list-templates
+
+snippet lima_shell lima: Open Shell in VM
+	limactl shell ${1:lima_vms()}
+
+snippet lima_run lima: Run command inside VM
+	limactl shell ${1:lima_vms()} ${2:ls -l}
