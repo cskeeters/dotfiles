@@ -58,19 +58,7 @@ end
 vim.opt.foldenable = false           -- disable folding completely
 
 -- This is used for configuring lualine
-vim.g.nerd_font = false
-local term = os.getenv("TERM")
-if term ~= nil then
-    if string.find(term, "alacritty") then
-        vim.g.nerd_font = true
-    end
-    if string.find(term, "iTerm2") then
-        vim.g.nerd_font = true
-    end
-    if string.find(term, "xterm-265color") then
-        vim.g.nerd_font = true
-    end
-end
+vim.g.nerd_font = true
 
 -- This will be overwritten if lualine is loaded
 vim.opt.statusline="  %1* %{getcwd()} %0*" ..                       -- current root or dir
