@@ -8,17 +8,6 @@ return {
     },
     init = function()
 
-        --local utils = require('lualine_require')('lualine.utils.utils')
-        --local utils = require('lualine.utils.utils')
-
-        -- find .hg/branch each time we enter a buffer
-        -- utils.define_autocmd('BufEnter', "lua find_hg_dir()")
-
-        --vim.cmd([[augroup hg_branch]])
-        --vim.cmd([[autocmd!]])
-        --vim.cmd([[autocmd BufEnter * :lua find_hg_dir() ]])
-        --vim.cmd([[augroup end]])
-
         local component_separators = { left = ' ', right = ' '}
         local section_separators = { left = ' ', right = ' '}
 
