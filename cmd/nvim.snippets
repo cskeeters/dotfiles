@@ -1,0 +1,14 @@
+snippet nvim_config_select nvim: Select config (NVIM_APPNAME)
+	export NVIM_APPNAME=${1:nvim_config()}
+
+#Lazy! (! means wait until finished)
+snippet nvim_restore_headless nvim: Restore plugins (Headless)
+	nvim --headless +'Lazy! restore' +'qa!'
+
+snippet nvim_sync_headless nvim: Sync plugins (Headless)
+	nvim --headless +'Lazy! sync' +'qa!'
+
+snippet nvim_install_treesitter_headless nvim: Install treesitter parsers (Headless)
+	nvim --headless \
+		+"lua require('nvim-treesitter.install').ensure_installed_sync({'bash', 'c', 'cpp', 'css', 'diff', 'go', 'html', 'java', 'javascript', 'lua', 'make', 'markdown', 'markdown_inline', 'php', 'pug', 'rst', 'rust', 'sql', 'toml', 'typst', 'vhs', 'vim', 'yaml'})" \
+		+"qa!"

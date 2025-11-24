@@ -231,6 +231,7 @@ link cmd/curl.snippets                      .config/cmd
 link cmd/git.snippets                       .config/cmd
 link cmd/gnu.snippets                       .config/cmd
 link cmd/luarocks.snippets                  .config/cmd
+link cmd/nvim.snippets                      .config/cmd
 link cmd/restic.snippets                    .config/cmd
 link cmd/tar.snippets                       .config/cmd
 link cmd/uv.snippets                        .config/cmd
