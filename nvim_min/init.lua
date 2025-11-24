@@ -209,7 +209,7 @@ vim.keymap.set('n', '<Leader><Leader>m', ':Mason<cr>', { desc="Runs Mason (Langu
 ---- Non Plugin Mappings
 
 vim.keymap.set({'n'}, '<Leader>b', '<Cmd>tabnew<Cr>', { silent=true })
-vim.keymap.set({'n','v'}, '<Leader>', '<Nop>', { silent=true })
+vim.keymap.set({'n','v'}, '<Leader>o', '<Nop>', { silent=true })
 vim.keymap.set({'n','v'}, 'Q', ':echom "Exmode Disabled"<cr>', { noremap=true, silent=true, desc="Does nothing"})
 
 -- This slows down exiting macro
