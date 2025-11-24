@@ -77,7 +77,7 @@ return {
         -- require("telescope").load_extension("git_worktree")
 
         -- 'nvim-telescope/telescope-fzf-native.nvim',
-        require('telescope').load_extension('fzf')
+        -- require('telescope').load_extension('fzf')
 
         vim.keymap.set('n', '<LocalLeader>s', ':Telescope luasnip<cr>', {desc= "Search for Snippet"})
         -- Not sure why, but backspace is needed to remove 'A' from the search string in telegram
