@@ -54,7 +54,7 @@ snippet mermaid_flowchart Add mermaid sequence diagram
 
 ### Pandoc Typst Support
 
-snippet yaml_frontmatter Yaml Frontmatter #ptp
+snippet template_rch YAML frontmatter rch template #ptp
 	---
 	title: ${1:title}
 	template: ${2:rch.typ}
@@ -72,7 +72,7 @@ snippet yaml_frontmatter Yaml Frontmatter #ptp
 		cache: true
 	---
 
-snippet template_doc doc template #ptp
+snippet template_doc YAML frontmatter doc template #ptp
 	---
 	title: ${1:Title}
 	contractor: Red Cedar Consultancy
@@ -91,7 +91,7 @@ snippet template_doc doc template #ptp
 		cache: true
 	---
 
-snippet template_sfnet sfnet template
+snippet template_sfnet YAML frontmatter sfnet template
 	---
 	title: ${1:Title}
 	footer_title: ${2:Subtitle}
@@ -110,7 +110,7 @@ snippet template_sfnet sfnet template
 		cache: true
 	---
 
-snippet template_article article template (supports single page)
+snippet template_article YAML frontmatter article template (supports single page)
 	---
 	title: title
 	subtitle: subtitle
