@@ -1,0 +1,575 @@
+snippet lorem_ipsum Lorem Ipsum
+	#lorem(40)
+snippet pdf PDF Metadata
+	#set document(
+		title: title,
+		author: author,
+		keywords: "chemistry",
+	)
+snippet page-setup Page Setup
+	#set page(
+		paper: "us-letter",
+		margin: (top: 1in, bottom: 1in, x:1in),
+		// margin: (y:1in, x:1in),
+		// flipped: true, // Landscape
+		header: context {
+			if not hardcopy or calc.odd(here().page()) {
+				align(right, {
+					text(features: ("c2sc", "smcp"), title)
+					h(1mm)
+					[$|$]
+					h(1mm)
+					counter(page).display("1")
+				})
+			} else { // even
+				align(left, {
+					counter(page).display("1")
+					h(1mm)
+					[$|$]
+					h(1mm)
+					text(features: ("c2sc", "smcp"), title)
+				})
+			}
+		},
+		numbering: "1",
+	)
+snippet page_number Page Number
+	#set page(numbering: "(i)")
+	#set page(numbering: "1")
+	#counter(page).display()
+snippet multi_column Change to Multi-Column Layout (Mid page)
+	#show: it => columns(2, it)
+snippet markdown_table Markdown Table
+	#import "@preview/tablem:0.1.0": tablem
+
+	#tablem[
+		| *Name* | *Location* | *Height* | *Score* |
+		| ------ | ---------- | -------- | ------- |
+		| John   | Second St. | 180 cm   |  5      |
+		| Wally  | Third Av.  | 160 cm   |  10     |
+	]
+    return c(1, to_text_nodes(markers))
+snippet table_bold_header Bolds the table header
+	show table.cell.where(y: 0): set text(weight: "bold")
+snippet full_width_img Full Width Image
+	full-width(spacing:20pt, image("bg.jpg", width:100%))
+snippet setup_raw Setup for raw (Fenced Code Block)
+	//wget https://raw.githubusercontent.com/chriskempson/base16-textmate/master/Themes/base16-default-light.tmTheme
+	//#set raw(theme:"base16-default-light.tmTheme")
+
+	#show raw: it => {
+		let fonts = (
+			"SF Mono",
+			"Hack Nerd Font Mono",
+			"DejaVu Sans Mono",
+			"Consolas",
+			"Courier",
+			"Courier New",
+		)
+
+		block(
+			// Make black with it.text
+			//text(size:.9em, weight:700, it)
+			text(font: fonts, size:.9em, weight:600, it)
+			//text(size:.9em, weight:700, it)
+			//text(size:.9em, weight:550, it.text)
+		)
+	}
+snippet raw_synhi Custom Syntax Highlighting fro raw
+	#let conditionalColor = rgb("#001f3f")
+	#show raw.where (lang: "spade") it => [
+		#show regex("(if|else|match)"): set text(color: conditionalColor)
+	]
+	// https://gitlab.com/TheZoq2/typst-common/-/blob/main/highlight.typ
+snippet swoop Swoop
+	#import "@local/page-util:0.1.0": *
+	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
+snippet school_paper_main Template for school paper
+	#import "@local/school-paper:0.1.0": *
+
+	#let title = "Test Document"
+	#let author = "Chad Skeeters"
+
+	#set document(
+		title: title,
+		author: author,
+		keywords: "Chemistry",
+	)
+
+	#show: setup
+
+	#maketitle(
+		title: title
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
+	#lorem(60)
+
+snippet doc_main Template for doc
+	#import "@local/doc:0.1.0": *
+
+	#let title = "Test Document"
+	#let hardcopy = true
+
+	#let metadata = (
+	title: title,
+	)
+
+	#set page(
+	paper: "us-letter",
+	margin: (y:1in, x:1in),
+	)
+
+	#show: setup.with(hardcopy: hardcopy)
+
+	#set heading(numbering: "1.", supplement: [Section])
+
+	#titlepage(metadata:metadata)
+
+	#set page(
+	header: context {
+		if not hardcopy or calc.odd(here().page()) {
+		align(center, {
+			text(features: ("c2sc", "smcp"), title)
+		})
+		} else { // even
+		align(center, {
+			text(features: ("c2sc", "smcp"), title)
+		})
+		}
+	},
+	numbering: "1",
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
+	#lorem(60)
+snippet format-heading Formats Headings
+	// Simpler
+	//#show heading.where(level:1): it => block(
+	//  above:1.3em,
+	//  below:.8em,
+	//  {
+	//    //set text(size: 18pt)
+	//    if (it.numbering != none) {
+	//      counter(heading).display()
+	//      h(6pt)
+	//    }
+	//    smallcaps(it.body)
+	//  }
+	//)
+
+	#show heading: it => {
+		// Defaults
+		let above = 1em
+		let below = .7em
+		let style = "normal"
+
+		if (it.level == 1) {
+			above = 1.3em
+			below = .8em
+		} else if (it.level == 2) {
+			above = 1.3em
+			below = .8em
+			style = "italic"
+		}
+
+		set text(style:style)
+
+		block(
+			above: above, below: below,
+			{
+				it
+			}
+		)
+	}
+
+snippet table-figure Adds table as figure
+	#figure(
+		table(
+			stroke: none,
+			columns: (auto, auto), // for full width table, use 1fr
+			table.hline(stroke: 1pt),
+				table.header([*First*], [*Last*]),
+			table.hline(stroke: .5pt),
+				[Chad], [Skeeters],
+			table.hline(stroke: 1pt),
+		),
+		caption: [BCS-T Applications],
+	)
+snippet table-figure-local Adds a table with local/format-table
+	#figure(
+		table(
+			columns: (auto, auto), // for full width table, use 1fr
+			table.header([*First*], [*Last*]),
+			[Chad], [Skeeters],
+		),
+		caption: [BCS-T Applications],
+	)
+snippet table-complex Example of multi-row table
+	#figure(
+		table(
+			stroke: none,
+			columns: (auto, auto, auto, auto), // for full width table, use 1fr
+			column-gutter:8pt,
+			align: (left, center, center, center),
+			table.header(
+				table.hline(stroke: 1.2pt),
+					[], table.cell(colspan:2, align:center, [_name_]), [_demo_],
+				table.hline(stroke: .2pt, start:1, end:3),
+				table.hline(stroke: .2pt, start:3, end:4),
+					[*ID*], [*First*], [*Last*], [*Age*],
+				table.hline(stroke: .6pt),
+			),
+			[1], [Chad], [Skeeters], [46],
+			[2], [Jimmy], [Gaddy], [60],
+			table.hline(stroke: 1.2pt),
+		),
+		caption: [System Engineers],
+	)
+snippet bold
+	*${1:text}*
+snippet italic
+	_${1:text}_
+snippet underline
+	#underline[${1:link}]
+snippet upper
+	#upper[${1:text}]
+snippet lower
+	#lower[${1:text}]
+snippet sc Smallcaps
+	#smallcaps[${1:text}]
+snippet inline-code
+	`code`
+snippet fenced-code
+	\`\`\`bash
+	echo hi
+	\`\`\`
+snippet h_space Horizantal Space
+	#h(1fr)
+	#h(1in, weak:false)
+snippet v_space Vertical Space
+	#v(1fr)
+	#v(1in, weak:false)
+snippet landscape
+	#page(flipped: true)[
+		= Landscape Page Title
+		Page Text
+	]
+snippet footnote
+	#footnote[https://typst.app/docs]
+snippet color
+	#set text(red)
+snippet highlight
+	#highlight[${1:important}]
+snippet lower
+	#lower[${1:Lowercase}]
+snippet quote
+	#quote(
+		block: true,
+		attribution: [JFK]
+	)[
+		Ich bin ein Berliner.
+	]
+snippet link
+	#link("${1:http://www.google.com}")[${2:Google}]
+snippet link_cross_reference Cross reference (link)
+	#link(<Introduction>)
+	#link(<Introduction>)[Introduction]
+snippet columns
+	#set page(columns: 2, height: 150pt)
+snippet acronym
+	*${1:text}*: _${2:description}_\ 
+snippet gls Reference glossary entry (or use @TERM)
+	#gls("${1:SPP}")
+snippet glsl Reference glossary entry (long)
+	#gls("${1:SPP}", long=true)
+snippet glspl Reference glossary entry (plurl)
+	#glspl("${1:SPP}")
+snippet setup-glossaries Glossaries for Typst (glossarium)
+	// See https://github.com/typst/packages/tree/main/packages/preview/glossarium/0.4.1
+	#import "afigloss.typ": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required to be just below import
+
+	// Put at the end
+	#generate-glossaries(acronyms:acronyms)
+snippet toc Table of Contents
+
+
+	// This allows for outline formatting without the outrageous package
+	// set outline.entry(fill: repeat([.~~])) // Optional
+	// set outline.entry(fill: repeat([\_]))  // Optional
+	#show outline.entry: it => link(
+		it.element.location(),
+
+		if (it.level == 1) {
+			v(4pt)
+			// it.indented(it.prefix(), text(rcc_red, weight:700, it.inner()))
+			it.indented(it.prefix(), text(black, weight:700, it.inner()))
+		} else {
+			it.indented(it.prefix(), it.inner())
+		}
+	)
+
+	// Use outrageous
+	#import "@preview/outrageous:0.1.0"
+
+	#show outline.entry: outrageous.show-entry.with(
+		// the typst preset retains the normal Typst appearance
+		..outrageous.presets.typst,
+		// we only override a few things:
+		// level-1 entries are italic, all others keep their font style
+		font-weight: (900, 400),
+		// no fill for level-1 entries, a thin gray line for all deeper levels
+		fill: (repeat[~~.], repeat[~~.], repeat[~~.]),
+		// Has to be none due to issue #1 https://github.com/RubixDev/typst-outrageous/issues/1
+		vspace: (1.2em, none),
+	)
+
+
+	#outline(title: "Table of Contents", indent:auto)
+
+	// Or keep the heading separate
+	#heading("Table of Contents", outlined: false, bookmarked:true)
+	#outline(title: none, indent:auto)
+
+snippet index Index
+	#import "@preview/in-dexter:0.7.0": *
+
+	// The word in index is not emitted
+	Ethernet #index[Ethernet]
+
+	#pagebreak()
+	// Use a separate heading to control outlined AND bookmarked
+	#heading("Index", outlined: false, bookmarked:true)
+	#columns(2)[
+	#make-index(
+		use-bang-grouping: false,
+		sort-order: upper,
+	)
+	]
+
+snippet glossaries Glossaries/Acronyms
+	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required just below import
+
+	#pagebreak(weak: true)
+	#print-glossary(
+		disable-back-references: false,
+		(
+			(
+				key: "ISSM",
+				short: "ISSM",
+				long: "Information System Security Manager",
+				group: "Acronyms",
+			),
+			(
+				key: "oidc",
+				short: "OIDC",
+				long: "OpenID Connect",
+				desc: [OpenID is an open standard and decentralized authentication protocol promoted by the non-profit
+				#link("https://en.wikipedia.org/wiki/OpenID#OpenID_Foundation")[OpenID Foundation].],
+				group: "Acronyms",
+			),
+		)
+	)
+snippet secret Secret Stamps
+  place(dy:0in, dx:2in, rotate(-8deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+  place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+snippet block Block
+	#block(
+		fill: luma(230),
+		inset: 8pt,
+		radius: 4pt,
+		${1:lorem(30)}
+	)
+snippet img Image
+	#image("${1:molecular.jpg}", width: 80%)
+
+snippet fimg Image with caption
+	#figure(
+		image("molecular.jpg", width: 80%),
+		caption: [
+			A step in the molecular testing
+			pipeline of our lab.
+		],
+	)
+
+snippet link_universe
+	#link("https://typst.app/universe/package/${1:cetz}")[$1]
+
+snippet letter_spacing_tracking Letter Spacing (tracking)
+	text(tracking: 1.0pt)
+
+snippet qr QR Code
+	#import "@preview/tiaoma:0.2.1"
+	#qrcode("${1:http://www.google.com}", width: 2in)
+
+snippet line Line with specific spacing above and below
+	#{
+		set block(above: 2pt, below: 14pt)
+		line(stroke: 1pt, length: 100%)
+	}
+
+snippet nbsp Non-breaking Space
+	#sym.space.nobreak;
+snippet word-joiner Word Joiner
+	#sym.wj;
+snippet soft-hyphen Soft Hyphen (Tell where to break)
+	#sym.hyph-soft; or -?
+snippet zero-width-space Zero Width Space
+	#sym.zws;
+snippet format_enum Format Enumerated (Bulleted) Lists
+	#import "@local/format-enum:0.2.0": *
+	#show: format_enum_diamonds
+	// #show: format_enum_word
+	// #show: format_enum_unicode
+snippet heading Heading Styling
+	#import "@local/format-headings:0.1.0": *
+
+	// Numbering
+	#set heading(numbering: "1.1")
+
+	// Text to prepend to reference numbering (@intro)
+	#show heading.where(level:1): set heading(supplement: "Chapter")
+	#show heading.where(level:2): set heading(supplement: "Section")
+	#show heading.where(level:3): set heading(supplement: "Subsection")
+
+
+	// Font Styling Per Level
+	#show heading.where(level:1): it => { text(weight: 800, it) }
+	#show heading.where(level:2): it => { text(weight: 600, style: "italic", it) }
+	#show heading.where(level:3): it => { text(weight: 600, it) }
+
+	// Set Heading Fonts
+	#show heading: it => {
+	// https://beautifulwebtype.com/vollkorn/
+	set text(font: "Vollkorn", number-width: "proportional", features: ("pnum", "lnum"))
+	it
+	}
+
+	// Set Heading Spacing
+	#show: format_headings_spacing
+
+	// Set Heading Underline
+	#show heading.where(level:1): it => heading_underline(it)
+	// #show heading.where(level:2): it => heading_underline(it)
+	// #show heading.where(level:3): it => heading_underline(it)
+
+	// Set Page break Before Heading.  This has to be last
+	#show heading.where(level:1): it => { pagebreak(weak: true); it }
+snippet cdate Current Date
+	datetime.today().display("[year]-[month]-[day]")
+	datetime.today().display("[year]-[month repr:short]-[day]")
+	datetime.today().display("[month repr:long] [day], [year]")
+	datetime.today().display("[month]/[day]/[year]")
+
+snippet include Include directive
+	#include "${1:file}.typ"
+
+snippet template_sfnet Template: RCH sfnet
+	#import "@local/contract-util:0.2.0": *
+	#import "@local/rch:0.1.0": *
+	#import "@local/sfnet:0.1.0": *
+
+	#let title = ""
+	#let subtitle = ""
+	#let footer_title = ""
+
+	#set document(
+	title: title,
+	author: "Red Cedar Harmonia",
+	keywords: "",
+	)
+
+	#show: frontmatter.with(logo:none)
+
+	#Cover(
+	logo: rch_logo(width:100pt),
+	title: title,
+	subtitle: subtitle,
+	company: [
+		*Red Cedar Harmonia* \
+		161 Fort Evans Rd NE, Suite 200 \
+		Leesburg, VA-20176 \
+
+		#link("mailto:contact@redcedarconsultancy.com")[contact\@redcedarconsultancy.com] \
+		TEL: +1 703 214 2778 \
+		UEI: W8H3LZS24EB3
+	]
+	)
+
+	#TOC()
+
+	#show: mainmatter.with(title:title, footer_title:footer_title)
+
+	#include "ch1.typ"
+	#include "ch2.typ"
+	#include "ch3.typ"
+	#include "ch4.typ"
+
+snippet template_doc Template: doc
+	#import "@local/doc:0.1.0": *
+
+	#let metadata = (
+		title: "",
+		project: "",
+		contractor_url: "",
+		contractor: "",
+		address: [
+		],
+		contract: "",
+		task_order: "",
+		keywords: "",
+	)
+
+	// Set PDF properties https://typst.app/docs/reference/model/document/
+	#set document(
+		title: metadata.title,
+		author: metadata.contractor,
+		keywords: metadata.keywords,
+	)
+
+	#show: make-glossary // Required just below import.  Enables @TERM syntax via show ref:
+	//#show: glossary-autoref
+
+	#show: setup.with(
+		hardcopy: true,
+		typst_version: typst_version,
+	)
+
+	#show: colored_links
+
+	// Q: Should this move into the body with shortcodes of some sort?
+	#titlepage(metadata:metadata)
+
+	#show: frontmatter.with(hardcopy:hardcopy)
+
+	#show: toc.with(hardcopy:hardcopy)
+
+	#show: mainmatter.with(metadata:metadata,
+	                       hardcopy:hardcopy,
+	                       typst_version:typst_version)
+snippet graph_lilaq
+	#let pairs = ((1, 2), (2, 4), (3, 1), (4, 5))
+
+	#let x-values = pairs.map(p => p.at(0)) // (1, 2, 3, 4)
+	#let y-values = pairs.map(p => p.at(1)) // (2, 4, 1, 5)
+
+	#lq.diagram(
+		lq.plot(x-values, y-values)
+	)
+
+
+snippet vollkorn Vollkorn Font
+	#set text(font:"Vollkorn", features: ("ss11", "ss14", "ss17", "zero"))
+snippet novela Novela Font
+	//lnum gets rid of the sideways zero
+	#set text(font:"Novela", features: ("lnum"))

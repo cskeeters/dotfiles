@@ -1,0 +1,85 @@
+snippet main
+	package main
+
+	import (
+		"fmt"
+		"runtime/debug"
+	)
+
+	func main() {
+		defer func() {
+			if err := recover(); err != nil {
+				fmt.Println("panic occurred:", err)
+				// This will include the trace of the original panic
+				fmt.Println(string(debug.Stack()))
+			}
+		}()
+		fmt.Println("hello world")
+	}
+snippet f
+	import "errors"
+
+	func ${1:name}() (${2:int}, error) {
+		${3:body}
+		return 1, errors.New("${4:Error message}")
+	}
+snippet en
+	return errors.New("${1:Error message}")
+snippet logf
+	log.Printf("${1:field}: %d", ${1})
+snippet log
+	log.Printf("${1:here}")
+snippet err
+	if err != nil {
+		log.Fatal(err)
+	}
+snippet append
+	${1:slice} = append(${1}, ${2:value})
+snippet print Basic Printf Statement
+	fmt.Printf("\n")
+snippet print_field Printf for field
+	fmt.Printf("${1:field}: %d\n", ${1})
+snippet sprint
+	${2:str} := fmt.Sprintf("${1:field}: %d\n", ${1})
+snippet slice Tutorial for slices
+	// slices point to backing array, but data is copied into slice
+	s := []int{}
+	append(slice, value)
+	len(s)
+	for index, element := range slice {
+	}
+snippet channel Tutorial for channels
+	func f(exit <-chan bool, exited chan<- bool)
+	// Channels are reference types
+	done := make(chan bool)
+	done <- false
+	_ = <-done
+snippet string_builder
+	sb := strings.Builder{}
+	sb.WriteString("")
+	str := sb.String()
+snippet sleep
+	time.Sleep(0.8 * time.Second)
+snippet scanner
+	scanner := bufio.NewScanner(strings.NewReader(msg))
+	for scanner.Scan() {
+		log.Printf("%s", scanner.Text())
+	}
+snippet tmpfile
+	f, err := os.CreateTemp("", "LABEL-")
+	if err != nil {
+		log.Fatal(err)
+	}
+	f.WriteString("test1")
+	f.WriteString("test2")
+	f.Close()
+
+	fmt.Println(f.Name())
+
+	tmppath := filepath.Join(os.TempDir(), f.Name())
+snippet regexp Example matching regexp with captures
+	name_re := regexp.MustCompile("^name (.*)$")
+	captures := cdr.FindStringSubmatch(name_re)
+	if captures != nil {
+		fmt.Printf("Hi %s\n", captures[1])
+	}

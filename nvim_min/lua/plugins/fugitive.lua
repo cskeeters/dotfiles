@@ -1,0 +1,32 @@
+function FugitiveStatus()
+    vim.cmd([[0G]]);
+end
+
+function FugitiveLog()
+    vim.cmd([[0G log --graph --oneline --decorate]]);
+end
+
+function FugitiveLogAll()
+    vim.cmd([[0G log --graph --all --oneline --decorate]]);
+end
+
+return {
+    enabled = true,
+    'tpope/vim-fugitive',
+    lazy = false,
+    init = function()
+        vim.keymap.set('n', '<leader>fs', FugitiveStatus, { desc="Fugitive/git status" });
+        -- vim.keymap.set('n', '<leader>fl', FugitiveLog, { desc="Fugitive/git log" });
+        vim.keymap.set('n', '<leader>fa', FugitiveLogAll, { desc="Fugitive/git log --all" });
+        vim.keymap.set('n', '<leader>fb', ":G blame<cr>", { desc="Fugitive/git blame" });
+
+        vim.keymap.set('n', '<leader>fd', ":Gdiffsplit<cr><C-w>l", { desc="vimdiff unstaged changes on current file" });
+        vim.keymap.set('n', '<leader>fD', ":Gdiffsplit @<cr><C-w>l", { desc="vimdiff staged changes on current file" });
+
+        vim.keymap.set('n', '<leader>fqd', ":G difftool<cr>", { desc="Load unstaged changes into quickfix list" });
+        vim.keymap.set('n', '<leader>fqD', ":G difftool --staged<cr>", { desc="Load staged changes into quickfix list" });
+
+        vim.keymap.set('n', '<leader>ftd', ":G difftool -y <cr>", { desc="vimdiff files with unstaged changes into tabs" });
+        -- vim.keymap.set('n', '<leader>ftD', ":G difftool -y --staged<cr>", { desc="vimdiff files with staged changes into tabs" }); this doesn't work
+    end,
+}

@@ -1,0 +1,49 @@
+snippet logging
+	import logging
+	log = logging.getLogger(__name__)
+snippet logging_main
+	import logging
+	logging.basicConfig(level=logging.DEBUG)
+	logging.config.fileConfig('logging.conf')
+snippet logging_conf
+	[handlers]
+	keys=stderr
+
+	[handler_std]
+	class=StreamHandler
+	level=NOTSET
+	formatter=form01
+	args=(sys.stdout,)
+
+	[formatters]
+	keys=std
+
+	[formatter_std]
+	format=F1 %(asctime)s %(levelname)s %(message)s
+	datefmt=
+	class=logging.Formatter
+
+	[loggers]
+	keys=root,mymod
+
+	[logger_root]
+	level=info
+	handlers=stdout
+
+	[logger_parser]
+	level=DEBUG
+	handlers=stdout
+snippet logc
+	# Remove exc_info if we are not handling an exception
+	log.critical(f"${1:foo}: {$1}", exc_info=True)
+snippet loge
+	# Remove exc_info if we are not handling an exception
+	log.error(f"${1:foo}: {$1}", exc_info=True)
+snippet logw
+	log.warn(f"${1:foo}: {$1}")
+snippet logi
+	log.info(f"${1:foo}: {$1}")
+snippet logd
+	log.debug(f"${1:foo}: {$1}")
+snippet logv
+	log.debug(f"${1:foo}: {$1}")

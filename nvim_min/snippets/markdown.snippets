@@ -1,0 +1,225 @@
+### Basic Markdown Syntax
+
+autosnippet fcb Fenced code block
+	\`\`\`${1}
+	\`\`\`
+
+snippet sh Fenced code block (sh)
+	\`\`\`sh
+	${1}\`\`\`
+
+snippet typst Fenced code block (typst)
+	\`\`\`typst
+	${1}\`\`\`
+
+snippet c Add Comment
+	[//]: # "${1}"
+
+snippet img Image (inline)
+	![${1:Alt text}](${2:image_path} "${1}")
+
+snippet fn Footnote
+	[^1]
+	[^1]: ${1:Footnote}
+
+
+### Extended Markdown Support
+
+snippet mermaid Add mermaid flowchart
+	\`\`\`mermaid {caption="${1:Every Process a Nike}"}
+	---
+	config:
+	  theme: neutral
+	  flowchart:
+	    htmlLabels: false
+	---
+	flowchart LR
+	    START(Start) --> DOIT[Just Do It] --> END(End)
+	\`\`\`
+
+snippet mermaid_flowchart Add mermaid sequence diagram
+	```mermaid
+	---
+	config:
+	theme: neutral
+	title: Greetings
+	---
+	sequenceDiagram
+		Note over Alice: Initiator
+		Note over John: Responder
+		Alice->>John: Hello John, how are you?
+		John-->>Alice: Great!
+	```
+
+
+### Pandoc Typst Support
+
+snippet yaml_frontmatter Yaml Frontmatter #ptp
+	---
+	title: ${1:title}
+	template: ${2:rch.typ}
+	date: date${3}
+	keywords:
+		- A802
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
+	---
+
+snippet template_doc doc template #ptp
+	---
+	title: ${1:Title}
+	contractor: Red Cedar Consultancy
+	contractor_url: www.redcedarconsultancy.com
+	template: doc.typ
+	keywords: ${2:keywords}
+	color: true
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
+	---
+
+snippet template_sfnet sfnet template
+	---
+	title: ${1:Title}
+	footer_title: ${2:Subtitle}
+	template: rch_sfnet.typ
+	toc: true
+	keywords:
+	- headlamp
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
+	---
+
+snippet template_article article template (supports single page)
+	---
+	title: title
+	subtitle: subtitle
+	subsubtitle: subsubtitle
+	date: date
+	author: Chad Skeeters
+	title-page: true
+	toc: true
+	color: true
+	template: article.typ
+	keywords: word1
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+		- pagebreak.lua
+		- pandoc-table-figure/0.1.0/table-figure.lua
+		- pandoc-acronyms/0.1.0/acronyms.lua
+		- pandoc-diagram/main/diagram.lua
+	diagram:
+		cache: true
+	---
+
+snippet filter_pagebreak Filter Config: Pagebreak
+	filters:
+		- pagebreak.lua
+snippet filter_link_footnote Filter Config: Link Footnote
+	filters:
+		- pandoc-link-footnote/0.1.0/link-footnote.lua
+snippet filter_internal_link Filter Config: Internal Link
+	filters:
+		- pandoc-internal-link/0.1.0/internal-link.lua
+snippet filter_acronyms Filter Config: Acronyms
+	filters:
+		- pandoc-acronyms/0.1.0/acronyms.lua
+snippet filter_table_figure Filter Config: Table Figure
+	filters:
+		- pandoc-table-figure/0.1.0/figure.lua
+snippet filter_wordjoin Filter Config: Word Join
+	words:
+		- BCS-T
+		- CS/SCOI
+	filters:
+		- wordjoin.lua
+snippet filter_kbd Filter Config: Keyboard Keys
+	filters:
+		- pandoc-kbd/0.1.0/kbd.lua
+
+snippet pb Pagebreak
+	\pagebreak
+snippet internal_link Internal Link
+	Jump to the [Introduction](#introduction).
+	# Introduction
+snippet acronyms Filter Config: Acronyms
+	acronyms:
+		LAN: Local Area Network
+		WAN: Wide Area Network
+	filters:
+		- pandoc-acronyms/0.1.0/acronyms.lua
+snippet table_figure Filter Config: Table Figure
+	| First | Last     |
+	|-------|----------|
+	| John  | Doe      |
+
+	Table:  People I know {#tbl:people}
+
+	See the people I know in +tbl:people.
+snippet filter_kbd Filter Config: Keyboard Keys
+	To reboot, press +KBD(Ctrl)++KBD(Alt)++KBD(Del).
+
+snippet execute_typst Add Typst code to be processed
+	\`\`\`{=typst}
+	#heading("Table of Contents", outlined: false, bookmarked:true)
+	#outline(title: none)
+	#set heading(numbering: "1.1")
+
+	#pagebreak(weak: true)
+	\`\`\`
+
+
+snippet typst_landscape Horizantal page orientation (flipped)
+	\`\`\`{=typst}
+	#set page(flipped: ${1:true})
+	\`\`\`
+
+### Frequently Typed Text
+
+snippet SPP Security Policies and Procedures
+	*Security Policies and Procedures* (SPP)
+snippet USP Unit Security Plan
+	337th ACS *Unit Security Plan* (USP)
+snippet EAL Entry Authority List
+	*Entry Authority List* (EAL)
+
+snippet NOTE Note Admonition
+	> [!NOTE]
+	> ${1:Content}
+
+snippet TIP Tip Admonition
+	> [!TIP]
+	> ${1:Content}
+
+snippet IMPORTANT Important Admonition
+	> [!IMPORTANT]
+	> ${1:Content}
+
+snippet WARN Warning Admonition
+	> [!WARNING]
+	> ${1:Content}
+
+snippet CAUTION Caution Admonition
+	> [!CAUTION]
+	> ${1:Content}

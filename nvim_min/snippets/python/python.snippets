@@ -1,0 +1,240 @@
+snippet main
+	#!/usr/bin/env python
+	# encoding: utf-8
+
+	if __name__ == "__main__":
+		${0}
+snippet def
+	def ${0:foo}:
+	    ${1}
+snippet p
+	print("${0:bar}")
+snippet pv
+	print(f"${1}: {$1}")
+snippet foreach Foreach
+	for line in arr:
+		print(line)
+snippet re
+	import re
+	p=re.compile('^(${0:chad})$', re.IGNORECASE)
+
+	# Extract capture groups from match
+	m=p.match(line)
+	if m != None:
+	    print m.group(1)
+
+	# Loop over all matches
+	for m in p.finditer(line):
+		print 'yes %s' % m.group(1)
+
+snippet signal
+	import signal
+	def handler(signum, frame):
+		print(f"caught {signum}")
+	signal.signal(signal.SIGINT, handler)
+
+snippet find Find the index to a substring
+	pos = s.find('h', [start[, end]])
+
+snippet split Splits string into array
+	s.split(',', [,max])
+
+snippet join Joins string in an array
+	s.join('[Chad', 'is', 'fun.'], ' ')
+
+snippet replace Replace text in string
+	s.replace(old, new, maxreplaces)
+
+snippet strip Strip whitespace from string
+	s.strip()
+	s.lstrip()
+	s.rstrip()
+
+snippet justify Pad string to width
+	s.ljust(width)
+	s.ljust(width, "-")
+
+snippet format sprintf style formatting
+	'%s is cool' % 'chad'
+	'%(who)s is cool' % {'who':'chad'}
+
+	from string import Template
+	t=Template('$who is cool')
+	s=t.substitute(who='chad')
+
+	'{0} is cool'.format('chad')
+	'{who} is cool'.format(who='chad')
+
+
+snippet dotdict Dictionary that can be accessed using dot notation
+	class dottict:
+		def __init__(self, dictionary={}):
+			self.__dict__ = dict(dictionary)
+		def __setitem__(self, attr, value):
+			setattr(self, attr, value)
+		def __getitem__(self, attr):
+			return getattr(self, attr)
+		def __repr__(self):
+			return repr(self.__dict__)
+		def has_key(self, key):
+			return self.__dict__.has_key(key)
+
+snippet dottict_usage Usage for dottict
+	d=dotdict({'chad':5})
+	print d.chad
+	d.chad = 643
+	print d['chad']
+	d['chad'] = 933
+	print d.chad
+	d.mike = 123
+	print d.mike
+
+snippet dottict_extending Extending dottict
+	# Assume you want a System class with a name attribute that returns with repr.
+
+	class System(dotdict)
+		def__repr__(self):
+			return getattr(self, 'name')
+
+	System({'name':'server1'})
+
+snippet path_join Join components of a file path
+	import os.path
+	path.join("/", "etc")
+
+snippet cwd Gets the current working directory (cwd/pwd)
+	import os
+	os.getcwd()
+	# os.curdir is just "."
+
+snippet basename Gets the last component of a path (basename)
+	import os
+	os.basename(path)
+
+snippet mkdir Create directory
+	os.mkdir(path)
+	os.mkdirs(path) # like mkdir -p
+
+snippet rm Remove file at path
+	os.remove(path)
+
+snippet perm Set owner and permissions on a file
+	os.chown(path, user, group)
+	os.chmod(path, mode) # where mode is from stat.S_IXGRP (Think "S_I"+<RWX>+<GRP|USR>)
+
+snippet file_read Read a file
+	# with ensures the file will be closed
+	with open(path, 'r') as f:
+		arr = f.readlines()
+
+	# Strip newlines
+	with open('drugs', 'r') as f:
+		for line in map(lambda line: line.rstrip('\n'), f):
+			print line, "END"
+
+snippet file_write Write a file
+	# with ensures the file will be closed
+	with open(path, 'w') as f:
+		f.write('Hello, World!')
+
+snippet input Read string from the user
+	raw_input('prompt:')
+
+snippet map_lambda Return array with
+	output_arr = map(lambda s: s.rstrip('\n'), input_arr):
+
+snippet datetime_examples Datetime examples
+	from datetime import datetime
+
+	print datetime.fromtimestamp(time.mktime(time.strptime("12/15/10 21", "%m/%d/%y %H:%M:%s")))
+	print datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	print datetime.utcnow()
+	print datetime.fromtimestamp(time.time())
+	print datetime.now().timetuple()
+
+	from datetime import timedelta
+
+	print datetime.now() - timedelta(days=7)
+
+snippet date_examples Date examples
+	from datetime import date
+
+	print date.today()
+	print date.fromtimestamp(time.mktime(time.strptime("12/15/10 21", "%m/%d/%y %H:%M:%s")))
+	print date.today().strftime("%Y-%m-%d %H:%M:%S")
+
+	from datetime import timedelta
+
+	print date.today() - timedelta(days=7)
+
+snippet time_examples Time examples
+	import time
+
+	time.time() # Seconds since epoch
+	time.strftime("%Y-%m-%d %H:%M:%S")
+	time.sleep(secs=5)
+
+	time.mktime(tuple)
+	time.localtime(seconds)
+
+snippet system Execute command in subshell
+	import os
+	os.system('echo hi')
+
+snippet system_output Return output command executed in subshell
+	# Return output from command.  Run in blocking mode.
+	def getoutput(cmd):
+		pipe = os.open(cmd, 'r', 4096)
+		output = pipe.read().strip()
+		pipe.close()
+		return output
+
+	print getoutput('hostname -s')
+
+snippet subprocess Spawn a subprocess via a command
+	import subprocess
+
+	proc = subprocess.Popen(shlex.split(cmd), stdin=self.slave, stdout=self.slave, stderr=subprocess.STDOUT, close_fds=True)
+	print "started process with pid %d" % proc.pid
+	while true:
+		ret = proc.poll()
+		if None != ret:
+			lines = os.read(self.master, 1024*128).split("\n")
+			print lines
+			break
+
+snippet ptyprocess Start a process in a pty
+	from ptysp import Ptyprocess
+
+	proc = Ptyprocess("/usr/bin/python foo.py")
+
+	# Send data to stdin
+	proc.sendln("chad is cool")
+
+	# Read lines as they are available
+	terminated = False
+	while not terminated:
+		lines, newlines, terminated = proc.getoutput()
+		for line in newlines:
+			print "->", line
+			sys.stdout.flush()
+
+snippet berkley_db_example bearkleydb example
+	import bsddb
+	import struct
+	import datetime
+
+	db = bsddb.btopen('type.db')
+	#dic = {}
+	#dic['1'] = "hi"
+	#dic['2'] = 1
+	#dic['3'] = datetime.date.today()
+
+	db['test'] = struct.pack("III", 2007, 02, 40)
+
+	db.close()
+
+	db = bsddb.btopen('type.db')
+	(year,mo, day) = struct.unpack("III", db['test'])
+	print year, mo, day
+	db.close()

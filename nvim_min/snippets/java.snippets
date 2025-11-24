@@ -1,0 +1,116 @@
+# need to use crc from abolish on method signatures since this version of 
+# snippets doesn't support changing the case of the first letter of a $1
+snippet logf
+	log.fatal("${1}");
+snippet loge
+	log.error("${1}");
+snippet logw
+	log.warn("${1}");
+snippet logi
+	log.info("${1}");
+snippet logd
+	log.debug("${1}");
+snippet log
+	import org.apache.log4j.Logger;
+	private static final Logger log = Logger.getLogger(${1:My}.class);
+snippet out
+	System.out.println("${1:}");
+snippet mem
+	private ${1:int} ${2:x};
+	
+	public $1 ${3}get_$2() {
+		return $2;
+	}
+	
+	public void set_$2($1 $2) {
+		this.$2 = $2;
+	}
+snippet class
+	import java.io.*;
+	import java.util.*;
+	import org.apache.log4j.Logger;
+
+	public class ${1:ClassName}
+	{
+		private static final Logger log = Logger.getLogger($1.class);
+		${2}
+	}
+snippet hash
+	public int hashCode() {
+		return ${1:0};
+	}
+snippet equals
+	public boolean equals(Object obj) {
+		if ((obj == null) || !(obj instanceof ${1:Type})) return false;
+	
+		$1 other = ($1) obj;
+	
+		return true;
+	}
+snippet clone
+	public Object clone() {
+		//member = member.clone()
+		return super.clone(); // this will clone primitives
+	}
+snippet main
+	public static void main(String argv[]) {
+		${1}
+	}
+snippet convert
+	double degrees = Unit.RADIANS.convert(orientation.psi, Unit.DEGREES);
+snippet invoke
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			${1}
+		}
+	});
+snippet syn
+	synchronized (this) {
+		${1}
+	}
+snippet handles
+	private static final Class HANDLES = ${1}.class;
+	/**
+	 * Returns the type of class this viewer handles
+	 */
+	public static Object getStaticModelClass() {
+		return HANDLES;
+	}
+
+	/**
+	 * Returns the type of class this viewer handles
+	 */
+	public Object getModelClass() {
+		return HANDLES;
+	}
+snippet model
+	public void setModel(Model model) {
+		if (model instanceof ${1:AmsLineModel}) {
+			if (this.model != null) {
+				this.model.removeChangeListener(this);
+			}
+			this.model = ($1) model;
+			this.model.addChangeListener(this);
+		}
+	}
+
+	public Model getModel() {
+		return model;
+	}
+snippet ef
+	ErrorFile.println("${1}");
+snippet write
+	public void write(OutputBuffer out)
+	throws IOException {
+		out.putAscii(name, NAME_LENGTH, true); // last byte gets overwritten anyways
+	}
+snippet alert
+	import ams.tdf.TDFUtil;
+	TDFUtil.alert("${1}");
+snippet sleep
+	try {
+		Thread.sleep(${1:1000});
+	} catch (InterruptedException e) {
+		log.error("${2:Interrupted}");
+	}
+	${3}

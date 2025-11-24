@@ -1,0 +1,189 @@
+snippet print Prints file with value
+	print("${1:field}: "..${1})
+
+snippet inspect Prints table in human readable format in neovim
+	print(vim.inspect(${1:table}))
+
+snippet for_dict Iterate over dictionary (table)
+	t = {}
+	t["k"] = 5
+	-- here we use pairs instead of ipairs
+	for k,v in pairs(t) do
+		print(k.." => "..tostring(v))
+	end
+
+snippet for Iterate over table
+	for i, ${1:value} in ipairs(${2:table}) do
+		${3}
+	end
+
+snippet find Finds needle in string
+	index_start, index_end = string.find(${1:heystack_string}, "${2:needle}")
+
+snippet match Returns captures from regex-like pattern
+	local captures = string.match(${1:s}, ${2:pattern} [, init])
+	if captures == nil then
+		-- Handle error
+	end
+
+snippet insert Adds value into table (insert/push_back)
+	table.insert(${1:table}, ${2:value})
+
+snippet remove Removes value from table (erase)
+	table.remove(${1:table}, ${2:value})
+
+snippet eprint Print to stderr
+	function eprint(f, ...)
+		local m = string.format(f.."\n",table.unpack({...}))
+		io.stderr:write(m)
+	end
+
+snippet format String formatter
+	local r = string.format("%s\n", variable)
+
+snippet vim_fzf_lua_table Custom FZF with action
+	function Foo()
+		-- options is table of strings
+		local options = {}
+		table.insert(options, string.format("%s (%d)", "Foo", 1))
+		table.insert(options, string.format("%s (%d)", "Bar", 2))
+		table.insert(options, string.format("%s (%d)", "Baz", 3))
+
+		require'fzf-lua'.fzf_exec(options, {
+			debug_cmd=false, -- change to true and use :messages to see fzf command issued
+			actions = {
+				['default'] = function(selected, _)
+					-- We loop here, but only one will actually be selected
+					for _, opt in ipairs(selected) do
+						local s, _, name, id_str = string.find(opt, "(.*) %(([%d]+)%)")
+						if s ~= nil then
+							local id = tonumber(id_str)
+							if id ~= nil then
+								vim.notify("DO FOO " .. name .. " (" .. id .. ")");
+							else
+								vim.notify("ID (" .. id_str .. ") not a number ");
+							end
+						else
+							vim.notify("Could not parse result (" .. opt .. ")");
+						end
+					end
+				end
+			},
+			-- Use this if you want to hide some of the data
+			-- fzf_opts = {
+				-- -- hide client_id
+				-- ["--delimiter"] = "[,]",
+				-- ["--with-nth"]  = '2..',
+			-- },
+		})
+	end
+	vim.keymap.set('n', '<localleader>asdf', Foo, { desc="FZF DO FOO" })
+
+snippet dump Dump table/map
+	-- Helper Functions
+	-- NOTE: can also use print(vim.inspect(data))
+	local function dump(o)
+		if type(o) == 'table' then
+			local s = '{ '
+			for k,v in pairs(o) do
+				if type(k) ~= 'number' then k = '"'..k..'"' end
+				s = s .. '['..k..'] = ' .. dump(v) .. ','
+			end
+			return s .. '} '
+		else
+			return tostring(o)
+		end
+	end
+
+snippet sleep Sleep Function
+	function sleep(n)
+		os.execute("sleep " .. tonumber(n))
+	end
+
+snippet unpack_helper Adds statement to ensure unpack will be successful
+	local unpack = unpack or table.unpack
+
+snippet luasnip_helpers LuaSnip helpers
+	local ls = require("luasnip")
+	local s = ls.snippet
+	local sn = ls.snippet_node
+	local t = ls.text_node
+	local i = ls.insert_node
+	local f = ls.function_node
+	local c = ls.choice_node
+	local d = ls.dynamic_node
+	local r = ls.restore_node
+	local l = require("luasnip.extras").lambda
+	local rep = require("luasnip.extras").rep
+	local p = require("luasnip.extras").partial
+	local m = require("luasnip.extras").match
+	local n = require("luasnip.extras").nonempty
+	local dl = require("luasnip.extras").dynamic_lambda
+	local fmt = require("luasnip.extras.fmt").fmt
+	local fmta = require("luasnip.extras.fmt").fmta
+	local types = require("luasnip.util.types")
+	local conds = require("luasnip.extras.conditions")
+	local conds_expand = require("luasnip.extras.conditions.expand")
+
+snippet snip_fmt
+	s("tx", fmt([[
+		if {} then
+		  {} -- indent matches indent_string
+		end
+		]],
+		{
+		i(1, "true"),
+		i(2, "return "),
+	}, {
+		indent_string = "  " -- indent prefix for format
+	}
+	)),
+
+
+snippet tutorial_table
+	local t = {}
+	table.insert(t, "Foo")
+
+	local t2 = {"Chad", "Skeeters"}
+
+	for i,v in ipairs(t) do
+		print(i.." => "..tostring(v))
+	end
+
+snippet tutorial_dict
+	-- init can have values with equals sign
+	local d = {}
+	d = {bar="chad"}
+
+	-- Either Works
+	d["foo"] = "hi"
+	d.foo = "hi2"
+
+	-- Either Works
+	print(d.foo)
+	print(d["foo"])
+
+	for k,v in pairs(t) do
+		print(k.." => "..tostring(v))
+	end
+
+snippet module Lua Module
+    local M = {}
+    M.foo = function(opts)
+        ${1}
+    end
+    return M
+
+snippet error Vim ERROR log notification
+	vim.notify("${1:ERROR}", vim.log.levels.ERROR)
+snippet warn Vim WARN log notification
+	vim.notify("${1:ERROR}", vim.log.levels.WARN)
+snippet info Vim INFO log notification
+	vim.notify("${1:ERROR}", vim.log.levels.INFO)
+snippet debug Vim DEBUG log notification
+	vim.notify("${1:ERROR}", vim.log.levels.DEBUG)
+snippet trace Vim TRACE log notification
+	vim.notify("${1:TRACE}", vim.log.levels.TRACE)
+
+snippet field Vim log/inspect field value
+	vim.notify("${1:field}: $1", vim.log.levels.ERROR)

@@ -1,0 +1,213 @@
+#### flow
+
+snippet mo Match Option
+	match ${1:foo} {
+		None => None,
+		Some(i: i32) => {
+			println!("i: {}", i);
+		}
+	}
+
+snippet opt_expect Runs expect on option to panic with custom error
+	// expect panics on None with the provided message
+	let age = age_option.expect("no age specified");
+
+snippet mr Match Result
+	match ${1:result} {
+		Ok(value) => println!("Result: {}", value),
+		Err(e) => println!("Error: {}", e),
+	}
+
+snippet if_let if let
+	if let Some(${1:i}: u32) = ${2:foo} { // Type is optional
+		${3:println!("i is {}", i)}
+	}
+
+#### Strings
+
+snippet String String from string slice (str)
+	String.from("literal");
+
+snippet str String to string slice (str) as_str
+	s.as_str();
+
+snippet fmt
+	// https://docs.rs/chrono/latest/chrono/format/strftime/index.html
+	let msg = format!("{}", ${1:first});
+
+#### Data/Struct/Class
+
+snippet enum Enum
+	enum ${1:Foo} {
+		Start(service_name: &str),
+		Stop(service_name: &str),
+	}
+
+snippet struct Struct
+	struct ${1:Account} {
+		username: String,
+		email: String,
+		active: bool,
+	}
+
+snippet struct_init Struct Initialization
+	Account {
+		username: "cskeeters",
+		email: "chad.skeeters@gmail.com",
+		active: true,
+	}
+
+snippet class Class
+	pub struct Foo {
+		first: String,
+	}
+
+	impl Foo {
+		pub fn new(first: String) -> Result<Self, String> {
+			return Ok(Foo {
+				first: first,
+			});
+		}
+	}
+
+#### Macros
+snippet assert Assert statements
+	assert!(boo, "Not true: {}", boo);
+	assert!(a>b, "b is larger than a: a:{} b:{}", a, b);
+snippet assert_eq Assert equal statements
+	let a = 3;
+	let b = 1 + 2;
+	assert_eq!(a, b);
+	assert_eq!(a, b, "we are testing addition with {} and {}", a, b);
+
+snippet assert_debug Assert debug statements
+	// Only panic in Debug builds
+	debug_assert_eq!(3, 2);
+
+snippet pl println
+	println!("{}", ${1:foo});
+
+snippet println_left println Width Left
+	println!("{:<${1:16}}", ${2:foo});
+snippet println_right println Width Right
+	println!("{:>${1:16}}", ${2:foo});
+snippet println_dec println Decimal
+	println!("{:>${1:20}.${2:2}", ${3:foo}.round_dp(${2}));
+snippet println_round println Decimal Round
+	println!("{}", ${2:foo}.round_dp(${1}));
+
+snippet unused_all Allow unused modules
+	#![allow(unused)]
+
+snippet for_i For loop with integer
+	for i in 0..${1:vec}.len() {
+		${2}
+	}
+snippet for_in For loop with in
+	for i in 1..${1:10} {
+		${2}
+	}
+snippet dead Allow dead code
+	#[allow(dead_code)]
+snippet dead_unused Allow dead code and unused_variables in the file
+	#![allow(dead_code, unused_variables)]
+
+snippet test_code Test code
+	#[allow(unused_assignments, unused_variables)]
+
+
+#### Methods
+
+snippet main Main
+	pub fn main() {
+		// Ensure that backtraces will always be captured
+		unsafe {
+			std::env::set_var("RUST_BACKTRACE", "1");
+		}
+
+		println!("Hello World");
+
+		// Example exiting with error code
+		std::process::exit(1);
+	}
+
+snippet fn Function
+	pub fn ${1:foo}() -> ${2:Result<u32, String>} {
+		Err("Unimplemented")
+	}
+
+
+#### Impl
+
+snippet impl_enum Impl for Enum/Struct
+	impl ${1:Foo} {
+		fn ${2:bar}() {
+		}
+	}
+
+snippet display Display for struct
+	impl fmt::Display for ${1:Node} {
+		fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+			// Use `self.number` to refer to each positional data point.
+			write!(f, "${1}{{ data: {}, }}", self.data)
+		}
+	}
+
+snippet drop Drop implementation
+	impl Drop for ${1:Person} {
+		fn drop(&mut self) {
+			println!("> Dropping ${1}", self.name);
+		}
+	}
+
+#### Debug
+
+snippet pd Print Debug
+	println!("${1:foo}: {$1:?}");
+
+snippet derive_debug Derive a Debug implementation
+	#[derive(Debug)]
+
+snippet debug_type debug_type macro
+	#[allow(dead_code)]
+	fn type_of_ref<T>(_value: &T) -> &'static str {
+		std::any::type_name::<T>()
+	}
+
+	#[allow(dead_code)]
+	fn type_of<T>(_value: T) -> &'static str {
+		std::any::type_name::<T>()
+	}
+
+	#[allow(unused_macros)]
+	macro_rules! debug_type {
+		(\$var:expr) => {
+			println!("typeof(\$var): {:?}", type_of(\$var));
+		};
+		(&\$var:expr) => {
+			println!("typeof(\$var): {:?}", type_of_ref(\$var));
+		};
+	}
+
+	debug_type!(5)
+
+#### Native Date
+
+snippet date_parse Parse NaiveDate (No timezone or time)
+	let nd = NaiveDate::parse_from_str("2015-09-05", "%Y-%b-%d").unwrap();
+
+snippet decimal_parse Parse Decimal
+	let d = Decimal::from_str_exact("3.14159").unwrap();
+
+#### Errors
+
+snippet rr Return Result
+	-> Result<${1:String}>
+snippet ro Return Option
+	-> Option<${1:String}>
+
+snippet anyhow_err return Err
+	return Err(anyhow!("${1:File not found}"));
+
+snippet context Anyhow context
+	.context("${1:Error loading data}")?;

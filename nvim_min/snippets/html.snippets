@@ -1,0 +1,158 @@
+snippet html
+	<!doctype html>
+	<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title></title>
+
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="icon" href="images/favicon.png">
+	</head>
+
+	<body>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="js/scripts.js"></script>
+		${1}
+	</body>
+
+	</html>
+snippet a Anchor Tag
+	<a href="${1:http://}"></a>
+snippet "f(orm)?" Form
+	<form action="${1:dest}" method="post">
+		$4
+		<input type="button" value="${3:Cancel}">
+		<input type="submit" value="${2:Ok}">
+	</form>
+
+snippet "i(nput)?" "Text area" r
+	<input type="text" name="${1:username}" id="$1" placeholder="$1" rows="6"/>
+
+snippet "p(ass)?w(word)?" "password" r
+	<input type="password" name="${1:password}" id="$1" placeholder="$1" rows="6"/>
+
+snippet ta "Text area" !
+	<textarea name="${1:message}" id="$1" placeholder="$1" rows="6"></textarea>
+
+snippet link "css link" !
+	<link rel="stylesheet" href="${1:style}.css">
+
+snippet script "script" !
+	<script src="js/${1:component}.js"></script>
+
+snippet nav "Navigation"
+	<nav>
+		<h1>Navigation</h1>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes">Archive</a></li>
+		</ul>
+	</nav>
+
+snippet header
+	<header>
+		$1
+	</header>
+
+snippet footer
+	<footer>
+		$1
+	</footer>
+
+snippet div
+	<div class="${1:unit}">${2:text}</div>
+snippet p
+	<p>
+		$1
+	</p>
+
+snippet table
+	<table border="0">
+		<tr>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+
+snippet tr
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+
+snippet down "Down (down)"
+	&#x2193;
+
+snippet enter "Enter (enter)"
+	&#x2305;
+
+snippet escape "Escape (escape)"
+	&#x238B;
+
+snippet tab "Tab (tab)"
+	&#x21E5;
+
+snippet up "Up (up)"
+	&#x2191;
+
+snippet return "Return (return)"
+	&#x21A9;
+
+snippet right "Right (right)"
+	&#x2192;
+
+snippet left "Left (left)"
+	&#x2190;
+
+snippet cmd "Command"
+	&#8984;
+
+snippet option "Option (option)"
+	&#x2325;
+
+snippet caps "Caps Lock"
+	&#8682;
+
+snippet eject "Eject"
+	&#9167;
+
+snippet cr "Carriage Return"
+	&crarr;
+
+snippet ctrl "Controls"
+	&#8963;
+
+snippet shift "shift"
+	&#8679;
+
+snippet apple "apple logo"
+	&#63743;
+
+snippet revealjs_bullets revealjs: Bullets
+	<section>
+		<h1>Chad Skeeters</h1>
+		<ul>
+			<li>Programmer</li>
+			<li class="fragment fade-up">Objectivist</li>
+			<li class="fragment fade-up">Pickleball Player</li>
+			<!-- https://revealjs.com/fragments/ -->
+		</ul>
+	</section>
+
+snippet revealjs_code revealjs: Code
+	<section data-auto-animate>
+		<h1 data-id="code-title">C++</h1>
+		<pre data-id="code-animation"><code  data-trim data-noescape data-line-numbers>
+		int main() {
+		}
+		</code></pre>
+	</section>
+

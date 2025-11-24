@@ -1,0 +1,31 @@
+snippet main
+	* {
+		<!-- Make childs border fit inside parents available space -->
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+snippet style
+	${1:body} {
+		${2}
+	}
+snippet attribute
+	${1:display}: ${2:none};
+snippet commend
+	/* ${1} */
+snippet radius
+	border-radius: ${1:5px};
+snippet flex
+	display: flex;
+	flex-direction: column; /* Up and Down */
+	flex-direction: row; /* Left to Right */
+	align-items: flex-start;
+snippet var
+	var(--${1:text})
+snippet bg
+	background-color: #000;
+snippet border
+	border: 1px solid ${1:#000};

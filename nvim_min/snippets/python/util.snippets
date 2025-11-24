@@ -1,0 +1,18 @@
+snippet go
+	def getoutput(cmd):
+	    pipe = os.popen(cmd, 'r', 4096)
+	    output = pipe.read().strip()
+	    pipe.close()
+	    return output
+snippet dd
+	class dotdict:
+	        def __init__(self, dictionary={}):
+	                self.__dict__ = dict(dictionary)
+	        def __setitem__(self, attr, value):
+	                setattr(self, attr, value)
+	        def __getitem__(self, attr):
+	                return getattr(self, attr)
+	        def __repr__(self):
+	                return repr(self.__dict__)
+	        def has_key(self, key):
+	                return self.__dict__.has_key(key)

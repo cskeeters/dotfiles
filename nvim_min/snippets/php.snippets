@@ -1,0 +1,38 @@
+snippet log
+	error_log("{1:error}");
+
+snippet slim_callback
+	$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
+		$response->getBody()->write('Hello '.$args['name']);
+		return $response;
+	});
+
+snippet slim_write
+	$response->getBody()->write('Hello World');
+
+
+snippet slim_status
+	$response = $response->withStatus(302);
+
+snippet slim_json
+	$data = array('name' => 'Bob', 'age' => 40);
+	$payload = json_encode($data);
+
+	$response->getBody()->write($payload);
+	return $response->withHeader('Content-Type', 'application/json');
+
+snippet slim_redirect
+	return $response
+		->withHeader('Location', 'https://www.example.com')
+		->withStatus(302);
+
+snippet slim_read_post
+	// Get all POST parameters
+	$params = (array)$request->getParsedBody();
+
+	// Get a single POST parameter
+	$foo = $params['foo'];
+snippet foreach
+	foreach (\$${1:$list} as \$${2:value}) {
+		$3
+	}
