@@ -19,14 +19,22 @@ return {
             vim.env.FZF_DEFAULT_OPTS = '--reverse'
         end
 
+        local NVIM_APPNAME="nvim"
+        if vim.env.NVIM_APPNAME ~= nil then
+            NVIM_APPNAME=vim.env.NVIM_APPNAME
+        end
+
+        local runtime_path = '/opt/homebrew/Cellar/neovim/'..vim.version():__tostring()..'/share/nvim/runtime'
+
         vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                      { desc="Open file in current directory tree (fzf)" })
         vim.keymap.set('n', '<Leader>og', ':GitFiles!<cr>',                                   { desc="Open git tracked file (fzf)" })
-        vim.keymap.set('n', '<Leader>oc', ':Files! ~/.config/nvim<cr>',                       { desc="Open neovim config file (fzf)" })
-        vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/nvim<cr>',                  { desc="Open plugin from .local (fzf)" })
+
+        vim.keymap.set('n', '<Leader>oc', ':Files! ~/.config/'..NVIM_APPNAME..'<cr>',         { desc="Open neovim config file (fzf)" })
+        vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/'..NVIM_APPNAME..'<cr>',    { desc="Open plugin from .local (fzf)" })
+        vim.keymap.set('n', '<Leader>ou', ':Files! '..runtime_path..'<cr>',                   { desc="Open neovim runtime file (fzf)" })
+
         vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open note (fzf)" })
         vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                   { desc="Open bcst-doc file (fzf)" })
-        vim.keymap.set('n', '<Leader>ou',
-           ':Files! /opt/homebrew/Cellar/neovim/0.10.4/share/nvim/runtime<cr>',             { desc="Open neovim runtime file (fzf)" })
 
         vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                    { desc="Open Buffer (fzf)" })
         vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                    { desc="Open Old file from history (fzf)" })
