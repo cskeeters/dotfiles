@@ -390,11 +390,11 @@ function ToggleConceal()
     end
 end
 
-vim.keymap.set('n', [[\c]], ToggleConceal, { buffer=true, desc='Conceal: Toggle' })
+vim.keymap.set('n', [[\c]], ToggleConceal, { desc='Conceal: Toggle' })
 
-vim.keymap.set('n', '<LocalLeader><LocalLeader>c0', '<Cmd>set conceallevel=0<Cr>', { buffer=true, desc='Conceal: Disable' })
-vim.keymap.set('n', '<LocalLeader><LocalLeader>c2', '<Cmd>set conceallevel=2<Cr>', { buffer=true, desc='Conceal: Replace with cchar (set list-style)' })
-vim.keymap.set('n', '<LocalLeader><LocalLeader>c3', '<Cmd>set conceallevel=3<Cr>', { buffer=true, desc='Conceal: Hide' })
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c0', '<Cmd>set conceallevel=0<Cr>', { desc='Conceal: Disable' })
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c2', '<Cmd>set conceallevel=2<Cr>', { desc='Conceal: Replace with cchar (set list-style)' })
+vim.keymap.set('n', '<LocalLeader><LocalLeader>c3', '<Cmd>set conceallevel=3<Cr>', { desc='Conceal: Hide' })
 
 function Hardcopy()
     vim.cmd([[w !lp - ]])
