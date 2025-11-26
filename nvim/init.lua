@@ -227,8 +227,8 @@ vim.keymap.set('v', '<LocalLeader>d', '"_d', { noremap=true, desc="Remove select
 function Reset()
     vim.cmd('nohlsearch')
 
-    local luasnip = require("luasnip")
-    if luasnip then
+    local status_ok, luasnip = pcall(require, "luasnip")
+    if status_ok then
         luasnip.unlink_current()
     end
 end
