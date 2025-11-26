@@ -21,6 +21,7 @@ return {
                 "diff",
                 "go",
                 "html",
+                "ini",
                 "java",
                 "javascript",
                 -- "latex",
