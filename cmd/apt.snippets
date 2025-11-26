@@ -40,3 +40,10 @@ snippet dpkg_files dpkg: List files included in package
 	dpkg -L ${1:deb_installed_packages()}
 snippet dpkg_contains dpkg: Output package name containing path
 	dpkg -S ${1:path}
+
+snippet apt_file_install apt-file: Install apt-file itself
+	apt install apt-file
+snippet apt_file_update apt-file: Update cache
+	apt install apt-file
+snippet apt_file_list apt-file: List files in package
+	apt-file list ${1:pkgname}
