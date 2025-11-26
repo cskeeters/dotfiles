@@ -4,6 +4,8 @@ snippet ollama_run ollama: Choose model and run
 	ollama run ${1:ollama_local_models()}
 snippet ollama_list ollama: List models
 	ollama list
+snippet ollama_logs ollama: Show server logs
+	tail -f /var/log/ollama/stderr
 snippet ollama_rm ollama: Remove model
 	ollama rm ${1:ollama_local_models()}
 snippet ollama_update ollama: Update all downloaded models
