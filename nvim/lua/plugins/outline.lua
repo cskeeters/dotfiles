@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     'hedyhli/outline.nvim',
     lazy=false,
     config = function()
