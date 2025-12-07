@@ -55,15 +55,15 @@ return {
                 -- additional_vim_regex_highlighting = {'markdown','markdown_inline'},
             },
 
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "gss",
-                    node_incremental = "gsn",
-                    scope_incremental = "gsc",
-                    node_decremental = "gsm",
-                }
-            },
+            -- incremental_selection = {
+            --     enable = true,
+            --     keymaps = {
+            --         init_selection = "gss",
+            --         node_incremental = "gsn",
+            --         scope_incremental = "gsc",
+            --         node_decremental = "gsm",
+            --     }
+            -- },
         }
     end,
 }
