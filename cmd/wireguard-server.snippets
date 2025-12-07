@@ -1,0 +1,8 @@
+snippet wg_enable wg: Enable wireguard
+	systemctl enable wg-quick@wg0
+snippet wg_start wg: Restart wireguard
+	systemctl restart wg-quick@wg0
+snippet wg_status wg: Wireguard status
+	systemctl restart wg-quick@wg0
+snippet wg_logs wg: Wireguard Logs
+	journalctl -u wg-quick@wg0

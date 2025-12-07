@@ -6,3 +6,5 @@ fi
 if command -v dnf >/dev/null 2>&1 then
     link cmd/dnf.snippets                   .config/cmd
 fi
+
+link cmd/wireguard-server.snippets          .config/cmd
