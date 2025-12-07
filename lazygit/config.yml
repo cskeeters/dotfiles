@@ -36,3 +36,11 @@ gui:
 
   authorColors:
     '*': '#b4befe'
+
+customCommands:
+  - key: "<C-l>"
+    command: 'git gla || true' # "|| true" prevents SIGPIPE (141) error and confirmation
+    context: "global"
+    loadingText: "Running git gla"
+    description: "View git gla in a popup"
+    output: terminal
