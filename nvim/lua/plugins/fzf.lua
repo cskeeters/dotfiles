@@ -24,7 +24,7 @@ return {
             NVIM_APPNAME=vim.env.NVIM_APPNAME
         end
 
-        local runtime_path = '/opt/homebrew/Cellar/neovim/'..vim.version():__tostring()..'/share/nvim/runtime'
+        local runtime_path = '/opt/neovim/share/nvim/runtime'
 
         vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                      { desc="Open file in current directory tree (fzf)" })
         vim.keymap.set('n', '<Leader>og', ':GitFiles!<cr>',                                   { desc="Open git tracked file (fzf)" })
