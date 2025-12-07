@@ -1,5 +1,14 @@
+-- Don't enable if we're in tmux.  This doesn't work, at least on OL7
+local enable = true
+local term = os.getenv("TERM")
+if term ~= nil then
+    if string.find(term, "tmux") then
+        enable = false
+    end
+end
+
 return {
-    enabled = true,
+    enabled = enable,
     'rebelot/kanagawa.nvim',
     init = function() -- must be disabled for ttyd/vhs
         -- Default options:
@@ -46,6 +55,6 @@ return {
         })
 
         -- setup must be called before loading
-        vim.cmd("colorscheme kanagawa")
+        vim.cmd.colorscheme "kanagawa"
     end
 }
