@@ -14,6 +14,11 @@ local config_path = vim.fn.stdpath("config")
 -- unnamedplus affects the linux clipboard
 -- unnamed affects the linux primary selection (middleclick)
 vim.opt.clipboard='unnamedplus'
+if vim.env.FORCE_OSC52 == 'true' then -- This can be set in ~/.ssh/config for remote terminals
+    vim.g.clipboard = 'osc52'
+end
+
+
 vim.opt.mouse="a"                      -- Use a normally
 vim.opt.mouse="i"                      -- When used in ssh, disabling mouse allows copy and paste
 vim.keymap.set({'i'}, '<S-Insert>', '<MiddleMouse>')
@@ -402,6 +407,27 @@ end
 
 vim.api.nvim_create_user_command('Hardcopy', Hardcopy, {force = true})
 vim.keymap.set('n', '<space><space><C-p>', Hardcopy, { desc="Hardcopy (Print)" })
+
+-- add this wether OSC52 is detected or not
+vim.keymap.set('v', '<leader>y', function()
+    vim.cmd([[normal! ]]) -- Exit visual mode right now, setting marks
+
+    local start_pos = vim.fn.getpos("'<") -- returns [bufnum, lnum, col, off]
+    local end_pos = vim.fn.getpos("'>")
+
+    local lines = vim.api.nvim_buf_get_text(
+        0,
+        start_pos[2] - 1,  -- Convert 1-indexed line to 0-indexed
+        start_pos[3] - 1,  -- Convert 1-indexed line to 0-indexed
+        end_pos[2] - 1,    -- Convert 1-indexed line to 0-indexed
+        end_pos[3] - 1,    -- Convert 1-indexed line to 0-indexed
+        {} -- No special options needed
+    )
+
+    local selected_text = table.concat(lines, "\n")
+    local osc52_sequence = string.format('\027]52;c;%s\027\\', vim.base64.encode(selected_text))
+    io.stderr:write(osc52_sequence)
+end, { desc = "Copy to clipboard via OSC 52" })
 
 
 -- This enables the lines in the current Quickfix window to be updated after modification (i.e. cdo s/old/new/)
