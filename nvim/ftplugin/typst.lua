@@ -50,27 +50,6 @@ function typst_compile_open(app)
         local out = vim.fn.shellescape(vim.fn.expand("%:r"))..".pdf"
         vim.cmd.update()
 
-        -- Run and show error message
-        -- local open = 'open ' .. out
-        -- if app ~= nil then
-        --     open = 'open -a '..app..' '..out
-        -- end
-        -- local cmd = 'typst compile '..src..' '..out..' && '..open
-        -- vim.cmd("!"..cmd)
-
-        -- execute, no error message
-        -- local err = os.execute(cmd)
-        -- if err == 0 then
-            -- if app == nil then
-                -- os.execute('open '..out)
-            -- else
-                -- os.execute('open -a '..app..' '..out)
-            -- end
-        -- else
-            -- vim.notify("typst_compile_open: Error executing: "..cmd, vim.log.levels.ERROR)
-        -- end
-
-
         local stdout = uv.new_pipe()
         local stderr = uv.new_pipe()
 
@@ -108,20 +87,9 @@ function typst_compile_open(app)
 
             end
 
-            -- print("exit code", code)
-            -- print("exit signal", signal)
         end)
 
         vim.notify("typst_compile_open: Compiling: "..vim.fn.expand("%"), vim.log.levels.INFO)
-
-        -- uv.shutdown(stdin, function()
-            -- print("stdin shutdown", stdin)
-            -- uv.close(handle, function()
-                -- print("process closed", handle, pid)
-            -- end)
-        -- end)
-
-
     end
 end
 
