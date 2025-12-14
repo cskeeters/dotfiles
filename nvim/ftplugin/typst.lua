@@ -43,51 +43,38 @@ vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc
 function typst_compile_open(app)
     return function()
 
-        local uv = vim.uv
-
-        -- This ensures that files can have single quotes in the filenames
-        local src = vim.fn.shellescape(vim.fn.expand("%"))
-        local out = vim.fn.shellescape(vim.fn.expand("%:r"))..".pdf"
+        -- Save the buffer for external compilation
         vim.cmd.update()
 
-        local stdout = uv.new_pipe()
-        local stderr = uv.new_pipe()
+        -- No need to use shellescape for vim.system
+        local typ_filename = vim.fn.expand("%")
+        local pdf_filename = vim.fn.expand("%:r")..".pdf"
 
-        -- local cmd = 'typst compile '..src..' '..out
-        local cmd = 'echo "hi"'
-        local err = {}
+        -- This must be called outside of vim.system
+        local escaped_pdf_filename = vim.fn.shellescape(pdf_filename)
+        local open_cmd = 'open ' .. pdf_filename
+        if app ~= nil then
+            open_cmd = 'open -a "'..app..'" '.. escaped_pdf_filename
+        end
 
-        local handle, pid = uv.spawn('typst', {
-            args = {
+        local sys_obj = vim.system({'typst',
                 'compile',
-                vim.fn.expand("%"),
-                vim.fn.expand("%:r")..".pdf",
-            },
-            stdio = {nil, stdout, stderr}
-        }, function(code, signal) -- on exit
-            if code == 0 then
-                vim.notify("typst_compile_open: Successfully built: "..out, vim.log.levels.INFO)
-                local open = 'open ' .. out
-                if app ~= nil then
-                    open = 'open -a "'..app..'" '..out
-                end
-                os.execute(open)
-            else
-                vim.notify("typst_compile_open: "..out, vim.log.levels.INFO)
+                typ_filename,
+                pdf_filename,
+            }, { text = true}, function(exit_obj)
+                vim.schedule(function()
+                    if exit_obj.code == 0 then
+                        vim.notify("typst_compile_open: Successfully built: "..pdf_filename, vim.log.levels.INFO)
 
-                uv.read_start(stderr, function(err, data)
-                    if err then
-                        vim.notify("typst_compile_open: Error reading stderr", vim.log.levels.ERROR)
+                        -- open the PDF
+                        os.execute(open_cmd)
                     else
-                        if data then
-                            vim.notify("typst_compile_open: Error building: "..out.."\n"..data, vim.log.levels.ERROR)
-                        end
+                        vim.notify("typst_compile_open: Error compiling "..typ_filename, vim.log.levels.ERROR)
+                        -- vim.cmd.echom((exit_obj.stderr or ""))
+                        vim.ui.input((exit_obj.stderr or "") .. "\n\n[Press Enter to continue]")
                     end
                 end)
-
-            end
-
-        end)
+            end)
 
         vim.notify("typst_compile_open: Compiling: "..vim.fn.expand("%"), vim.log.levels.INFO)
     end
