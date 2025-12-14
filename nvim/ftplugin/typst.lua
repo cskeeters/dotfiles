@@ -80,5 +80,5 @@ function typst_compile_open(app)
     end
 end
 
-vim.keymap.set('n', '<C-k>d', typst_compile_open("Adobe Acrobat.app"), { buffer=true, desc='Build/Compile to PDF, open in Default app (Acrobat)' })
-vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"), { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
+vim.keymap.set('n', '<C-k>d', typst_compile_open("Adobe Acrobat.app"), { buffer=true, desc='Build/Compile to PDF, open in Acrobat.app' })
+vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"),       { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
