@@ -9,7 +9,7 @@ vim.opt.iskeyword:append('-')
 vim.opt_local.briopt="list:-1"
 vim.opt_local.formatlistpat="^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}\\|^[>[:space:]]\\+\\s\\+"
 
-vim.opt_local.makeprg = 'typst compile ' .. vim.fn.expand('%')
+vim.opt_local.makeprg = 'typst compile %:S'
 vim.opt_local.errorformat='%f:%l:%c:%m,%f:%l:%m'
 
 -- unique augroup name
@@ -21,6 +21,8 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     group = augroup_name,
     nested = true, -- Allows syntax highlighting in the quickfix window
     callback = function()
+        vim.notify("Compiled with: "..vim.opt_local.makeprg._value, vim.log.levels.INFO)
+
         vim.cmd("cwindow")
 
         local qflist = vim.fn.getqflist()
@@ -75,5 +77,38 @@ local function typst_compile_open(app)
     end
 end
 
+local function choose_pdf_standard()
+    vim.ui.select({
+        'default - Typst Default',
+        'a-1b    - PDF 1.4 (2001)',
+        'a-1a    - PDF 1.7 (2006), Text Searchable, Accessible',
+        'a-2b    - PDF 1.7 (2006),                              Transparant Images',
+        'a-2u    - PDF 1.7 (2006), Text Searchable,             Transparant Images',
+        'a-2a    - PDF 1.7 (2006), Text Searchable, Accessible, Transparant Images',
+        'a-3b    - PDF 1.7 (2006),                              Transparant Images, Attachments',
+        'a-3u    - PDF 1.7 (2006), Text Searchable,             Transparant Images, Attachments',
+        'a-3a    - PDF 1.7 (2006), Text Searchable, Accessible, Transparant Images, Attachments',
+        }, {
+        prompt = 'Select PDF Standard:',
+    }, function(choice)
+        if choice == nil then
+            vim.notify("User did not choose a standard", vim.log.levels.INFO)
+        else
+            local standard = string.match(choice, "(%S+)")
+            if standard == nil then
+                vim.notify("Could not find first word in "..choice, vim.log.levels.INFO)
+            else
+                vim.notify("Using PDF standard " .. standard, vim.log.levels.INFO)
+                if standard == 'default' then
+                    vim.opt_local.makeprg = 'typst compile %:S'
+                else
+                    vim.opt_local.makeprg = 'typst compile --diagnostic-format short --pdf-standard '.. standard .. ' %:S'
+                end
+            end
+        end
+    end)
+end
+
+vim.keymap.set('n', '<localleader>p', choose_pdf_standard,             { buffer=true, desc='Choose PDF/A Standard' })
 vim.keymap.set('n', '<C-k>d', typst_compile_open("Adobe Acrobat.app"), { buffer=true, desc='Build/Compile to PDF, open in Acrobat.app' })
 vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"),       { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
