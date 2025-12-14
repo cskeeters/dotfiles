@@ -9,6 +9,33 @@ vim.opt.iskeyword:append('-')
 vim.opt_local.briopt="list:-1"
 vim.opt_local.formatlistpat="^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}\\|^[>[:space:]]\\+\\s\\+"
 
+vim.opt_local.makeprg = 'typst compile ' .. vim.fn.expand('%')
+vim.opt_local.errorformat='%f:%l:%c:%m,%f:%l:%m'
+
+-- unique augroup name
+local augroup_name = "AutoOpenQuickfixGroup"
+vim.api.nvim_create_augroup(augroup_name, { clear = true })
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    pattern = "make", -- Matches ANY command that uses the quickfix list (:make, :grep, etc.)
+    group = augroup_name,
+    nested = true, -- Allows syntax highlighting in the quickfix window
+    callback = function()
+        vim.cmd("cwindow")
+
+        local qflist = vim.fn.getqflist()
+        if #qflist == 0 then
+            local pdf_filename = vim.fn.expand("%:r")..".pdf"
+            local escaped_pdf_filename = vim.fn.shellescape(pdf_filename)
+            local open_cmd = 'open "' .. pdf_filename ..'"'
+            if vim.b.pdf_app ~= nil then
+                open_cmd = 'open -a "'..vim.b.pdf_app..'" '.. escaped_pdf_filename
+            end
+            os.execute(open_cmd)
+        end
+    end,
+})
+
 
 if vim.fn.has("patch-7.4-353") == 0 then
     vim.bo.list = false
@@ -39,44 +66,12 @@ vim.keymap.set('n', '<LocalLeader>a', [[lBi<<Esc>Ea><Esc>]],          { buffer=t
 vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc='Makes selected text a [link](url)' })
 vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
--- build
-function typst_compile_open(app)
+local function typst_compile_open(app)
+    -- Return closure with `app` in the context
     return function()
-
-        -- Save the buffer for external compilation
-        vim.cmd.update()
-
-        -- No need to use shellescape for vim.system
-        local typ_filename = vim.fn.expand("%")
-        local pdf_filename = vim.fn.expand("%:r")..".pdf"
-
-        -- This must be called outside of vim.system
-        local escaped_pdf_filename = vim.fn.shellescape(pdf_filename)
-        local open_cmd = 'open ' .. pdf_filename
-        if app ~= nil then
-            open_cmd = 'open -a "'..app..'" '.. escaped_pdf_filename
-        end
-
-        local sys_obj = vim.system({'typst',
-                'compile',
-                typ_filename,
-                pdf_filename,
-            }, { text = true}, function(exit_obj)
-                vim.schedule(function()
-                    if exit_obj.code == 0 then
-                        vim.notify("typst_compile_open: Successfully built: "..pdf_filename, vim.log.levels.INFO)
-
-                        -- open the PDF
-                        os.execute(open_cmd)
-                    else
-                        vim.notify("typst_compile_open: Error compiling "..typ_filename, vim.log.levels.ERROR)
-                        -- vim.cmd.echom((exit_obj.stderr or ""))
-                        vim.ui.input((exit_obj.stderr or "") .. "\n\n[Press Enter to continue]")
-                    end
-                end)
-            end)
-
-        vim.notify("typst_compile_open: Compiling: "..vim.fn.expand("%"), vim.log.levels.INFO)
+        vim.cmd.update() -- Save buffer
+        vim.b.pdf_app = app -- Set default app
+        vim.cmd([[:silent make]]) -- `silent` so user doesn't have to press enter after
     end
 end
 
