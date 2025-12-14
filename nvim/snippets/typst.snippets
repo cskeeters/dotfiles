@@ -573,3 +573,11 @@ snippet vollkorn Vollkorn Font
 snippet novela Novela Font
 	//lnum gets rid of the sideways zero
 	#set text(font:"Novela", features: ("lnum"))
+
+snippet pdf_attach PDF Attachment
+	#pdf.attach(
+		"grades.yml",
+		relationship: "supplement",
+		mime-type: "text/yaml",
+		description: "Grades data",
+	)
