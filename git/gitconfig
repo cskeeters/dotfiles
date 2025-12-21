@@ -26,6 +26,8 @@
 	glf = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
 	glfs = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%GS%C(reset)\" --all $* ; }; f"
 
+	verify = log --show-signature
+
 	ld   = log -1 -p
 	info = log -1 -p
 
