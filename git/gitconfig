@@ -13,7 +13,10 @@
 	#     smimesign --list-keys
 	#
 	# Copy the associated ID here:
-	signingkey = 5f0bbe3be19e9d83a8b38d6d3e92ea304e6aa430
+	# signingkey = 5f0bbe3be19e9d83a8b38d6d3e92ea304e6aa430
+
+	#### SSH
+	signingkey = /Users/chad/.ssh/id_rsa.pub
 
 [credential]
 	helper = osxkeychain
@@ -107,5 +110,8 @@
 
 [advice]
 	detachedHead = false
+
+[gpg "ssh"]
+	allowedSignersFile = /Users/chad/.ssh/git_allowed_signers
 
 # vim:ft=gitconfig:noexpandtab
