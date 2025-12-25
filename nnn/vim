@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-IFS="$(printf '\n\r')"
-
-. "$(dirname "$0")"/.nnn-plugin-helper
-
-CTX=+
-
-nvim "$(dirname "$1")"

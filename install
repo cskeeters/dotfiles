@@ -274,15 +274,6 @@ link lazygit/config.yml .config/lazygit
 linkbin offline/tabsplice
 linkbin offline/myvim
 
-# nnn
-link nnn/acrobatpro .config/nnn/plugins
-link nnn/addjump .config/nnn/plugins
-link nnn/fzjump .config/nnn/plugins
-link nnn/fzcd .config/nnn/plugins
-link nnn/openfolder .config/nnn/plugins
-link nnn/vim .config/nnn/plugins
-link nnn/lua .local/share
-
 # unicode
 link unicode/UnicodeData.txt .local/share/unicode
 link unicode/categories .local/share/unicode
