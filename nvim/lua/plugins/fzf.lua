@@ -27,7 +27,7 @@ return {
         local runtime_path = '/opt/homebrew/Cellar/neovim/'..vim.version():__tostring()..'/share/nvim/runtime'
 
         vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                      { desc="Open file in current directory tree (fzf)" })
-        vim.keymap.set('n', '<Leader>og', ':GitFiles!<cr>',                                   { desc="Open git tracked file (fzf)" })
+        vim.keymap.set('n', '<Leader>og', ':GitFiles! --cached --others --exclude-standard<cr>',                                   { desc="Open git tracked file (fzf)" })
 
         vim.keymap.set('n', '<Leader>oc', ':Files! ~/.config/'..NVIM_APPNAME..'<cr>',         { desc="Open neovim config file (fzf)" })
         vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/'..NVIM_APPNAME..'<cr>',    { desc="Open plugin from .local (fzf)" })
