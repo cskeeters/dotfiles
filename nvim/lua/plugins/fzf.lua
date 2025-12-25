@@ -26,20 +26,20 @@ return {
 
         local runtime_path = '/opt/homebrew/Cellar/neovim/'..vim.version():__tostring()..'/share/nvim/runtime'
 
-        vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                      { desc="Open file in current directory tree (fzf)" })
-        vim.keymap.set('n', '<Leader>og', ':GitFiles! --cached --others --exclude-standard<cr>',                                   { desc="Open git tracked file (fzf)" })
+        vim.keymap.set('n', '<Leader>of', ':Files!<cr>',                                         { desc="Open file in current directory tree (fzf)" })
+        vim.keymap.set('n', '<Leader>og', ':GitFiles! --cached --others --exclude-standard<cr>', { desc="Open git tracked file (fzf)" })
 
-        vim.keymap.set('n', '<Leader>oc', ':Files! ~/.config/'..NVIM_APPNAME..'<cr>',         { desc="Open neovim config file (fzf)" })
-        vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/'..NVIM_APPNAME..'<cr>',    { desc="Open plugin from .local (fzf)" })
-        vim.keymap.set('n', '<Leader>ou', ':Files! '..runtime_path..'<cr>',                   { desc="Open neovim runtime file (fzf)" })
+        vim.keymap.set('n', '<Leader>oc', ':Files! ~/.config/'..NVIM_APPNAME..'<cr>',            { desc="Open neovim config file (fzf)" })
+        vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/'..NVIM_APPNAME..'<cr>',       { desc="Open plugin from .local (fzf)" })
+        vim.keymap.set('n', '<Leader>ou', ':Files! '..runtime_path..'<cr>',                      { desc="Open neovim runtime file (fzf)" })
 
-        vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>', { desc="Open note (fzf)" })
-        vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                   { desc="Open bcst-doc file (fzf)" })
+        vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>',    { desc="Open note (fzf)" })
+        vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                      { desc="Open bcst-doc file (fzf)" })
 
-        vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                    { desc="Open Buffer (fzf)" })
-        vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                    { desc="Open Old file from history (fzf)" })
-        vim.keymap.set('n', '<Leader>or', ':GFiles!<cr>',                                     { desc="Open file in git repository (fzf/git/hg)" })
-        vim.keymap.set('n', '<Leader>om', ':GFiles!?<cr>',                                    { desc="Open file modified in repository (fzf/git/hg)" })
+        vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                       { desc="Open Buffer (fzf)" })
+        vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                       { desc="Open Old file from history (fzf)" })
+        vim.keymap.set('n', '<Leader>or', ':GFiles!<cr>',                                        { desc="Open file in git repository (fzf/git/hg)" })
+        vim.keymap.set('n', '<Leader>om', ':GFiles!?<cr>',                                       { desc="Open file modified in repository (fzf/git/hg)" })
 
         --vim.keymap.set('n', '<Leader>gm', ':Marks!<cr>',     { desc="Open mark (fzf)" })
         --vim.keymap.set('n', '<Leader>k', ':Maps!<cr>',       { desc="Run keymap (fzf)" })
