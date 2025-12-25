@@ -46,10 +46,7 @@ find_files_shallow() {
 # $2 - Pattern (Regular expression)
 # $3 - Path(s)
 fd_files() {
-    LOCATIONS="."
-    if [[ "$3" != "" ]]; then
-        LOCATIONS=$3
-    fi
+    LOCATIONS=$3
 
     # No quotes around LOCATIONS so it can be multiple arguments to fd
     fd "$2" $LOCATIONS | fzf --height="90%" --prompt "$1> "
@@ -59,10 +56,8 @@ fd_files() {
 # $2 - Pattern (Regular expression)
 # $3 - Path(s)
 fd_files_shallow() {
-    LOCATIONS="."
-    if [[ "$3" != "" ]]; then
-        LOCATIONS=$3
-    fi
+    # Fine for this to be empty
+    LOCATIONS=$3
 
     # No quotes around LOCATIONS so it can be multiple arguments to fd
     fd -d 1 "$2" $LOCATIONS | fzf --height="90%" --prompt "$1> "
