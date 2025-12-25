@@ -36,6 +36,13 @@ snippreview() {
 export -f snippreview
 
 runsnippet() {
+    for f in "$HOME/.config/cmd"/*.sh; do
+        if [[ -f "$f" ]]; then
+            # echo "Sourcing $f..."
+            source "$f"
+        fi
+    done
+
     local DEFAULT
 
     S=$(cat $HOME/.config/cmd/*.snippets | egrep '^snippet' | \
@@ -50,18 +57,64 @@ runsnippet() {
         #echo "$SNIPPET"
         CMD="$SNIPPET"
 
+        VALUES=()
+
         for ((i=1;i<10;i++)); do
             if echo $SNIPPET | egrep '\$\{'"$i"'.*\}' > /dev/null; then
                 DEFAULT=$(echo $SNIPPET | sed -nre 's/.*\$\{'"$i"':([^\}]*)\}.*/\1/p') || {
                     echo "Error extracting default"
                     return
                 }
-                echo "Populating: $CMD"
-                if [[ $DEFAULT =~ ^(.*)\(\)$ ]]; then
+                echo "Populating $i for: $CMD"
+                if [[ $DEFAULT =~ ^([^\(]*)\((.*)\)$ ]]; then
                     INPUTFUNC=${BASH_REMATCH[1]}
-                    VALUE=$($INPUTFUNC)
+                    INPUTPARAMS=${BASH_REMATCH[2]}
+
+                    # Allows quoting in parameters
+                    PARAMS=()
+                    while IFS= read -r -d '' P; do
+                        PARAMS+=("$P")
+                    done < <(echo "$INPUTPARAMS" | xargs printf '%s\0')
+
+                    # All the magic...
+                    # VALUE will be set to the text output by the function specified
+                    # The function can provide options to FZF (or other) to
+                    # allow for filtering and selection
+                    VALUE=$($INPUTFUNC "${PARAMS[@]}")
+                    if [[ $? -ne 0 ]]; then
+                        echo Cancelled cmd snippet
+                        return
+                    fi
                 else
-                    VALUE=$(gum input --prompt='$1 >' --value="$DEFAULT" --placeholder="$DEFAULT")
+                    PROMPT=""
+                    PLACEHOLDER=$DEFAULT
+
+                    # : will separate PROMPT from PLACEHOLDER
+                    if [[ $DEFAULT =~ ^([^:]*):(.*)$ ]]; then
+                        PROMPT=${BASH_REMATCH[1]}
+                        PLACEHOLDER=${BASH_REMATCH[2]}
+                        DEFAULT=""
+                    fi
+
+                    # ; will separate PROMPT from DEFAULT
+                    re='^([^;]*);(.*)$'
+                    if [[ $DEFAULT =~ $re ]]; then
+                        PROMPT=${BASH_REMATCH[1]}
+                        DEFAULT=${BASH_REMATCH[2]}
+                    fi
+
+                    # PROMPT:PLACEHOLDER;VALUE
+                    re='^([^:]*):([^;]*);(.*)$'
+                    if [[ $DEFAULT =~ $re ]]; then
+                        PROMPT=${BASH_REMATCH[1]}
+                        PLACEHOLDER=${BASH_REMATCH[2]}
+                        DEFAULT=${BASH_REMATCH[3]}
+                    fi
+                    VALUE=$(gum input --prompt="$PROMPT> " --value="$DEFAULT" --placeholder="$PLACEHOLDER")
+                    if [[ $? -ne 0 ]]; then
+                        echo Cancelled cmd snippet
+                        return
+                    fi
                 fi
                 #echo "$i -> $DEFAULT"
 
@@ -70,6 +123,9 @@ runsnippet() {
                     echo "Error with snippet: default value has newline"
                     echo "  Did you forget to pipe to fzf?"
                 else
+                    # Set values here so that other functions (like remove_ext)
+                    # can access (and manipuliate) provided values
+                    VALUES[$i]=$VALUE
                     CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^\}]*\};'"$VALUE"';g') || {
                         echo "Error using supplied value in CMD"
                         return
@@ -87,112 +143,3 @@ runsnippet() {
 
 bind -x '"\C-x\C-j": runsnippet'
 
-###### Functions for use in snippets
-
-find_files() {
-    find . -type f | fzf --height="90%"
-}
-
-rpm_files() {
-    find . -type f -name \*.rpm | fzf --height="90%"
-}
-
-rpm_installed_packages() {
-    rpm -qa | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-select_pid() {
-    ps aux | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 1,11.. --accept-nth 2
-}
-
-fd_files() {
-    fd | fzf --height="90%"
-}
-
-git_select_modified() {
-    git ls-files -m | fzf --height="90%" --preview 'git diff --color=always {}' --preview-window='top,50%'
-}
-
-git_select_staged() {
-    git diff --name-only --staged | fzf --height="90%" --preview 'git diff --staged --color=always {}' --preview-window='top,50%'
-}
-
-git_tags() {
-    git tag -l | fzf --height="90%" --preview 'git log --color=always --graph --oneline -3 {}' --preview-window='top,10%'
-}
-
-git_repo_name() {
-    basename "$(git rev-parse --show-toplevel)"
-}
-
-git_branches() {
-    git branch | cut -c 3-99 | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-git_other_branches() {
-    git branch | cut -c 3-99 | grep -v master | grep -v main | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-git_remote_branches() {
-    git branch -r | awk '{print $1}' | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-conda_envs() {
-    conda env list | $SED -nre 's/^([^#[:space:]]+)([[:space:]]+).*/\1/p' | fzf
-}
-ollama_local_models() {
-    ollama list | grep -v "NAME" | cut -d " " -f 1 | fzf
-}
-
-uv_tools() {
-    uv tool list | grep -v "^-" | cut -d " " -f 1 | fzf
-}
-
-diskutil_disknum_by_parition_name() {
-    diskutil list -plist | \
-        plutil -convert json -o - - | \
-        jq -r '.AllDisksAndPartitions[].Partitions[] | select(has("VolumeName")) | "\(.DeviceIdentifier) \(.VolumeName)"' | \
-        sed -nre "s~disk(.)([^[:space:]]+) (.*)~\1 \3~p" | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 2.. --accept-nth 1
-}
-
-deb_installed_packages() {
-    dpkg -l | sed '1,/===/d' | cut -d ' ' -f 3 | fzf
-}
-
-launchctl_plist() {
-    find /Library/LaunchAgents $HOME/Library/LaunchAgents/ | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-launchctl_labels() {
-    launchctl list | sed -ne '2,$p' | awk '{ print $3}' | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-# Apple Container Framework
-container_images() {
-    container image list | grep -v NAME | awk '{print $1}' | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-container_containers() {
-    container list --all | grep -v CPUS | awk '{print $1}' | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-lima_templates() {
-    limactl create --list-templates | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-lima_vms() {
-    limactl list --quiet | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}
-
-nvim_config() {
-    (cd $HOME/.config; ls -1d nvim*) | \
-        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
-}

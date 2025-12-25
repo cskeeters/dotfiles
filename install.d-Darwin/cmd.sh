@@ -1,4 +1,5 @@
 link cmd/apple_container.snippets           .config/cmd
+link cmd/apple_container.sh                 .config/cmd
 link cmd/autojump.snippets                  .config/cmd
 link cmd/ag.snippets                        .config/cmd
 link cmd/bind.snippets                      .config/cmd
@@ -6,13 +7,16 @@ link cmd/brew.snippets                      .config/cmd
 link cmd/cargo.snippets                     .config/cmd
 link cmd/checksum.snippets                  .config/cmd
 link cmd/diskutil.snippets                  .config/cmd
+link cmd/diskutil.sh                        .config/cmd
 link cmd/docker.snippets                    .config/cmd
 link cmd/git.snippets                       .config/cmd
 link cmd/gnu.snippets                       .config/cmd
 link cmd/go.snippets                        .config/cmd
 link cmd/kill.snippets                      .config/cmd
 link cmd/launchctl.snippets                 .config/cmd
+link cmd/launchctl.sh                       .config/cmd
 link cmd/lima.snippets                      .config/cmd
+link cmd/lima.sh                            .config/cmd
 link cmd/luarocks.snippets                  .config/cmd
 link cmd/mediainfo.snippets                 .config/cmd
 link cmd/net.snippets                       .config/cmd
