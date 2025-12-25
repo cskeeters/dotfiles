@@ -271,6 +271,10 @@ linkdot tmux.conf
 
 link lazygit/config.yml .config/lazygit
 
+link gnupg/gpg-agent.conf .gnupg
+link gnupg/common.conf .gnupg
+link gnupg/dirmngr.conf .gnupg
+
 linkbin offline/tabsplice
 linkbin offline/myvim
 
