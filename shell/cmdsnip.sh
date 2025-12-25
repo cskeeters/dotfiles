@@ -45,14 +45,9 @@ runsnippet() {
 
     local DEFAULT
 
-    S=$(cat $HOME/.config/cmd/*.snippets | egrep '^snippet' | \
-        fzf -d ' ' --with-nth 3.. --bind 'enter:become(echo {2})' \
-            --preview-window='top,10%' \
-            --preview 'snippreview {}'
-    )
-    if [[ $S != "" ]]; then
-        #printf 'Processing Snippet: %q\n' "$S"
-        SNIPPET=$(getsnippet "$S")
+    if [[ $SNIPPET_KEY != "" ]]; then
+        #printf 'Processing Snippet: %q\n' "$SNIPPET_KEY"
+        SNIPPET=$(getsnippet "$SNIPPET_KEY")
 
         #echo "$SNIPPET"
         CMD="$SNIPPET"
@@ -86,11 +81,13 @@ runsnippet() {
                         return
                     fi
                 else
+                    FULL=$DEFAULT
                     PROMPT=""
                     PLACEHOLDER=$DEFAULT
 
                     # : will separate PROMPT from PLACEHOLDER
-                    if [[ $DEFAULT =~ ^([^:]*):(.*)$ ]]; then
+                    re='^([^:]*):(.*)$'
+                    if [[ $FULL =~ $re ]]; then
                         PROMPT=${BASH_REMATCH[1]}
                         PLACEHOLDER=${BASH_REMATCH[2]}
                         DEFAULT=""
@@ -98,18 +95,20 @@ runsnippet() {
 
                     # ; will separate PROMPT from DEFAULT
                     re='^([^;]*);(.*)$'
-                    if [[ $DEFAULT =~ $re ]]; then
+                    if [[ $FULL =~ $re ]]; then
                         PROMPT=${BASH_REMATCH[1]}
+                        PLACEHOLDER=${BASH_REMATCH[2]}
                         DEFAULT=${BASH_REMATCH[2]}
                     fi
 
                     # PROMPT:PLACEHOLDER;VALUE
                     re='^([^:]*):([^;]*);(.*)$'
-                    if [[ $DEFAULT =~ $re ]]; then
+                    if [[ $FULL =~ $re ]]; then
                         PROMPT=${BASH_REMATCH[1]}
                         PLACEHOLDER=${BASH_REMATCH[2]}
                         DEFAULT=${BASH_REMATCH[3]}
                     fi
+
                     VALUE=$(gum input --prompt="$PROMPT> " --value="$DEFAULT" --placeholder="$PLACEHOLDER")
                     if [[ $? -ne 0 ]]; then
                         echo Cancelled cmd snippet
@@ -125,6 +124,7 @@ runsnippet() {
                 else
                     # Set values here so that other functions (like remove_ext)
                     # can access (and manipuliate) provided values
+                    # echo "DEBUG: SETTING VALUES[$i]=$VALUE"
                     VALUES[$i]=$VALUE
                     CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^\}]*\};'"$VALUE"';g') || {
                         echo "Error using supplied value in CMD"
@@ -141,5 +141,19 @@ runsnippet() {
     fi
 }
 
-bind -x '"\C-x\C-j": runsnippet'
+select_run_snippet() {
+    SNIPPET_KEY=$(cat $HOME/.config/cmd/*.snippets | egrep '^snippet' | \
+        fzf -d ' ' --with-nth 3.. --bind 'enter:become(echo {2})' \
+            --preview-window='top,10%' \
+            --preview 'snippreview {}'
+    )
 
+    runsnippet
+}
+
+rerun_snipet() {
+    runsnippet
+}
+
+bind -x '"\C-x\C-j": select_run_snippet'
+bind -x '"\C-x\C-k": rerun_snipet'
