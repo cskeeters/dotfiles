@@ -1,0 +1,126 @@
+# Sign / Verification
+
+snippet gpg_sign_file gpg: Sign a file (contents included)
+	gpg --sign ${2:fd_files()}
+
+snippet gpg_sign_file_detached gpg: Sign a file (Detached)
+	gpg --detach-sign ${2:fd_files("FILE TO SIGN")}
+
+snippet gpg_sign_file_detached_ASCII gpg: Sign a file (Detached, ASCII)
+	gpg --detach-sign --armor ${2:fd_files("FILE TO SIGN")}
+
+snippet gpg_clearsign_file gpg: Clear Sign a file (ASCII)
+	gpg --clear-sign --local-user ${1:gpg_secret_keys("SIGN WITH")} ${2:fd_files_shallow("FILE TO SIGN")}
+
+
+snippet gpg_verify_file gpg: Verify a Signed file (auto download/import)
+	gpg --auto-key-retrieve --verify ${1:fd_files_shallow("ENCRYPTED FILE" (asc|gpg)$)}
+
+snippet gpg_verify_file_detached gpg: Verify a Detached Signed File (auto download/import)
+	gpg --auto-key-retrieve --verify ${1:fd_files_shallow("ENCRYPTED FILE" (asc|sig)$)} ${2:remove_ext(1)}
+
+
+## Encryption / Decryption
+
+snippet gpg_sign_encrypt gpg: Sign and Encrypt a file
+	gpg -se --local-user ${1:gpg_secret_keys()} -r ${2:gpg_keys("RECIPIENT")} ${3:fd_files_shallow("FILE TO ENCRYPT")}
+
+snippet gpg_decrypt gpg: Decrypt (and Verify)
+	gpg --decrypt ${1:fd_files("ENCRYPTED FILE" asc|gpg)} > ${2:remove_ext(1)}
+
+# Keys
+
+snippet gpg_list_keys gpg: List Keys
+	gpg --list-keys
+
+snippet gpg_list_secret_keys gpg: List Secret Keys
+	gpg --list-secret-keys --keyid-format long --with-keygrip
+
+snippet gpg_sign_key: gpg: Sign Key
+	gpg --local-user ${1:gpg_secret_keys()} --sign-key ${2:gpg_keys("KEY TO SIGN")}
+
+snippet gpg_list_signatures gpg: List Signatures
+	gpg --list-sig ${1:gpg_keys()}
+
+snippet gpg_check_signatures gpg: Check Signatures
+	gpg --check-sig ${1:gpg_keys()}
+
+snippet gpg_edit_key: gpg: Edit Key
+	gpg --edit-key ${1:gpg_keys()}
+
+snippet gpg_list_packets gpg: List Packets in File
+	gpg --list-packets ${1:fd_files_shallow("" (gpg|sig|asc)$)}
+
+
+snippet gpg_delete_key gpg: Delete key
+	gpg --delete-key ${1:gpg_keys()}
+
+snippet gpg_delete_secret_key gpg: Delete Secret Key
+	gpg --delete-secret-keys ${1:gpg_secret_keys("SECRET KEY TO DELETE")}
+
+# Refresh
+
+snippet gpg_refresh_keys gpg: Refresh (download/import) keys
+	gpg --refresh-keys
+
+snippet gpg_import_github gpg: Import GitHub's PGP Key(s)
+	curl https://github.com/web-flow.gpg | gpg --import
+
+
+# Import
+
+snippet gpg_search_by_email gpg: Search by email
+	gpg --auto-key-locate keyserver --locate-keys ${1:chad.skeeters@gmail.com}
+
+snippet gpg_import_key gpg: Import Key from File
+	gpg --import ${1:fd_files_shallow("KEY")}
+
+snippet gpg_download_import_key gpg: Download and Import key
+	gpg --recv-keys ${1:KEY:FINGERPRINT}
+
+snippet gpg_import_key_keyserver gpg: Download and Import key from keyserver
+	gpg --keyserver ${1:pgp_servers()} --recv-keys ${2:KEY:FINTERPRINT}
+
+
+# Export
+
+snippet gpg_export_key: gpg: Export Key
+	gpg --armor --export ${1:gpg_keys()}
+
+snippet gpg_export_secret_key: gpg: Export Secret Primary and All Sub Keys
+	gpg --armor --export-secret-keys ${1:gpg_secret_keys()}
+
+snippet gpg_export_secret_subkeys: gpg: Export Secret Sub Keys
+	gpg --export-secret-subkeys ${1:gpg_secret_keys()} > secret-subkeys.gpg
+
+snippet gpg_send_key: gpg: Send Key
+	gpg --send-key ${1:gpg_secret_keys()}
+
+
+
+## Notations
+
+snippet gpg_show_notations gpg: Show notations
+	gpg --list-sigs --list-options show-notations ${1:gpg_secret_keys()}
+# echo "showpref" | gpg --command-fd 0 --edit-key AC1330E3D95CE38A5FDAF484DF4E6644BFEE9C60
+
+
+## gpg-agent
+
+snippet gpgagent_edit_config gpg-agent: Edit Config
+	$EDITOR ~/.gnupg/gpg-agent.conf
+
+snippet gpg_agent_kill gpg-agent: Stops gpg-agent
+	gpgconf --kill gpg-agent
+
+snippet gpg_agent_launch gpg-agent: Starts gpg-agent
+	gpgconf --launch gpg-agent
+
+
+## dirmngr
+
+snippet dirmngr_reload dirmngr: Reload daemon (gpg)
+	gpgconf --reload dirmngr
+
+snippet dirmngr_kill dirmngr: Kill daemon (gpg)
+	gpgconf --kill dirmngr
