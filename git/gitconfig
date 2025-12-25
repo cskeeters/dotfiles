@@ -16,7 +16,17 @@
 	# signingkey = 5f0bbe3be19e9d83a8b38d6d3e92ea304e6aa430
 
 	#### SSH
-	signingkey = /Users/chad/.ssh/id_rsa.pub
+	; signingkey = /Users/chad/.ssh/id_rsa.pub
+
+	#### PGP
+	signingkey = AC1330E3D95CE38A5FDAF484DF4E6644BFEE9C60 ; gpg long key (2025 Dec)
+	;  Will be signed with subkey 3E3E67B1912D3680 (2025)
+
+# Will set on each repository for now.
+#   git config commit.gpgsign true
+# [commit]
+# sign commits by default
+# gpgsign = true
 
 [credential]
 	helper = osxkeychain
@@ -48,8 +58,8 @@
 	; %w(0, 8, 8) Indent all lines
 	l    = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)'
 	lf   = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)'
-	ls   = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)%n        %C(cyan)%G? %GS%C(reset)%n' --all
-	lsf  = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)%n        %C(cyan)%G? %GS%C(reset)%n' --all
+	ls   = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)%n        %C(cyan)%G? %C(blue)%GS %C(cyan)%GK%C(reset)%n' --all
+	lsf  = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)%n        %C(cyan)%G? %C(blue)%GS %C(cyan)%GK%C(reset)%n' --all
 	ll   = log         --pretty=format:'%C(green)%h%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)%n%w(0, 8, 8)%B' --all
 	llf  = log         --pretty=format:'%C(green)%h%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)%n%w(0, 8, 8)%B' --all
 
@@ -119,7 +129,8 @@
 
 [gpg]
 	# NOTE: log --show-signature (verify) will validate all types of signatures
-	format = x509
+	;format = ssh
+	;format = x509 ; for CAC
 
 [stash]
 	showPatch = true
