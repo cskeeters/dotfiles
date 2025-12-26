@@ -50,3 +50,8 @@ customCommands:
     loadingText: "Running git gla"
     description: "View git gla in a popup"
     output: terminal
+  - key: "<C-f>"
+    description: 'Show diff against first parent'
+    context: "commits"
+    command: "git show --first-parent {{.SelectedLocalCommit.Hash}}"
+    output: terminal
