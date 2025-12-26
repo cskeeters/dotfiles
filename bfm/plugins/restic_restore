@@ -1,0 +1,102 @@
+#!/bin/bash
+
+source "$(dirname $0)/helper.sh"
+
+# Ask BFM to refresh no matter what
+echo "refresh" >> "$CMD_FILE"
+
+cd $CUR_DIR
+
+# Extract everything to a TMP dir and see if there is a containing folder
+TMP_PATH=$(mktemp -d) || die "Error creating temp directory"
+trap 'rm -rf -- "$TMP_PATH"' EXIT
+
+# Extract everything to a TMP dir and see if there is a containing folder
+RESTORE_PATH=$(mktemp -d) || die "Error creating temp directory for restoration"
+trap 'rm -rf -- "$RESTORE_PATH"' EXIT
+
+# echo "Retrieving snapshots"
+restic snapshots -H $(hostname) --json > "$TMP_PATH/snapshots"
+
+cat "$TMP_PATH/snapshots" | jq -r --arg cwd "$CUR_DIR" '.[] | .id as $id | .time as $time | .paths[] | select(. as $PATH | $cwd | startswith($PATH)) | "\($id) \($time) \(.)"' > "$TMP_PATH/snapshots.formatted"
+
+# `sort -r` so latest is listed first
+cat "$TMP_PATH/snapshots.formatted" | sort -k 2,2 -r > "$TMP_PATH/snapshots.sorted"
+
+export FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS --preview 'restic_preview {1} {3} \"$HOVERED_PATH\"' --preview-window='right,70%,border-left' --border "
+
+# Must find snapshots that have path that are a prefix of the CUR_DIR
+SELECTED=$(cat "$TMP_PATH/snapshots.sorted" | fzf --with-nth 2 --prompt "SNAPSHOT> ")
+if [[ $? -ne 0 ]]; then
+    echo "No snapshot selected"
+    exit 1
+fi
+
+if [[ "$SELECTED" == "" ]]; then
+    echo "No snapshot selected"
+    exit 1
+fi
+
+read -r SNAPSHOT_ID TIMESTAMP PTH <<< "$SELECTED"
+
+
+# echo "Selected $SNAPSHOT_ID with $PTH at $TIMESTAMP"
+
+SUBPATH=$(realpath --relative-to="$PTH" "$HOVERED_PATH")
+
+# See if the file was included in this backup
+restic ls "$SNAPSHOT_ID" | grep -F "$SUBPATH" > /dev/null || die "Error ls on $SNAPSHOT_ID"
+if [[ $? -ne 0 ]]; then
+    echo "error $SUBPATH was not included in the backup $SNAPSHOT_ID" >> "$CMD_FILE"
+    exit 0
+fi
+
+# Restore the file
+restic restore "$SNAPSHOT_ID" --target "$RESTORE_PATH$PTH" --include "$SUBPATH" > /dev/null
+
+
+if [[ ! -e "$RESTORE_PATH$HOVERED_PATH" ]]; then
+    echo "error Did not restore $HOVERED_PATH from $SNAPSHOT_ID.  It might not have been included in the snapshot." >> "$CMD_FILE"
+    exit 0
+fi
+
+# Remove this block if you don't want it to overwrite the file in the case of ASCII
+TYPE=$(file "$HOVERED_PATH")
+asciip='ASCII'
+if [[ "$TYPE" =~ $asciip ]]; then
+    # Preview offerred ability to view diff, just overwrite
+    cp -r "$RESTORE_PATH$HOVERED_PATH" "$HOVERED_PATH" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $HOVERED_PATH"
+    exit 0
+fi
+
+DIR=$(dirname "$HOVERED_PATH")
+
+# Breakdown $HOVERED_FILE into $STEM and $EXT
+EXT=""
+EXT_RE='^(.+)(\..+)$'
+if [[ "$HOVERED_FILE" =~ $EXT_RE ]]; then
+    STEM=${BASH_REMATCH[1]}
+    EXT=${BASH_REMATCH[2]}
+    # echo "STEM:$STEM EXT:$EXT"
+else
+    STEM=$HOVERED_FILE
+fi
+
+
+## try 1 through 9
+for ((RESTORE_TRY=1;RESTORE_TRY<10;RESTORE_TRY++)); do
+
+    # set RESTORE_NAME smartly to keep extension and try numbers
+    if [[ $RESTORE_TRY -eq 1 ]]; then
+        RESTORE_NAME=${STEM}-restored$EXT
+    else
+        RESTORE_NAME=${STEM}-restored$RESTORE$EXT
+    fi
+
+    if [[ ! -e "$DIR/$RESTORE_NAME" ]]; then
+        cp -r "$RESTORE_PATH$HOVERED_PATH" "$DIR/$RESTORE_NAME" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $DIR/$RESTORE_NAME"
+        exit 0
+    fi
+done
+
+echo "error Could not find a place to restore file" >> "$CMD_FILE"
