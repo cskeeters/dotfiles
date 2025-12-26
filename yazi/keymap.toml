@@ -39,7 +39,7 @@ keymap = [
 	{ on = "l", run = "enter", desc = "Enter the child directory" },
 	{ on = "-", run = "leave", desc = "Back to the parent directory" }, # vim-vinagre
 
-	{ on = "<enter>", run = "enter", desc = "Enter the child directory" },
+	{ on = "<enter>", run = "open", desc = "Open the selected files" },
 
 	{ on = "<Left>",  run = "leave", desc = "Back to the parent directory" },
 	{ on = "<Right>", run = "enter", desc = "Enter the child directory" },
