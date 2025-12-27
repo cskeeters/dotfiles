@@ -3,10 +3,10 @@ snippet restic_select restic: Activate Repository
 
 
 snippet restic_snapshots restic: List Snapshots
-	restic snapshots
+	restic snapshots --host $(hostname)
 
 snippet restic_snapshots_latest restic: List Latest Snapshots
-	restic snapshots --latest 1
+	restic snapshots --latest 1 --host $(hostname)
 
 
 snippet restic_backup restic: Backup
@@ -26,11 +26,11 @@ snippet restic_mount restic: Mount Snapshot
 snippet restic_forget restic: Forget all but N snapshots
 	restic forget --keep-last ${1:COUNT;1} --prune --dry-run
 
-snippet restic_forget restic: Forget all but N snapshots of Path
+snippet restic_forget_path restic: Forget all but N snapshots of Path
 	restic forget --keep-last ${1:COUNT;1} --prune --path $(pwd) --dry-run
 
 
-snippet restic_forget restic: Forget Keep 14/24/2
+snippet restic_forget_keep restic: Forget Keep 14/24/2
 	restic forget --keep-daily 14 --keep-monthly 24 --keep-yearly 2 --path $(pwd) --dry-run
 
 
