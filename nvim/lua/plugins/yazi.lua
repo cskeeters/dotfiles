@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     lazy = false,
