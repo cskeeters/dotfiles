@@ -38,6 +38,7 @@ gui:
     '*': '#b4befe'
 
 customCommands:
+  # LESS="RX" removes F from LESS defaults so that we don't return
   - key: "<C-a>"
     command: 'LESS="RX" git gla || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     context: "global"
@@ -53,5 +54,5 @@ customCommands:
   - key: "<C-f>"
     description: 'Show diff against first parent'
     context: "commits"
-    command: "git show --first-parent {{.SelectedLocalCommit.Hash}}"
+    command: 'LESS="RX" git show --first-parent {{.SelectedLocalCommit.Hash}} || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     output: terminal
