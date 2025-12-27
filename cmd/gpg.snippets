@@ -58,6 +58,9 @@ snippet gpg_delete_key gpg: Delete key
 snippet gpg_delete_secret_key gpg: Delete Secret Key
 	gpg --delete-secret-keys ${1:gpg_secret_keys("SECRET KEY TO DELETE")}
 
+snippet gpg_generate_key gpg: Generate Key
+	gpg --full-generate-key
+
 # Refresh
 
 snippet gpg_refresh_keys gpg: Refresh (download/import) keys
