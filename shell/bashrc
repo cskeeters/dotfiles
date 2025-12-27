@@ -138,9 +138,9 @@ fi
 
 
 #### bat
+# May need to run `bat cache --build` to make theme visible
 
 export BAT_THEME=kanagawa
-
 
 #### eza
 
