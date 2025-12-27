@@ -137,6 +137,19 @@ if exists git; then
 fi
 
 
+#### dua
+
+if exists git; then
+    duaf() {
+        local dir
+        dir=$(command dua i)
+        if [ -n "$dir" ] && [ -d "$dir" ]; then
+            cd "$dir" || exit
+        fi
+    }
+fi
+
+
 #### bat
 # May need to run `bat cache --build` to make theme visible
 
