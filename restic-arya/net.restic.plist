@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>net.restic.backup</string>
+
+    <!-- <key>EnvironmentVariables</key> -->
+    <!-- <dict> -->
+    <!--     <key>OLLAMA_CONTEXT_LENGTH</key> -->
+    <!--     <string>32768</string> -->
+    <!-- </dict> -->
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>3</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Users/chad/.local/log/restic.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/chad/.local/log/restic.log</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/chad/bin/restic_backup</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
