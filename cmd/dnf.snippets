@@ -1,35 +1,35 @@
 snippet dnf_install dnf: Install
-	dnf install -y ${1:lazygit}
+	dnf install -y ${1:PACKAGE:neovim}
 
 snippet dnf_search dnf: Search
-	dnf search ${1:lazygit}
+	dnf search ${1:PACKAGE:neovim}
 
 snippet dnf_upgrade_all dnf: Upgrade all
 	dnf upgrade
 
 snippet dnf_upgrade dnf: Upgrade package
-	dnf upgrade ${1:lazygit}
+	dnf upgrade ${1:dnf_installed_packages()}
 
 snippet dnf_info dnf: Info
-	dnf info ${1:lazygit}
+	dnf info ${1:PACKAGE:neovim}
 
 snippet dnf_remove dnf: Remove package
-	dnf remove ${1:lazygit}
+	dnf remove ${1:dnf_installed_packages()}
 
 snippet dnf_list_installed dnf: List installed
 	dnf list --installed
 
 snippet dnf_provides dnf: List packages that provides command
-	dnf provides ${1:lazygit}
+	dnf provides ${1:FILE:nvim}
 
 snippet dnf_history dnf: List past operations
 	dnf history
 
 snippet dnf_download dnf: Download rpm file with dependencies
-	dnf download --resolve --destdir=yum ${1:lazygit}
+	dnf download --resolve --destdir=yum ${1:PACKAGE:neovim}
 
 snippet dnf_list_files dnf: List files in (uninstalled) package
-	dnf repoquery -l ${1:lazygit}
+	dnf repoquery -l ${1:PACKAGE:neovim}
 
 snippet dnf_list_files dnf: List files in (installed) package
-	dnf repoquery --installed -l ${1:lazygit}
+	dnf repoquery --installed -l ${1:dnf_installed_packages()}

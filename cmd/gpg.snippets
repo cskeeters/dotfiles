@@ -17,7 +17,7 @@ snippet gpg_verify_file gpg: Verify a Signed file (auto download/import)
 	gpg --auto-key-retrieve --verify ${1:fd_files_shallow("ENCRYPTED FILE" (asc|gpg)$)}
 
 snippet gpg_verify_file_detached gpg: Verify a Detached Signed File (auto download/import)
-	gpg --auto-key-retrieve --verify ${1:fd_files_shallow("ENCRYPTED FILE" (asc|sig)$)} ${2:remove_ext(1)}
+	gpg --auto-key-retrieve --verify ${1:fd_files_shallow("ENCRYPTED FILE" (asc|sig)$)} ${2:cmd_remove_ext(1)}
 
 
 ## Encryption / Decryption
@@ -26,7 +26,7 @@ snippet gpg_sign_encrypt gpg: Sign and Encrypt a file
 	gpg -se --local-user ${1:gpg_secret_keys()} -r ${2:gpg_keys("RECIPIENT")} ${3:fd_files_shallow("FILE TO ENCRYPT")}
 
 snippet gpg_decrypt gpg: Decrypt (and Verify)
-	gpg --decrypt ${1:fd_files("ENCRYPTED FILE" asc|gpg)} > ${2:remove_ext(1)}
+	gpg --decrypt ${1:fd_files("ENCRYPTED FILE" asc|gpg)} > ${2:cmd_remove_ext(1)}
 
 # Keys
 

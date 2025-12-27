@@ -1,4 +1,4 @@
 snippet checksum_md5 md5: md5 checksum
-	md5sum ${1:file}
+	md5sum ${1:fd_files_shallow(FILE)}
 snippet checksum_sha512 sha: sha512 checksum
-	shasum -a 512 ${1:file}
+	shasum -a 512 ${1:fd_files_shallow(FILE)}

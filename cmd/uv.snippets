@@ -1,13 +1,13 @@
 snippet uv_run uv: Run command in venv
-	uv run ${1:.}
+	uv run ${1:CMD:command}
 snippet uv_venv uv: Create venv
 	uv venv
 snippet uv_pip uv: Run pip in venv
-	uv pip install ${1:.}
+	uv pip install ${1:PACKAGE:NAME}
 snippet uv_install uv: Init environment
 	uv init ${1:.} --python 3.11
 snippet uv_install uv: Install program
-	uv tool install ${1}
+	uv tool install ${1:PROGRAM:ruff}
 snippet uv_list uv: List installed tools
 	uv tool list
 snippet uv_upgrade uv: Upgrade tool by name

@@ -21,4 +21,4 @@ snippet lima_shell lima: Open Shell in VM
 	limactl shell ${1:lima_vms()}
 
 snippet lima_run lima: Run command inside VM
-	limactl shell ${1:lima_vms()} ${2:ls -l}
+	limactl shell ${1:lima_vms()} ${2:CMD:ls -l}

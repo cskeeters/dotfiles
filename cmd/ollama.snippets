@@ -1,14 +1,14 @@
 snippet ollama_start ollama: Start Ollama
 	ollama serve
-snippet ollama_run ollama: Choose model and run
+snippet ollama_run ollama: Run Model
 	ollama run ${1:ollama_local_models()}
-snippet ollama_list ollama: List models
+snippet ollama_list ollama: List Models
 	ollama list
-snippet ollama_logs ollama: Show server logs
+snippet ollama_logs ollama: Show Server Logs
 	tail -f /var/log/ollama/stderr
-snippet ollama_rm ollama: Remove model
+snippet ollama_rm ollama: Remove Model
 	ollama rm ${1:ollama_local_models()}
-snippet ollama_update ollama: Update all downloaded models
+snippet ollama_update ollama: Update Models
 	ollama list | awk 'NR>1 && !/reviewer/ {system("ollama pull "$1)}'
 
 snippet oterm_run oterm: Open oterm TUI frontend

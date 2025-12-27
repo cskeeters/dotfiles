@@ -1,7 +1,7 @@
 snippet bind_shell bind: Bind key to shell function
-	bind -x '"${1:\C-x\C-j}": ${2:runsnippet}'
+	bind -x '"${1:KEYS;\C-x\C-j}": ${2:FUNCTION;runsnippet}'
 snippet bind_remove bind: Remove binding
-	bind -r '${1:\C-x\C-j}'
+	bind -r '${1:KEYS;\C-x\C-j}'
 snippet bind_show_shell bind: Show shell bindings
 	bind -X
 snippet bind_show_functions bind: List readline functions

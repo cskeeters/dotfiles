@@ -1,2 +1,4 @@
-snippet rsync rsync: Copy folder
-	rsync -av --delete --partial --progress ${1:server}:${2:folder} .
+# Trailing slash to send contents
+# Remote path is relative to home direcotry without leading slash
+snippet rsync rsync: Sync directory To server
+	rsync -av --delete --partial --progress ${1:find_dir_shallow(DIR)} root@server:

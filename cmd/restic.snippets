@@ -1,24 +1,39 @@
-# restic -r ${1:/tmp/restic} --password-file ~/.resticpw init
-snippet restic_init restic: Initial new restic repository
-	restic init
-
-snippet restic_snapshots restic: List snapshots
-	restic snapshots
-
-snippet restic_select restic: Activate restic repository
+snippet restic_select restic: Activate Repository
 	activate_restic_repository
 
-snippet restic_backup restic: Backup path
-	restic backup "${2:$HOME/RCC}"
 
-snippet restic_restore restic: Restore snapshot
-	restic restore latest --path "${2:$HOME/RCC}" --target /tmp/restore
+snippet restic_snapshots restic: List Snapshots
+	restic snapshots
 
-snippet restic_restore_file restic: Restore file
-	restic restore latest --path "${1:$HOME/RCC}" --target /tmp/restore --include ${2:include}
+snippet restic_snapshots_latest restic: List Latest Snapshots
+	restic snapshots --latest 1
 
-snippet restic_mount restic: Mount snapshot
+
+snippet restic_backup restic: Backup
+	restic backup "${2:PATH;.}"
+
+
+snippet restic_restore restic: Restore Snapshot
+	restic restore latest --path "${2:PATH:RCC}" --target /tmp/restore
+
+snippet restic_restore_file restic: Restore File
+	restic restore latest --path "${1:PATH:RCC}" --target /tmp/restore --include "${2:fd_files(RESTORE)}"
+
+snippet restic_mount restic: Mount Snapshot
 	restic mount "${2:/tmp/mount}"
 
-snippet restic_forget restic: Forget all but N snapshots of PATH
-	restic forget --keep-last 1 --prune
+
+snippet restic_forget restic: Forget all but N snapshots
+	restic forget --keep-last ${1:COUNT;1} --prune --dry-run
+
+snippet restic_forget restic: Forget all but N snapshots of Path
+	restic forget --keep-last ${1:COUNT;1} --prune --path $(pwd) --dry-run
+
+
+snippet restic_forget restic: Forget Keep 14/24/2
+	restic forget --keep-daily 14 --keep-monthly 24 --keep-yearly 2 --path $(pwd) --dry-run
+
+
+# restic -r ${1:/tmp/restic} --password-file ~/.resticpw init
+snippet restic_init restic: Initial new Repository
+	restic init -r .

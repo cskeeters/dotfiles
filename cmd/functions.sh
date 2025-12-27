@@ -1,7 +1,23 @@
 ## CMD Utilities
 
-remove_ext() {
+cmd_remove_ext() {
     echo "${VALUES[$1]%.*}"
+}
+
+cmd_dir_name() {
+    command -p dirname "${VALUES[$1]}"
+}
+
+cmd_basename() {
+    command -p basename "${VALUES[$1]}"
+}
+
+# $1 PROMPT
+# $* Choices (In order of preference)
+cmd_choose() {
+    PROMPT=$1
+    shift
+    echo "$*" | tr ' ' '\n' | fzf --prompt "$PROMPT> "
 }
 
 ## File names/paths
@@ -21,7 +37,7 @@ find_files() {
     fi
 
     # No quotes around $NAME_FILTER or LOCATIONS so they can be multiple arguments to find
-    find $LOCATIONS -type f $NAME_FILTER | fzf --height="90%" --prompt "$1> "
+    find $LOCATIONS -type f $NAME_FILTER | fzf -1 --height="90%" --prompt "$1> "
 }
 
 # $1 - Prompt
@@ -39,7 +55,19 @@ find_files_shallow() {
     fi
 
     # No quotes around $NAME_FILTER or LOCATIONS so they can be multiple arguments to find
-    find $LOCATIONS -depth 1 -type f $NAME_FILTER | fzf --height="90%" --prompt "$1> "
+    find $LOCATIONS -depth 1 -type f $NAME_FILTER | fzf -1 --height="90%" --prompt "$1> "
+}
+
+# $1 - Prompt
+# $2 - Path(s)
+find_dir_shallow() {
+    LOCATIONS="."
+    if [[ "$2" != "" ]]; then
+        LOCATIONS=$2
+    fi
+
+    # No quotes around LOCATIONS so they can be multiple arguments to find
+    find $LOCATIONS -depth 1 -type d | fzf -1 --height="90%" --prompt "$1> "
 }
 
 # $1 - Prompt
@@ -49,7 +77,7 @@ fd_files() {
     LOCATIONS=$3
 
     # No quotes around LOCATIONS so it can be multiple arguments to fd
-    fd "$2" $LOCATIONS | fzf --height="90%" --prompt "$1> "
+    fd "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
 }
 
 # $1 - Prompt
@@ -60,7 +88,7 @@ fd_files_shallow() {
     LOCATIONS=$3
 
     # No quotes around LOCATIONS so it can be multiple arguments to fd
-    fd -d 1 "$2" $LOCATIONS | fzf --height="90%" --prompt "$1> "
+    fd -d 1 "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
 }
 
 ## POSIX Utilities
