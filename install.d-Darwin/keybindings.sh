@@ -1,1 +1,1 @@
-link $dotfiles/DefaultKeyBinding.dict Library/KeyBindings
+link DefaultKeyBinding.dict Library/KeyBindings
