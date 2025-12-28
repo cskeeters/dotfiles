@@ -1,3 +1,7 @@
+## main
+snippet main
+	#!/bin/bash
+
 ## STRINGS
 
 snippet ansi_c_quote ANSI C Quote
@@ -7,6 +11,15 @@ snippet multi_quote_examples Multiple quote Examples
 	echo "It's a beautiful day!"
 	echo 'It'\''s a beautiful day!'
 	printf "%s\n" "It's a beautiful day!"
+
+snippet split_space_qutoes Split on space with Quotes
+	while IFS= read -r -d '' P; do
+		echo "$P"
+	done < <(echo "$PATHS" | xargs printf '%s\0')
+
+snippet split_unpack Split/Unpack variables
+	IFS=$'\t' read -r REPO P DAYS MONTHS YEARS <<< "$LINE"
+
 
 ## DATA
 
