@@ -1,2 +1,2 @@
 snippet ag_paged ag: Search for content
-	ag --group --color -i "${1}" | less
+	ag --group --color -i "${1:PCRE PATTERN:SEARCH TERMS}" | less -R

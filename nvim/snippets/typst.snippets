@@ -6,6 +6,13 @@ snippet pdf PDF Metadata
 		author: author,
 		keywords: "chemistry",
 	)
+snippet page-setup Page Setup (basic, us-letter)
+	#set page(
+		paper: "us-letter",
+		margin: 1in
+		// flipped: true, // Landscape
+	)
+
 snippet page-setup Page Setup
 	#set page(
 		paper: "us-letter",
@@ -286,7 +293,7 @@ snippet link_cross_reference Cross reference (link)
 snippet columns
 	#set page(columns: 2, height: 150pt)
 snippet acronym
-	*${1:text}*: _${2:description}_\ 
+	*${1:text}*: _${2:description}_\
 snippet gls Reference glossary entry (or use @TERM)
 	#gls("${1:SPP}")
 snippet glsl Reference glossary entry (long)
@@ -573,3 +580,34 @@ snippet vollkorn Vollkorn Font
 snippet novela Novela Font
 	//lnum gets rid of the sideways zero
 	#set text(font:"Novela", features: ("lnum"))
+
+snippet pdf_attach PDF Attachment
+	#pdf.attach(
+		"grades.yml",
+		relationship: "supplement",
+		mime-type: "text/yaml",
+		description: "Grades data",
+	)
+snippet regex_captures Regex with captures
+	#let input = "Package: typst-cli-0.12.0"
+	#let pattern = regex("Package: ([a-zA-Z-]+)-([\\d.]+)")
+
+	#let result = input.match(pattern)
+
+	#if result != none {
+		#let captures = result.captures
+		#let full-match = captures.at(0)
+		#let package-name = captures.at(1)
+		#let version = captures.at(2)
+	} else {
+		[No match found.]
+	}
+snippet pan_crop Pan and Crop Image
+	block(
+		width: 100%,
+		height: 100%,
+		clip: true,
+		// stroke: black, // Enable when customizing
+		inset: (top:-0mm, left:-0pt), // adjust top/left and height for zoom/pan
+		image("img.jpg", height: 100%)
+	),

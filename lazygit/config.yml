@@ -38,9 +38,21 @@ gui:
     '*': '#b4befe'
 
 customCommands:
-  - key: "<C-l>"
-    command: 'git gla || true' # "|| true" prevents SIGPIPE (141) error and confirmation
+  # LESS="RX" removes F from LESS defaults so that we don't return
+  - key: "<C-a>"
+    command: 'LESS="RX" git gla || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     context: "global"
     loadingText: "Running git gla"
     description: "View git gla in a popup"
+    output: terminal
+  - key: "<C-k>"
+    command: 'LESS="RX" git lsf || true' # "|| true" prevents SIGPIPE (141) error and confirmation
+    context: "global"
+    loadingText: "Running git gla"
+    description: "View git gla in a popup"
+    output: terminal
+  - key: "<C-f>"
+    description: 'Show diff against first parent'
+    context: "commits"
+    command: 'LESS="RX" git show --first-parent {{.SelectedLocalCommit.Hash}} || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     output: terminal

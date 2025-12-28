@@ -1,5 +1,5 @@
 snippet rpmbuild_bb rpmbuild: Build binary
-	rpmbuild -bb SPECS/rtp.spec
+	rpmbuild -bb "${1:fd_files(SPEC spec)}"
 
 snippet rpmbuild_bs rpmbuild: Build source
-	rpmbuild -bs SPECS/rtp.spec
+	rpmbuild -bs "${1:fd_files(SPEC spec)}"

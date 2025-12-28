@@ -1,6 +1,10 @@
 default_plugins = true
 default_bindings = true
 
+[[bindings]]
+key = "B"
+command = "plugin restic_restore"
+
 [[wd_replacements]]
 real = "Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC"
 repl = "=OneDrive="

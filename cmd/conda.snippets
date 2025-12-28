@@ -4,7 +4,7 @@ snippet conda_env_list conda: List Environments
 	conda env list
 
 snippet conda_create conda: Create environment
-	conda create -n ${1:kokoro} python=3.10
+	conda create -n ${1:ENV:kokoro} python=3.10
 snippet conda_wipe conda: Remove environment completely
 	conda remove -n ${1:conda_envs()} --all
 

@@ -1,33 +1,33 @@
-snippet tar tar: archive
-	tar -cf "${1}" "${2}"
-snippet untar tar: restore
-	tar -xf "${1:file.tar}"
-snippet untar_list tar: List files
-	tar -tf "${1:file.tar}"
+snippet tar tar: Archive
+	tar -cf "${2:cmd_basename(1)}.tar" "${1:find_dir_shallow(INCLUDE)}"
+snippet untar tar: Restore
+	tar -xf "${1:fd_files_shallow(ARCHIVE tar$)}"
+snippet untar_list tar: List Files
+	tar -tf "${1:fd_files_shallow(ARCHIVE tar$)}"
 
-snippet tar_tgz tar: archive with gzip compression
-	tar -zcf "${1:file.tgz}" "${2:dir}"
-snippet tar_tgz_progress tar: archive with gzip compression and progress bar
-	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | gzip > ${1}.tgz
-snippet untar_gz tar: restore from archive with gzip compression
-	tar -zxf "${1:file.tgz}"
-snippet untar_gz_list tar: List files in archive with gzip compression
-	tar -ztf "${1:file.tar}"
+snippet tar_tgz tar: Archive with Gzip
+	tar -zcf "${2:cmd_basename(1)}.tgz" "${1:find_dir_shallow(INCLUDE)}"
+snippet tar_tgz_progress tar: Archive with Gzip and Progress bar
+	tar -cf - "${1:find_dir_shallow(INCLUDE)}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | gzip > ${1}.tgz
+snippet untar_gz tar: Restore with Gzip
+	tar -zxf "${1:fd_files_shallow(ARCHIVE '(tar\.gz|tgz)$')}"
+snippet untar_gz_list tar: List Files with Gzip
+	tar -ztf "${1:fd_files_shallow(ARCHIVE '(tar\.gz|tgz)$')}"
 
-snippet tar_bz tar: archive with bzip2 compression
-	tar -jcf "${1:file.bz2}" "${2:dir}"
-snippet tar_bz_progress tar: archive with bzip2 compression and progress bar
-	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | bzip2 > ${1}.tar.bz2
-snippet untar_bz tar: restore from archive with bzip2 compression
-	tar -jxf "${1:file.tar.bz2}"
-snippet untar_bz_list tar: List files in archive with bzip2 compression
-	tar -jtf "${1:file.tar}"
+snippet tar_bz tar: Archive with Bzip2
+	tar -jcf "${2:cmd_basename(1)}.tar.bz2" "${1:find_dir_shallow(INCLUDE)}"
+snippet tar_bz_progress tar: Archive with Bzip2 and Progress bar
+	tar -cf - "${1:find_dir_shallow(INCLUDE)}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | bzip2 > ${1}.tar.bz2
+snippet untar_bz tar: Restore with Bzip2
+	tar -jxf "${1:fd_files_shallow(ARCHIVE '(tar\.bz2|tbz)$')}"
+snippet untar_bz_list tar: List Files with Bzip2
+	tar -jtf "${1:fd_files_shallow(ARCHIVE '(tar\.bz2|tbz)$')}"
 
-snippet tar_xz tar: archive with xz compression
-	tar -Jcf "${1:file.bz2}" "${2:dir}"
-snippet tar_xz_progress tar: archive with xz compression and progress bar
-	tar -cf - "${1:dir}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | xz > ${1}.tar.xz
-snippet untar_xz tar: restore from archive with xz compression
-	tar -Jxf "${1:file.tar.xz}"
-snippet untar_xz_list tar: List files in archive with xz compression
-	tar -Jtf "${1:file.tar}"
+snippet tar_xz tar: Archive with Xz
+	tar -Jcf "${2:cmd_basename(1)}".tar.xz "${1:find_dir_shallow(INCLUDE)}"
+snippet tar_xz_progress tar: Archive with Xz and Progress bar
+	tar -cf - "${1:find_dir_shallow(INCLUDE)}" | pv -s $(( $(du -sk ${1} | awk '{ print $1 }') * 1024 )) | xz > ${1}.tar.xz
+snippet untar_xz tar: Restore with Xz
+	tar -Jxf "${1:fd_files_shallow(ARCHIVE '(tar\.xz|txz)$')}"
+snippet untar_xz_list tar: List Files with Xz compression
+	tar -Jtf "${1:fd_files_shallow(ARCHIVE '(tar\.xz|txz)$')}"

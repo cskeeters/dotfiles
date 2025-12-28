@@ -1,35 +1,188 @@
-snippet def
+## main
+snippet main
+	#!/bin/bash
+
+## STRINGS
+
+snippet ansi_c_quote ANSI C Quote
+	$'\n'
+
+snippet multi_quote_examples Multiple quote Examples
+	echo "It's a beautiful day!"
+	echo 'It'\''s a beautiful day!'
+	printf "%s\n" "It's a beautiful day!"
+
+snippet split_space_qutoes Split on space with Quotes
+	while IFS= read -r -d '' P; do
+		echo "$P"
+	done < <(echo "$PATHS" | xargs printf '%s\0')
+
+snippet split_unpack Split/Unpack variables
+	IFS=$'\t' read -r REPO P DAYS MONTHS YEARS <<< "$LINE"
+
+
+## DATA
+
+snippet var_default Variable with Default
 	\${${1:var}:-${2:default}}
-snippet cd
-	cd "${0%/*}"
-	cd "$(dirname "\$0")"
-snippet a
-	${${0:arr}[@]}
-snippet pf
-	printf "${0}\n"
-snippet forin
-	for ${1:var} in ${${2:array}[@]}; do
-		echo $1
+
+snippet tutorial_indexed_array Tutorial Indexed Array
+	declare -a FOO #define
+	FOO=("hello" "world") #init
+	FOO+=("hi") #append
+	FOO=() #clear
+
+snippet tutorial_associative_array Tutorial Associative Array
+	declare -A FOO #define
+
+	declare -A user_data=(
+		["name"]="Alice"
+		["role"]="Admin"
+	)
+	echo "${user_data[name]}"
+	user_data["status"]="online"
+	unset user_data["role"]
+	unset user_data              # clear all
+	declare -A user_data=()      # clear all
+
+	KEYS="${!user_data[@]}"
+	VALUES="${user_data[@]}"
+	LEN="${#user_data[@]}"
+
+## CONDITIONAL
+
+snippet if_glob Glob with ANSI C Quoting
+	if [[ "$VALUE" == *$'\n'* ]]; then
+	fi
+
+snippet case Case (Switch)
+	case $${1:var} in
+	    ${2:chad|david})
+	        echo yes
+	        ;;
+	    *)
+	        echo no
+	        ;;
+	esac
+
+## LOOPS
+
+snippet for_in For in
+	for ITEM in apple banana cherry; do
+		echo "Fruit: $ITEM"
 	done
-snippet for
-	for ((i=0;i<${1:5};i++)); do
-		${2:echo $i}
+
+snippet for_in For in indexed array
+	for ITEM in "${A[@]}"; do
+		echo "Fruit: $ITEM"
 	done
+
+snippet for_in For in associative array
+	for KEY in "${!AA[@]}"; do
+		echo "Fruit: $KEY -> ${AA[$KEY]}"
+	done
+
+snippet for_i For int
+	for (( i=0; i<=10; i+=2 )); do
+		echo "Counter: $i"
+	done
+
+	for i in {0..5}; do #inclusive
+		echo "Number: $i"
+	done
+
 snippet whilefind
 	#-r  raw input - disables interpretion of backslash escapes and line-continuation in the read data
 	#-d  <DELIM>   - recognize <DELIM> as data-end, rather than <newline>
 	while IFS= read -r -d $'\0' line; do
 		echo "$line"
 	done < <(find /tmp -type f -print0)
+
 snippet whileread
 	while IFS= read -r line; do
 	    echo "$line"
 	done
+
+## COMMANDS
+
+snippet cd Change Directory
+	cd "${0%/*}"
+	cd "$(dirname "\$0")"
+
+snippet pf
+	printf "${0}\n"
+
+## SPECIALTY
+
 snippet re
-	${0:name}p='^${1:(.*)}$'
-	if [[ '${2:Chad is good}' =~ $${0}p ]]; then
-	    echo ${BASH_REMATCH[1]}
+	re='Chad is (.*)'
+	if [[ 'Chad is good' =~ $re ]]; then
+		echo ${BASH_REMATCH[1]}
 	fi
+
+snippet coproc coproc start a process with stdin/stdout handles
+	# Auto assigns $CALC_PID
+	coproc CALC { bc; }
+
+	# output to ${CALC[1]} goes to stdin of bc
+	echo "10 + 20" >&"${CALC[1]}"
+
+	# Input from ${CALC[0]} returns text output from bc
+	read -r response <&"${CALC[0]}"
+	echo "The coprocess said: $response"
+
+	# Clean up: Close the input to tell bc to finish
+	# >&-  -- close the output file descriptor
+	# exec 1> -- special case for exec to modify the current process's file descriptor table
+	exec {CALC[1]}>&-
+
+	#wait $CALC_PID
+
+snippet mod_fd Modifiy stdout
+	exec 1> logfile.txt
+	echo "hi"
+	exec 1>&2
+
+snippet main_shell_daemon Shell daemon
+	# run script in a new session
+	# setsid ./my_script.sh >/dev/null 2>&1 < /dev/null &
+
+	#!/bin/bash
+
+	# Fork into the background
+	(
+		# Redirect stdin from /dev/null (nothing to read)
+		exec 0<&- 
+		
+		# Redirect stdout and stderr to /dev/null (silence all output)
+		# Alternatively, redirect to a log file: exec 1>>/var/log/my_daemon.log
+		exec 1>/dev/null
+		exec 2>/dev/null
+
+		# 4. Detach from the controlling terminal (setsid)
+		# This ensures the process won't receive signals like SIGHUP when the terminal closes
+		
+		while true; do
+			# Your background logic here
+			sleep 60
+		done
+	) &
+
+	echo "Daemon started with PID $!"23jk
+
+## log.sh
+
+snippet i
+	info "${1}"${2}
+snippet w
+	warn "${1}"${2}
+snippet e
+	error "${1}"${2}
+snippet d
+	die "${1}"${2}
+
+## BCST
+
 snippet root
 	source "/usr/local/libexec/os.sh"
 	assert_root
@@ -50,36 +203,3 @@ snippet os
 	source "/usr/local/libexec/os.sh"
 	set_os
 	${1}
-snippet case
-	case $${1:var} in
-	    ${2:chad|david})
-	        echo yes
-	        ;;
-	    *)
-	        echo no
-	        ;;
-	esac
-	${3}
-snippet cc
-	case $${1:var} in
-	    ${2:chad|david}) echo yes ;;
-	    *)          echo no  ;;
-	esac
-	${3}
-snippet i
-	info "${1}"${2}
-snippet w
-	warn "${1}"${2}
-snippet e
-	error "${1}"${2}
-snippet d
-	die "${1}"${2}
-snippet git_discard
-	git restore ${1:README.md}
-snippet curl
-	curl -LJO ${1:URL}
-
-snippet multi_quote_examples Multiple quote Examples
-	echo "It's a beautiful day!"
-	echo 'It'\''s a beautiful day!'
-	printf "%s\n" "It's a beautiful day!"

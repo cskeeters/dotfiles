@@ -1,4 +1,4 @@
 snippet find_new find: Find files changed within N days
-	find . -type f -mtime -${1:2}
+	find . -type f -mtime -${1:DAYS;1}
 snippet find_grep find: Finds files by name
-	find . | grep -i ${1:finance}
+	find . | grep -i ${1:SEARCH:term}

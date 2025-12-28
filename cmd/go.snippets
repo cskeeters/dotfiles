@@ -1,10 +1,10 @@
 snippet go_build go: Build go project
 	go build
 snippet go_build_file go: Compile go file
-	go build ${1:main.go}
+	go build ${1:fd_files_shallow(SOURCE go$)}
 snippet go_mod_init go: Initialize go project for modules
-	go mod init ${1:bracketed_paste}
+	go mod init ${1:MODULE:bracketed_paste}
 snippet go_mod_tidy go: Auto add go modules
 	go mod tidy
-snippet go_mod_update go: Update go moduels
+snippet go_mod_update go: Update go modules
 	go get -u

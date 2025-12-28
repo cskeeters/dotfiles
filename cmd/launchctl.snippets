@@ -1,30 +1,30 @@
-snippet launchctl_list launchctl: List jobs
+snippet launchctl_list launchctl: List Jobs
 	launchctl list
 
-snippet launchctl_print_disabled_system launchctl: Print disabled (system)
+snippet launchctl_print_disabled_system launchctl: Print Disabled (System)
 	launchctl print-disabled system
-snippet launchctl_print_disabled_user launchctl: Print disabled (user)
+snippet launchctl_print_disabled_user launchctl: Print Disabled (User)
 	launchctl print-disabled user/$(id -u)
 
-snippet launchctl_enable launchctl: enable (Start on boot)
+snippet launchctl_enable launchctl: Enable (Start on boot)
 	launchctl enable ${1:launchctl_labels()}
-snippet launchctl_disable launchctl: disable (Disable start on boot)
+snippet launchctl_disable launchctl: Disable (Disable start on boot)
 	launchctl disable ${1:launchctl_labels()}
 
-snippet launchctl_start launchctl: start (Testing)
+snippet launchctl_start launchctl: Start (Testing)
 	launchctl start ${1:launchctl_labels()}
-snippet launchctl_stop launchctl: stop (Testing)
+snippet launchctl_stop launchctl: Stop (Testing)
 	launchctl stop ${1:launchctl_labels()}
 
-snippet launchctl_load launchctl: load (Load and start a job, if not disabled)
+snippet launchctl_load launchctl: Load (Load and start a job, if not disabled)
 	launchctl load ${1:launchctl_plist()}
 snippet launchctl_unload launchctl: unload (Stop and Unload a job, will not disable)
 	launchctl unload ${1:launchctl_plist()}
 
-snippet launchctl_load_w launchctl: load -w (Enable, Load, and start a job)
+snippet launchctl_load_w launchctl: Load -w (Enable, Load, and start a job)
 	launchctl load -w ${1:launchctl_plist()}
-snippet launchctl_unload_w launchctl: unload -w (Disable, Unload, and Stop a job)
+snippet launchctl_unload_w launchctl: Unload -w (Disable, Unload, and Stop a job)
 	launchctl unload -w ${1:launchctl_plist()}
 
-snippet launchctl_remove launchctl: remove (like unload but don't worry about stopping)
+snippet launchctl_remove launchctl: Remove (like unload but don't worry about stopping)
 	launchctl remove ${1:launchctl_plist()}

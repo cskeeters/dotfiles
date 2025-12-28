@@ -1,5 +1,5 @@
 snippet rpm_list_files rpm: List files of installed package
-	rpm -ql ${1:lazygit}
+	rpm -ql ${1:RPM PACKAGE:neovim}
 
 snippet rpm_install rpm: Install (-v verbose -h hash mark progress)
 	rpm -ivh ${1:rpm_files()}

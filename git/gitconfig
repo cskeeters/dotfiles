@@ -1,7 +1,32 @@
 [user]
 	name = Chad Skeeters
 	email = chad.skeeters@gmail.com
-	signingkey = 00ec5b68a71e0bf1b5aed7ce989e8e68f3b6aefa
+
+	#### CAC
+	# CAC nonRepudiation key can be found by looking for the S/N associated with
+	# "Certificate for Digital Signature" by running
+	#
+	#     pkcs15-tool --list-certificates
+	#
+	# Find the third word in *Encoded serial*.  This should match S/N field of
+	#
+	#     smimesign --list-keys
+	#
+	# Copy the associated ID here:
+	# signingkey = 5f0bbe3be19e9d83a8b38d6d3e92ea304e6aa430
+
+	#### SSH
+	; signingkey = /Users/chad/.ssh/id_rsa.pub
+
+	#### PGP
+	signingkey = AC1330E3D95CE38A5FDAF484DF4E6644BFEE9C60 ; gpg long key (2025 Dec)
+	;  Will be signed with subkey 3E3E67B1912D3680 (2025)
+
+# Will set on each repository for now.
+#   git config commit.gpgsign true
+# [commit]
+# sign commits by default
+# gpgsign = true
 
 [credential]
 	helper = osxkeychain
@@ -14,17 +39,53 @@
 
 	sw  = switch
 
-	l   = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%<(15)%D%C(reset)' --abbrev-commit --date=relative --all --max-count=40
-	la  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %C(bold blue)<%an>%C(reset) %C(yellow)%<(15)%D%C(reset) %n%<(80,trunc)%B' --abbrev-commit --date=relative --all --max-count=40
-	ls  = log --pretty=format:'%C(red)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset) %n%C(cyan)%GS%C(reset)' --abbrev-commit --date=relative --all --max-count=40
-	gl  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%D%C(reset)' --abbrev-commit --date=relative
-	gla  = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
-	glu = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative
-	glua = log --graph --pretty=format:'%C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
-	gls = log --graph --pretty=format:'%C(cyan)%G?%C(reset) %C(red)%h%C(reset) %C(green)%<(15,trunc)%ah%C(reset) %<(60,trunc)%s %C(bold blue)<%an>%C(reset) %C(yellow)%D%C(reset)' --abbrev-commit --date=relative --all
-	# HW will have extra space after; CRW will also have extra space
-	glf = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
-	glfs = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%GS%C(reset)\" --all $* ; }; f"
+	; g: Graph
+	; l: long
+	; s: show Signed commits
+	; u: authors (Users)
+	; a: All branches (Should be last)
+	; f: format to width of the terminal
+	; COLORING
+	; branches/tags: magenta (to match shell prompt)
+	; hash: green (to match lazygit)
+	; USED PLACEHOLDERS
+	; %h   Hash
+	; %s   Subject
+	; %an  Author's Name
+	; %ah  Commit Date (Author Human)  (OLD: git log --date=human --pretty=format:"%ad" or %as)
+	; %D   Ref names without the " (", ")" wrapping.
+	; %n   New Line
+	; %w(0, 8, 8) Indent all lines
+	l    = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)'
+	lf   = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)'
+	ls   = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)%n        %C(cyan)%G? %C(blue)%GS %C(cyan)%GK%C(reset)%n' --all
+	lsf  = log         --pretty=format:'%C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)%n        %C(cyan)%G? %C(blue)%GS %C(cyan)%GK%C(reset)%n' --all
+	ll   = log         --pretty=format:'%C(green)%h%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)%n%w(0, 8, 8)%B' --all
+	llf  = log         --pretty=format:'%C(green)%h%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)%n%w(0, 8, 8)%B' --all
+
+	; Width for hash leaves room for graph       +++++++
+	;%C(dim)%<(16,trunc)%ah%C(reset) 
+	gl    = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)'
+	glf   = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)'
+	gla   = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)' --all
+	glaf  = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)' --all
+	glu   = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)'
+	gluf  = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)'
+	glua  = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)' --all
+	gluaf = log --graph --pretty=format:'%C(green)%>|(15)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)' --all
+	gls   = log --graph --pretty=format:'%C(cyan)%>|(8)%G?%C(reset) %C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)'
+	glsf  = log --graph --pretty=format:'%C(cyan)%>|(8)%G?%C(reset) %C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)'
+	glsa  = log --graph --pretty=format:'%C(cyan)%>|(8)%G?%C(reset) %C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%ah%C(reset)' --all
+	glsaf = log --graph --pretty=format:'%C(cyan)%>|(8)%G?%C(reset) %C(green)%h%C(reset) %C(bold italic)%s%C(reset) %C(blue)%an%C(reset) %C(magenta)%D%C(reset) %C(dim)%>|(-1)%ah%C(reset)' --all
+
+	; TW (Terminal Width): `tput cols`
+	; RW (Raw Width): width of the entire command
+	; --- 
+	; HW (Hash Width): (%h)
+	; CRW (Committer Relative [Date]): (%cr / %ah)
+	; SW (Subject --- %s): TW - all other widths
+	; glf = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)\" --all $* ; }; f"
+	; glfs = "!f() { HW=16; CRW=16; RW=$(git --no-pager log --all --pretty=format:'%D' | awk '{ print length($0) }' | sort -gr | head -1); TW=$(tput cols); SW=$(($TW-$RW-$HW-$CRW-3)); git log --graph --pretty=format:\"%C(red)%>|($HW)%h%C(reset) %C(green)%<($CRW)%ah%C(reset) %<($SW,trunc)%s %C(yellow)%>($RW,trunc)%D%C(reset)%n%C(cyan)%<|($HW)%GS%C(reset)\" --all $* ; }; f"
 
 	ld   = log -1 -p
 	info = log -1 -p
@@ -41,6 +102,9 @@
 
 	# This can be used when you don't want to take all changes from the other branch
 	mn = merge --no-ff --no-commit
+	bb = !~/bin/better-git-branch.sh
+
+	sf = show --first-parent
 
 [format]
 	pretty = %C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%D%C(reset)
@@ -66,7 +130,9 @@
 	program = smimesign
 
 [gpg]
-	format = x509
+	# NOTE: log --show-signature (verify) will validate all types of signatures
+	;format = ssh
+	;format = x509 ; for CAC
 
 [stash]
 	showPatch = true
@@ -94,5 +160,8 @@
 
 [safe]
 	directory = *
+
+[gpg "ssh"]
+	allowedSignersFile = /Users/chad/.ssh/git_allowed_signers
 
 # vim:ft=gitconfig:noexpandtab

@@ -1,2 +1,3 @@
+# Vector Database
 snippet chroma_vacuum chroma: Vacuum chroma DB
-	chroma utils vacuum --path ${1:path}
+	chroma utils vacuum --path ${1:find_dir_shallow(DB)}

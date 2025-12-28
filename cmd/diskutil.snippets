@@ -11,4 +11,4 @@ snippet diskutil_eject diskutil: Eject (after unmounting)
 	diskutil eject /dev/disk${1:diskutil_disknum_by_parition_name()}
 
 snippet diskutil_dd dd: Write Image to disk
-	sudo time dd bs=4M if=${1:fd_files()} of=/dev/rdisk${2:diskutil_disknum_by_parition_name()}
+	sudo time dd bs=4M if=${1:fd_files(IN)} of=/dev/rdisk${2:diskutil_disknum_by_parition_name()}

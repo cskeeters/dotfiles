@@ -1,14 +1,14 @@
-snippet cargo_init cargo: Initialize a new project
-	cargo init ${1:foo}
-snippet cargo_add cargo: Add a dependency
-	cargo add ${1:tokio}
+snippet cargo_init cargo: Initialize a new Crate
+	cargo init ${1:PATH:name}
+snippet cargo_add cargo: Add a Dependency
+	cargo add ${1:CRATE:tokio}
 snippet cargo_install cargo: Install Cargo Package
-	cargo install ${1:typship}
+	cargo install ${1:CRATE:typship}
 snippet cargo_uninstall cargo: Uninstall/Remove Cargo Package
-	cargo uninstall ${1:typship}
+	cargo uninstall ${1:CRATE:typship}
 snippet cargo_list cargo: List Installed Cargo Packages
 	cargo install --list
-snippet cargo_upgrade cargo: Check for outdated dependancies (crates)
+snippet cargo_upgrade cargo: Check for Outdated dependancies (crates)
 	cargo outdated
 snippet rustup_update cargo: Update rustc, cargo, and other rust tools
 	cargo update
