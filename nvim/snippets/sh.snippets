@@ -20,6 +20,12 @@ snippet split_space_qutoes Split on space with Quotes
 snippet split_unpack Split/Unpack variables
 	IFS=$'\t' read -r REPO P DAYS MONTHS YEARS <<< "$LINE"
 
+snippet heredoc Heredoc variable assignment
+	IFS='' read -r -d '' DATA <<EOF
+	line1
+	line2
+	EOF
+
 
 ## DATA
 
