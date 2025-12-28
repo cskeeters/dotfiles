@@ -125,7 +125,8 @@ vim.opt.spell = false
 vim.opt.spellfile = vim.fn.expand("~/.config/nvim/spell/en.utf-8.add")
 vim.opt.spelllang="en_us"
 vim.opt.dictionary="/usr/share/dict/words"
-vim.opt.thesaurus="~/dotfiles/mthesaur.txt"
+vim.opt.thesaurus="~/.config/nvim/mthesaur.txt"
+
 
 ---- Splits
 vim.opt.splitright = true            -- Place new window to right of current one

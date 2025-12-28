@@ -20,6 +20,12 @@ snippet split_space_qutoes Split on space with Quotes
 snippet split_unpack Split/Unpack variables
 	IFS=$'\t' read -r REPO P DAYS MONTHS YEARS <<< "$LINE"
 
+snippet heredoc Heredoc variable assignment
+	IFS='' read -r -d '' DATA <<EOF
+	line1
+	line2
+	EOF
+
 
 ## DATA
 
@@ -48,6 +54,28 @@ snippet tutorial_associative_array Tutorial Associative Array
 	KEYS="${!user_data[@]}"
 	VALUES="${user_data[@]}"
 	LEN="${#user_data[@]}"
+
+snippet yaml_yq YAML processing with yq
+	IFS='' read -r -d '' YAML <<EOF
+	- name: Aerosmith
+	albumns:
+		- name: Aerosmith
+		year: 1973
+		- name: Toys In The Attic
+		year: 1975
+		- name: Rocks
+		year: 1976
+		- name: Get a Grip
+		year: 1993
+	EOF
+
+	while IFS=$'\t' read -r ARTIST ALBUMN YEAR; do
+		echo "Artist: $ARTIST"
+		echo "Albumn: $ALBUMN"
+		echo "YEAR: $YEAR"
+		echo
+	done < <(yq -r '.[] | .name as $ARTIST_NAME | .albumns[] | "\($ARTIST_NAME)\t\(.name)\t\(.year)"' <(echo "$YAML"))
+
 
 ## CONDITIONAL
 
@@ -168,7 +196,7 @@ snippet main_shell_daemon Shell daemon
 		done
 	) &
 
-	echo "Daemon started with PID $!"23jk
+	echo "Daemon started with PID $!"
 
 ## log.sh
 

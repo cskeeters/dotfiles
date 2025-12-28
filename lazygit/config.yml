@@ -1,5 +1,4 @@
 promptToReturnFromSubprocess: false
-#gui.skipDiscardChangeWarning: true
 
 os:
   # I usually use lazygit embedded in nvim. For this, I use
@@ -12,6 +11,7 @@ os:
 
 gui:
   # skipDiscardChangeWarning: true
+  skipSwitchWorktreeOnCheckoutWarning: true
 
   theme:
     activeBorderColor:
