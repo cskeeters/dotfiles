@@ -33,6 +33,8 @@ snippet restic_forget_path restic: Forget all but N snapshots of Path
 snippet restic_forget_keep restic: Forget Keep 14/24/2
 	restic forget --keep-daily 14 --keep-monthly 24 --keep-yearly 2 --path $(pwd) --dry-run
 
+snippet restic_stats restic: Stats (repo Size)
+	restic stats --mode raw-data
 
 # restic -r ${1:/tmp/restic} --password-file ~/.resticpw init
 snippet restic_init restic: Initial new Repository
