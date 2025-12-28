@@ -1,5 +1,0 @@
-declare -a BACKUP_CONFIG
-BACKUP_CONFIG+=("sftp:joffrey:/storage/restic /Users/chad/RCC /Users/chad/RCH")
-BACKUP_CONFIG+=("b2:chadskeeters-restic:restic /Users/chad/RCC /Users/chad/RCH")
-
-# vim: set ft=bash:
