@@ -5,11 +5,11 @@
     <key>Label</key>
     <string>net.restic.backup</string>
 
-    <!-- <key>EnvironmentVariables</key> -->
-    <!-- <dict> -->
-    <!--     <key>OLLAMA_CONTEXT_LENGTH</key> -->
-    <!--     <string>32768</string> -->
-    <!-- </dict> -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
 
     <key>StartCalendarInterval</key>
     <dict>
@@ -28,11 +28,5 @@
     <array>
         <string>/Users/chad/bin/restic_backup</string>
     </array>
-
-    <key>RunAtLoad</key>
-    <true/>
-
-    <key>KeepAlive</key>
-    <true/>
 </dict>
 </plist>
