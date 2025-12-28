@@ -11,6 +11,7 @@ os:
 
 gui:
   # skipDiscardChangeWarning: true
+  skipSwitchWorktreeOnCheckoutWarning: true
 
   theme:
     activeBorderColor:
