@@ -273,6 +273,7 @@ link nvim .config
 link nvim_min .config
 link yazi .config
 link bfm .config
+link task .config
 
 link bat .config
 
