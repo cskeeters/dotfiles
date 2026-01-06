@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# WARN: restic can NOT use sftp/ssh as protocol when being called through fzf.  It will try to steal the TTY which will cause fzf to immediately crash and the shell to exit
-#
+# WARN: restic can NOT use sftp/ssh as protocol when being called through fzf.
+#       It will try to steal the TTY which will cause fzf to immediately crash and the shell to exit
 
 source "$(dirname $0)/helper.sh"
 
