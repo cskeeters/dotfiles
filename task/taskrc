@@ -5,6 +5,10 @@ news.version=3.4.2
 context.work.read=+sbeas or +bcst or +rcc or +rch
 context.wp.read=+wp
 context.wp.write=+wp
+context.bcst.read=+bcst
+context.bcst.write=+bcst
+context.sbeas.read=+sbeas
+context.sbeas.write=+sbeas
 
 calendar.holidays=full
 include ~/.config/task/holidays-2026.rc
