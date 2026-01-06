@@ -45,17 +45,15 @@ read -r SNAPSHOT_ID TIMESTAMP PTH <<< "$SELECTED"
 
 # echo "Selected $SNAPSHOT_ID with $PTH at $TIMESTAMP"
 
-SUBPATH=$(realpath --relative-to="$PTH" "$HOVERED_PATH")
-
 # See if the file was included in this backup
-restic ls "$SNAPSHOT_ID" | grep -F "$SUBPATH" > /dev/null || die "Error ls on $SNAPSHOT_ID"
+restic ls "$SNAPSHOT_ID" | grep -F "$HOVERED_PATH" > /dev/null || die "Error ls on $SNAPSHOT_ID"
 if [[ $? -ne 0 ]]; then
-    echo "error $SUBPATH was not included in the backup $SNAPSHOT_ID" >> "$CMD_FILE"
+    echo "error $HOVERED_PATH was not included in the backup $SNAPSHOT_ID" >> "$CMD_FILE"
     exit 0
 fi
 
 # Restore the file
-restic restore "$SNAPSHOT_ID" --target "$RESTORE_PATH$PTH" --include "$SUBPATH" > /dev/null
+restic restore "$SNAPSHOT_ID" --target "$RESTORE_PATH" --include "$HOVERED_PATH" > /dev/null
 
 
 if [[ ! -e "$RESTORE_PATH$HOVERED_PATH" ]]; then
