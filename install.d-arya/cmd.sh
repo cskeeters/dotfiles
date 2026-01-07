@@ -9,4 +9,6 @@ link cmd/magick.snippets                    .config/cmd
 link cmd/ollama.snippets                    .config/cmd
 link cmd/ollama.sh                          .config/cmd
 link cmd/server.snippets                    .config/cmd
+link cmd/taskwarrior.snippets               .config/cmd
+link cmd/taskwarrior.sh                     .config/cmd
 link cmd/yaml_finance.snippets              .config/cmd

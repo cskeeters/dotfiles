@@ -1,0 +1,32 @@
+snippet taskwarrior_add task: Add with Due Date
+	task add due:${1:tw_date(DUE)}+17h
+
+snippet taskwarrior_mod task: Modify Due Date
+	task ${1:tw_task(TASK status:pending)} mod due:${2:tw_date(DUE)}+17h
+
+snippet taskwarrior_edit_any task: Modify Any Task
+	task ${1:tw_task(TASK)} mod
+
+snippet taskwarrior_edit task: Edit Task
+	task ${1:tw_task(TASK status:pending)} edit
+
+snippet taskwarrior_edit_any task: Edit Any Task
+	task ${1:tw_task(TASK)} edit
+
+snippet taskwarrior_delete task: Delete Task
+	task delete ${1:tw_task(DELETE status.not:deleted)}
+
+snippet taskwarrior_purge task: Purge deleted Task
+	task purge ${1:tw_task(PURGE status:deleted)}
+
+snippet taskwarrior_purge_all task: Purge All Deleted Tasks
+	task status:deleted purge
+
+snippet taskwarrior_cal task: Calendar
+	task calendar
+
+snippet taskwarrior_switch task: Switch Context
+	task context ${1:tw_context()}
+
+snippet taskwarrior_tui task: TUI
+	taskwarrior-tui
