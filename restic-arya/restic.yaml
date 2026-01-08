@@ -18,6 +18,10 @@
       keep_days: 14
       keep_months: 2
       keep_years: 0
+    - path: /Users/chad/bcst/bcst/2022 BCS-T 4 RCH/yaml_financials
+      keep_days: 14
+      keep_months: 2
+      keep_years: 0
 
 - repo: b2:chadskeeters-restic:restic
   paths:
