@@ -22,6 +22,7 @@ Amentum
 Arduino
 Async
 BCS
+BES
 BOM
 Booton
 C2
@@ -90,6 +91,7 @@ Gaddy
 Geospatial
 Ghostscript
 Grapher
+Gunter
 HPE
 Hammerspoon
 Harmonia
@@ -97,6 +99,7 @@ Homebrew
 IAVA
 IAVM
 IDIQ
+IDIQs
 ISA
 ISCM
 ISCP
@@ -136,6 +139,8 @@ NUNIO
 NVMe
 Nagios
 NanoPI
+NetCents
+NetOps
 Netfilter
 Novela
 Nunios
@@ -173,6 +178,8 @@ R6S
 RAPCON
 RCC
 RCK
+RFPs
+RHEL7
 RICI
 RMF
 RS232
@@ -232,6 +239,7 @@ WEG
 WSEP
 Wetstone
 Wireshark
+X11
 XOFF
 XON
 YAML

@@ -1,7 +1,6 @@
 snippet restic_select restic: Activate Repository
 	activate_restic_repository
 
-
 snippet restic_snapshots restic: List Snapshots
 	restic snapshots --host $(hostname)
 
@@ -10,16 +9,16 @@ snippet restic_snapshots_latest restic: List Latest Snapshots
 
 
 snippet restic_backup restic: Backup
-	restic backup "${2:PATH;.}"
+	restic backup "${2:cmd_realpath(PATH . .)}"
 
 
 snippet restic_restore restic: Restore Snapshot
-	restic restore latest --path "${2:PATH:RCC}" --target /tmp/restore
+	restic restore latest --path "${2:restic_backedup_path()}" --target /tmp/restore
 
-snippet restic_restore_file restic: Restore File
-	restic restore latest --path "${1:PATH:RCC}" --target /tmp/restore --include "${2:fd_files(RESTORE)}"
+snippet restic_restore_file restic: Restore File or Directory
+	restic_restore
 
-snippet restic_mount restic: Mount Snapshot
+snippet restic_mount restic: Mount (all snapshots)
 	restic mount "${2:/tmp/mount}"
 
 

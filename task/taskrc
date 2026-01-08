@@ -1,0 +1,45 @@
+data.location=~/.task
+confirmation=off
+news.version=3.4.2
+
+defaultwidth=0
+
+# Show tags, not tags.count
+report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project.parent,tags,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
+
+context.work.read=+sbeas or +bcst or +rcc or +rch
+context.wp.read=+wp
+context.wp.write=+wp
+context.bcst.read=+bcst
+context.bcst.write=+bcst
+context.sbeas.read=+sbeas
+context.sbeas.write=+sbeas
+
+calendar.holidays=full
+include ~/.config/task/holidays-2026.rc
+
+include ~/.taskrc_sync
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and update location config as follows:
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+# Color theme (uncomment one to use)
+#include light-16.theme
+#include light-256.theme
+#include bubblegum-256.theme
+#include dark-16.theme
+#include dark-256.theme
+#include dark-red-256.theme
+#include dark-green-256.theme
+#include dark-blue-256.theme
+#include dark-violets-256.theme
+#include dark-yellow-green.theme
+#include dark-gray-256.theme
+#include dark-gray-blue-256.theme
+#include solarized-dark-256.theme
+#include solarized-light-256.theme
+#include no-color.theme
+urgency.uda.priority.L.coefficient=-0.2

@@ -1,6 +1,6 @@
 # Lists the repos, paths and their settings to be backed up.
 
-- repo: sftp:joffrey:/storage/restic
+- repo: rest:http://chad:EtWkq_6q!xrqbpKP9fW7@restic.chadskeeters.homeip.net
   paths:
     - path: /Users/chad/RCC
       keep_days: 14
@@ -18,6 +18,15 @@
       keep_days: 14
       keep_months: 2
       keep_years: 0
+    - path: /Users/chad/bcst/bcst/2022 BCS-T 4 RCH/yaml_financials
+      keep_days: 14
+      keep_months: 2
+      keep_years: 0
+    - path: /Users/chad/Library/CloudStorage/Dropbox/notes
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
 
 - repo: b2:chadskeeters-restic:restic
   paths:
@@ -38,6 +47,10 @@
       keep_months: 12
       keep_years: 2
     - path: /Users/chad/bcst/bcst/2022 BCS-T 4 RCH/yaml_financials
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+    - path: /Users/chad/Library/CloudStorage/Dropbox/notes
       keep_days: 14
       keep_months: 12
       keep_years: 2

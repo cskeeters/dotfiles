@@ -200,6 +200,12 @@ snippet main_shell_daemon Shell daemon
 
 ## log.sh
 
+snippet die Die
+	die() {
+		echo "\$1" >&2
+		exit 1
+	}
+
 snippet i
 	info "${1}"${2}
 snippet w
