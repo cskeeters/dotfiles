@@ -37,3 +37,4 @@ include ~/.taskrc_sync
 #include solarized-dark-256.theme
 #include solarized-light-256.theme
 #include no-color.theme
+urgency.uda.priority.L.coefficient=-0.2
