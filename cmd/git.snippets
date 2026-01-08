@@ -50,3 +50,5 @@ snippet git_enable_signatures git: Set sign commits for the current repo
 	git config commit.gpgsign true
 snippet git_log_signatures git: Log with signatures
 	git log --show-signature
+snippet git_gc git: Garbage Collect
+	git gc --prune=now --aggressive
