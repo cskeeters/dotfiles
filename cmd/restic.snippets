@@ -9,7 +9,7 @@ snippet restic_snapshots_latest restic: List Latest Snapshots
 
 
 snippet restic_backup restic: Backup
-	restic backup "${2:PATH;.}"
+	restic backup "${2:cmd_realpath(PATH . .)}"
 
 
 snippet restic_restore restic: Restore Snapshot
