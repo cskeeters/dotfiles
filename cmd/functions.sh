@@ -12,6 +12,11 @@ cmd_basename() {
     command -p basename "${VALUES[$1]}"
 }
 
+cmd_realpath() {
+    REL_PATH=$(gum input --prompt="$1> " --value="$3" --placeholder="$2")
+    realpath "$REL_PATH"
+}
+
 # $1 PROMPT
 # $* Choices (In order of preference)
 cmd_choose() {
