@@ -2,6 +2,8 @@ data.location=~/.task
 confirmation=off
 news.version=3.4.2
 
+defaultwidth=0
+
 # Show tags, not tags.count
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project.parent,tags,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
 
