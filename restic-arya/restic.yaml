@@ -26,6 +26,10 @@
       keep_days: 14
       keep_months: 12
       keep_years: 2
+    - path: /Users/chad/.task
+      keep_days: 14
+      keep_months: 4
+      keep_years: 0
 
 
 - repo: b2:chadskeeters-restic:restic
@@ -54,3 +58,7 @@
       keep_days: 14
       keep_months: 12
       keep_years: 2
+    - path: /Users/chad/.task
+      keep_days: 14
+      keep_months: 4
+      keep_years: 0
