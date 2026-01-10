@@ -17,6 +17,11 @@ cmd_realpath() {
     realpath "$REL_PATH"
 }
 
+cmd_date() {
+    /usr/local/bin/date-picker
+    # date
+}
+
 # $1 PROMPT
 # $* Choices (In order of preference)
 cmd_choose() {

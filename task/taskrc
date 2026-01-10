@@ -7,6 +7,8 @@ defaultwidth=0
 # Show tags, not tags.count
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project.parent,tags,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
 
+context.me.read=+me
+context.me.write=+me
 context.work.read=+sbeas or +bcst or +rcc or +rch
 context.wp.read=+wp
 context.wp.write=+wp
