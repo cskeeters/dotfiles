@@ -234,6 +234,7 @@ link cmd/beet.snippets                      .config/cmd
 link cmd/cargo.snippets                     .config/cmd
 link cmd/curl.snippets                      .config/cmd
 link cmd/docker.snippets                    .config/cmd
+link cmd/faketime.snippets                  .config/cmd
 link cmd/find.snippets                      .config/cmd
 link cmd/git.snippets                       .config/cmd
 link cmd/git.sh                             .config/cmd
