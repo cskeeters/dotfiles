@@ -49,7 +49,7 @@ customCommands:
     command: 'LESS="RX" git lsf || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     context: "global"
     loadingText: "Running git gla"
-    description: "View git gla in a popup"
+    description: "View git lsf in a popup"
     output: terminal
   - key: "<C-f>"
     description: 'Show diff against first parent'
