@@ -4,6 +4,9 @@ snippet taskwarrior_add task: Add with Due Date
 snippet taskwarrior_search task: Search Tasks
 	task ${1:tw_task(TASK status:pending)} next
 
+snippet taskwarrior_list_waiting task: List Waiting by Due
+	task rc.report.all.sort=due+ status:waiting all
+
 snippet taskwarrior_search_all task: Search All Tasks
 	task ${1:tw_task(TASK)} all
 
