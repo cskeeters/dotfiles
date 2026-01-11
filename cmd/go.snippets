@@ -6,5 +6,7 @@ snippet go_mod_init go: Initialize go project for modules
 	go mod init ${1:MODULE:bracketed_paste}
 snippet go_mod_tidy go: Auto add go modules
 	go mod tidy
+snippet go_mod_tidy_nosum go: mod tidy (no sum)
+	GOPROXY=direct GOSUMDB=off go mod tidy
 snippet go_mod_update go: Update go modules
 	go get -u
