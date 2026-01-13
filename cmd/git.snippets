@@ -46,6 +46,8 @@ snippet git_merge_ours git: Merge ours (typically to ignore changes in master)
 	git merge --no-ff -s ours ${1:git_branches()}
 snippet git_merge_ort_ours git: Merge -Xours (merge conflicts in favor of ours)
 	git merge --no-ff ${1:git_branches()} -s ort -Xours
+snippet git_amend_sign git: Amend Commit with Signature
+	git ci --amend -S --no-edit
 snippet git_enable_signatures git: Set sign commits for the current repo
 	git config commit.gpgsign true
 snippet git_log_signatures git: Log with signatures
