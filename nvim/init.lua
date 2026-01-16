@@ -15,7 +15,23 @@ local config_path = vim.fn.stdpath("config")
 -- unnamed affects the linux primary selection (middleclick)
 vim.opt.clipboard='unnamedplus'
 if vim.env.FORCE_OSC52 == 'true' then -- This can be set in ~/.ssh/config for remote terminals
-    vim.g.clipboard = 'osc52'
+    -- vim.g.clipboard = 'osc52'
+
+    -- Don't trigger OSC52 paste on p/P for security and to avoid ghostty popup.
+    -- Use Cmd+v or Ctrl+Shift+v or MiddleClick to paste from OS.
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+            ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+            ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+            -- This function returns Neovim's internal unnamed register 
+            -- instead of asking the terminal (Ghostty) for clipboard data.
+            ['+'] = function() return { vim.fn.split(vim.fn.getreg('"'), '\n'), vim.fn.getregtype('"') } end,
+            ['*'] = function() return { vim.fn.split(vim.fn.getreg('"'), '\n'), vim.fn.getregtype('"') } end,
+        },
+    }
 end
 
 
