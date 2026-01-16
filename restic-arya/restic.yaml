@@ -2,6 +2,7 @@
 
 - repo: rest:http://chad:EtWkq_6q!xrqbpKP9fW7@restic.chadskeeters.homeip.net
   paths:
+
     - path: /Users/chad/RCC
       keep_days: 14
       keep_months: 2
@@ -26,11 +27,60 @@
       keep_days: 14
       keep_months: 12
       keep_years: 2
+
+      # TaskWarrior DB
     - path: /Users/chad/.task
       keep_days: 14
       keep_months: 4
       keep_years: 0
 
+      # San Antonio Office: IT
+    - path: /Users/chad/Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC/San Antonio Facility
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # BCST Task Order: Program files
+    - path: /Users/chad/Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC/BCS-T
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # BCST Task Order: Archived Program Files
+    - path: /Users/chad/Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC/BCS-T Archive
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # BCST Task Order: CDRLs
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Contract - Delivery Team
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # NBD files for Air Force/SBEAS/BCST
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Portfolio - Program Management/Air Force SBEAS
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # NBD files for Air Force/SBEAS/BCST (ALSO?)
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Portfolio - Program Management/Air Force - HQ SAF_AAI
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # Resumes for BCS-T
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Current Employees/BCS-T
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
+
+      # SBEAS IDIQ: Contract, CDRLS, and Program files
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - SBEAS
+      keep_days: 14
+      keep_months: 12
+      keep_years: 2
 
 - repo: b2:chadskeeters-restic:restic
   paths:
@@ -58,7 +108,7 @@
       keep_days: 14
       keep_months: 12
       keep_years: 2
-    - path: /Users/chad/.task
+    - path: /Users/chad/.task   ### TaskWarrior DB
       keep_days: 14
       keep_months: 4
       keep_years: 0
