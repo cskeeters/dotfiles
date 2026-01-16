@@ -30,7 +30,7 @@ snippet heredoc Heredoc variable assignment
 ## DATA
 
 snippet var_default Variable with Default
-	\${${1:var}:-${2:default}}
+	${1:V}=\${${1}:-${2:default}}
 
 snippet tutorial_indexed_array Tutorial Indexed Array
 	declare -a FOO #define
@@ -140,6 +140,17 @@ snippet cd Change Directory
 snippet pf
 	printf "${0}\n"
 
+## I/O
+
+snippet stderr_to_stdout Redirect stderr to stdout
+	2>&1
+
+snippet mod_fd Modifiy stdout
+	exec 1> logfile.txt
+	echo "hi"
+	exec 1>&2
+
+
 ## SPECIALTY
 
 snippet re
@@ -166,10 +177,9 @@ snippet coproc coproc start a process with stdin/stdout handles
 
 	#wait $CALC_PID
 
-snippet mod_fd Modifiy stdout
-	exec 1> logfile.txt
-	echo "hi"
-	exec 1>&2
+snippet mktemp Make temp file
+	TMP_FILE=$(mktemp) || die "Error creating tmp file"
+	trap 'rm -f -- "$TMP_FILE"' EXIT
 
 snippet main_shell_daemon Shell daemon
 	# run script in a new session

@@ -17,7 +17,7 @@ tw_task() {
 }
 
 tw_date() {
-    /usr/local/bin/date-picker
+    /usr/local/bin/date_picker
     # date
 }
 

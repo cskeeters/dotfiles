@@ -18,7 +18,7 @@ cmd_realpath() {
 }
 
 cmd_date() {
-    /usr/local/bin/date-picker
+    /usr/local/bin/date_picker
     # date
 }
 
