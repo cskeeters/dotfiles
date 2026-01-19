@@ -33,6 +33,7 @@ unset help                           # No help bar at the top of index
 # set tmpdir = ~/Programs/neomutt/temp # where to keep temp files
 
 set wait_key = no
+set abort_key = "<Esc>"  # Needs: export ESCDELAY=50
 
 unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!

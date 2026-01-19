@@ -164,4 +164,8 @@ if exists eza; then
     alias lm='eza -lg --icons -s modified'
 fi
 
+#### neomutt
+
+export ESCDELAY=50
+
 # vim:ft=sh
