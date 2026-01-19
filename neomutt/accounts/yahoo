@@ -20,7 +20,7 @@ mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
 set realname = "Chad Skeeters"
 set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
 
-source "yahoo_cred"
+source "~/.mutt_yahoo_cred"
 # set smtp_user = "goobsoft@yahoo.com"
 # set smtp_pass = "..."
 
