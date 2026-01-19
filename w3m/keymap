@@ -1,0 +1,18 @@
+# NOTE: %s will be shell escaped so that quotes are not required.
+
+# Q: Force Quit
+# q,y: Quit
+
+# Ctrl+V: Page Down
+# j/k: Move cursor
+# Tab: Next Link
+# Shift-Tab: Previous Link
+
+# v: Toggle View Source
+# E: Edit in EDITOR
+
+# Yank the URL under the cursor (link)
+keymap yy EXTERN_LINK "echo %s | osccopy"
+
+# Yank the current page's URL
+keymap YY EXTERN "echo %s | osccopy"
