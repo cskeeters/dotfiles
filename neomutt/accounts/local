@@ -1,0 +1,21 @@
+# vim: filetype=muttrc
+unmailboxes *
+
+# Dangerous
+set move = yes
+
+# Define where your incoming mail is (trailing slash is key for Maildir!)
+set spoolfile = "/var/mail/mail"
+
+# Set the default style for NEWly created folders
+set mbox_type = Maildir
+
+# Define your main mail directory
+set folder = "~/Mail/"
+
+# Where to move read mail (if you have 'set move=yes')
+set mbox = "+Inbox/"
+
+# Where to save sent and drafted messages
+set record = "+sent/"
+set postponed = "+drafts/"

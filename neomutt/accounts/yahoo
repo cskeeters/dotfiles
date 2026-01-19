@@ -1,0 +1,53 @@
+# vim: filetype=neomuttrc
+
+unmailboxes *
+
+# Important!!!
+set move = no
+
+set sidebar_new_mail_only = no
+
+set folder = "~/.mail/yahoo"
+set mbox_type = Maildir
+
+set spoolfile = "+Inbox"
+set postponed = "+Draft"
+set record    = "+Sent"
+set trash     = "+Trash"
+mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
+
+# in/out mail servers
+set realname = "Chad Skeeters"
+set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
+
+source "yahoo_cred"
+# set smtp_user = "goobsoft@yahoo.com"
+# set smtp_pass = "..."
+
+set from = "goobsoft@yahoo.com"
+set envelope_from
+set use_from = "yes"
+
+# Enable the notmuch backend
+set nm_default_uri = "notmuch:///root/.mail/yahoo"
+set mask = "!^\\.[^.]"
+
+# Keybindings for lightning-fast searching
+# Press 'L' to filter your inbox by a search term
+#bind index L vfolder-from-query
+
+# Map '/' to Notmuch Global Search
+bind index / vfolder-from-query
+
+# Map 'ESC + Enter' to clear the search and return to Inbox
+macro index \e<enter> "<change-folder>!<enter>" "Clear search and return to Inbox"
+
+# Press 'G' (for Get) to sync and index everything
+# macro index G "<shell-escape>mbsync -a && notmuch new<enter>" "Sync & Index Mail"
+
+# Maybe different for each account
+macro index ! "<save-message>+Bulk<enter>" "Mark as Spam"
+macro pager ! "<save-message>+Bulk<enter>" "Mark as Spam"
+
+macro index E "<save-message>+Archive<enter><sync-mailbox>" "Mark as Spam"
+macro pager E "<save-message>+Archive<enter><sync-mailbox>" "Mark as Spam"

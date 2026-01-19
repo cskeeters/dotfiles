@@ -1,0 +1,113 @@
+# vim: filetype=neomuttrc
+
+# ==========================================================
+# VIM-STYLE NAVIGATION FOR MUTT
+# ==========================================================
+
+# --- Index (Message List) Navigation ---
+bind index j          next-entry
+bind index k          previous-entry
+bind index g          first-entry
+bind index G          last-entry
+bind index \004       half-down     # Ctrl-d
+bind index \025       half-up       # Ctrl-u
+bind index \006       next-page     # Ctrl-f
+bind index \002       previous-page # Ctrl-b
+
+# --- Pager (Reading Email) Navigation ---
+bind pager j          next-line
+bind pager k          previous-line
+bind pager g          top
+bind pager G          bottom
+bind pager \004       half-down         # Ctrl-d
+bind pager \025       half-up           # Ctrl-u
+bind pager \006       next-page         # Ctrl-f
+bind pager \002       previous-page     # Ctrl-b
+
+
+# General rebindings
+bind attach <return> view-mailcap
+bind attach l view-mailcap
+bind editor <space> noop
+bind pager c imap-fetch-mail
+bind index G last-entry
+bind index,pager "g" noop
+bind index gg first-entry
+bind pager,attach h exit
+bind pager j next-line
+bind pager k previous-line
+bind pager l view-attachments
+bind index "#" noop # Get rid of break-thread binding
+bind index "#" delete-message
+bind index U undelete-message
+bind index L limit
+bind index h noop
+bind index l display-message
+bind browser h goto-parent
+bind browser l select-entry
+bind pager,browser gg top-page
+bind pager,browser G bottom-page
+bind index,pager,browser d half-down
+bind index,pager,browser u half-up
+bind index,pager R group-reply # Reply All
+bind index \031 previous-undeleted	# Mouse wheel
+bind index \005 next-undeleted		# Mouse wheel
+bind pager \031 previous-line		# Mouse wheel
+bind pager \005 next-line		# Mouse wheel
+bind editor <Tab> complete-query
+
+
+# sidebar mappings
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Cp sidebar-prev-new
+bind index,pager \Cn sidebar-next-new
+bind index,pager B sidebar-toggle-visible
+
+# global index and pager shortcuts
+bind index,pager @ compose-to-sender
+bind index,pager D purge-message
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+
+# Email completion bindings
+bind editor <Tab> complete-query
+bind editor ^T complete
+
+# Press A to add contact to Khard address book
+macro index,pager A \
+    "<pipe-message>khard add-email<return>" \
+    "add the sender email address to khard"
+
+
+macro pager ,p "<enter-command>unalternative_order *; alternative_order text/plain text/html<enter><exit><display-message>" "Prefer Text"
+macro pager ,h "<enter-command>unalternative_order *; alternative_order text/html text/plain<enter><exit><display-message>" "Prefer Html"
+# macro pager R "<exit><display-message>" "Reload message"
+
+## Shortcuts
+macro index,pager <f8> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/local<enter><change-folder>!<enter>'
+macro index,pager <f9> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/yahoo<enter><change-folder>!<enter>'
+
+macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
+macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
+macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
+macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
+macro index,pager gT "<change-folder>+Trash<enter>" "Go Trash"
+
+bind index "#" noop # Unbind the default first
+bind index "#" delete-message
+bind pager "#" delete-message
+
+# This is not needed with yy in w3m ~/.w3m/keymap
+# macro pager \cb "<pipe-message>python3 -m quopri -d | grep -oE 'https?://[^ >\"]+' | fzf | osccopy<enter>" "Extract URLs to fzf and copy via OSC52"
+# macro pager \cb "<pipe-message>python3 -m quopri -d | mimehtml | /root/bin/htmla | fzf -d '\t' --accept-nth 2 > url<Enter><shell-escape>cat url<Enter>" "Select and Copy URL to Clipboard (via OSC52)"
+
+# Quickly open w3m
+macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>" "Open HTML Alternative"
+
+macro compose P "<pipe-entry>cat > /tmp/neomutt_preview.html<enter><shell-escape>brave --incognito /tmp/neomutt_preview.html &<enter>" "Preview HTML in Browser"
+
+# Unused, using w3m
+# macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+# macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
