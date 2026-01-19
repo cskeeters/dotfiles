@@ -167,5 +167,8 @@ fi
 #### neomutt
 
 export ESCDELAY=50
+if exists neomutt; then
+    alias m=neomutt
+fi
 
 # vim:ft=sh
