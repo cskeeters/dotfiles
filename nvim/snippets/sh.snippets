@@ -153,6 +153,9 @@ snippet mod_fd Modifiy stdout
 
 ## SPECIALTY
 
+snippet source_sd Source from script's dir
+	source "$(dirname \$0)/${1:log.sh}"
+
 snippet re
 	re='Chad is (.*)'
 	if [[ 'Chad is good' =~ $re ]]; then
