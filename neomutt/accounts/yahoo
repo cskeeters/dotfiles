@@ -10,16 +10,25 @@ set sidebar_new_mail_only = no
 set folder = "~/.mail/yahoo"
 set mbox_type = Maildir
 
-set spoolfile = "+Inbox"
+# set spoolfile = "+Inbox"
 set postponed = "+Draft"
-set record    = "+Sent"
+# set record    = "+Sent"
 set trash     = "+Trash"
+
+set spoolfile = "notmuch://?query=tag:inbox"
+
+# Don't copy email, let mbsync download it from yahoo
+set copy = no
+unset record
+set nm_record = no
+
 mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
 
 # in/out mail servers
 set realname = "Chad Skeeters"
 set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
 
+set smtp_authenticators = "login"
 source "~/.mutt_yahoo_cred"
 # set smtp_user = "goobsoft@yahoo.com"
 # set smtp_pass = "..."
@@ -29,7 +38,7 @@ set envelope_from
 set use_from = "yes"
 
 # Enable the notmuch backend
-set nm_default_uri = "notmuch:///root/.mail/yahoo"
+set nm_default_uri = "notmuch:///Users/chad/.mail/yahoo"
 set mask = "!^\\.[^.]"
 
 # Keybindings for lightning-fast searching
@@ -45,9 +54,24 @@ macro index \e<enter> "<change-folder>!<enter>" "Clear search and return to Inbo
 # Press 'G' (for Get) to sync and index everything
 # macro index G "<shell-escape>mbsync -a && notmuch new<enter>" "Sync & Index Mail"
 
-# Maybe different for each account
-macro index ! "<save-message>+Bulk<enter>" "Mark as Spam"
-macro pager ! "<save-message>+Bulk<enter>" "Mark as Spam"
+# These shortcuts may be different for each account
 
-macro index E "<save-message>+Archive<enter><sync-mailbox>" "Mark as Spam"
-macro pager E "<save-message>+Archive<enter><sync-mailbox>" "Mark as Spam"
+macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Bulk<enter><next-entry>" "Mark as Spam"
+# One could use folder-hook to make this smarter, but this works
+macro index,pager I "<modify-labels-then-hide>-spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"
+
+macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><save-message>+Archive<enter><next-entry>" "Archive"
+
+macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Trash<enter><purge-message><next-entry>" "Trash"
+
+
+# ! Shell command
+# & Run in background
+#macro compose y "<send-message>!mbsync yahoo:Sent && notmuch new &<enter>" "Send and Sync"
+
+macro index,pager S "!mbsync yahoo:INBOX yahoo:Bulk yahoo:Sent && notmuch new &<enter>" "Sync Mail"
+
+macro index,pager M "<modify-labels>" "Manually modify labels"
+macro index,pager l "<pipe-message>~/bin/notmuch-add-tags<enter><refresh>" "Label with FZF"
+macro index,pager L "<pipe-message>~/bin/notmuch-rm-tags<enter><refresh>" "Label with FZF"
+

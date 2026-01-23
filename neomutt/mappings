@@ -27,7 +27,7 @@ bind pager \002       previous-page     # Ctrl-b
 
 # General rebindings
 bind attach <return> view-mailcap
-bind attach l view-mailcap
+# bind attach l view-mailcap
 bind editor <space> noop
 bind pager c imap-fetch-mail
 bind index G last-entry
@@ -67,9 +67,13 @@ bind index,pager B sidebar-toggle-visible
 
 # global index and pager shortcuts
 bind index,pager @ compose-to-sender
-bind index,pager D purge-message
+# bind index,pager D purge-message
+macro index D "<delete-message><next-entry>" "Delete and move next"
+macro index,pager $ "<sync-mailbox><shell-escape>notmuch new<enter>" "Sync and Update Notmuch"
+
 bind index <tab> sync-mailbox
 bind index <space> collapse-thread
+
 
 # Email completion bindings
 bind editor <Tab> complete-query
@@ -89,11 +93,18 @@ macro pager ,h "<enter-command>unalternative_order *; alternative_order text/htm
 macro index,pager <f8> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/local<enter><change-folder>!<enter>'
 macro index,pager <f9> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/yahoo<enter><change-folder>!<enter>'
 
-macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
-macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
-macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
-macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
-macro index,pager gT "<change-folder>+Trash<enter>" "Go Trash"
+# macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
+# macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
+# macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
+# macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
+# macro index,pager gd "<change-folder>+Trash<enter>" "Go Trash"
+
+macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
+macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
+macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
+macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
+macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
+macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
 
 bind index "#" noop # Unbind the default first
 bind index "#" delete-message
@@ -101,7 +112,7 @@ bind pager "#" delete-message
 
 # This is not needed with yy in w3m ~/.w3m/keymap
 # macro pager \cb "<pipe-message>python3 -m quopri -d | grep -oE 'https?://[^ >\"]+' | fzf | osccopy<enter>" "Extract URLs to fzf and copy via OSC52"
-# macro pager \cb "<pipe-message>python3 -m quopri -d | mimehtml | /root/bin/htmla | fzf -d '\t' --accept-nth 2 > url<Enter><shell-escape>cat url<Enter>" "Select and Copy URL to Clipboard (via OSC52)"
+# macro pager \cb "<pipe-message>python3 -m quopri -d | mimehtml | /Users/chad/bin/htmla | fzf -d '\t' --accept-nth 2 > url<Enter><shell-escape>cat url<Enter>" "Select and Copy URL to Clipboard (via OSC52)"
 
 # Quickly open w3m
 macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>" "Open HTML Alternative"
@@ -111,3 +122,18 @@ macro compose P "<pipe-entry>cat > /tmp/neomutt_preview.html<enter><shell-escape
 # Unused, using w3m
 # macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 # macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
+# macro compose Y "<filter-entry>~/bin/mutt_markdown.py<enter>" "Convert markdown to multipart/alternative"
+# macro compose M "<filter-entry>~/bin/mutt_markdown.py<enter>" "Convert markdown to multipart/alternative"
+#
+macro compose Y "<pipe-entry>~/bin/mutt_markdown.sh<Enter>\
+<attach-file>/tmp/email.txt<Enter>\
+<tag-entry>\
+<toggle-disposition>\
+<attach-file>/tmp/juice.html<Enter>\
+<tag-entry>\
+<toggle-disposition>\
+<group-alternatives>" "Convert Markdown to HTML/Plain Multipart"
+# <previous-entry>\
+# <previous-entry>\
+# <detach-file>y\

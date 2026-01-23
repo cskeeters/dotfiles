@@ -9,8 +9,11 @@ set my_name = "Chad Skeeters"
 # Set preffered view modes
 auto_view text/html text/calendar application/ics # view html automatically
 alternative_order text/plain text/html text/enriched text/*
-set mailcap_path = /root/.mailcap
+set mailcap_path = /Users/chad/.mailcap
 set mailcap_sanitize = yes
+
+# Don't move to the next message
+set resolve = no
 
 # main options
 set envelope_from
@@ -39,7 +42,7 @@ unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!
 unset mark_old           # read/new is good enough for me
 set beep_new             # bell on new mails
-set pipe_decode = no     # Don't strip html for urlscan
+set pipe_decode = no    # no for neomutt-add-tag, yes: Don't strip html for urlscan
 set thorough_search      # strip headers and eval mimes before searching
 set timeout = 0
 
@@ -57,7 +60,9 @@ set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 set send_charset = "utf-8:iso-8859-1:us-ascii"
 set charset = "utf-8"
-set arrow_cursor = "no" # Change `color indicator` depending 
+
+set arrow_cursor = yes # Arrow or color
+set arrow_string = "➜"
 
 # Pager View Options
 set pager_index_lines = 10  # Shows 10 lines of index when pager is active
@@ -77,6 +82,9 @@ set quit = yes          # Close NeoMutt without asking "Are you sure?"
 set header_cache = "~/.cache/neomutt/headers"
 set message_cachedir = "~/.cache/neomutt/messages"
 
+set nm_record = yes
+set nm_record_tags = "sent,-inbox,-unread"
+
 # set query_command = "khard email --parsable --search-in-source-files '%s'"
 
 # %4C Message number (4 digits)
@@ -84,4 +92,4 @@ set message_cachedir = "~/.cache/neomutt/messages"
 #set index_format = "%4C %Z %{%b %d} %-20.20n %s"
 #
 #set date_format = "%Y-%b-%d, %a"
-set index_format = "%4C %Z %[%Y-%b-%d, %a] %-20.20n %s"
+set index_format = "%4C %Z %[%Y-%b-%d, %a] %-20.20n %b %g %s"
