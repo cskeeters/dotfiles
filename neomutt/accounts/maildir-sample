@@ -1,0 +1,7 @@
+# vim: filetype=neomuttrc
+
+# macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
+# macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
+# macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
+# macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
+# macro index,pager gd "<change-folder>+Trash<enter>" "Go Trash"
