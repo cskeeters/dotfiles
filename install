@@ -225,6 +225,7 @@ linkdot shell/iterm2_shell_integration.bash
 linkdot shell/cmdsnip.sh
 linkdot mailcap
 linkdot mbsyncrc
+linkdot notmuch-config
 
 link cmd/functions.sh                       .config/cmd
 
