@@ -485,6 +485,12 @@ vim.cmd("source "..config_path.."/netrw-trash.vim")
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "mail",
+  callback = function()
+    vim.opt_local.filetype = "markdown.mail"
+  end,
+})
 
 if vim.g.neovide then
     vim.o.guifont = "Hack Nerd Font Mono:h15"
