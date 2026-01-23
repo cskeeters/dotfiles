@@ -1,49 +1,71 @@
 # vim: filetype=neomuttrc
 
-unmailboxes *
+## SETTINGS
 
-# Important!!!
-set move = no
+### Index
 
-set sidebar_new_mail_only = no
+# %4C Message number (4 digits)
+# %Z %{combined-flags}
+# Two spaces after %* ensures one space
+set index_format = "%4C %Z %-20.20n %s %*   %g %-7.7b %[%Y-%b-%d, %a]" # Comment next to debug Maildir/Notmuch
+set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]"
 
+### Maildir
+
+# Setup for `y` Navigation
 set folder = "~/.mail/yahoo"
 set mbox_type = Maildir
 
-# set spoolfile = "+Inbox"
-set postponed = "+Draft"
-# set record    = "+Sent"
-set trash     = "+Trash"
-
-set spoolfile = "notmuch://?query=tag:inbox"
+set move = no # DONT move read messages from spool_file to mbox
 
 # Don't copy email, let mbsync download it via IMAP or we'll have duplicates
 set copy = no
 unset record
 set nm_record = no
 
-mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
+set real_name = "Chad Skeeters"
+set signature = "~/.signature-yahoo"
 
-# in/out mail servers
-set realname = "Chad Skeeters"
-set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
-
-set smtp_authenticators = "login"
-source "~/.mutt_yahoo_cred"
-# set smtp_user = "goobsoft@yahoo.com"
-# set smtp_pass = "..."
-
+set use_from = yes # Ensures the "From:" header
 set from = "goobsoft@yahoo.com"
+
+# Ensure the Return-Path is goobsoft@yahoo.com
 set use_envelope_from
-set use_from = "yes"
+# set envelope_from_address = "goobsoft@yahoo.com"  # If unset, it will use the address specified in the From: header.
 
-# Tell neomutt where the notmuch DB is for this account
-set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
-
+unmailboxes *    # Clear mailboxes from other.  These are watched by neomutt
+mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
 # When reading the disk, ignore files and folders that start with .
 set mask = "!^\\.[^.]"
 
-# NAVIGATE
+# This tells neomutt what vfolder to start with
+set spool_file = "notmuch://?query=tag:inbox"    # Renamed from spoolfile
+# set spool_file = "+Inbox"
+set postponed = "+Draft"
+# set record    = "+Sent"
+set trash     = "+Trash"
+
+
+### Notmuch
+
+# Tell neomutt where the notmuch DB is for this account
+# set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
+set nm_config_profile = "yahoo"
+
+
+
+### SMTP
+
+set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
+set smtp_authenticators = "login" # Doesn't work on macOS without this set to login (??)
+source "~/.mutt_yahoo_cred" # Keep credentials outside dotfiles
+
+
+
+## MAPPINGS
+
+
+### Navigate
 
 macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
 macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
@@ -55,34 +77,28 @@ macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Tras
 # Map '/' to Notmuch Global Search
 bind index / vfolder-from-query
 
-# PROCESS
+
+### Process
 
 macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Bulk<enter><next-entry>" "Mark as Spam"
-# One could use folder-hook to make this smarter, but this works
-macro index,pager I "<modify-labels-then-hide>-spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"
-
+macro index,pager I "<modify-labels-then-hide>-spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><save-message>+Archive<enter><next-entry>" "Archive"
-
 macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Trash<enter><purge-message><next-entry>" "Trash"
-
 bind index "X" noop # Unbind the default first
-macro index,pager X "<pipe-message>~/bin/notmuch-rm<enter><refresh>" "Remove from MailDir(s) with FZF"
+macro index,pager X "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-rm<enter><refresh>" "Remove from MailDir(s) with FZF"
 
-#macro index,pager M "<modify-labels>" "Manually modify labels" # WARN: Works only on vfolders
+
+### Tag/Label
 
 # These commands work on vfolders and Maildirs
-macro index,pager l "<pipe-message>~/bin/notmuch-tag -a<enter><refresh>" "Add Labels with FZF"
-macro index,pager L "<pipe-message>~/bin/notmuch-tag -r<enter><refresh>" "Remove Labels with FZF"
-macro index,pager M "<pipe-message>~/bin/notmuch-tag -m<enter><refresh>" "Set Labels with FZF"
+#macro index,pager M "<modify-labels>" "Manually modify labels" # WARN: Works only on vfolders
+macro index,pager l "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -a<enter><refresh>" "Add Labels with FZF"
+macro index,pager L "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -r<enter><refresh>" "Remove Labels with FZF"
+macro index,pager M "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -m<enter><refresh>" "Set Labels with FZF"
 
 
-# SYNC
+### Sync
 
 # Get mailboxes with `mbsync -ls`
-# macro index G "<shell-escape>mbsync -a && notmuch new<enter>" "Sync & Index Mail"
-# macro index,pager u "<shell-escape>mbsync yahoo:INBOX yahoo:Sent yahoo:Bulk > /dev/null 2>&1 && notmuch new > /dev/null 2>&1 && notify-send 'NeoMutt' 'Sync Complete!' &<enter>" "Sync and Update Notmuch (Linux)"
-# macro index,pager u "<shell-escape>mbsync yahoo:INBOX yahoo:Sent yahoo:Bulk > /dev/null 2>&1 && notmuch new > /dev/null 2>&1 && osascript -e 'display notification \"Sync Complete\" with title \"NeoMutt\"' &<enter>" "Sync and Update Notmuch (macOS)"
-# macro index,pager gu "<shell-escape>sync-yahoo &<enter>" "Sync and Update Notmuch"
-# macro index,pager gU "<shell-escape>sync-yahoo -f &<enter>" "Full Sync and Update Notmuch"
-macro index,pager gu "<shell-escape>sync-mail yahoo INBOX Sent &<enter>" "Sync and Update Notmuch"
-macro index,pager gU "<shell-escape>sync-mail yahoo INBOX Sent Trash Draft Bulk Archive &<enter>" "Full Sync and Update Notmuch"
+macro index,pager gu "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail yahoo INBOX Sent &<enter>" "Sync and Update Notmuch"
+macro index,pager gU "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail yahoo INBOX Sent Trash Draft Bulk Archive &<enter>" "Full Sync and Update Notmuch"
