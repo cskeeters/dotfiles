@@ -1,8 +1,10 @@
 # For editing message
 text/plain; nvim %s; needsterminal
 
-# For opening (v enter) text/html part
-text/html; w3m -I %{charset} -T text/html %s; needsterminal
+# For opening (v, enter) text/html part
+#text/html; w3m -I %{charset} -T text/html %s; needsterminal
+text/html; xdg-open %s; test=test -n "$DISPLAY"; nametemplate=%s.html
+text/html; open -a "Google Chrome" %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.html
 
-# For viewing text/html
+# For viewing text/html in pager
 text/html; w3m -I %{charset} -T text/html -dump; copiousoutput
