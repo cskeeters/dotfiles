@@ -17,7 +17,7 @@ set trash     = "+Trash"
 
 set spoolfile = "notmuch://?query=tag:inbox"
 
-# Don't copy email, let mbsync download it from yahoo
+# Don't copy email, let mbsync download it via IMAP or we'll have duplicates
 set copy = no
 unset record
 set nm_record = no
@@ -34,27 +34,28 @@ source "~/.mutt_yahoo_cred"
 # set smtp_pass = "..."
 
 set from = "goobsoft@yahoo.com"
-set envelope_from
+set use_envelope_from
 set use_from = "yes"
 
-# Enable the notmuch backend
-set nm_default_uri = "notmuch:///Users/chad/.mail/yahoo"
+# Tell neomutt where the notmuch DB is for this account
+set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
+
+# When reading the disk, ignore files and folders that start with .
 set mask = "!^\\.[^.]"
 
-# Keybindings for lightning-fast searching
-# Press 'L' to filter your inbox by a search term
-#bind index L vfolder-from-query
+# NAVIGATE
+
+macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
+macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
+macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
+macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
+macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
+macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
 
 # Map '/' to Notmuch Global Search
 bind index / vfolder-from-query
 
-# Map 'ESC + Enter' to clear the search and return to Inbox
-macro index \e<enter> "<change-folder>!<enter>" "Clear search and return to Inbox"
-
-# Press 'G' (for Get) to sync and index everything
-# macro index G "<shell-escape>mbsync -a && notmuch new<enter>" "Sync & Index Mail"
-
-# These shortcuts may be different for each account
+# PROCESS
 
 macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Bulk<enter><next-entry>" "Mark as Spam"
 # One could use folder-hook to make this smarter, but this works
@@ -64,14 +65,24 @@ macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><save-messag
 
 macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Trash<enter><purge-message><next-entry>" "Trash"
 
+bind index "X" noop # Unbind the default first
+macro index,pager X "<pipe-message>~/bin/notmuch-rm<enter><refresh>" "Remove from MailDir(s) with FZF"
 
-# ! Shell command
-# & Run in background
-#macro compose y "<send-message>!mbsync yahoo:Sent && notmuch new &<enter>" "Send and Sync"
+#macro index,pager M "<modify-labels>" "Manually modify labels" # WARN: Works only on vfolders
 
-macro index,pager S "!mbsync yahoo:INBOX yahoo:Bulk yahoo:Sent && notmuch new &<enter>" "Sync Mail"
+# These commands work on vfolders and Maildirs
+macro index,pager l "<pipe-message>~/bin/notmuch-tag -a<enter><refresh>" "Add Labels with FZF"
+macro index,pager L "<pipe-message>~/bin/notmuch-tag -r<enter><refresh>" "Remove Labels with FZF"
+macro index,pager M "<pipe-message>~/bin/notmuch-tag -m<enter><refresh>" "Set Labels with FZF"
 
-macro index,pager M "<modify-labels>" "Manually modify labels"
-macro index,pager l "<pipe-message>~/bin/notmuch-add-tags<enter><refresh>" "Label with FZF"
-macro index,pager L "<pipe-message>~/bin/notmuch-rm-tags<enter><refresh>" "Label with FZF"
 
+# SYNC
+
+# Get mailboxes with `mbsync -ls`
+# macro index G "<shell-escape>mbsync -a && notmuch new<enter>" "Sync & Index Mail"
+# macro index,pager u "<shell-escape>mbsync yahoo:INBOX yahoo:Sent yahoo:Bulk > /dev/null 2>&1 && notmuch new > /dev/null 2>&1 && notify-send 'NeoMutt' 'Sync Complete!' &<enter>" "Sync and Update Notmuch (Linux)"
+# macro index,pager u "<shell-escape>mbsync yahoo:INBOX yahoo:Sent yahoo:Bulk > /dev/null 2>&1 && notmuch new > /dev/null 2>&1 && osascript -e 'display notification \"Sync Complete\" with title \"NeoMutt\"' &<enter>" "Sync and Update Notmuch (macOS)"
+# macro index,pager gu "<shell-escape>sync-yahoo &<enter>" "Sync and Update Notmuch"
+# macro index,pager gU "<shell-escape>sync-yahoo -f &<enter>" "Full Sync and Update Notmuch"
+macro index,pager gu "<shell-escape>sync-mail yahoo INBOX Sent &<enter>" "Sync and Update Notmuch"
+macro index,pager gU "<shell-escape>sync-mail yahoo INBOX Sent Trash Draft Bulk Archive &<enter>" "Full Sync and Update Notmuch"

@@ -99,16 +99,8 @@ macro index,pager <f9> '<sync-mailbox><enter-command>source ~/.config/neomutt/ac
 # macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
 # macro index,pager gd "<change-folder>+Trash<enter>" "Go Trash"
 
-macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
-macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
-macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
-macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
-macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
-macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
-
-bind index "#" noop # Unbind the default first
-bind index "#" delete-message
-bind pager "#" delete-message
+# bind index "#" noop # Unbind the default first
+# bind index,pager "#" delete-message
 
 # This is not needed with yy in w3m ~/.w3m/keymap
 # macro pager \cb "<pipe-message>python3 -m quopri -d | grep -oE 'https?://[^ >\"]+' | fzf | osccopy<enter>" "Extract URLs to fzf and copy via OSC52"
