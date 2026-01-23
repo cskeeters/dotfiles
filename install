@@ -224,6 +224,7 @@ linkdot shell/dir_colors
 linkdot shell/iterm2_shell_integration.bash
 linkdot shell/cmdsnip.sh
 linkdot mailcap
+linkdot mbsyncrc
 
 link cmd/functions.sh                       .config/cmd
 

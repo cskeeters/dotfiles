@@ -1,0 +1,39 @@
+# --- ACCOUNTS ---
+IMAPAccount yahoo
+Host imap.mail.yahoo.com
+User goobsoft@yahoo.com
+# Use your 16-character App Password here
+Pass "hcavhihpgrnpqlid"
+TLSType IMAPS
+# Port 993 is the default for IMAPS
+AuthMechs LOGIN
+# Concurrent Fetching
+PipelineDepth 15
+
+# --- REMOTE STORAGE ---
+IMAPStore yahoo-remote
+Account yahoo
+
+# --- LOCAL STORAGE ---
+MaildirStore yahoo-local
+# The trailing slash is important for Maildir
+Path ~/.mail/yahoo/
+Inbox ~/.mail/yahoo/Inbox
+SubFolders Verbatim
+# This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
+Flatten .
+
+# --- CHANNELS (Linking Remote to Local) ---
+Channel yahoo
+Far :yahoo-remote:
+Near :yahoo-local:
+# Sync all folders
+Patterns * !.*
+# Automatically create local folders if they exist on the server
+Create Near
+# Automatically delete local copies if deleted on the server
+Sync All
+Expunge Near
+Expunge Far
+# Store sync state in a file to make subsequent syncs faster
+SyncState *
