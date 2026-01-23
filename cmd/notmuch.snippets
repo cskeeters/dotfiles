@@ -1,2 +1,5 @@
+snippet notmuch_profile notmuch: Select Profile
+	export NOTMUCH_PROFILE=${1:notmuch_profile()}
+
 snippet notmuch_tags notmuch: Tags
 	notmuch search --output=tags "*"
