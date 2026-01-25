@@ -3,7 +3,7 @@ return {
     "iamcco/markdown-preview.nvim",
     lazy = true,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown", "quarto" },
+    ft = { "markdown", "quarto", "markdown.mail" },
     build = function(plugin)
         if vim.fn.executable "npx" then
             vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
@@ -13,7 +13,7 @@ return {
         end
     end,
     init = function()
-        if vim.fn.executable "npx" then vim.g.mkdp_filetypes = { "markdown" } end
+        if vim.fn.executable "npx" then vim.g.mkdp_filetypes = { "markdown", "markdown.mail" } end
     end,
     -- config = function()
         -- vim.g.mkdp_filetypes = { "markdown", "quarto" }
