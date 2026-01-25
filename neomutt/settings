@@ -76,6 +76,7 @@ set tilde
 ## COMPOSE
 
 set postpone = ask-yes   # Optional: Stops asking "Postpone message?" when exiting a draft
+set compose_confirm_detach_first = no # Don't ask, ready to remove Markdown
 
 ## SYSTEM
 
