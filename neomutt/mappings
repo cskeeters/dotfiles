@@ -14,8 +14,8 @@ macro index,pager <f9> '<sync-mailbox><enter-command>source ~/.config/neomutt/ac
 ## NAVIGATION
 
 # --- Index (Message List) Navigation ---
-bind index   j        next-entry
-bind index   k        previous-entry
+# bind index   j        next-entry
+# bind index   k        previous-entry
 bind pager   j        next-line
 bind pager   k        previous-line
 bind browser h        goto-parent
