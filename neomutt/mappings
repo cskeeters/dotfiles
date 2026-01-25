@@ -56,7 +56,7 @@ macro index D "<delete-message><next-entry>" "Delete and move next" # May be ove
 
 # bind index "#" noop # Get rid of break-thread binding
 # bind index "#" delete-message # Use D
-macro index U "<undelete-message><next-entry>" "Undelete and move next" # Overrides <undelete-pattern>
+macro index,pager U "<undelete-message><next-entry>" "Undelete and move next" # Overrides <undelete-pattern>
 
 # bind index <tab> sync-mailbox
 
