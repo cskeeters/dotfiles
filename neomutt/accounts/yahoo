@@ -2,6 +2,16 @@
 
 ## SETTINGS
 
+### User
+
+set real_name = "Chad Skeeters"
+# set signature = "~/.signature-yahoo"
+set signature = ""
+
+set use_from = yes # Ensures the "From:" header
+set from = "goobsoft@yahoo.com"
+
+
 ### Index
 
 # %4C Message number (4 digits)
@@ -22,13 +32,6 @@ set move = no # DONT move read messages from spool_file to mbox
 set copy = no
 unset record
 set nm_record = no
-
-set real_name = "Chad Skeeters"
-# set signature = "~/.signature-yahoo"
-set signature = ""
-
-set use_from = yes # Ensures the "From:" header
-set from = "goobsoft@yahoo.com"
 
 # Ensure the Return-Path is goobsoft@yahoo.com
 set use_envelope_from
