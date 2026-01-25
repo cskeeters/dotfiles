@@ -1,5 +1,6 @@
 # For editing message
 text/plain; nvim %s; needsterminal
+text/markdown; nvim %s; needsterminal
 
 # For opening (v, enter) text/html part
 #text/html; w3m -I %{charset} -T text/html %s; needsterminal
