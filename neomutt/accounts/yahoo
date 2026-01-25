@@ -24,7 +24,8 @@ unset record
 set nm_record = no
 
 set real_name = "Chad Skeeters"
-set signature = "~/.signature-yahoo"
+# set signature = "~/.signature-yahoo"
+set signature = ""
 
 set use_from = yes # Ensures the "From:" header
 set from = "goobsoft@yahoo.com"
