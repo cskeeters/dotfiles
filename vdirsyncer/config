@@ -1,0 +1,26 @@
+# vim: filetype=dosini:set expandtab:shiftwidth=4:tabstop=4:textwidth=80:
+# vdirsyncer discover
+# vdirsyncer sync
+
+[general]
+status_path = "~/.cache/vdirsyncer/status/"
+
+[pair yahoo_contacts]
+a = "yahoo_remote"
+b = "local_filesystem"
+# collections = [["my_contacts", "Contacts", "/"]]
+collections = [["Contacts", "Contacts", "Contacts"]]
+
+[storage yahoo_remote]
+type = "carddav"
+; Yahoo's CardDAV server URL
+; url = "https://carddav.address.yahoo.com/dav/goobsoft/"
+; url = "https://carddav.address.yahoo.com/dav/goobsoft@yahoo.com/Contacts/"
+url = "https://carddav.address.yahoo.com/dav/goobsoft@yahoo.com/"
+username = "goobsoft@yahoo.com"
+password.fetch = ["command", "gsed", "-nre", "s/set smtp_pass = \"([^\"]+)\"/\\1/p", "~/.mutt_yahoo_cred"]
+
+[storage local_filesystem]
+type = "filesystem"
+path = "/Users/chad/.mail/yahoo/.contacts/"
+fileext = ".vcf"

@@ -287,6 +287,7 @@ link task .config
 link neomutt .config
 link notmuch .config
 link pimsync .config
+link vdirsyncer .config
 
 link w3m/keymap .w3m
 link w3m/config .w3m
