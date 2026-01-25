@@ -171,4 +171,7 @@ if exists neomutt; then
     alias m=neomutt
 fi
 
+# Homebrew/linuxbrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # vim:ft=sh
