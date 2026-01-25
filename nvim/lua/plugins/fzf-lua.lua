@@ -142,6 +142,77 @@ function SetDefaultPrinter()
     require'fzf-lua'.fzf_exec(GeneratePrinters, opts)
 end
 
+function GenerateContacts(fzf_cb)
+    coroutine.wrap(function()
+        local co = coroutine.running()
+
+        -- khard email --parsable | FZF_DEFAULT_OPTS="--preview 'echo {1}' --preview-window='right,50%,border-left' --border $FZF_NO_PREVIEW_OPTS" fzf -d $'\t' --with-nth 2,3
+        local contacts = vim.fn.systemlist("khard-fzf")
+
+        for _, contact in ipairs(contacts) do
+            -- coroutine.resume only gets called once uv.write completes
+            fzf_cb(contact, function() coroutine.resume(co) end)
+
+            -- wait here until 'coroutine.resume' is called which only happens
+            -- once 'uv.write' completes (i.e. the line was written into fzf)
+            -- this frees neovim to respond and open the UI
+            coroutine.yield()
+        end
+
+        -- signal EOF to fzf and close the named pipe
+        -- this also stops the fzf "loading" indicator
+        fzf_cb()
+    end)()
+end
+
+function InsertContact()
+    local opts = {
+        debug_cmd=false, -- change to true and use :messages to see fzf command issued
+        fzf_opts = {
+            ['--multi'] = true,
+            ['--delimiter'] = '\t',
+            ['--with-nth'] = '4',
+            ['--accept-nth'] = '1,2',
+            -- ['--preview'] = 'echo {1}',
+            -- ['--preview-window'] = 'top,10%,border-bottom',
+            ['--border'] = true,
+        },
+        actions = {
+            ['default'] = function(selected, _)
+                -- We loop here, but only one will actually be selected
+                for _, contact in ipairs(selected) do
+                    vim.notify("Selected "..contact)
+
+                    local email, name = contact:match("^([^\t]+)\t([^\t]+)")
+                    if email and name then
+                        local text = '"' .. name .. '"' .. " <" .. email .. ">"
+
+                        local line = vim.api.nvim_get_current_line()
+                        line = line:gsub('[, ]+$', '') -- Remove trailing space and commas
+
+                        if line:match('>$') then
+                            -- Appending one email to another
+                            vim.api.nvim_set_current_line(line .. ", " .. text)
+                        else
+                            if line:match('^$') then
+                                vim.api.nvim_set_current_line(text)
+                            else
+                                -- Likely appending after "To:"
+                                vim.api.nvim_set_current_line(line .. " " .. text)
+                            end
+                        end
+                    else
+                        vim.notify("Could not parse contact: " .. contact)
+                    end
+                end
+            end
+        },
+    }
+
+    require'fzf-lua'.fzf_exec(GenerateContacts, opts)
+end
+
+
 local function split2(inputstr, sep)
   if sep == nil then
     sep = "%s"
@@ -346,6 +417,7 @@ return {
     vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
 
     vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
+    vim.keymap.set('n', '<localleader>K', InsertContact, { desc="Insert Contact" })
 
     vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
     vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })
