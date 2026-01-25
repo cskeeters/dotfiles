@@ -85,7 +85,8 @@ set pipe_decode = no     # neomutt-tag/neomutt-rm requires no (pipe raw with Mes
 
 ## CONTACTS
 
-# set query_command = "khard email --parsable --search-in-source-files '%s'"
+set query_command="khard email --parsable --search-in-source-files '%s'"
+bind editor <Tab> complete-query
 
 ## EDITING
 
