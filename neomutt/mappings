@@ -101,14 +101,11 @@ bind attach <return> view-mailcap
 
 ### Markdown
 
-# macro compose Y "<filter-entry>~/bin/mutt_markdown.py<enter>" "Convert markdown to multipart/alternative"
-# macro compose M "<filter-entry>~/bin/mutt_markdown.py<enter>" "Convert markdown to multipart/alternative"
-# macro compose Y "<pipe-entry>cat > TMP<Enter>"
 macro compose Y "<pipe-entry>~/bin/mutt_markdown.sh<Enter>\
 <attach-file>/tmp/email.txt<Enter>\
 <tag-entry>\
 <toggle-disposition>\
-<attach-file>/tmp/juice.html<Enter>\
+<attach-file>/tmp/email.html<Enter>\
 <tag-entry>\
 <toggle-disposition>\
 <view-attach>\
