@@ -205,4 +205,6 @@ if [[ $- == *i* ]]; then
     bind -x '"\C-x\C-e": _edit_and_return_command'
 fi
 
+# Homebrew/linuxbrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # vim:ft=sh
