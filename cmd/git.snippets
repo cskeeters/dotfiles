@@ -42,7 +42,7 @@ snippet git_archive_zip git: Archive
 	git archive --format=${1:cmd_choose(FORMAT tgz tar.gz zip tar)} --output=${2:git_repo_name()}.${1} master
 snippet git_squash_merge git: Squash Merge (switch master first, commit after)
 	git merge --squash ${1:git_other_branches()}
-snippet git_merge_ours git: Merge ours (typically to ignore changes in master)
+snippet git_merge_ours git: Merge ours (consummate differences)
 	git merge --no-ff -s ours ${1:git_branches()}
 snippet git_merge_ort_ours git: Merge -Xours (merge conflicts in favor of ours)
 	git merge --no-ff ${1:git_branches()} -s ort -Xours
