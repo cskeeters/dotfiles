@@ -249,6 +249,7 @@ link cmd/notmuch.snippets                   .config/cmd
 link cmd/notmuch.sh                         .config/cmd
 link cmd/nvim.snippets                      .config/cmd
 link cmd/nvim.sh                            .config/cmd
+link cmd/pimsync.snippets                   .config/cmd
 link cmd/python.snippets                    .config/cmd
 link cmd/pyvenv.snippets                    .config/cmd
 link cmd/restic.snippets                    .config/cmd
