@@ -191,6 +191,4 @@ _edit_and_return_command() {
 # Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
 bind -x '"\C-x\C-e": _edit_and_return_command'
 
-# Homebrew/linuxbrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # vim:ft=sh
