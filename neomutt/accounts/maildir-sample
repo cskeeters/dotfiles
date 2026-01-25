@@ -1,7 +1,96 @@
 # vim: filetype=neomuttrc
 
-# macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
-# macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
-# macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
-# macro index,pager gs "<change-folder>+Bulk<enter>" "Go SPAM (Bulk)"
-# macro index,pager gd "<change-folder>+Trash<enter>" "Go Trash"
+## SETTINGS
+
+### User
+set real_name = "Chad Skeeters"
+# set signature = "~/.signature-local"
+
+set use_from = yes # Generate "From:" header
+set from = "root@local" # change to hostname
+
+### Index
+
+set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]"
+
+### Maildir
+
+
+set folder = "~/.mail/local"
+set mbox_type = Maildir
+
+
+# Ensure the Return-Path is goobsoft@yahoo.com
+set use_envelope_from
+# set envelope_from_address = "goobsoft@yahoo.com"  # If unset, it will use the address specified in the From: header.
+
+unmailboxes *    # Clear mailboxes from other.  These are watched by neomutt
+mailboxes +Inbox +Sent +Draft +Spam +Archive +Trash
+# When reading the disk, ignore files and folders that start with .
+set mask = "!^\\.[^.]"
+
+# This tells neomutt what vfolder to start with
+set spool_file = "+Inbox"
+# set spool_file = "/var/spool/mail/root"
+set spool_file = "/var/mail/mail" # Debian trixie falls back to mail when root has no alias in /etc/aliases
+set mbox = "+Inbox"
+set move = yes # Move messages from spoolfile to mbox?
+set postponed = "+Draft"
+set copy = yes # Keep copy of sent email in <record>
+set record = "+Sent" # Where to put sent mail
+# set nm_record = "+sent" # notmuch labels to apply
+set trash     = "+Trash"
+
+### Notmuch
+
+# Tell neomutt where the notmuch DB is for this account
+# set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
+# set nm_config_profile = "local"
+
+
+### SMTP
+
+set sendmail = "/usr/sbin/sendmail -oem -oi" # Enable local mail
+
+unset smtp_url
+
+
+## MAPPINGS
+
+
+### Navigate
+
+
+macro index,pager gn "<change-folder>!<enter>" "Go New (spool_file)"
+macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"
+macro index,pager ga "<change-folder>+Archive<enter>" "Go Archive"
+macro index,pager gt "<change-folder>+Sent<enter>" "Go Sent"
+macro index,pager gs "<change-folder>+Spam<enter>" "Go SPAM"
+macro index,pager gd "<change-folder>+Trash<enter>" "Go Trash"
+
+# macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
+# macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
+# macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
+# macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
+# macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch)"
+# macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
+
+# Map '/' to Notmuch Global Search
+#bind index / vfolder-from-query
+
+
+### Process
+
+macro index,pager ! "<save-message>+Spam<enter><next-entry>"    "Mark as Spam"
+macro index,pager I "<save-message>+Inbox<enter><next-entry>"   "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
+macro index,pager E "<save-message>+Archive<enter><next-entry>" "Archive"
+# macro index,pager D "<save-message>+Trash<enter><next-entry>"   "Trash"
+
+
+### Tag/Label
+
+# These commands work on vfolders and Maildirs
+# macro index,pager l "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -a<enter><refresh>" "Add Labels with FZF"
+# macro index,pager L "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -r<enter><refresh>" "Remove Labels with FZF"
+# macro index,pager M "<modify-labels>" "Manually modify labels" # WARN: Works only on vfolders
+# macro index,pager M "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -m<enter><refresh>" "Set Labels with FZF"
