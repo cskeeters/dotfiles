@@ -1,0 +1,10 @@
+snippet khard_email khard: Email
+	khard email --parsable
+snippet khard_add_email khard: Add Email
+	echo "${1::From: John Doe <john.doe@example.com>}" | khard add-email
+snippet khard_add khard: Add Contact
+	khard add
+snippet khard_edit khard: Edit Contact
+	khard edit ${1:chad}
+snippet khard_list khard: List
+	khard list ${1:chad}
