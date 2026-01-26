@@ -9,17 +9,17 @@ set real_name = "Chad Skeeters"
 set use_from = yes # Generate "From:" header
 set from = "root@local" # change to hostname
 
+
 ### Index
 
 #set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]" # %g notmuch tags
 set index_format = "%4C %Z %-20.20n %s %* %[%Y-%b-%d, %a]"
 
-### Maildir
 
+### Maildir
 
 set folder = "~/.mail/local"
 set mbox_type = Maildir
-
 
 # Ensure the Return-Path is goobsoft@yahoo.com
 set use_envelope_from
@@ -42,6 +42,7 @@ set record = "+Sent" # Where to put sent mail
 # set nm_record = "+sent" # notmuch labels to apply
 set trash     = "+Trash"
 
+
 ### Notmuch
 
 # Tell neomutt where the notmuch DB is for this account
@@ -60,7 +61,6 @@ unset smtp_url
 
 
 ### Navigate
-
 
 macro index,pager gn "<change-folder>!<enter>" "Go New (spool_file)"
 macro index,pager gi "<change-folder>+Inbox<enter>" "Go Inbox"

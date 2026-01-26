@@ -2,6 +2,7 @@
 
 ## SETTINGS
 
+
 ### User
 
 set real_name = "Chad Skeeters"
@@ -19,6 +20,7 @@ set from = "goobsoft@yahoo.com"
 # Two spaces after %* ensures one space
 set index_format = "%4C %Z %-20.20n %s %*   %g %-7.7b %[%Y-%b-%d, %a]" # Comment next to debug Maildir/Notmuch
 set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]"
+
 
 ### Maildir
 
