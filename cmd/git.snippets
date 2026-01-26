@@ -1,3 +1,14 @@
+## REPO/CLONE
+snippet git_bare git: Clone bare
+	git clone --bare ${1:url_or_path}
+snippet git_gc git: Garbage Collect
+	git gc --prune=now --aggressive
+
+## LOG
+snippet git_log_signatures git: Log with signatures
+	git log --show-signature
+
+## BRANCH
 snippet git_branch git: Create a Branch
 	git checkout -b ${1:BRANCH:feature_name}
 snippet git_branch_remote git: Create local branch from remote
@@ -10,47 +21,60 @@ snippet git_switch git: Switch
 	git switch ${1:git_branches()}
 snippet git_branch_clean git: Create a clean (orphan) branch
 	git switch --orphan ${1:branch_name}
-snippet git_show_ignored git: Show Ignored files
-	git status --ignored
+
+snippet git_set_upstream git: Set Upstream
+	git branch --set-upstream-to=${1:origin}/${2:master} ${3:master}
+snippet git_get_upstream git: Get Upstream
+	git rev-parse --abbrev-ref @{upstream}
+
+## TAG
 snippet git_tag git: Tag repo
 	git tag ${1:v0.0.1}
-snippet git_bare git: Clone bare
-	git clone --bare ${1:url_or_path}
-snippet git_unstage git: Unstage file
-	git restore --staged ${1:git_select_staged()}
+snippet git_tag_delete git: Delete a Tag
+	git tag -d ${1:git_tags()}
+
+## DIFF
+snippet git_show_first git: Show Diff (1st parent for merges)
+	git show -m --first-parent HEAD
+
+## WORKING FILES
+snippet git_show_ignored git: Show Ignored files
+	git status --ignored
 snippet git_discard git: Discard changes in file
 	git restore ${1:git_select_modified()}
 snippet git_clean git: Discard untracked files
 	git clean -f
+snippet git_rm_untracked git: Remove All Untracked
+	git clean -fd
 snippet git_mrproper git: Discard untracked and ignored files
 	git clean -fdX
-snippet git_tag_delete git: Delete a Tag
-	git tag -d ${1:git_tags()}
-snippet git_tag_push git: Push a Tag
-	git push origin tag ${1:git_tags()}
 snippet git_restore git: Restore file to commit
 	git restore ${1:fd_files()}
 snippet git_restore_all git: Restore All to commit
 	git restore .
-snippet git_rm_untracked git: Remove All Untracked
-	git clean -fd
-snippet git_get_upstream git: Get Upstream
-	git rev-parse --abbrev-ref @{upstream}
-snippet git_set_upstream git: Set Upstream
-	git branch --set-upstream-to=${1:origin}/${2:master} ${3:master}
-snippet git_archive_zip git: Archive
-	git archive --format=${1:cmd_choose(FORMAT tgz tar.gz zip tar)} --output=${2:git_repo_name()}.${1} master
+
+## INDEX/STAGING
+snippet git_unstage git: Unstage file
+	git restore --staged ${1:git_select_staged()}
+
+## MERGE
 snippet git_squash_merge git: Squash Merge (switch master first, commit after)
 	git merge --squash ${1:git_other_branches()}
 snippet git_merge_ours git: Merge ours (consummate differences)
 	git merge --no-ff -s ours ${1:git_branches()}
 snippet git_merge_ort_ours git: Merge -Xours (merge conflicts in favor of ours)
 	git merge --no-ff ${1:git_branches()} -s ort -Xours
-snippet git_amend_sign git: Amend Commit with Signature
-	git ci --amend -S --no-edit
+
+## SIGN PGP
 snippet git_enable_signatures git: Set sign commits for the current repo
 	git config commit.gpgsign true
-snippet git_log_signatures git: Log with signatures
-	git log --show-signature
-snippet git_gc git: Garbage Collect
-	git gc --prune=now --aggressive
+snippet git_amend_sign git: Amend Commit with Signature
+	git ci --amend -S --no-edit
+
+## REMOTE
+snippet git_tag_push git: Push a Tag
+	git push origin tag ${1:git_tags()}
+
+## EXPORT
+snippet git_archive_zip git: Archive
+	git archive --format=${1:cmd_choose(FORMAT tgz tar.gz zip tar)} --output=${2:git_repo_name()}.${1} master
