@@ -11,7 +11,8 @@ set from = "root@local" # change to hostname
 
 ### Index
 
-set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]"
+#set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]" # %g notmuch tags
+set index_format = "%4C %Z %-20.20n %s %* %[%Y-%b-%d, %a]"
 
 ### Maildir
 
