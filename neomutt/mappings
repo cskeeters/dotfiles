@@ -52,7 +52,7 @@ bind index ,l limit           # Additional Filter
 
 # global index and pager shortcuts
 # bind index,pager D purge-message
-macro index D "<delete-message><next-entry>" "Delete and move next" # May be overriden by accounts using notmuch
+macro index,pager D "<delete-message><next-entry>" "Delete and move next" # May be overriden by accounts using notmuch
 
 # bind index "#" noop # Get rid of break-thread binding
 # bind index "#" delete-message # Use D
