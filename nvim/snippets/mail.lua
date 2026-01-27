@@ -99,5 +99,47 @@ return {
     s(
         {trig = "wp", desc="Inserts Walden Point Signature"},
         wp()
-    )
+    ),
+
+    s(
+        {trig = "sherm", desc="Games Gates"},
+        {
+            t('"James Gates" <james.gates.13@us.af.mil>')
+        }
+    ),
+
+    s(
+        {trig = "gaddy", desc="Jimmy Gaddy"},
+        {
+            t('"Jimmy Gaddy" <jimmy.gaddy@redcedarconsultancy.com>')
+        }
+    ),
+
+    s(
+        {trig = "sharad", desc="Sharad Gumaste"},
+        {
+            t('"Sharad Gumaste" <sharad@redcedarconsultancy.com>')
+        }
+    ),
+
+    s(
+        {trig = "david", desc="David Wettstein"},
+        {
+            t('"David Wettstein" <david.wettstein.ctr@us.af.mil>')
+        }
+    ),
+
+    s(
+        {trig = "osst", desc="OSST"},
+        {
+            t('"David Wettstein" <david.wettstein.ctr@us.af.mil>, "Tauren Baptiste" <tauren.baptiste.1.ctr@us.af.mil>, "Spence Johnson" <spence.johnson.2.ctr@us.af.mil>')
+        }
+    ),
+
+    s(
+        {trig = "chad", desc="Chad (RCC)"},
+        {
+            t('"Chad Skeeters" <chad.skeeters@redcedarconsultancy.com>')
+        }
+    ),
 }
