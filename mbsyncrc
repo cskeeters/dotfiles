@@ -1,39 +1,93 @@
-# --- ACCOUNTS ---
+# Section Keywords start BLOCKS.  They are:
+# 
+# | Keyword        | What it defines                              | Analogy                                  |
+# | -------------- | -------------------------------------------- | ---------------------------------------- |
+# | IMAPAccount    | "Connection credentials (Host/User/Pass)."   | The Who: Your ID card.                   |
+# | IMAPStore      | A remote server storage area.                | The Where (Far): The cloud.              |
+# | MaildirStore   | A local folder storage area.                 | The Where (Near): Your hard drive.       |
+# | Channel        | The link between a Far and Near store.       | The Bridge: The path between them.       |
+# | Group          | A collection of Channels.                    | The Batch: A list of bridges to cross.   |
+
+## YAHOO
 IMAPAccount yahoo
-Host imap.mail.yahoo.com
-User goobsoft@yahoo.com
-# Use your 16-character App Password here
-Pass "hcavhihpgrnpqlid"
-TLSType IMAPS
-# Port 993 is the default for IMAPS
-AuthMechs LOGIN
-# Concurrent Fetching
-PipelineDepth 15
+    Host imap.mail.yahoo.com
+    User goobsoft@yahoo.com
+    # Use your 16-character App Password here
+    Pass "hcavhihpgrnpqlid"
+    TLSType IMAPS
+    # Port 993 is the default for IMAPS
+    AuthMechs LOGIN
+    # Concurrent Fetching
+    PipelineDepth 15
 
-# --- REMOTE STORAGE ---
 IMAPStore yahoo-remote
-Account yahoo
+    Account yahoo
 
-# --- LOCAL STORAGE ---
 MaildirStore yahoo-local
-# The trailing slash is important for Maildir
-Path ~/.mail/yahoo/
-Inbox ~/.mail/yahoo/Inbox
-SubFolders Verbatim
-# This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
-Flatten .
+    # The trailing slash is important for Maildir
+    Path ~/.mail/yahoo/
+    Inbox ~/.mail/yahoo/Inbox
+    SubFolders Verbatim
+    # This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
+    Flatten .
 
-# --- CHANNELS (Linking Remote to Local) ---
 Channel yahoo
-Far :yahoo-remote:
-Near :yahoo-local:
-# Sync all folders
-Patterns * !.*
-# Automatically create local folders if they exist on the server
-Create Near
-# Automatically delete local copies if deleted on the server
-Sync All
-Expunge Near
-Expunge Far
-# Store sync state in a file to make subsequent syncs faster
-SyncState *
+    Far :yahoo-remote:
+    Near :yahoo-local:
+    # Sync all folders
+    Patterns * !.*
+    # Automatically create local folders if they exist on the server
+    Create Near
+    # Automatically delete local copies if deleted on the server
+    Sync All
+    Expunge Near
+    Expunge Far
+    # Store sync state in a file to make subsequent syncs faster
+    SyncState *
+
+## RCC (Outlook)
+IMAPAccount rcc
+    Host outlook.office365.com
+    Port 993
+    User chad.skeeters@redcedarconsultancy.com
+    # Pass ""
+    PassCmd "op_password 5cptk7fi2da7pnck2qkkxxv22m"
+    # PassSecret your-password
+    TLSType IMAPS
+    # Port 993 is the default for IMAPS
+    AuthMechs LOGIN
+    # Concurrent Fetching
+    PipelineDepth 15
+
+IMAPStore rcc-remote
+    Account rcc
+
+MaildirStore rcc-local
+    # The trailing slash is important for Maildir
+    Path ~/.mail/rcc/
+    Inbox ~/.mail/rcc/Inbox
+    SubFolders Verbatim
+    # This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
+    Flatten .
+
+Channel rcc
+    Far :rcc-remote:
+    Near :rcc-local:
+    # For testing, only sync last 30 days
+    MaxMessages 30
+    # Sync all folders
+    Patterns * !.*
+    # Automatically create local folders if they exist on the server
+    Create Near
+    # Automatically delete local copies if deleted on the server
+    Sync All
+    Expunge Near
+    Expunge Far
+    # Store sync state in a file to make subsequent syncs faster
+    SyncState *
+
+## Helpers
+
+Group all
+    Channel yahoo
+    Channel rcc
