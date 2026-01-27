@@ -7,6 +7,9 @@ snippet taskwarrior_search task: Search Tasks
 snippet taskwarrior_list_waiting task: List Waiting by Due
 	task rc.report.all.sort=due+ status:waiting all
 
+snippet taskwarrior_list_tag task: List Tasks with Tag
+	task ${1:+onsite}
+
 snippet taskwarrior_search_all task: Search All Tasks
 	task ${1:tw_task(TASK)} all
 
