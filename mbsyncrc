@@ -56,7 +56,7 @@ IMAPAccount chad-outlook
     # AuthMechs LOGIN
     # OAuth2
     AuthMechs XOAUTH2
-    PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/.local/state/mutt_oauth2/chad-outlook_mbsync.gpg"
+    PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/.local/state/mutt_oauth2/chad-outlook_thunderbird.gpg"
     # Concurrent Fetching
     PipelineDepth 1
 
