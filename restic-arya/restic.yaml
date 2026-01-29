@@ -1,6 +1,6 @@
 # Lists the repos, paths and their settings to be backed up.
 
-- repo: rest:http://chad:EtWkq_6q!xrqbpKP9fW7@restic.chadskeeters.homeip.net
+- repo: rest:https://chad:EtWkq_6q!xrqbpKP9fW7@restic.chadskeeters.homeip.net
   paths:
 
     - path: /Users/chad/RCC
