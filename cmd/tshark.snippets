@@ -1,0 +1,5 @@
+snippet tshark_all tshark: All (-ssh)
+	tshark | grep -v SSH | grep -v 22
+
+snippet tshark_capture tshark: capture ssl server_name
+	tshark -r "${1:capture_file.pcap}" -Y "ssl.handshake.type == 1" -T fields -e ssl.handshake.extensions_server_name

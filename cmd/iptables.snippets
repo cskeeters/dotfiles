@@ -1,0 +1,10 @@
+snippet iptables_list_filter iptables: List filter chains
+	iptables -L
+snippet iptables_list_nat iptables: List nat chains
+	iptables -t nat -L
+snippet iptables_list_input iptables: List INPUT chain
+	iptables -L INPUT -v -n
+snippet iptables_docker_user_list iptables: Docker User Show
+	iptables -L DOCKER-USER -v -n
+snippet iptables_docker_user_drop iptables: Docker User Drop
+	iptables -I DOCKER-USER 1 -s ${1:168.195.0.0/16} -j DROP

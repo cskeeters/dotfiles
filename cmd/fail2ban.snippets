@@ -1,0 +1,8 @@
+snippet fail2ban_banned fail2ban: Show Banned
+	nft list set inet f2b-table addr-set-sshd
+snippet fail2ban_logs fail2ban: Show logs
+	batcat /var/log/fail2ban.log
+snippet fail2ban_unblock fail2ban: Unblock
+	nft delete element inet f2b-table addr-set-sshd { ${1:IP_ADDRESS} }
+snippet fail2ban_ssh_bantime fail2ban: sshd bantime
+	fail2ban-client get sshd bantime
