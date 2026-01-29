@@ -68,13 +68,13 @@ set nm_config_profile = "chad-outlook"
 #587 for STARTTLS (starts clear)
 set smtp_url = "smtp://smtp.office365.com:587/"
 # set smtp_authenticators = "login" # Doesn't work on macOS without this set to login (??)
-set smtp_authenticators = "plain" # Doesn't work on macOS without this set to login (??)
+# set smtp_authenticators = "plain" # Doesn't work on macOS without this set to login (??)
 
-set smtp_user = "chad.skeeters@outlook.com"
-set smtp_pass = "pedkfwhxulawbpdq"
-# set smtp_authenticators = "xoauth2"
-# set smtp_oauth_refresh_command = "/path/to/mutt_oauth2.py /path/to/your_token_file"
-set ssl_starttls = yes
+set smtp_user = "chad.skeeters@gmail.com"
+# set smtp_pass = "pedkfwhxulawbpdq"
+set smtp_authenticators = "xoauth2"
+set smtp_oauth_refresh_command = "/Users/chad/bin/mutt_oauth2.py /Users/chad/.local/state/mutt_oauth2/chad-outlook_thunderbird.gpg"
+# set ssl_starttls = yes
 # set ssl_force_tls = yes
 
 ## MAPPINGS
