@@ -1,4 +1,6 @@
 # vim: filetype=neomuttrc
+#
+# WARN: In this setup, the notmuch tags are NOT synced back to yahoo.
 
 ## SETTINGS
 
