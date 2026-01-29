@@ -1,5 +1,5 @@
 #### Homebrew
-#
+
 export BREW_PREFIX=/opt/homebrew
 export PATH="$BREW_PREFIX/bin:$PATH"
 export PATH="$BREW_PREFIX/sbin:$PATH"
