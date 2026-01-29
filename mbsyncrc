@@ -45,36 +45,35 @@ Channel yahoo
     # Store sync state in a file to make subsequent syncs faster
     SyncState *
 
-## RCC (Outlook)
-IMAPAccount rcc
+## Chad (Outlook)
+IMAPAccount chad-outlook
     Host outlook.office365.com
+    # Host imap-mail.outlook.com
     Port 993
-    User chad.skeeters@redcedarconsultancy.com
-    # Pass ""
-    PassCmd "op_password 5cptk7fi2da7pnck2qkkxxv22m"
-    # PassSecret your-password
+    User chad.skeeters@outlook.com
     TLSType IMAPS
     # Port 993 is the default for IMAPS
-    AuthMechs LOGIN
+    # AuthMechs LOGIN
+    # OAuth2
+    AuthMechs XOAUTH2
+    PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/chad-outlook_mbsync.gpg"
     # Concurrent Fetching
-    PipelineDepth 15
+    PipelineDepth 1
 
-IMAPStore rcc-remote
-    Account rcc
+IMAPStore chad-outlook-remote
+    Account chad-outlook
 
-MaildirStore rcc-local
+MaildirStore chad-outlook-local
     # The trailing slash is important for Maildir
-    Path ~/.mail/rcc/
-    Inbox ~/.mail/rcc/Inbox
+    Path ~/.mail/chad-outlook/
+    Inbox ~/.mail/chad-outlook/Inbox
     SubFolders Verbatim
     # This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
     Flatten .
 
-Channel rcc
-    Far :rcc-remote:
-    Near :rcc-local:
-    # For testing, only sync last 30 days
-    MaxMessages 30
+Channel chad-outlook
+    Far :chad-outlook-remote:
+    Near :chad-outlook-local:
     # Sync all folders
     Patterns * !.*
     # Automatically create local folders if they exist on the server
@@ -90,4 +89,4 @@ Channel rcc
 
 Group all
     Channel yahoo
-    Channel rcc
+    Channel chad-outlook
