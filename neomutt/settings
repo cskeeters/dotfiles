@@ -41,11 +41,11 @@ set arrow_string = "➜"
 
 set delete = yes        # Automatically delete messages marked 'D' when closing a mailbox
 
-set use_threads                         # Must be above sort to avoid warning
-# set sort = reverse-threads
+set use_threads = yes                       # Must be above sort to avoid warning
+set sort = threads
 set sort = reverse-last-date-received   # This puts the newest thread at the top
-set sort_aux = last-date-received       # This keeps replies in order inside the thread
-# set sort_aux = reverse-last-date-received
+# set sort_aux = last-date-received       # This keeps replies in order inside the thread
+set sort_aux = reverse-last-date-received
 
 ### Treading
 
