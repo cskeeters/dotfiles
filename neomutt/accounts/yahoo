@@ -45,7 +45,7 @@ mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
 set mask = "!^\\.[^.]"
 
 # This tells neomutt what vfolder to start with
-set spool_file = "notmuch://?query=tag:inbox"    # Renamed from spoolfile
+set spool_file = "notmuch://?query=tag:inbox or tag:sent&type=threads"    # Renamed from spoolfile
 # set spool_file = "+Inbox"
 set postponed = "+Draft"
 # set record    = "+Sent"
@@ -73,9 +73,10 @@ source "~/.mutt_yahoo_cred" # Keep credentials outside dotfiles
 
 ### Navigate
 
-macro index,pager gi "<change-folder>notmuch://?query=tag:inbox<enter>" "Go Inbox (notmuch)"
-macro index,pager gr "<change-folder>notmuch://?query=tag:archive<enter>" "Go Archive (notmuch)"
-macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
+macro index,pager gn "<change-folder>!<enter>" "Go New (spool_file)"
+macro index,pager gi "<change-folder>notmuch://?query=tag:inbox&type=threads<enter>" "Go Inbox (notmuch)"
+macro index,pager gr "<change-folder>notmuch://?query=tag:archive&type=threads<enter>" "Go Archive (notmuch)"
+macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash&type=threads<enter>" "Go All (notmuch)"
 macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
 macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
 macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
