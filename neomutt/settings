@@ -33,6 +33,9 @@ unset confirm_append     # don't ask when appending messages to an existing mail
 set status_chars = " *%A"
 set status_format = "[ Folder: %f Limit: %V ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
 
+set my_account_name = "UNKNOWN"
+folder-hook '.*' 'set status_format = "[ $my_account_name ]───( %f %?V?{Limit: %V }?) %>─ {%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? %?p? %p postponed ?}"'
+
 
 ## INDEX
 

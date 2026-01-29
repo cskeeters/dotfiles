@@ -12,6 +12,7 @@ set signature = ""
 set use_from = yes # Ensures the "From:" header
 set from = "chad.skeeters.work@gmail.com"
 
+set my_account_name = "gmail-work" # for status_format
 
 ### Index
 

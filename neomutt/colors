@@ -24,7 +24,10 @@ color message cyan default
 color markers red white
 color attachment white default
 color search brightmagenta default
-color status brightyellow black
+color status white default
+color status magenta default "\\[.*\\]"
+color status green default "\\(.*\\)"
+color status blue default "\\{.*\\}"
 color hdrdefault brightgreen default
 color quoted green default
 color quoted1 blue default

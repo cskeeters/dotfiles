@@ -14,6 +14,8 @@ set from = "root@local" # change to hostname
 #set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]" # %g notmuch tags
 set index_format = "%4C %Z %-20.20n %s %* %[%Y-%b-%d, %a]"
 
+set my_account_name = "local" # for status_format
+
 ### Maildir
 
 
