@@ -119,7 +119,7 @@ set mime_forward = ask-no            # forward attachments as part of body
 unset mime_forward_decode
 set mime_forward_rest                # foward mime parts that can't be decoded
 
-set attribution_intro = "On %d, %n wrote:" # format of quoting header
+set attribution_intro = "On %d, %n wrote:\n" # format of quoting header, Add newline so that quoted text can be processed as markdown
 
 ## SENDING
 
