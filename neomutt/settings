@@ -45,7 +45,8 @@ set use_threads = yes                       # Must be above sort to avoid warnin
 set sort = threads
 set sort = reverse-last-date-received   # This puts the newest thread at the top
 # set sort_aux = last-date-received       # This keeps replies in order inside the thread
-set sort_aux = reverse-last-date-received
+# set sort_aux = reverse-last-date-received   # Within threads, the are sorted newest on top
+set sort_aux = date-received                # Within threads, they are sorted oldest on top
 
 ### Treading
 
