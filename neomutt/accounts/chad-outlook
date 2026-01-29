@@ -14,7 +14,7 @@ set signature = ""
 set use_from = yes # Ensures the "From:" header
 set from = "chad.skeeters@outlook.com"
 
-set my_account_name = "chad-outlook" # for status_format
+set my_account_name = "outlook-personal" # for status_format
 
 ### Index
 
@@ -28,7 +28,7 @@ set index_format = "%4C %Z %-20.20n %s %*  %g %[%Y-%b-%d, %a]"
 ### Maildir
 
 # Setup for `y` Navigation
-set folder = "~/.mail/chad-outlook/"
+set folder = "~/.mail/outlook-personal/"
 set mbox_type = Maildir
 
 set move = no # DONT move read messages from spool_file to mbox
@@ -59,7 +59,7 @@ set trash     = "+Deleted"
 
 # Tell neomutt where the notmuch DB is for this account
 # set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
-set nm_config_profile = "chad-outlook"
+set nm_config_profile = "outlook-personal"
 
 
 
@@ -74,7 +74,7 @@ set smtp_url = "smtp://smtp.office365.com:587/"
 set smtp_user = "chad.skeeters@gmail.com"
 # set smtp_pass = "pedkfwhxulawbpdq"
 set smtp_authenticators = "xoauth2"
-set smtp_oauth_refresh_command = "/Users/chad/bin/mutt_oauth2.py /Users/chad/.local/state/mutt_oauth2/chad-outlook_thunderbird.gpg"
+set smtp_oauth_refresh_command = "/Users/chad/bin/mutt_oauth2.py /Users/chad/.local/state/mutt_oauth2/outlook-personal_thunderbird.gpg"
 # set ssl_starttls = yes
 # set ssl_force_tls = yes
 
@@ -117,5 +117,5 @@ macro index,pager M "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notm
 ### Sync
 
 # Get mailboxes with `mbsync -ls`
-macro index,pager gu "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail chad-outlook INBOX Sent &<enter>" "Sync and Update Notmuch"
-macro index,pager gU "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail chad-outlook INBOX Sent Deleted Drafts Junk Archive &<enter>" "Full Sync and Update Notmuch"
+macro index,pager gu "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail outlook-personal INBOX Sent &<enter>" "Sync and Update Notmuch"
+macro index,pager gU "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail outlook-personal INBOX Sent Deleted Drafts Junk Archive &<enter>" "Full Sync and Update Notmuch"

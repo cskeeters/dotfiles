@@ -46,7 +46,7 @@ Channel yahoo
     SyncState *
 
 ## Chad (Outlook)
-IMAPAccount chad-outlook
+IMAPAccount outlook-personal
     Host outlook.office365.com
     # Host imap-mail.outlook.com
     Port 993
@@ -56,24 +56,24 @@ IMAPAccount chad-outlook
     # AuthMechs LOGIN
     # OAuth2
     AuthMechs XOAUTH2
-    PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/.local/state/mutt_oauth2/chad-outlook_thunderbird.gpg"
+    PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/.local/state/mutt_oauth2/outlook-personal_thunderbird.gpg"
     # Concurrent Fetching
     PipelineDepth 1
 
-IMAPStore chad-outlook-remote
-    Account chad-outlook
+IMAPStore outlook-personal-remote
+    Account outlook-personal
 
-MaildirStore chad-outlook-local
+MaildirStore outlook-personal-local
     # The trailing slash is important for Maildir
-    Path ~/.mail/chad-outlook/
-    Inbox ~/.mail/chad-outlook/Inbox
+    Path ~/.mail/outlook-personal/
+    Inbox ~/.mail/outlook-personal/Inbox
     SubFolders Verbatim
     # This keeps folder names simple (e.g., ~/.mail/yahoo/Sent)
     Flatten .
 
-Channel chad-outlook
-    Far :chad-outlook-remote:
-    Near :chad-outlook-local:
+Channel outlook-personal
+    Far :outlook-personal-remote:
+    Near :outlook-personal-local:
     # Sync all folders
     Patterns * !.*
     # Automatically create local folders if they exist on the server
@@ -89,4 +89,4 @@ Channel chad-outlook
 
 Group all
     Channel yahoo
-    Channel chad-outlook
+    Channel outlook-personal
