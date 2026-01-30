@@ -8,7 +8,9 @@ unset help        # No help bar at the top of index
 unset resolve     # Don't move to the next message
 
 set quit                 # don't ask when quiting
-set timeout = 0          # Ok to block since we don't keep IMAP connections alive
+
+set mail_check = 3       # check for new mail every 3 seconds
+set timeout = 3          # Number of seconds of idle before redrawing with new mail
 
 unset sidebar_visible
 
