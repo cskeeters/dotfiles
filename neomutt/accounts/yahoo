@@ -69,7 +69,7 @@ set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
 set smtp_authenticators = "login" # Doesn't work on macOS without this set to login (??)
 source "~/.mutt_yahoo_cred" # Keep credentials outside dotfiles
 
-
+unset sendmail
 
 ## MAPPINGS
 

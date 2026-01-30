@@ -78,6 +78,8 @@ set smtp_oauth_refresh_command = "/Users/chad/bin/mutt_oauth2.py /Users/chad/.lo
 # set ssl_starttls = yes
 # set ssl_force_tls = yes
 
+unset sendmail
+
 ## MAPPINGS
 
 
