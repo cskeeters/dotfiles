@@ -53,6 +53,12 @@ set trash     = "+Trash"
 
 ### SMTP
 
+# smtp_url would take priority over sendmail
+unset smtp_url
+unset smtp_authenticators
+unset smtp_user
+unset smtp_pass
+
 set sendmail = "/usr/sbin/sendmail -oem -oi" # Enable local mail
 
 unset smtp_url

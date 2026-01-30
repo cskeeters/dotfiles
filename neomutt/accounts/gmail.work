@@ -67,6 +67,12 @@ set nm_exclude_tags = "trash"
 # set smtp_authenticators = "login" # Doesn't work on macOS without this set to login (??)
 # source "~/.mutt_gmail.work_cred" # Keep credentials outside dotfiles
 
+# smtp_url would take priority over sendmail
+unset smtp_url
+unset smtp_authenticators
+unset smtp_user
+unset smtp_pass
+
 set sendmail = "env NOTMUCH_PROFILE=$nm_config_profile gmi send -t -C $folder"
 
 
