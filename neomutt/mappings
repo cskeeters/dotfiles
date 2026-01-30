@@ -8,10 +8,10 @@ bind index,pager , noop
 
 ## ACCOUNTS
 
-macro index,pager <f7>  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/chad-outlook<enter><change-folder>!<enter>'
-macro index,pager <f8>  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/local<enter><change-folder>!<enter>'
-macro index,pager <f9>  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/yahoo<enter><change-folder>!<enter>'
-macro index,pager <f10> '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/gmail.work<enter><change-folder>!<enter>'
+macro index,pager ,ag '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/gmail.work<enter><change-folder>!<enter>'
+macro index,pager ,ao  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/outlook-personal<enter><change-folder>!<enter>'
+macro index,pager ,ay  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/yahoo<enter><change-folder>!<enter>'
+# macro index,pager ,al '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/local<enter><change-folder>!<enter>'
 
 ## NAVIGATION
 
