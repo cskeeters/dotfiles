@@ -48,6 +48,8 @@ bind pager \005 next-line           # Mouse wheel
 
 ### Viewing
 
+macro index,pager ,r  "<mark-message>z<enter><change-folder>^<enter>'z" # refresh, maintain cursor
+
 bind index ,l limit           # Additional Filter
 
 ### Processing
