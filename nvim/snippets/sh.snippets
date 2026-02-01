@@ -156,6 +156,9 @@ snippet mod_fd Modifiy stdout
 snippet source_sd Source from script's dir
 	source "$(dirname \$0)/${1:log.sh}"
 
+snippet cmd_exists Executable exists in the path
+	command -v ${1} > /dev/null
+
 snippet re
 	re='Chad is (.*)'
 	if [[ 'Chad is good' =~ $re ]]; then
