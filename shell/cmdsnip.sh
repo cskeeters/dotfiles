@@ -1,5 +1,7 @@
 #### Command Line Snippets
 
+set -o pipefail
+
 export SED=sed
 
 # On macOS we need to use gsed
@@ -140,11 +142,22 @@ runsnippet() {
 }
 
 select_run_snippet() {
-    KEY=$(cat $HOME/.config/cmd/*.snippets | egrep '^snippet' | \
-        fzf -d ' ' --with-nth 3.. --bind 'enter:become(echo {2})' \
-            --preview-window='top,10%' \
-            --preview 'snippreview {}'
-    )
+    if command -v fzf_sort > /dev/null; then
+        # Keep track of recently used commands
+        KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
+            fzf_sort --path ~/.local/log/cmdsnip --accept-nth 1 | \
+            fzf -d ' ' --with-nth 2.. --bind 'enter:become(echo {1})' \
+                --preview-window='top,10%' \
+                --preview 'snippreview {}' | \
+            fzf_sort --path ~/.local/log/cmdsnip --log
+        )
+    else
+        KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
+            fzf -d ' ' --with-nth 2.. --bind 'enter:become(echo {1})' \
+                --preview-window='top,10%' \
+                --preview 'snippreview {}'
+        )
+    fi
 
     if [[ $? -eq 0 ]]; then
         # Only save to SNIPPET_KEY and run if the user didn't cancel
