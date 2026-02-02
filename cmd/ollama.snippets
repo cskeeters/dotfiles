@@ -1,9 +1,13 @@
 snippet ollama_start ollama: Start Ollama
 	ollama serve
-snippet ollama_run ollama: Run Model
-	ollama run ${1:ollama_local_models()}
 snippet ollama_list ollama: List Models
 	ollama list
+snippet ollama_run ollama: Run Model
+	ollama run ${1:ollama_local_models()}
+snippet ollama_stop ollama: Stop Model
+	ollama stop ${1:ollama_running_models()}
+snippet ollama_ps ollama: Running Models
+	ollama ps
 snippet ollama_logs ollama: Show Server Logs
 	tail -f /var/log/ollama/stderr
 snippet ollama_rm ollama: Remove Model
