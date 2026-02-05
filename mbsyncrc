@@ -58,7 +58,7 @@ IMAPAccount outlook-personal
     AuthMechs XOAUTH2
     PassCmd "python3 /Users/chad/bin/mutt_oauth2.py ~/.local/state/mutt_oauth2/outlook-personal_thunderbird.gpg"
     # Concurrent Fetching
-    PipelineDepth 1
+    PipelineDepth 15
 
 IMAPStore outlook-personal-remote
     Account outlook-personal
