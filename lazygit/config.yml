@@ -10,6 +10,8 @@ os:
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
 
 gui:
+  mouseEvents: false
+
   # skipDiscardChangeWarning: true
   skipSwitchWorktreeOnCheckoutWarning: true
 
