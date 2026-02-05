@@ -23,7 +23,7 @@ OPTIONS="600 60
 2048 80"
 
 # Pipe the options into fzf and capture the selection
-SELECTED_OPTION=$(echo "$OPTIONS" | fzf)
+SELECTED_OPTION=$(echo "$OPTIONS" | fzf --prompt "LONG EDGE, QUALITY")
 
 QUALITY_RE='^([0-9]+) ([0-9]+)$'
 if [[ $SELECTED_OPTION =~ $QUALITY_RE ]]; then
@@ -32,13 +32,16 @@ if [[ $SELECTED_OPTION =~ $QUALITY_RE ]]; then
 
     mkdir -p compressed
 
-    printf "%s\n" "${PATHS[@]}" | parallel -v 'FPATH={}; magick "$FPATH" -resize "${MAX_LONG_EDGE}x${MAX_LONG_EDGE}>" -quality $JPEG_QUALITY "compressed/${FPATH##*/}"'
-
+    # printf "%s\n" "${PATHS[@]}" | parallel -v 'FPATH={}; magick "$FPATH" -resize "${MAX_LONG_EDGE}x${MAX_LONG_EDGE}>" -quality $JPEG_QUALITY "compressed/${FPATH##*/}"'
+    # gum spin --title "Compressing Images" -- parallel -v 'FPATH={}; magick "$FPATH" -resize "'"${MAX_LONG_EDGE}x${MAX_LONG_EDGE}>"'" -quality '$JPEG_QUALITY' "compressed/${FPATH##*/}"' ::: "${PATHS[@]}"
+    parallel --progress -v 'FPATH={}; magick "$FPATH" -resize "'"${MAX_LONG_EDGE}x${MAX_LONG_EDGE}>"'" -quality '$JPEG_QUALITY' "compressed/${FPATH##*/}"' ::: "${PATHS[@]}"
     STATUS=$?
 
     echo "deselect all" >> "$CMD_FILE"
     echo "cd $CUR_DIR/compressed" >> $CMD_FILE
     echo "refresh" >> "$CMD_FILE"
+
+    read -s -n 1 -p "Press any key to continue..."
 
     exit $STATUS
 else
