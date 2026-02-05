@@ -93,7 +93,7 @@ for ((RESTORE_TRY=1;RESTORE_TRY<10;RESTORE_TRY++)); do
     if [[ $RESTORE_TRY -eq 1 ]]; then
         RESTORE_NAME=${STEM}-restored$EXT
     else
-        RESTORE_NAME=${STEM}-restored$RESTORE$EXT
+        RESTORE_NAME=${STEM}-restored$RESTORE_TRY$EXT
     fi
 
     if [[ ! -e "$DIR/$RESTORE_NAME" ]]; then
