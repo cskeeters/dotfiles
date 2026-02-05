@@ -13,7 +13,7 @@ snippet ollama_logs ollama: Show Server Logs
 snippet ollama_rm ollama: Remove Model
 	ollama rm ${1:ollama_local_models()}
 snippet ollama_update ollama: Update Models
-	ollama list | awk 'NR>1 && !/reviewer/ {system("ollama pull "$1)}'
+	ollama list | sed '1d' | awk '{print $1}' | xargs -I {} ollama pull {}
 
 snippet oterm_run oterm: Open oterm TUI frontend
 	oterm
