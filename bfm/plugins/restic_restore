@@ -68,7 +68,7 @@ TYPE=$(file "$HOVERED_PATH")
 asciip='ASCII'
 if [[ "$TYPE" =~ $asciip ]]; then
     # Preview offerred ability to view diff, just overwrite
-    cp -r "$RESTORE_PATH$HOVERED_PATH" "$HOVERED_PATH" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $HOVERED_PATH"
+    cp -rp "$RESTORE_PATH$HOVERED_PATH" "$HOVERED_PATH" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $HOVERED_PATH"
     exit 0
 fi
 
@@ -97,7 +97,7 @@ for ((RESTORE_TRY=1;RESTORE_TRY<10;RESTORE_TRY++)); do
     fi
 
     if [[ ! -e "$DIR/$RESTORE_NAME" ]]; then
-        cp -r "$RESTORE_PATH$HOVERED_PATH" "$DIR/$RESTORE_NAME" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $DIR/$RESTORE_NAME"
+        cp -rp "$RESTORE_PATH$HOVERED_PATH" "$DIR/$RESTORE_NAME" || die "Error copying $RESTORE_PATH$HOVERED_PATH to $DIR/$RESTORE_NAME"
         exit 0
     fi
 done
