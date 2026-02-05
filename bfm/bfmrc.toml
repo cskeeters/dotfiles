@@ -1,9 +1,14 @@
 default_plugins = true
 default_bindings = true
 
+[[plugins]]
+section = "Operations"
+command =  "iplugin restic_restore"
+help = "Restore from restic"
+
 [[bindings]]
 key = "B"
-command = "plugin restic_restore"
+command = "iplugin restic_restore"
 
 [[wd_replacements]]
 real = "Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC"
