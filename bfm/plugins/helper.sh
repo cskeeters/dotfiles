@@ -4,6 +4,12 @@ die() {
     exit 0
 }
 
+cancel() {
+    echo "$1"
+    read -s -n 1 -p "Press any key to continue..."
+    exit 0
+}
+
 read_state() {
     read -r CUR_DIR
 
