@@ -68,8 +68,14 @@ color index_subject cyan default '.*'
 color index_tags magenta default
 
 # For new mail:
-color index brightyellow black "~N"
-color index_author brightred black "~N"
-color index_subject brightcyan black "~N"
+# color index brightyellow black "~N"
+# color index_author brightred black "~N"
+# color index_subject brightcyan black "~N"
+
+color index black magenta "~T"
+color index_author black magenta "~T"
+color index_number black magenta "~T"
+color index_subject black magenta "~T"
+color index_tags black magenta "~T"
 
 color progress black cyan
