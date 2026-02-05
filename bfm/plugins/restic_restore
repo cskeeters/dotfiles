@@ -35,13 +35,11 @@ export FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS --preview 'restic_preview {1} {3} 
 # Must find snapshots that have path that are a prefix of the CUR_DIR
 SELECTED=$(cat "$TMP_PATH/snapshots.sorted" | fzf --with-nth 2 --prompt "SNAPSHOT> ")
 if [[ $? -ne 0 ]]; then
-    echo "No snapshot selected"
-    exit 1
+    cancel "No snapshot selected"
 fi
 
 if [[ "$SELECTED" == "" ]]; then
-    echo "No snapshot selected"
-    exit 1
+    cancel "No snapshot selected"
 fi
 
 read -r SNAPSHOT_ID TIMESTAMP PTH <<< "$SELECTED"
