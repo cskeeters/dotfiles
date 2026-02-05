@@ -104,4 +104,4 @@ for ((RESTORE_TRY=1;RESTORE_TRY<10;RESTORE_TRY++)); do
     fi
 done
 
-echo "error Could not find a place to restore file" >> "$CMD_FILE"
+die "Could not find a place to restore file"
