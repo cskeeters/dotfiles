@@ -38,6 +38,12 @@ snippet tutorial_indexed_array Tutorial Indexed Array
 	FOO+=("hi") #append
 	FOO=() #clear
 
+	echo Count: ${#FOO[@]}
+	for F in "${#FOO[@]}"; do
+		echo "$F"
+	done
+
+
 snippet tutorial_associative_array Tutorial Associative Array
 	declare -A FOO #define
 
@@ -150,8 +156,17 @@ snippet mod_fd Modifiy stdout
 	echo "hi"
 	exec 1>&2
 
+snippet cat_here Cat until EOF (Here Doc) to file
+	cat <<EOF > output_file.txt
+	This is line one.
+	This is line two.
+	EOF
+
 
 ## SPECIALTY
+
+snippet read_continue Press any key to continue...
+	read -s -n 1 -p "Press any key to continue..."
 
 snippet source_sd Source from script's dir
 	source "$(dirname \$0)/${1:log.sh}"
@@ -196,8 +211,8 @@ snippet main_shell_daemon Shell daemon
 	# Fork into the background
 	(
 		# Redirect stdin from /dev/null (nothing to read)
-		exec 0<&- 
-		
+		exec 0<&-
+
 		# Redirect stdout and stderr to /dev/null (silence all output)
 		# Alternatively, redirect to a log file: exec 1>>/var/log/my_daemon.log
 		exec 1>/dev/null
@@ -205,7 +220,7 @@ snippet main_shell_daemon Shell daemon
 
 		# 4. Detach from the controlling terminal (setsid)
 		# This ensures the process won't receive signals like SIGHUP when the terminal closes
-		
+
 		while true; do
 			# Your background logic here
 			sleep 60
