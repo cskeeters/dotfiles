@@ -1,5 +1,5 @@
 snippet restic_select restic: Activate Repository
-	activate_restic_repository
+	source restic_repo_activate '${1:restic_repo()}'; set | grep '^RESTIC'
 
 snippet restic_snapshots restic: List Snapshots
 	restic snapshots --host $(hostname)
