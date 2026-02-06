@@ -9,7 +9,10 @@ if ! command -v gum >/dev/null 2>&1; then
     exit 1
 fi
 
-if [[ "${#PATHS[@]}" -gt 1 ]]; then
+FILE_COUNT=$(find "${PATHS[@]}" -type f | wc -l)
+DIR_COUNT=$(find "${PATHS[@]}" -type d | wc -l)
+
+if [[ "${#PATHS[@]}" -gt 1 || "$FILE_COUNT" -gt 1 || $DIR_COUNT -gt 1 ]]; then
 
     FILE_PROMPT=""
     for FILE_PATH in "${PATHS[@]}"; do
@@ -17,7 +20,7 @@ if [[ "${#PATHS[@]}" -gt 1 ]]; then
     done
 
     # Will exit script on no
-    gum confirm $'You are removing the following SELECTED files, are you sure?\n'"$FILE_PROMPT" || exit 0
+    gum confirm 'You are removing the following SELECTED '"$FILE_COUNT"' files and '"$DIR_COUNT"$' directories, are you sure?\n'"$FILE_PROMPT" || exit 0
 fi
 
 ## Delete all of the paths specified
