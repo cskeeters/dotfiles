@@ -2,11 +2,12 @@
 
 set -o pipefail
 
-export SED=sed
+# export so snippets can use this
+export GSED=sed
 
 # On macOS we need to use gsed
 if command -v gsed &> /dev/null; then
-    export SED=gsed
+    export GSED=gsed
 fi
 
 getsnippet() {
@@ -149,7 +150,7 @@ select_run_snippet() {
         # Keep track of recently used commands
         KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
             fzf_sort --path ~/.local/log/cmdsnip --accept-nth 1 | \
-            $SED -re $'s/^([^[:space:]]*)[[:space:]]([^:]*)/\\1 \033[35m\\2\033[0m/' | \
+            $GSED -re $'s/^([^[:space:]]*)[[:space:]]([^:]*)/\\1 \033[35m\\2\033[0m/' | \
             fzf --ansi -d ' ' --accept-nth 1 --with-nth 2.. \
                 --bind 'change:pos(1)' \
                 --preview-window='top,10%' \
