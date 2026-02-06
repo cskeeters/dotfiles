@@ -246,6 +246,40 @@ snippet e
 snippet d
 	die "${1}"
 
+snippet fzf_simple fzf: Simple
+	fzf -d $'\t' --accept-nth 1 --with-nth 2..
+
+snippet fzf_full fzf: Full Example
+	FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --ansi \
+	  --bind change:first \
+	  -d $'\t' --accept-nth 1 --with-nth 2.. \
+
+snippet fzf_accept_old fzf: Accept nth (Legacy)
+	fzf -d $'\t' --with-nth 2.. --bind 'enter:become(echo {1})' \
+
+snippet fzf_ansi_color fzf: Support Colors (ANSI VT100)
+	--ansi
+
+snippet fzf_no_preview fzf: No Preview
+	FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS"
+
+snippet fzf_reset_cursor fzf: Reset Cursor
+	--bind change:first
+
+snippet fzf_preview_options fzf: Preview Options
+	--preview-window='top,10%'
+
+snippet fzf_preview fzf: Custom Preview
+	--preview 'echo {1}'
+
+snippet fzf_print_query fzf: Print Query
+	--print-query
+
+snippet fzf_live_search fzf: Live Search
+	echo | fzf --disabled --bind "change:reload(rg \${#FZF_QUERY})"
+	# DEBUG: replace reload(...) with execute(echo ... > /tmp/fzf-debug)
+
+
 ## BCST
 
 snippet root
