@@ -19,6 +19,7 @@ if [[ "${#PATHS[@]}" -gt 1 || "$FILE_COUNT" -gt 1 || $DIR_COUNT -gt 1 ]]; then
         FILE_PROMPT="${FILE_PROMPT}"$'\n  * '"$FILE_PATH"
     done
 
+    clear
     # Will exit script on no
     gum confirm 'You are removing the following SELECTED '"$FILE_COUNT"' files and '"$DIR_COUNT"$' directories, are you sure?\n'"$FILE_PROMPT" || exit 0
 fi
