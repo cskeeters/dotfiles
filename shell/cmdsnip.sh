@@ -149,7 +149,7 @@ select_run_snippet() {
         # Keep track of recently used commands
         KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
             fzf_sort --path ~/.local/log/cmdsnip --accept-nth 1 | \
-            fzf -d ' ' --with-nth 2.. --bind 'enter:become(echo {1})' \
+            fzf -d ' ' --accept-nth 1 --with-nth 2.. \
                 --preview-window='top,10%' \
                 --preview 'snippreview {1}' | \
             fzf_sort --path ~/.local/log/cmdsnip --log
