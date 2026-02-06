@@ -21,19 +21,22 @@ getsnippet() {
 export -f getsnippet
 
 snippreview() {
-    TRIGGER=""
-
-    re='^snippet +([^[:space:]]*)'
-    if [[ "$1" =~ $re ]]; then
-        TRIGGER=${BASH_REMATCH[1]}
-    fi
+    TRIGGER="$1"
 
     if [[ -z $TRIGGER ]]; then
+        echo $'\033[31mERROR\033[0m: Trigger was not passed to snippreview'
         return
     fi
 
-    SNIPPET=$(getsnippet "$TRIGGER")
-    echo $SNIPPET
+    if command -v batcat > /dev/null; then
+        getsnippet "$TRIGGER" | batcat --color=always --file-name="SNIPPET" --language=bash
+    else
+        if command -v bat > /dev/null; then
+            getsnippet "$TRIGGER" | bat --color=always --file-name="SNIPPET" --language=bash
+        else
+            getsnippet "$TRIGGER"
+        fi
+    fi
 }
 export -f snippreview
 
@@ -148,7 +151,7 @@ select_run_snippet() {
             fzf_sort --path ~/.local/log/cmdsnip --accept-nth 1 | \
             fzf -d ' ' --with-nth 2.. --bind 'enter:become(echo {1})' \
                 --preview-window='top,10%' \
-                --preview 'snippreview {}' | \
+                --preview 'snippreview {1}' | \
             fzf_sort --path ~/.local/log/cmdsnip --log
         )
     else
