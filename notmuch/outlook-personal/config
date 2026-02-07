@@ -12,7 +12,7 @@
 # the database location (in a subdirectory called ".notmuch").
 #
 [database]
-path=/Users/chad/.mail/chad-outlook
+path=/Users/chad/.mail/outlook-personal
 # User configuration
 #
 # Here is where you can let notmuch know how you would like to be
