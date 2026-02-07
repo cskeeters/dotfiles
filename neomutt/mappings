@@ -31,10 +31,10 @@ bind pager   G        bottom
 bind browser gg       top-page
 bind browser G        bottom-page
 
-bind index,pager \004 half-down     # Ctrl-d
-bind index,pager \025 half-up       # Ctrl-u
-bind index,pager \006 next-page     # Ctrl-f
-bind index,pager \002 previous-page # Ctrl-b
+bind index,pager \Cd half-down     # Ctrl-d
+bind index,pager \Cu half-up       # Ctrl-u
+bind index,pager \Cf next-page     # Ctrl-f
+bind index,pager \Cb previous-page # Ctrl-b
 # bind index,pager,browser d half-down
 # bind index,pager,browser u half-up
 
