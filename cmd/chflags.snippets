@@ -1,0 +1,2 @@
+snippet chflags_unlock chflags: Unlock
+	sudo find "${1:fd_files_shallow("PATH> ")}" -type f -exec chflags nouchg {} +
