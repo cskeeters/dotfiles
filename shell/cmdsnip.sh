@@ -4,10 +4,19 @@ set -o pipefail
 
 # export so snippets can use this
 export GSED=sed
+export BAT=cat
 
 # On macOS we need to use gsed
 if command -v gsed &> /dev/null; then
     export GSED=gsed
+fi
+
+# Debian uses batcat
+if command -v bat &> /dev/null; then
+    export BAT=bat
+fi
+if command -v batcat &> /dev/null; then
+    export BAT=batcat
 fi
 
 getsnippet() {
@@ -29,14 +38,10 @@ snippreview() {
         return
     fi
 
-    if command -v batcat > /dev/null; then
-        getsnippet "$TRIGGER" | batcat --color=always --file-name="SNIPPET" --language=bash
+    if [[ $BAT != "cat" ]]; then
+        getsnippet "$TRIGGER" | $BAT --color=always --file-name="SNIPPET" --language=bash
     else
-        if command -v bat > /dev/null; then
-            getsnippet "$TRIGGER" | bat --color=always --file-name="SNIPPET" --language=bash
-        else
-            getsnippet "$TRIGGER"
-        fi
+        getsnippet "$TRIGGER"
     fi
 }
 export -f snippreview
