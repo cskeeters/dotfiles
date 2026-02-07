@@ -162,6 +162,16 @@ snippet cat_here Cat until EOF (Here Doc) to file
 	This is line two.
 	EOF
 
+## COLOR
+
+snippet ansi_color Output Color (ANSI VT100)
+	echo $'\033[31mSHELL\033[0m: '"$SHELL"
+	echo -e "\033[31mSHELL\033[0m: $SHELL"
+	printf "\033[31mSHELL\033[0m: $SHELL\n"
+
+snippet ansi_color_sed Color via sed (ANSI VT100)
+	# NOTE with $'', we have to escape \ with \\
+	echo "SHELL: $SHELL" | gsed -re $'s/([^:]*)/\033[35m\\1\033[0m/'
 
 ## SPECIALTY
 
