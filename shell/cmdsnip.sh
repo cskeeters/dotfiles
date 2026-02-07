@@ -23,7 +23,7 @@ getsnippet() {
     TRIGGER="$1"
     while IFS= read -r -d $'\0' file; do
         if egrep "^snippet $TRIGGER" "$file" > /dev/null; then
-            $SED -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
+            $GSED -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
         fi
     done < <(find ~/.config/cmd -name \*.snippets -print0)
 }
