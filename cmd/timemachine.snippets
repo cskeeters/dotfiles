@@ -6,3 +6,5 @@ snippet timemachine_mount_local_snapshot timemachine: Mount Local Snapshot
 	mkdir /tmp/snapshot && sudo mount_apfs -s ${1:tm_local_snapshot()} / /tmp/snapshot
 snippet timemachine_restore timemachine: Restore File
 	tmutil restore ${1:find_files("TM FILE" "" "/tmp/snapshot")} ${2:find_dir("RESTORE PATH")}
+snippet timemachine_list_backups timemachine: List Backups
+	sudo tmutil listbackups
