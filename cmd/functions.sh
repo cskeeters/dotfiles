@@ -51,6 +51,19 @@ find_files() {
 }
 
 # $1 - Prompt
+# $2 - Path(s)
+find_dir() {
+    LOCATIONS="."
+    if [[ "$2" != "" ]]; then
+        LOCATIONS=$2
+    fi
+
+    # No quotes around LOCATIONS so they can be multiple arguments to find
+    find $LOCATIONS -type d | fzf -1 --height="90%" --prompt "$1> "
+}
+
+
+# $1 - Prompt
 # $2 - Pattern (Glob)
 # $3 - Path(s)
 find_files_shallow() {
