@@ -4,5 +4,6 @@ source ~/.config/neomutt/mappings
 
 # Put only the account you want to open by default here.  Others are referenced in mappings/Accounts
 # source ~/.config/neomutt/accounts/yahoo
+# source ~/.config/neomutt/accounts/outlook-personal
 # source ~/.config/neomutt/accounts/gmail.work
-source ~/.config/neomutt/accounts/outlook-personal
+source ~/.config/neomutt/accounts/gmail.karta
