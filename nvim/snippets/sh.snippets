@@ -175,6 +175,12 @@ snippet ansi_color_sed Color via sed (ANSI VT100)
 
 ## SPECIALTY
 
+snippet gnu_coreutils GNU coreutils
+	if [[ $(uname) == "Darwin" ]]; then
+		# put GNU version of coreutils first in the path for simi-cross platform compatibility
+		export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH
+	fi
+
 snippet read_continue Press any key to continue...
 	read -s -n 1 -p "Press any key to continue..."
 
