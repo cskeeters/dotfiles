@@ -3,14 +3,16 @@ tw_task() {
     shift
 
     CONTEXT=$(task _get rc.context)
-    READ=$(task _get rc.context)
-    FILTER=$(task _get rc.context.$READ.read)
+    CONTEXT_READ_FILTER=""
+    if [[ $CONTEXT != "" ]]; then
+        CONTEXT_READ_FILTER="( $(task _get rc.context.$CONTEXT.read) )"
+    fi
 
     # jq will output
     # * numerical date for sort -n
     # * uuid for selection
     # * string with ansi color coding to search on with fzf
-    task '(' $FILTER ') '$* export | \
+    task $CONTEXT_READ_FILTER $* export | \
         jq -r '.[] |
             (if .tags == null then "" else .tags | map("+"+.) | join(" ") end) as $tags |
             ( .entry |
@@ -25,14 +27,16 @@ tw_task_due() {
     shift
 
     CONTEXT=$(task _get rc.context)
-    READ=$(task _get rc.context)
-    FILTER=$(task _get rc.context.$READ.read)
+    CONTEXT_READ_FILTER=""
+    if [[ $CONTEXT != "" ]]; then
+        CONTEXT_READ_FILTER="( $(task _get rc.context.$CONTEXT.read) )"
+    fi
 
     # jq will output
     # * numerical date for sort -n
     # * uuid for selection
     # * string with ansi color coding to search on with fzf
-    task '(' $FILTER ')' $* export | \
+    task $CONTEXT_READ_FILTER $* export | \
         jq -r '.[] |
             select(.due) |
             (if .tags == null then "" else .tags | map("+"+.) | join(" ") end) as $tags |
