@@ -71,7 +71,7 @@ runsnippet() {
 
     for ((i=1;i<10;i++)); do
         if echo $SNIPPET | egrep '\$\{'"$i"'.*\}' > /dev/null; then
-            DEFAULT=$(echo $SNIPPET | sed -nre 's/.*\$\{'"$i"':([^}]*)\}.*/\1/p') || {
+            DEFAULT=$(echo $SNIPPET | $GSED -nre 's/.*\$\{'"$i"':([^}]*)\}.*/\1/p') || {
                 echo "Error extracting default"
                 return
             }
@@ -141,7 +141,7 @@ runsnippet() {
                 # can access (and manipuliate) provided values
                 # echo "DEBUG: SETTING VALUES[$i]=$VALUE"
                 VALUES[$i]=$VALUE
-                CMD=$(echo "$CMD" | sed -re 's;\$\{'"$i"'[^}]*\};'"$VALUE"';g') || {
+                CMD=$(echo "$CMD" | $GSED -re 's;\$\{'"$i"'[^}]*\};'"$VALUE"';g') || {
                     echo "Error using supplied value in CMD"
                     return
                 }
@@ -158,7 +158,7 @@ runsnippet() {
 select_run_snippet() {
     if command -v fzf_sort > /dev/null; then
         # Keep track of recently used commands
-        KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
+        KEY=$(cat $HOME/.config/cmd/*.snippets | $GSED -n 's/^snippet //p' | \
             fzf_sort --path ~/.local/log/cmdsnip --accept-nth 1 | \
             $GSED -re $'s/^([^[:space:]]*)[[:space:]]([^:]*)/\\1 \033[35m\\2\033[0m/' | \
             fzf --ansi -d ' ' --accept-nth 1 --with-nth 2.. \
@@ -168,7 +168,7 @@ select_run_snippet() {
             fzf_sort --path ~/.local/log/cmdsnip --log
         )
     else
-        KEY=$(cat $HOME/.config/cmd/*.snippets | sed -n 's/^snippet //p' | \
+        KEY=$(cat $HOME/.config/cmd/*.snippets | $GSED -n 's/^snippet //p' | \
             fzf -d ' ' --with-nth 2.. --bind 'enter:become(echo {1})' \
                 --preview-window='top,10%' \
                 --preview 'snippreview {}'
