@@ -1,5 +1,5 @@
 snippet taskwarrior_add task: Add with Due Date
-	task add due:${1:tw_date(DUE)}+17h
+	task add due:${1:tw_date()}+17h
 
 snippet taskwarrior_search task: Search Tasks
 	task ${1:tw_task(TASK status:pending)} next
@@ -14,7 +14,7 @@ snippet taskwarrior_search_all task: Search All Tasks
 	task ${1:tw_task(TASK)} all
 
 snippet taskwarrior_mod task: Modify Due Date
-	task ${1:tw_task_due(TASK status:pending)} mod due:${2:tw_date(DUE)}+17h
+	task ${1:tw_task_due(TASK status:pending)} mod due:${2:tw_date(1)}+17h
 
 snippet taskwarrior_edit_any task: Modify Any Task
 	task ${1:tw_task(TASK)} mod
