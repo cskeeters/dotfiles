@@ -53,6 +53,6 @@ tw_date() {
 }
 
 tw_context() {
-    ( echo none; cat ~/.config/task/taskrc | sed -nre 's/^context\.([^\.]+).*/\1/p' | sort | uniq ) | \
+    ( echo none; cat ~/.config/task/taskrc | $GSED -nre 's/^context\.([^\.]+).*/\1/p' | sort | uniq ) | \
         fzf --prompt "CONTEXT> "
 }
