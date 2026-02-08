@@ -5,6 +5,7 @@ set -o pipefail
 # export so snippets can use this
 export GSED=sed
 export BAT=cat
+export GDATE=date
 
 # On macOS we need to use gsed
 if command -v gsed &> /dev/null; then
@@ -17,6 +18,10 @@ if command -v bat &> /dev/null; then
 fi
 if command -v batcat &> /dev/null; then
     export BAT=batcat
+fi
+
+if command -v gdate &> /dev/null; then
+    export GDATE=gdate
 fi
 
 getsnippet() {
