@@ -48,7 +48,17 @@ tw_task_due() {
 }
 
 tw_date() {
-    /usr/local/bin/date_picker
+    if [[ "$1" != "" ]]; then
+        # GNU Date can only parse ISO 8601 extended (2026-02-08T23:00:00Z)
+        # task export     exports ISO 8601 basic    (20260208T230000Z)
+        BASIC=$(task uuid:${VALUES[1]} export | jq -r '.[0].due')
+        EXTENDED=$(echo "$BASIC" | $GSED -nre 's/^(....)(..)(..)T(..)(..)(..)Z/\1-\2-\3T\4:\5:\6Z/p')
+        DAY=$($GDATE -d "$EXTENDED" +'%Y-%m-%d')
+
+        /usr/local/bin/date_picker "$DAY"
+    else
+        /usr/local/bin/date_picker
+    fi
     # date
 }
 
