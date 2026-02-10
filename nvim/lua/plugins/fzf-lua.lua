@@ -417,7 +417,7 @@ return {
     vim.keymap.set('n', '<Leader>d', ChangeProject, { desc="Change Project/Directory" })
 
     vim.keymap.set('n', '<localleader>p', SetDefaultPrinter, { desc="Set Default Printer" })
-    vim.keymap.set('n', '<localleader>K', InsertContact, { desc="Insert Contact" })
+    vim.keymap.set('n', '<localleader>K', InsertContact, { desc="Insert Contact (khard)" })
 
     vim.keymap.set('n', '<localleader><localleader>lsp_stop', StopLSP, { desc="Stop LSP" })
     vim.keymap.set('n', '<localleader><localleader>lsp_start', StartLSP, { desc="Start LSP" })

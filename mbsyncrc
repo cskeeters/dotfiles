@@ -37,11 +37,10 @@ Channel yahoo
     # Sync all folders
     Patterns * !.*
     # Automatically create local folders if they exist on the server
-    Create Near
     # Automatically delete local copies if deleted on the server
     Sync All
-    Expunge Near
-    Expunge Far
+    Create Both
+    Expunge Both
     # Store sync state in a file to make subsequent syncs faster
     SyncState *
 
