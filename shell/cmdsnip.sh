@@ -163,7 +163,7 @@ select_run_snippet() {
             $GSED -re $'s/^([^[:space:]]*)[[:space:]]([^:]*)/\\1 \033[35m\\2\033[0m/' | \
             fzf --ansi -d ' ' --accept-nth 1 --with-nth 2.. \
                 --bind 'change:pos(1)' \
-                --preview-window='top,10%' \
+                --preview-window='top,10%,border-bottom' \
                 --preview 'snippreview {1}' | \
             fzf_sort --path ~/.local/log/cmdsnip --log
         )
