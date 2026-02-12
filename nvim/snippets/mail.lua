@@ -11,23 +11,53 @@ local conditions = require("luasnip.extras.conditions")
 
 function rcc()
     return fmt([=[```{{=html}}
-<div style="font-family: system-ui, sans-serif; font-size: 9pt;">
-    <span style="font-size:11pt">
-        <span style="letter-spacing: .3pt"><b>Chad Skeeters</b></span><br>
-        BCS-T Program Manager<br>
-        Phone: 210.538.4779<br>
-    </span>
-    <span style="font-size:11pt;color:#C00000; letter-spacing: .3pt">
-        <b>Red Cedar Consultancy, LLC</b><br>
-    </span>
-    <span style="color:#595959; font-size:11pt">
-        <b>SBA Certified 8(a) and HUBZone Small Business</b><br>
-    </span>
-    <span style="color:#595959; font-family: Roboto Condensed">
-        NITAAC CIO-SP3 SB, Air Force SBEAS, SEC OneIT, SeaPort-NxG, SBA Microsoft BPA, GSA MAS<br>
-        CMMI Level 3 (DEV & SVC), ISO 9001, 20000, and 27001 Certified<br>
-        <span style="font-size:9pt; color:#C00000">11835 IH 10 West Suite 301, San Antonio, TX 78230</span>
-    </span>
+<div style="font-family: Arial, sans-serif; color:#595959; line-height: 1.1em; letter-spacing: 0.2pt;">
+
+    <div style="font-size: 11pt">
+
+        <div style="font-weight:700; margin: 0">
+            Chad Skeeters
+        </div>
+        <div style="margin: 0">
+            BCS-T Program Manager
+        </div>
+        <div style="margin: 0">
+            (210) 538-4779
+        </div>
+        <div style="color: #C00000; font-weight:700; margin: 0">
+            Red Cedar Consultancy, LLC
+        </div>
+        <div style="font-family: Arial, sans-serif; line-height: 1.1em; font-size:9pt; color:#C00000; margin: 0">
+            8201 Greensboro Dr, Suite 500, McLean, VA 22102
+            <!-- 11835 IH 10 West Suite 301, San Antonio, TX 78230 -->
+        </div>
+        <div style="font-weight: bold; margin: 0">
+            <b>SBA Certified 8(a) and HUBZone Small Business</b>
+        </div>
+    </div>
+    <div style="font-size: 9pt; font-family: Arial Narrow, sans-serif; line-height: 1.1em;">
+        <div style="margin: 0">
+            NITAAC CIO-SP3 <span style="color:#C00000">|</span>
+            GSA MAS <span style="color:#C00000">|</span>
+            Air Force SBEAS <span style="color:#C00000">|</span>
+            OASIS+ <span style="color:#C00000">|</span>
+            POLARIS <span style="color:#C00000">|</span>
+            JETS 2.0 <span style="color:#C00000">|</span>
+            SEC OneIT <span style="color:#C00000">|</span>
+            MDA SHIELD
+        </div>
+        <div style="margin:0">
+            ISO 9001:2015     <span style="color:#C00000">|</span>
+                20000-1:2018  <span style="color:#C00000">|</span>
+                27001:2022
+        </div>
+        <div style="margin:0">
+            CMMI DEV/3 <span style="color:#C00000">|</span> SVC/3
+        </div>
+        <div style="margin:0">
+            SALED AGILE PARTNER - SILVER
+        </div>
+    </div>
 </div>
 ```]=],
         {},
