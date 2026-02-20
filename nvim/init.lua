@@ -130,7 +130,7 @@ vim.opt.smartcase = true             -- Override ignorecase if search contains c
 ---- Whitespace
 vim.opt.expandtab = true             -- Use spaces instead of tabs
 vim.opt.shiftwidth = 4               -- Size of an indent
-vim.opt.softtabstop = 4              -- Number of spaces tabs count for in insert mode
+vim.opt.softtabstop = 0              -- If Tab/Backspace should input N spaces where N != tabstop, set this (LEAVE 0 IF UNSURE)
 vim.opt.tabstop = 4                  -- Number of spaces tabs count for
 vim.opt.shiftround = true            -- >> and << will round to the nearest shiftwidth
 vim.opt.smarttab = true              -- Make shiftwidth affect spaces added when tabs are typed
