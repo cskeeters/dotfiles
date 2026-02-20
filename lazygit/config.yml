@@ -9,6 +9,10 @@ os:
   editAtLine: "nvim +{{line}} {{filename}}"
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
 
+git:
+  # autoFetch: false
+  fetchAll: false
+
 gui:
   mouseEvents: false
 
