@@ -1,0 +1,4 @@
+snippet man_search man: Search
+	man ${1:PAGE:bash} | col -b | grep --color=always -B 10 -A 30 '${2:SEARCH:string...}' | less
+snippet man_section man: Chapter
+	man ${1:PAGE:bash} | col -b | sed -n '/^${2:man_sections()}/,$p' | less
