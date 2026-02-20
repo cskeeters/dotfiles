@@ -14,5 +14,6 @@ link cmd/luarocks.snippets                  .config/cmd
 link cmd/mediainfo.snippets                 .config/cmd
 link cmd/net.snippets                       .config/cmd
 link cmd/npm.snippets                       .config/cmd
+link cmd/soulver.snippets                   .config/cmd
 link cmd/timemachine.snippets               .config/cmd
 link cmd/timemachine.sh                     .config/cmd
