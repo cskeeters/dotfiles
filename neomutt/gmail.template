@@ -1,6 +1,7 @@
 # vim: filetype=neomuttrc
 
 # This file has all of the common settings for GMail Accounts.
+# Do not apply +archive
 
 ## SETTINGS
 
@@ -40,7 +41,7 @@ mailboxes +mail
 set mask = "!^\\.[^.]"
 
 # This tells neomutt what vfolder to start with
-set spool_file = "notmuch://?query=tag:inbox&type=threads"    # Renamed from spoolfile
+set spool_file = "notmuch://?query=tag:inbox"    # Renamed from spoolfile
 # set spool_file = "+Inbox"
 # set postponed = "+Draft"
 # set record    = "+Sent"
@@ -51,7 +52,7 @@ set spool_file = "notmuch://?query=tag:inbox&type=threads"    # Renamed from spo
 
 # Tell neomutt where the notmuch DB is for this account
 # set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
-set nm_exclude_tags = "trash"
+set nm_exclude_tags = "spam,trash"
 
 
 ### SMTP
@@ -71,12 +72,15 @@ set sendmail = "env NOTMUCH_PROFILE=$nm_config_profile gmi send -t -C $folder"
 ### Navigate
 
 macro index,pager gi "<change-folder>!<enter>" "Go Inbox (notmuch)"
-macro index,pager gp "<change-folder>notmuch://?query=tag:important&type=threads<enter>" "Go Important (notmuch)"
-macro index,pager gr "<change-folder>notmuch://?query=tag:archive&type=threads<enter>" "Go Archive (notmuch)"
-macro index,pager ga "<change-folder>notmuch://?query=not tag:spam and not tag:trash&type=threads<enter>" "Go All (notmuch)"
+macro index,pager gp "<change-folder>notmuch://?query=tag:important<enter>" "Go Important (notmuch)"
+macro index,pager ga "<change-folder>notmuch://?query=*<enter>" "Go All (notmuch)"
 macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent (notmuch)"
 macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
 macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
+
+macro index,pager gI "<change-folder>notmuch://?query=tag:inbox&type=threads<enter>" "Go Inbox (notmuch)"
+macro index,pager gA "<change-folder>notmuch://?query=*&type=threads<enter>" "Go Archive (notmuch)"
+macro index,pager gR "<change-folder>notmuch://?query=tag:trash&type=threads<enter>" "Go All (notmuch)"
 
 # Map '/' to Notmuch Global Search
 bind index / vfolder-from-query
@@ -90,15 +94,16 @@ bind index / vfolder-from-query
 #<next-entry>
 macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><next-entry>" "Mark as Spam"
 macro index,pager I "<modify-labels-then-hide>-spam -archive -trash +inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
-macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><enter><next-entry>" "Archive"
+macro index,pager E "<modify-labels-then-hide>-inbox<enter><enter><next-entry>" "Archive"
 macro index,pager D "<modify-labels-then-hide>-inbox +trash<enter><next-entry>" "Trash" # Don't have to remove all tags, just inbox
 
 bind index,pager "d" noop # Do no allow delete
 bind index,pager "u" noop # Do no allow undelete
 
+# Commands that operate on multiple messages use , leader and refresh the view
 macro index,pager ,! "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +spam<enter><change-folder>^<enter>" "Mark as Spam"
 macro index,pager ,I "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -spam -archive -trash +inbox<enter><change-folder>^<enter>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
-macro index,pager ,E "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t +archive -inbox<enter><enter><change-folder>^<enter>" "Archive"
+macro index,pager ,E "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox<enter><enter><change-folder>^<enter>" "Archive"
 macro index,pager ,D "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +trash<enter><change-folder>^<enter>" "Trash"
 
 # Reenable next fro these commands

@@ -1,18 +1,9 @@
 # vim: filetype=neomuttrc
-#
-# YAHOO
-#
-# Starred messages have ! flag, not important tag
-# mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
-# * Mail should be "deleted" by moving the message to +Trash.
-#   Yahoo will delete mail in this folder after some time.
 
-# NOTES
-#
-# * Inbox is a Maildir
-#   * TAGS DO NOT SHOW IN INDEX (neomutt limitation)
-# * You CAN search with notmuch
-# * In this setup, the notmuch tags are NOT synced back to Yahoo.
+# OUTLOOK
+# * Mail should be "deleted" by moving the message to =Deleted.  Yahoo will delete mail in this folder after some time.
+# * In this setup, the notmuch tags are NOT synced back to yahoo.
+# * Outlook has a Maildir for Junk instead of Bulk
 
 ## SETTINGS
 
@@ -47,7 +38,7 @@ set use_envelope_from
 # set envelope_from_address = "goobsoft@yahoo.com"  # If unset, it will use the address specified in the From: header.
 
 unmailboxes *    # Clear mailboxes from other.  These are watched by neomutt
-# mailboxes +Inbox +Sent +Draft +Bulk +Archive +Trash
+# mailboxes +Inbox +Sent +Outbox +Drafts +Junk +Archive +Deleted
 # Dynamically find local Maildirs
 setenv FOLDER "$folder"
 mailboxes `/opt/homebrew/bin/gfind "$FOLDER" -maxdepth 2 -type d -name "cur" -printf '"%h" '`
@@ -57,9 +48,9 @@ set mask = "!^\\.[^.]"
 
 # This tells neomutt what vfolder to start with
 set spool_file = "notmuch://?query=folder:Inbox"    # Renamed from spoolfile
-set postponed = "+Draft" # tell neomutt where to save drafts
+set postponed = "+Drafts"
 # set record    = "+Sent"
-set trash     = "+Trash" # tell neomutt to put deleted mail here.  yahoo will delete
+set trash     = "+Deleted" # With trash set, d will save the message to the trash
 
 
 ### Notmuch
@@ -73,9 +64,9 @@ set nm_exclude_tags = "" # Should be empty so we see all mail in the Maildir "sp
 
 ### SMTP
 
-set smtp_url = "smtps://smtp.mail.yahoo.com:465/"
-set smtp_authenticators = "login" # Doesn't work on macOS without this set to login (??)
-source "~/.mutt_${my_account_name}_cred" # Keep credentials outside dotfiles
+#465 for TLS
+#587 for STARTTLS (starts clear)
+set smtp_url = "smtp://smtp.office365.com:587/"
 
 unset sendmail
 
@@ -88,8 +79,8 @@ macro index,pager gi "<change-folder>!<enter>" "Go Inbox (notmuch)"
 macro index,pager ga "<change-folder>notmuch://?query=folder:Archive<enter>" "Go Archive (notmuch)"
 macro index,pager gr "<change-folder>notmuch://?query=not tag:spam and not tag:trash<enter>" "Go All (notmuch)"
 macro index,pager gt "<change-folder>notmuch://?query=folder:Sent<enter>" "Go Sent (notmuch)"
-macro index,pager g! "<change-folder>notmuch://?query=folder:Bulk<enter>" "Go Starred (notmuch)"
-macro index,pager gd "<change-folder>notmuch://?query=folder:Trash<enter>" "Go Trash"
+macro index,pager gp "<change-folder>notmuch://?query=folder:Junk<enter>" "Go SPAM (notmuch Junk)"
+macro index,pager gd "<change-folder>notmuch://?query=folder:Deleted<enter>" "Go Trash"
 
 macro index,pager gI "<change-folder>notmuch://?query=folder:Inbox&type=threads<enter>" "Go Inbox (notmuch)"
 macro index,pager gA "<change-folder>notmuch://?query=folder:Archive&type=threads<enter>" "Go Archive (notmuch)"
@@ -102,18 +93,14 @@ bind index / vfolder-from-query
 
 ### Process
 
-macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Bulk<enter><next-entry>" "Mark as Spam"
+macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Junk<enter><next-entry>" "Mark as Spam"
 macro index,pager I "<modify-labels-then-hide>-trash -spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><save-message>+Archive<enter><next-entry>" "Archive"
-macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Trash<enter><purge-message><next-entry>" "Trash"
+macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Deleted<enter><purge-message><next-entry>" "Trash"
 bind index "X" noop # Unbind the default first
 macro index,pager X "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-rm<enter><refresh>" "Remove from MailDir(s) with FZF"
 
-macro index,pager ,! "<tag-prefix><modify-labels-then-hide>-inbox +spam<enter><tag-prefix><save-message>+Bulk<enter>" "Mark as Spam"
-macro index,pager ,I "<tag-prefix><modify-labels-then-hide>-trash -spam -archive +inbox<enter><tag-prefix><save-message>+Inbox<enter>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
-macro index,pager ,E "<tag-prefix><modify-labels-then-hide>+archive -inbox<enter><tag-prefix><save-message>+Archive<enter>" "Archive"
-macro index,pager ,D "<tag-prefix><modify-labels-then-hide>-inbox -spam -archive +trash<enter><tag-prefix><save-message>+Trash<enter><purge-message>" "Trash"
-
+# Reenable next fro these commands
 macro index,pager t "<tag-entry><next-entry>"    "Tag Entry"
 macro index,pager N "<mark-as-new><next-entry>"    "Toggle New (read/unread)"
 
@@ -130,5 +117,5 @@ macro index,pager M "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notm
 
 # Get mailboxes with `mbsync -ls`
 macro index,pager ,s "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail $my_account_name INBOX Sent &<enter>" "Sync and Update Notmuch"
-macro index,pager ,S "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail $my_account_name INBOX Sent Trash Draft Bulk Archive &<enter>" "Full Sync and Update Notmuch"
+macro index,pager ,S "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail $my_account_name INBOX Sent Deleted Drafts Junk Archive &<enter>" "Full Sync and Update Notmuch"
 macro index,pager ,n "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile sync-mail $my_account_name &<enter>" "notmuch new"

@@ -17,7 +17,7 @@ set my_account_name = "yahoo" # for status_format
 ### Maildir
 
 # Setup for `y` Navigation
-set folder = "~/.mail/yahoo"
+set folder = "/Users/chad/.mail/yahoo"
 
 ### Notmuch
 

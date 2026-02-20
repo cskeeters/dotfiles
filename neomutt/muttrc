@@ -4,3 +4,5 @@ source ~/.config/neomutt/mappings
 
 # Requires launching with `ACCT=foo neomutt`
 source ~/.config/neomutt/accounts/$ACCT
+
+macro index,pager ,s ":source ~/.config/neomutt/muttrc\n" "Source .neomuttrc"

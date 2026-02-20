@@ -1,0 +1,27 @@
+# vim: filetype=neomuttrc
+
+## SETTINGS
+
+
+### User
+
+set real_name = "Chad Skeeters"
+# set signature = "~/.signature-yahoo"
+set signature = ""
+
+set from = "cskeeters.karta@gmail.com"
+
+set my_account_name = "gmail-karta" # for status_format
+
+### Maildir
+
+# Setup for `y` Navigation
+set folder = "~/.mail/gmail.karta"
+
+### Notmuch
+
+# Tell neomutt where the notmuch DB is for this account
+# set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
+set nm_config_profile = "gmail.karta"
+
+source ~/.config/neomutt/gmail.template
