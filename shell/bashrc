@@ -171,4 +171,23 @@ if exists neomutt; then
     alias m='ACCT="yahoo" neomutt'
 fi
 
+#### Override edit-and-execute-command
+
+# Custom function to edit command and return it to the prompt
+_edit_and_return_command() {
+    local tmpfile=$(mktemp /tmp/bash_edit.XXXXXX)
+    # Fill the temp file with the current line
+    echo "$READLINE_LINE" > "$tmpfile"
+    # Open editor
+    ${EDITOR:-vim} "$tmpfile"
+    # Read the file back into the readline buffer
+    READLINE_LINE=$(cat "$tmpfile")
+    # Move cursor to the end
+    READLINE_POINT=${#READLINE_LINE}
+    rm "$tmpfile"
+}
+
+# Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
+bind -x '"\C-x\C-e": _edit_and_return_command'
+
 # vim:ft=sh
