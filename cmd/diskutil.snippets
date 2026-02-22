@@ -4,11 +4,17 @@ snippet diskutil_list diskutil: List Drives (lsblk)
 snippet diskutil_repair diskutil: Repair Volume (fsck)
 	diskutil repairVolume /dev/disk${1:diskutil_disknum_by_parition_name()}
 
-snippet diskutil_unmount diskutil: Unmount a Volume (umount)
+snippet diskutil_unmount diskutil: Unmount a Disk (umount)
 	diskutil unmountDisk /dev/disk${1:diskutil_disknum_by_parition_name()}
+
+snippet diskutil_umount_volume diskutil: Umount Webdav Volume
+	diskutil umount ${1:diskutil_mounted_webdav_volume()}
 
 snippet diskutil_eject diskutil: Eject (after unmounting)
 	diskutil eject /dev/disk${1:diskutil_disknum_by_parition_name()}
 
 snippet diskutil_dd dd: Write Image to disk
 	sudo time dd bs=4M if=${1:fd_files(IN)} of=/dev/rdisk${2:diskutil_disknum_by_parition_name()}
+
+snippet mount_webdav mount: Mount Webdav Volume
+	osascript -e ' mount volume "${1:diskutil_webdav_volume()}" '
