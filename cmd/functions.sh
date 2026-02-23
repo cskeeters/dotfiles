@@ -1,3 +1,52 @@
+## UI Output
+
+cmd_show() {
+    if [[ -t 2 && $# -gt 1 ]]; then
+        # Coloring is ok
+        printf -- "\x1b[$2m$1\x1b[m\n" >&2
+    else
+        printf -- "$1\n" >&2
+    fi
+}
+
+cmd_fatal() {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 1 ]]; then
+        cmd_show "FATAL: $1" 31; # 31 is red
+    fi
+}
+cmd_error() {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 2 ]]; then
+        cmd_show "ERROR: $1" 31; # 31 is red
+    fi
+}
+cmd_warn()  {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 3 ]]; then
+        cmd_show "WARN: $1" 33; # 33 is yellow
+    fi
+}
+cmd_info()  {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 4 ]]; then
+        cmd_show "INFO: $1" 34; # 34 is blue
+    fi
+}
+cmd_debug() {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 5 ]]; then
+        cmd_show "DEBUG: $1" 35;
+    fi
+}
+cmd_trace() {
+    if [[ $CMDSNIP_LOG_LEVEL -ge 6 ]]; then
+        cmd_show "TRACE: $1" 36;
+    fi
+}
+# Outputs the first parameter and terminates with exit 1
+cmd_die() {
+    fatal "$1"
+    exit 1
+}
+
+
+
 ## CMD Utilities
 
 cmd_remove_ext() {
@@ -36,18 +85,17 @@ cmd_choose() {
 # $2 - Pattern (Glob)
 # $3 - Path(s)
 find_files() {
-    NAME_FILTER=""
-    if [[ "$2" != "" ]]; then
-        NAME_FILTER="-name \"$2\""
-    fi
-
     LOCATIONS="."
     if [[ "$3" != "" ]]; then
         LOCATIONS=$3
     fi
 
-    # No quotes around $NAME_FILTER or LOCATIONS so they can be multiple arguments to find
-    find $LOCATIONS -type f $NAME_FILTER | fzf -1 --height="90%" --prompt "$1> "
+    # No quotes around LOCATIONS so there can be multiple arguments to find
+    if [[ $2 != "" ]]; then
+        find $LOCATIONS -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
+    else
+        find $LOCATIONS -type f | fzf -1 --height="90%" --prompt "$1> "
+    fi
 }
 
 # $1 - Prompt
@@ -58,7 +106,7 @@ find_dir() {
         LOCATIONS=$2
     fi
 
-    # No quotes around LOCATIONS so they can be multiple arguments to find
+    # No quotes around LOCATIONS so there can be multiple arguments to find
     find $LOCATIONS -type d | fzf -1 --height="90%" --prompt "$1> "
 }
 
@@ -67,18 +115,17 @@ find_dir() {
 # $2 - Pattern (Glob)
 # $3 - Path(s)
 find_files_shallow() {
-    NAME_FILTER=""
-    if [[ "$2" != "" ]]; then
-        NAME_FILTER="-name \"$2\""
-    fi
-
     LOCATIONS="."
     if [[ "$3" != "" ]]; then
         LOCATIONS=$3
     fi
 
-    # No quotes around $NAME_FILTER or LOCATIONS so they can be multiple arguments to find
-    find $LOCATIONS -depth 1 -type f $NAME_FILTER | fzf -1 --height="90%" --prompt "$1> "
+    # No quotes around LOCATIONS so there can be multiple arguments to find
+    if [[ $2 != "" ]]; then
+        gfind -H -L $LOCATIONS -maxdepth 1 -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
+    else
+        gfind -H -L $LOCATIONS -maxdepth 1 -type f | fzf -1 --height="90%" --prompt "$1> "
+    fi
 }
 
 # $1 - Prompt
@@ -89,7 +136,7 @@ find_dir_shallow() {
         LOCATIONS=$2
     fi
 
-    # No quotes around LOCATIONS so they can be multiple arguments to find
+    # No quotes around LOCATIONS so there can be multiple arguments to find
     find $LOCATIONS -depth 1 -type d | fzf -1 --height="90%" --prompt "$1> "
 }
 
@@ -99,7 +146,7 @@ find_dir_shallow() {
 fd_files() {
     LOCATIONS=$3
 
-    # No quotes around LOCATIONS so it can be multiple arguments to fd
+    # No quotes around LOCATIONS so there can be multiple arguments to fd
     fd "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
 }
 
@@ -110,8 +157,17 @@ fd_files_shallow() {
     # Fine for this to be empty
     LOCATIONS=$3
 
-    # No quotes around LOCATIONS so it can be multiple arguments to fd
-    fd -d 1 "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
+    FILTER=""
+    if [[ "$2" != "" ]]; then
+        FILTER="--glob \"$2\""
+    fi
+
+    # No quotes around LOCATIONS so there can be multiple arguments to fd
+    if [[ "$2" != "" ]]; then
+        fd -d 1 "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
+    else
+        fd -d 1 $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
+    fi
 }
 
 ## POSIX Utilities

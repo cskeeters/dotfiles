@@ -113,6 +113,7 @@ if [[ -t 1 ]]; then
     # cmdsnip requires fzf
     if exists fzf; then
         if [[ -f ~/.cmdsnip.sh ]]; then
+            export CMDSNIP_LOG_LEVEL=6
             source ~/.cmdsnip.sh
         fi
     fi
