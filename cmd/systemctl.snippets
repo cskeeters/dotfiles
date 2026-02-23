@@ -1,0 +1,20 @@
+snippet systemctl_daemon_reload systemctl: Daemon Reload
+	systemctl daemon-reload
+
+snippet systemctl_status systemctl: Status
+	systemctl status ${1:systemctl_unit()}
+
+snippet systemctl_stop systemctl: Stop
+	systemctl stop ${1:systemctl_unit()}
+
+snippet systemctl_start systemctl: Start
+	systemctl start ${1:systemctl_unit()}
+
+snippet systemctl_restart systemctl: Restart
+	systemctl restart ${1:systemctl_unit()}
+
+snippet journalctl_tail journalctl: Tail
+	journalctl -eu ${1:systemctl_unit()}
+
+snippet journalctl_follow journalctl: Follow
+	journalctl -fu ${1:systemctl_unit()}
