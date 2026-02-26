@@ -136,4 +136,4 @@ macro index,pager ,l "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile ~/bin/not
 ### Sync
 
 # Get mailboxes with `mbsync -ls`
-macro index,pager gu "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile gmi sync -C $folder<enter>" "Sync and Update Notmuch"
+macro index,pager ,s "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile gmi sync -C $folder<enter>" "Sync and Update Notmuch"
