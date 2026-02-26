@@ -23,3 +23,5 @@ set folder = "~/.mail/gmail.work"
 # Tell neomutt where the notmuch DB is for this account
 # set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
 set nm_config_profile = "gmail.work"
+
+source ~/.config/neomutt/gmail.template
