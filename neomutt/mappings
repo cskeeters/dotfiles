@@ -4,7 +4,11 @@
 
 bind index,pager g noop       # Disable to support gg, gi, etc
 # bind index,pager <Space> noop # overrides collapse-thread
-bind index,pager , noop
+# bind index,pager , noop
+
+### Globals
+
+macro index,pager ,r ":source ~/.config/neomutt/muttrc\n" "Source .neomuttrc"
 
 ## ACCOUNTS
 
