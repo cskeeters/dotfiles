@@ -44,11 +44,11 @@ if vim.fn.has("patch-7.4-353") == 0 then
 end
 
 -- Atx style Headers (I don't really need these)
-vim.keymap.set('n', '<LocalLeader>1', [[I= <Esc>$F#xd0i=<Esc>0]], { buffer=true, desc='# Heading 1' })
-vim.keymap.set('n', '<LocalLeader>2', [[I= <Esc>$F#xd0i==<Esc>0]], { buffer=true, desc='## Heading 2' })
-vim.keymap.set('n', '<LocalLeader>3', [[I= <Esc>$F#xd0i===<Esc>0]], { buffer=true, desc='### Heading 3' })
-vim.keymap.set('n', '<LocalLeader>4', [[I= <Esc>$F#xd0i====<Esc>0]], { buffer=true, desc='#### Heading 4' })
-vim.keymap.set('n', '<LocalLeader>5', [[I= <Esc>$F#xd0i=====<Esc>0]], { buffer=true, desc='##### Heading 5' })
+vim.keymap.set('n', '<LocalLeader>1', [[I= <Esc>$F=xd0i=<Esc>0]], { buffer=true, desc='# Heading 1' })
+vim.keymap.set('n', '<LocalLeader>2', [[I= <Esc>$F=xd0i==<Esc>0]], { buffer=true, desc='## Heading 2' })
+vim.keymap.set('n', '<LocalLeader>3', [[I= <Esc>$F=xd0i===<Esc>0]], { buffer=true, desc='### Heading 3' })
+vim.keymap.set('n', '<LocalLeader>4', [[I= <Esc>$F=xd0i====<Esc>0]], { buffer=true, desc='#### Heading 4' })
+vim.keymap.set('n', '<LocalLeader>5', [[I= <Esc>$F=xd0i=====<Esc>0]], { buffer=true, desc='##### Heading 5' })
 
 -- Text styling Bold Italic Fixed-width
 -- Note: "_yiw moves cursor to the beginning of the word affecting any registers.  B doen't work when cursor is already on the first character
