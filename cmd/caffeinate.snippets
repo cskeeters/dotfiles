@@ -1,0 +1,17 @@
+snippet caffeinate_display caffeinate: Prevent the Display from Sleeping
+	caffeinate -d
+
+snippet caffeinate_timeout caffeinate: Simulate User input (will wake)
+	caffeinate -u
+
+snippet caffeinate_timeout caffeinate: Simulate User input (will wake) for N Seconds
+	caffeinate -u -t ${1:3600}
+
+snippet caffeinate_do caffeinate: Run and Prevent Sleep
+	caffeinate -i ${1:make}
+
+snippet caffeinate_until caffeinate: Prevent sleep until Process with PID completes
+	caffeinate -w ${1:caffeinate_PID()}
+
+snippet caffeinate_disk caffeinate: Prevent the disk from sleeping until SIGINT
+	caffeinate -m

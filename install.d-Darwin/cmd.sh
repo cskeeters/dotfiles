@@ -1,6 +1,8 @@
 link cmd/apple_container.snippets           .config/cmd
 link cmd/apple_container.sh                 .config/cmd
 link cmd/brew.snippets                      .config/cmd
+link cmd/caffeinate.snippets                .config/cmd
+link cmd/caffeinate.sh                      .config/cmd
 link cmd/checksum.snippets                  .config/cmd
 link cmd/chflags.snippets                   .config/cmd
 link cmd/diskutil.snippets                  .config/cmd
