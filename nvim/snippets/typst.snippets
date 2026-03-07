@@ -287,9 +287,13 @@ snippet quote
 	]
 snippet link
 	#link("${1:http://www.google.com}")[${2:Google}]
-snippet link_cross_reference Cross reference (link)
-	#link(<Introduction>)
-	#link(<Introduction>)[Introduction]
+snippet link_cross_reference Cross reference (#ref)
+	see #ref(<intro>, form: "page", supplement: "Page")
+	= Introduction <intro>
+snippet link_cross_reference_link Cross reference (link)
+	#link(<intro>)
+	#link(<intro>)[Introduction]
+	= Introduction <intro>
 snippet columns
 	#set page(columns: 2, height: 150pt)
 snippet acronym
@@ -434,10 +438,10 @@ snippet soft-hyphen Soft Hyphen (Tell where to break)
 snippet zero-width-space Zero Width Space
 	#sym.zws;
 snippet format_enum Format Enumerated (Bulleted) Lists
-	#import "@local/format-enum:0.2.0": *
+	#import "@local/format-enum:0.3.0": *
 	#show: format_enum_diamonds
-	// #show: format_enum_word
-	// #show: format_enum_unicode
+	// #show: format_enum_word.with(body-indent: 1.5em)
+	// #show: format_enum_unicode.with(indent: 1em)
 snippet heading Heading Styling
 	#import "@local/format-headings:0.1.0": *
 
@@ -611,3 +615,9 @@ snippet pan_crop Pan and Crop Image
 		inset: (top:-0mm, left:-0pt), // adjust top/left and height for zoom/pan
 		image("img.jpg", height: 100%)
 	),
+snippet for_range For Range
+	for i in range(0, 255) {
+		par[#i: ]
+	}
+snippet unicode from-unicode (char)
+	#text(font: "Symbol", " "+str.from-unicode(i))
