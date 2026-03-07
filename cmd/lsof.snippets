@@ -1,0 +1,24 @@
+snippet lsof_files lsof: Find processes that have a given File open
+	lsof ${1:PATH:/var/log/messages:}
+
+snippet lsof_rdir lsof: List open files in a Directory
+	lsof +d ${1:PATH}
+
+snippet lsof_rdir lsof: List open files in or below a Directory
+	lsof +D ${1:PATH}
+
+snippet lsof_files_mount lsof: Find processes keeping a Device from unmounting
+	lsof +f -- ${1:cmd_mount_paths()}
+
+snippet lsof_port lsof: Find the process with open Port
+	lsof -i :${1:PORT:80}
+
+snippet lsof_files_user lsof: Files Open by User
+	lsof -u ${1:cmd_usernames()}
+
+snippet lsof_cmd lsof: Files opened by command
+	lsof -c ${1:CMD:tail}
+
+snippet lsof_process lsof: List files opened by PID
+	lsof -p ${1:select_pid()}
+

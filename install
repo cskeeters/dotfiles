@@ -245,6 +245,7 @@ link cmd/go.snippets                        .config/cmd
 link cmd/khard.snippets                     .config/cmd
 link cmd/khard.sh                           .config/cmd
 link cmd/kill.snippets                      .config/cmd
+link cmd/lsof.snippets                      .config/cmd
 link cmd/luarocks.snippets                  .config/cmd
 link cmd/man.snippets                       .config/cmd
 link cmd/man.sh                             .config/cmd

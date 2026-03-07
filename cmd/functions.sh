@@ -175,3 +175,18 @@ fd_files_shallow() {
 select_pid() {
     ps aux | FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --with-nth 1,11.. --accept-nth 2
 }
+
+cmd_usernames() {
+    if [[ $(uname) == "Darwin" ]]; then
+        dscl . list /Users | \
+            FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+    else
+        getent passwd | sed -re 's/([^:]):.*/\1/' | \
+            FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+    fi
+}
+
+cmd_mount_paths() {
+    mount | sed -nre 's/.* on ([^[:space:]]*).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
