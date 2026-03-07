@@ -66,6 +66,6 @@ return {
         -- Install nvim-telescope/telescope-ui-select.nvim to use telescope
         vim.keymap.set("i", "<C-u>", require "luasnip.extras.select_choice", { desc='Select from choices'})
 
-        vim.keymap.set("n", "<LocalLeader>rs", reloadSnippets, { desc='Reload Snippets'})
+        vim.keymap.set("n", "<LocalLeader><LocalLeader>rs", reloadSnippets, { desc='Reload Snippets'})
     end,
 }
