@@ -1,0 +1,47 @@
+snippet btrfs_create btrfs: Create Filesystem
+	mkfs.btrfs /dev/sdb1
+
+snippet btrfs_fs_usage btrfs: Show filesystem usage
+	btrfs filesystem usage /
+
+snippet btrfs_scan btrfs: Scan for devices
+	btrfs device scan
+
+snippet btrfs_stats btrfs: Device Stats
+	btrfs device stats /
+
+snippet btrfs_stats btrfs: Filesystem Usage
+	btrfs filesystem usage /
+
+snippet btrfs_stats btrfs: Filesystem Show
+	btrfs filesystem show /
+
+
+snippet btrfs_sub_create btrfs: Create Subvolume
+	btrfs subvolume create /var
+
+snippet btrfs_sub_list btrfs: List Subvolumes
+	btrfs subvolume list /
+
+snippet btrfs_mount btrfs: Mount Subvolume
+	mount -o subvol=/@rootfs /dev/sda1 /
+
+snippet btrfs_snap_create btrfs: Create snapshot
+	btrfs subvolume snapshot /home /mnt/backup/snapshot_home
+
+snippet btrfs_snap_create btrfs: Delete Subvolume (or Snapshot)
+	btrfs subvolume delete /mnt/backup/snapshot_home
+
+
+snippet btrfs_raid1_create btrfs: Create RAID 1 (Mirrored) Volume
+	mkfs.btrfs -m raid1 -d raid1 /dev/sdb /dev/sdc
+
+
+snippet btrfs_device_add btrfs: Add Device for RAID
+	btrfs device add /dev/sdc1 /mnt/btrfs
+
+snippet btrfs_balance btrfs: Balance Discs
+	btrfs balance start -dconvert=raid1 -mconvert=raid1 --bg /mnt/btrfs
+
+snippet btrfs_balance_status btrfs: Balance Discs
+	btrfs balance status /mnt/my_storage
