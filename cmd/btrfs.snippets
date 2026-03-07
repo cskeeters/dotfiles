@@ -1,6 +1,9 @@
 snippet btrfs_create btrfs: Create Filesystem
 	mkfs.btrfs /dev/sdb1
 
+snippet btrfs_fs_label btrfs: Label Filesystem
+	btrfs filesystem label ${1:btrfs_devices()} ${2:LABEL:ACASIS}
+
 snippet btrfs_fs_usage btrfs: Show filesystem usage
 	btrfs filesystem usage /
 

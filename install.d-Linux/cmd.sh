@@ -16,6 +16,7 @@ if command -v apt >/dev/null 2>&1; then
 fi
 
 link cmd/btrfs.snippets                     .config/cmd
+link cmd/btrfs.sh                           .config/cmd
 link cmd/fail2ban.snippets                  .config/cmd
 link cmd/iptables.snippets                  .config/cmd
 link cmd/mdadm.snippets                     .config/cmd
