@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     'cskeeters/conceal.nvim',
 
     -- Local plugin under development
