@@ -65,6 +65,9 @@ cmd_realpath() {
     REL_PATH=$(gum input --prompt="$1> " --value="$3" --placeholder="$2")
     realpath "$REL_PATH"
 }
+cmd_today() {
+    date +%Y-%m-%d
+}
 
 cmd_date() {
     /usr/local/bin/date_picker
@@ -186,7 +189,17 @@ cmd_usernames() {
     fi
 }
 
+cmd_dev_sd() {
+    ls -1 /dev/sd* | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
 cmd_mount_paths() {
     mount | sed -nre 's/.* on ([^[:space:]]*).*/\1/p' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
+}
+
+cmd_block_devices() {
+    lsblk -f --json | jq -r '.blockdevices | .. | objects | "/dev/\(.name)"' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "BLOCK DEVICE> "
 }
