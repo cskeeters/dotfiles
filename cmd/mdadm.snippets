@@ -1,0 +1,17 @@
+snippet mdadm_status_mdstat mdadm: Show Status (mdstat)
+	cat /proc/mdstat
+
+snippet mdadm_status_detail mdadm: Query array status
+	mdadm --detail /dev/md0
+
+snippet mdadm_init mdadm: Initialize disks for raid
+	mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+
+snippet mdadm_assemble mdadm: Assemble md0 from to configured drives
+	mdadm --assemble /dev/md0 /dev/sdb1 /dev/sdc1
+
+snippet mdadm_conf_1 mdadm: Add Volume to /etc/mdadm.conf
+	echo DEVICE /dev/sbd1 /dev/sdc1 > /etc/mdadm.conf; mdadm --detail --scan >> /etc/mdadm.conf
+
+snippet mdadm_add_disk mdadm: Re-add disk to the array
+	mdadm --manage --add /dev/md0 /dev/sdb1
