@@ -18,6 +18,6 @@ fi
 link cmd/fail2ban.snippets                  .config/cmd
 link cmd/iptables.snippets                  .config/cmd
 link cmd/systemctl.snippets                 .config/cmd
-link cmd/systemctl.sh                 .config/cmd
+link cmd/systemctl.sh                       .config/cmd
 link cmd/tshark.snippets                    .config/cmd
 link cmd/wireguard-server.snippets          .config/cmd
