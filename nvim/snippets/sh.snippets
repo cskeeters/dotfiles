@@ -43,6 +43,24 @@ snippet tutorial_indexed_array Tutorial Indexed Array
 		echo "$F"
 	done
 
+snippet iarray_contains iarray_contains:
+	iarray_contains() {
+		local search="$1"
+		shift
+		local array=("$@")
+
+		for element in "${array[@]}"; do
+			if [[ "$element" == "$search" ]]; then
+				return 0  # true
+			fi
+		done
+		return 1  # false
+	}
+
+	if iarray_contains "banana" "${fruits[@]}"; then
+		echo "Yes"
+	fi
+
 
 snippet tutorial_associative_array Tutorial Associative Array
 	declare -A FOO #define
