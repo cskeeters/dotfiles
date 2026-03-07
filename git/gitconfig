@@ -116,6 +116,9 @@
 	tool = tabsplice
 	#conflictstyle = diff3
 
+[merge "ours"]
+	driver = true
+
 [mergetool "tabsplice"]
 	cmd = tabsplice $BASE $LOCAL $REMOTE $MERGED
 	trustExitCode = true
