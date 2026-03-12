@@ -290,6 +290,7 @@ link yazi .config
 link bfm .config
 link khard .config
 link task .config
+link task-db/hooks .task
 link neomutt .config
 link notmuch .config
 link pimsync .config

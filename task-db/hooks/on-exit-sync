@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# The on-add event is triggered when a new task is added.
+# Input:
+# - A single line of JSON for the new task.
+
+read -r task_json
+
+#
+# Perform any desired bash logic here.
+# For example, you could check task contents, add tags, or interact with other tools.
+#
+# A simple example:
+# echo "DEBUG: Hook triggered with task: $new_task_json" >> /tmp/task_hook_debug.log
+
+#
+# Output:
+# - The (potentially modified) JSON to stdout.
+# - Optional feedback/error can also be printed to stdout.
+#
+
+# printf "%s\n" "$task_json"
+# echo "Task handled"
+(task sync >/dev/null 2>&1 &)
+
+# Status:
+# - 0: JSON accepted, non-JSON output is feedback.
+# - non-0: JSON ignored, non-JSON output is an error message.
+exit 0
