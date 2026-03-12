@@ -261,6 +261,7 @@ distributable
 eMASS
 eMMC
 enum
+exfiltration
 extmarks
 fanless
 financials
