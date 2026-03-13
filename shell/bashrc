@@ -169,7 +169,7 @@ fi
 
 export ESCDELAY=50
 if exists neomutt; then
-    alias m='ACCT="yahoo" neomutt'
+    alias m='ACCT="local" neomutt'
 fi
 
 #### Override edit-and-execute-command
