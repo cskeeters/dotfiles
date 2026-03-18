@@ -91,6 +91,7 @@ macro index,pager gt "<change-folder>notmuch://?query=folder:Sent<enter>" "Go Se
 macro index,pager g! "<change-folder>notmuch://?query=folder:Bulk<enter>" "Go Starred (notmuch)"
 macro index,pager gd "<change-folder>notmuch://?query=folder:Trash<enter>" "Go Trash"
 
+# Thread Views
 macro index,pager gI "<change-folder>notmuch://?query=folder:Inbox&type=threads<enter>" "Go Inbox (notmuch)"
 macro index,pager gA "<change-folder>notmuch://?query=folder:Archive&type=threads<enter>" "Go Archive (notmuch)"
 macro index,pager gR "<change-folder>notmuch://?query=not tag:spam and not tag:trash&type=threads<enter>" "Go All (notmuch)"

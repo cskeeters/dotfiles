@@ -78,6 +78,7 @@ macro index,pager gt "<change-folder>notmuch://?query=tag:sent<enter>" "Go Sent 
 macro index,pager gs "<change-folder>notmuch://?query=tag:spam<enter>" "Go SPAM (notmuch Bulk)"
 macro index,pager gd "<change-folder>notmuch://?query=tag:trash<enter>" "Go Trash"
 
+# Thread Views
 macro index,pager gI "<change-folder>notmuch://?query=tag:inbox&type=threads<enter>" "Go Inbox (notmuch)"
 macro index,pager gA "<change-folder>notmuch://?query=*&type=threads<enter>" "Go Archive (notmuch)"
 macro index,pager gR "<change-folder>notmuch://?query=tag:trash&type=threads<enter>" "Go All (notmuch)"
