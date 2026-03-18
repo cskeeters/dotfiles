@@ -203,3 +203,8 @@ cmd_block_devices() {
     lsblk -f --json | jq -r '.blockdevices | .. | objects | "/dev/\(.name)"' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "BLOCK DEVICE> "
 }
+
+cmd_network_interfaces() {
+    ip link | sed -nre 's/^[[:digit:]]+: ([^:]+).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "INTERFACE> "
+}
