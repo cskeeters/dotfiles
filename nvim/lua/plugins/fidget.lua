@@ -16,5 +16,6 @@ return {
         vim.keymap.set('n', '<Leader>gn', '<Cmd>Fidget clear<cr>',    { desc="Clear notifications" })
         vim.keymap.set('n', '<Leader>N', '<Cmd>Fidget history<cr>',   { desc="List notifications" })
         vim.keymap.set('n', '<Leader>n', '<Cmd>Telescope fidget<cr>', { desc="List notifications with telescope" })
+        -- :lua require("fidget").setup({ notification = { filter = vim.log.levels.WARN } })
     end,
 }
