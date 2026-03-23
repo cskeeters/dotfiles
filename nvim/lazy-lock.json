@@ -48,6 +48,7 @@
   "rainbow_parentheses.vim": { "branch": "master", "commit": "27e7cd73fec9d1162169180399ff8ea9fa28b003" },
   "snacks.nvim": { "branch": "main", "commit": "9912042fc8bca2209105526ac7534e9a0c2071b2" },
   "soulver3.vim": { "branch": "master", "commit": "0285c5f88edfbc0ca52b6f8fb001a8b7f778e218" },
+  "taal.nvim": { "branch": "main", "commit": "63955c8a80535c027630193239741c3b2abf73ff" },
   "tagbar": { "branch": "master", "commit": "7bfffca1f121afb7a9e38747500bf5270e006bb1" },
   "telescope-emoji.nvim": { "branch": "master", "commit": "86248d97be84a1ce83f0541500ef9edc99ea2aa1" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c" },
