@@ -181,6 +181,7 @@ RAPCON
 RCC
 RCK
 RFPs
+RHEL
 RHEL7
 RICI
 RMF
@@ -207,6 +208,7 @@ STROMB
 Scholarshipowl
 Sensis
 Sherm
+Sneakernet
 Southmaster
 Sunhillo
 SwRI
