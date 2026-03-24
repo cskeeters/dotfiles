@@ -1,0 +1,26 @@
+snippet llama_extract_template llama: Extract Jinja Template
+	GUFF_PATH="${1:llama_model_guff_path()}"
+	python3 - <<EOF
+	import gguf
+	import os
+	
+	path = os.path.expanduser("$GUFF_PATH")
+	reader = gguf.GGUFReader(path)
+	for name, field in reader.fields.items():
+		if 'chat_template' in name:
+			# Convert the parts to a string
+			data = bytes(field.parts[-1].tolist())
+			print(data.decode('utf-8'))
+	EOF
+
+snippet llama_run_llama_model llama: Run Local Model
+	llama-server \
+		--port 11534
+		--model ${1:llama_model_guff_path()} \
+		--jinja \
+		--ctx-size 32768 \
+		--temp 0.7 \
+		--min-p 0.0 \
+		--top-p 0.80 \
+		--top-k 20 \
+		--presence-penalty 1.0

@@ -5,6 +5,8 @@ link cmd/copyparty.snippets                 .config/cmd
 link cmd/gpg.snippets                       .config/cmd
 link cmd/gpg.sh                             .config/cmd
 link cmd/joffrey.snippets                   .config/cmd
+link cmd/llama.snippets                     .config/cmd
+link cmd/llama.sh                           .config/cmd
 link cmd/magick.snippets                    .config/cmd
 link cmd/ollama.snippets                    .config/cmd
 link cmd/ollama.sh                          .config/cmd
