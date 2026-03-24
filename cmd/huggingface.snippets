@@ -1,0 +1,10 @@
+snippet hf_cache_ls huggingface: List Models
+	hf cache ls
+snippet hf_cache_ls huggingface: List Models by Size
+	hf cache ls --sort size:desc
+snippet hf_cache_rm
+	hf cache rm ${1:hf_cache_get_models()}
+snippet hf_download_local huggingface: Download MLX Local
+	hf download mlx-community/${1:MODLE:Qwen3-Coder-Next-4bit} --local-dir ~/.mlx/models/${1}
+snippet hf_prune huggingface: Prune
+	hf cache prune

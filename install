@@ -242,6 +242,8 @@ link cmd/git.snippets                       .config/cmd
 link cmd/git.sh                             .config/cmd
 link cmd/gnu.snippets                       .config/cmd
 link cmd/go.snippets                        .config/cmd
+link cmd/huggingface.snippets               .config/cmd
+link cmd/huggingface.sh                     .config/cmd
 link cmd/khard.snippets                     .config/cmd
 link cmd/khard.sh                           .config/cmd
 link cmd/kill.snippets                      .config/cmd
