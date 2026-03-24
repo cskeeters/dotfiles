@@ -56,7 +56,14 @@ load_all()
 # Load OS specific configuration
 load_all "$DOTFILES/shell/bashrc.d-$(uname)"
 # Load host specific configuration
-load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
+# load_all "$DOTFILES/shell/bashrc.d-$(hostname -s)"
+
+BCST_HOSTNAME_RE="ams.*mil$"
+# if [[ -f /etc/sysconfig/bcst_log_config.yaml ]]; then
+if [[ $(hostname) =~ $BCST_HOSTNAME_RE ]]; then
+    load_all "$DOTFILES/shell/bashrc.d-bcst"
+fi
+
 
 # Aliases
 alias cd..='cd ..'
