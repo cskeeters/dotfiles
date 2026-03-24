@@ -1,18 +1,3 @@
--- Pros for telescope over fzf-lua
---  * can hide the preview window (F2) by cycling layouts
---  * luasnip extention for searching snippets (could be converted)
---  * less display artifacts
---  * can load results into quickfix list
--- Cons for telescope over fzf-lua
---  * No Ctrl+a Ctrl+e beginning/end of line
---  * Slower to search through many files
---  * Stops searching after first characters typed
---  * have to hit escape twice or lose normal mode bindings/actions gg/G, H, M, L
---
--- fzf.vim
--- * Has same bindings in shell as in vim (though Ctrl-/) doen't work
--- * Can change preview location (f3) or disable preview (f2)
--- * The fastest
 return {
     enabled = true,
     'nvim-telescope/telescope.nvim',
@@ -32,7 +17,6 @@ return {
 
         require("telescope").setup({
             defaults = {
-                layout_strategy = 'horizontal',
                 layout_config = {
                     height = 0.99,
                     width = 0.99,
@@ -40,17 +24,26 @@ return {
                         preview_width = 0.4,
                         prompt_position = "top",
                     },
+                    vertical = {
+                        mirror = true, -- This puts the previewer at the bottom
+                        prompt_position = 'top', -- Keeps the search bar at the top
+                    },
                     center = {
                         preview_cutoff = 1,           -- don't show preview if it can't be this many lines tall
                         prompt_position = "top",
                     },
 
                 },
+
+                layout_strategy = 'vertical', -- Default layout_config
                 cycle_layout_list = {
                     "center",
                     "horizontal",
+                    "vertical",
                 },
+
                 sorting_strategy = "ascending",
+
                 mappings = {
                     i = {
                         -- See https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#default-mappings
