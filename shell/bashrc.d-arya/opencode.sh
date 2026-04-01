@@ -1,0 +1,2 @@
+export OPENCODE_ENABLE_EXA=true
+export EXA_API_KEY=6b8d227c-45ec-4db4-9894-71f5c5db3a91
