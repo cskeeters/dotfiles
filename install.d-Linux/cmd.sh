@@ -15,6 +15,7 @@ if command -v apt >/dev/null 2>&1; then
     link cmd/apt.sh                         .config/cmd
 fi
 
+link cmd/alternatives.snippets              .config/cmd
 link cmd/btrfs.snippets                     .config/cmd
 link cmd/btrfs.sh                           .config/cmd
 link cmd/ethtool.sh                         .config/cmd
