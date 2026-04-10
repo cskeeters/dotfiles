@@ -19,6 +19,12 @@ snippet systemctl_start systemctl: Start
 snippet systemctl_restart systemctl: Restart
 	systemctl restart ${1:systemctl_unit()}
 
+snippet systemctl_show_masked systemctl: Show Masked
+	systemctl list-unit-files --state=masked
+
+snippet systemctl_mask systemctl: Mask Suspend
+	systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
 snippet journalctl_tail journalctl: Tail
 	journalctl -eu ${1:systemctl_unit()}
 
