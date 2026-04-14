@@ -1,5 +1,5 @@
 return {
-    enabled = true,
+    enabled = false,
     'nvim-treesitter/playground',
     dependencies = {
         'nvim-treesitter/nvim-treesitter',
@@ -8,7 +8,7 @@ return {
     keys = {
     },
     init = function()
-        require "nvim-treesitter.configs".setup {
+        require "nvim-treesitter.config".setup {
             playground = {
                 enable = true,
                 disable = {},

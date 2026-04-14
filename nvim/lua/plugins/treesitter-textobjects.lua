@@ -10,7 +10,7 @@ return {
     init = function()
         require('nvim-treesitter.install').update { with_sync = true }
 
-        require'nvim-treesitter.configs'.setup {
+        require'nvim-treesitter.config'.setup {
             textobjects = {
                 select = {
                     enable = true,
@@ -107,7 +107,7 @@ return {
             },
         }
 
-        local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+        local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
 
         -- Repeat movement with ; and ,
         -- vim way: ; goes to the direction you were moving.

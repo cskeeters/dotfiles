@@ -5,7 +5,7 @@ return {
     keys = {
     },
     init = function()
-        require'nvim-treesitter.configs'.setup {
+        require'nvim-treesitter.config'.setup {
             modules = {},
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
