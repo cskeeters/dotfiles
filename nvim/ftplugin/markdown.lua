@@ -7,9 +7,7 @@ vim.opt_local.briopt="list:-1"
 vim.opt_local.formatlistpat="^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}\\|^[>[:space:]]\\+\\s\\+"
 vim.g.table_mode_corner='|'
 
-if vim.fn.has("patch-7.4-353") == 0 then
-    vim.bo.list = false
-end
+vim.opt_local.list = false
 
 vim.opt_local.conceallevel=0
 vim.bo.commentstring=[[<!-- %s -->]]
