@@ -12,3 +12,8 @@ snippet cargo_upgrade cargo: Check for Outdated dependancies (crates)
 	cargo outdated
 snippet rustup_update cargo: Update rustc, cargo, and other rust tools
 	cargo update
+
+snippet cargo_install_edit cargo: Install cargo-edit (for upgrade support)
+	cargo install cargo-edit
+snippet cargo_upgrade cargo-edit: Upgrade dependancies
+	cargo upgrade --incompatible
