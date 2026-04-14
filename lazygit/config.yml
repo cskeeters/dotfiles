@@ -1,4 +1,5 @@
 promptToReturnFromSubprocess: false
+disableStartupPopups: true
 
 os:
   # I usually use lazygit embedded in nvim. For this, I use
