@@ -1,18 +1,10 @@
 return {
     enabled = true,
-    'nvim-treesitter/nvim-treesitter',
-    build = ":TSUpdate",
-    keys = {
-    },
-    init = function()
-        require'nvim-treesitter.config'.setup {
-            modules = {},
-
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
-
-            -- A list of parser names, or "all" (the four listed parsers should always be installed)
-            -- Fenced code blocks in markdown documentation will be highlighted if the language is in this list
+    'romus204/tree-sitter-manager.nvim',
+    dependencies = {}, -- tree-sitter CLI must be installed system-wide: brew install tree-sitter-cli
+    config = function()
+        require("tree-sitter-manager").setup({
+            -- Default Options
             ensure_installed = {
                 "bash",
                 "c",
@@ -42,28 +34,12 @@ return {
                 "vimdoc",
                 "yaml",
             },
-
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = false,
-
-            ignore_install = {},
-
-            highlight = {
-                enable = true,
-                -- In case treesitter is not working fully for markdown, uncomment this
-                -- additional_vim_regex_highlighting = {'markdown','markdown_inline'},
-            },
-
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "gss",
-                    node_incremental = "gsn",
-                    scope_incremental = "gsc",
-                    node_decremental = "gsm",
-                }
-            },
-        }
-    end,
+            -- border = nil, -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+            -- auto_install = false, -- if enabled, install missing parsers when editing a new file
+            -- highlight = true, -- treesitter highlighting is enabled by default
+            -- languages = {}, -- override or add new parser sources
+            -- parser_dir = vim.fn.stdpath("data") .. "/site/parser",
+            -- query_dir = vim.fn.stdpath("data") .. "/site/queries",
+        })
+    end
 }
