@@ -208,15 +208,27 @@ return {
     },
     opts = {
         adapters = {
-            ollama = {
-                -- url = "http://127.0.0.1:11434",  -- Ollama's OpenAI-compatible endpoint
-                url = "http://192.168.20.11:11434",  -- Ollama on HYDE
+            local_ollama = {
+                url = "http://127.0.0.1:11434",  -- Ollama's OpenAI-compatible endpoint or apfel
+                --
                 -- Optional: If auth is enabled on your Ollama server
                 -- headers = { Authorization = "Bearer your-token" }
             },
+            hyde = {
+                url = "http://192.168.20.11:11434",  -- Ollama on HYDE
+                --
+                -- Optional: If auth is enabled on your Ollama server
+                -- headers = { Authorization = "Bearer your-token" }
+            },
+            apfel = {
+                url = "http://localhost:11434",
+            }
         },
-        adapter = "ollama",
 
+
+        adapter = "hyde",
+
+        -- model = "apple-foundationmodel",
         -- Local Models
         -- model = "mistral-small3.2", -- Very good, fast enough
         -- model = "llama3.3:latest",    -- Very Good, slow
@@ -231,6 +243,7 @@ return {
         -- model = "llama3.3:latest",
         -- model = "deepseek-r1:70b",
         -- model = "gemma3:27b",
+        -- model = "gemma4:31b",
 
         -- Overall I think for writing/rewriting llama3.1 is overall better baseline model in under 10b scope.
         -- llama3.1:8b language is very lively and overall the most human sounding.
