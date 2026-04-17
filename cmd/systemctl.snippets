@@ -19,6 +19,9 @@ snippet systemctl_start systemctl: Start
 snippet systemctl_restart systemctl: Restart
 	systemctl restart ${1:systemctl_unit()}
 
+snippet systemctl_show_masked systemctl: List Unit Files (Services)
+	systemctl list-unit-files
+
 snippet systemctl_show_masked systemctl: Show Masked
 	systemctl list-unit-files --state=masked
 
