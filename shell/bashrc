@@ -76,6 +76,18 @@ alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
 alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
 alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
 
+#### env.d
+
+if [ -d "$HOME/.config/env.d" ]; then
+    for f in "$HOME/.config/env.d/"*; do
+        # Load the file and export variables
+        # Using 'set -a' exports all variables defined until 'set +a'
+        set -a
+        source "$f"
+        set +a
+    done
+fi
+
 #### neovim
 
 # export NVIM_APPNAME=nvim_min
