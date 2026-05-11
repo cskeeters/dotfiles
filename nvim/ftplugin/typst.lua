@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 
 
 if vim.fn.has("patch-7.4-353") == 0 then
-    vim.bo.list = false
+    vim.opt_local.list = false
 end
 
 -- Atx style Headers (I don't really need these)
