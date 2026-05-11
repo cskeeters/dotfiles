@@ -200,7 +200,9 @@ _edit_and_return_command() {
     rm "$tmpfile"
 }
 
-# Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
-bind -x '"\C-x\C-e": _edit_and_return_command'
+if [[ $- == *i* ]]; then
+    # Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
+    bind -x '"\C-x\C-e": _edit_and_return_command'
+fi
 
 # vim:ft=sh
