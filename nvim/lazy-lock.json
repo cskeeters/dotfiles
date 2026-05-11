@@ -1,6 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "a62e1083a3cfe8b6b206e7d3d33a51091df25357" },
   "ack.vim": { "branch": "master", "commit": "36e40f9ec91bdbf6f1adf408522a73a6925c3042" },
+  "agentic.nvim": { "branch": "main", "commit": "f36092681e438af4b4862fc0543c78b2a41586db" },
   "async.vim": { "branch": "master", "commit": "2082d13bb195f3203d41a308b89417426a7deca1" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "closer.vim": { "branch": "master", "commit": "464012744288f7f453b97763f7a8ff40f0020c51" },
