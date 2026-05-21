@@ -298,6 +298,7 @@ link notmuch .config
 link pimsync .config
 link vdirsyncer .config
 link opencode/opencode.jsonc .config/opencode
+link urlscan .config
 
 link w3m/keymap .w3m
 link w3m/config .w3m
