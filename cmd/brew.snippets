@@ -20,3 +20,7 @@ snippet brew_remove brew: Remove Software
 	brew uninstall ${1:PACKAGE:name}
 snippet brew_unlink brew: Unlink Software
 	brew unlink ${1:PACKAGE:name}
+snippet brew_cleanup brew: Scrub Cache (Leave bottles for installed packages)
+	brew cleanup -s
+snippet brew_wipe_cache brew: Wipe Cache
+	rm -rf "$(brew --cache)"
