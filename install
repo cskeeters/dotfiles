@@ -230,6 +230,7 @@ link cmd/functions.sh                       .config/cmd
 
 link cmd/ag.snippets                        .config/cmd
 link cmd/autojump.snippets                  .config/cmd
+link cmd/bash.snippets                      .config/cmd
 link cmd/beancount.snippets                 .config/cmd
 link cmd/bind.snippets                      .config/cmd
 link cmd/beet.snippets                      .config/cmd
