@@ -51,9 +51,9 @@ vim.opt.wildignore={
     '*.class',
     '*.pyc'}
 
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+vim.scriptencoding = 'utf-8'      -- For neovim configuration scripts.
+vim.opt.encoding = 'utf-8'        -- Internal encoding.  This should always be "utf-8".
+-- vim.opt.encoding = 'iso-8859-5'  -- When using /dev/console
 
 ---- Context
 vim.opt.colorcolumn = '80'           -- Show col for max line length
