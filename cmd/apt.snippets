@@ -38,8 +38,8 @@ snippet dpkg_list dpkg: List installed packages
 	dpkg -l
 snippet dpkg_files dpkg: List files included in package
 	dpkg -L ${1:deb_installed_packages()}
-snippet dpkg_contains dpkg: Output package name containing path
-	dpkg -S ${1:path}
+snippet dpkg_contains dpkg: Search Installed Packages for Path
+	dpkg -S $(realpath "$(pwd)/${1:find_files(PATH)}")
 
 snippet apt_file_install apt-file: Install apt-file itself
 	apt install apt-file
