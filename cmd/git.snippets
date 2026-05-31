@@ -34,6 +34,10 @@ snippet git_tag_delete git: Delete a Tag
 	git tag -d ${1:git_tags()}
 
 ## DIFF
+snippet git_diff git: Diff
+	git diff
+snippet git_diff_staged git: Diff Staged
+	git diff --staged
 snippet git_show_first git: Show Diff (1st parent for merges)
 	git show -m --first-parent HEAD
 snippet git_diff_char git: Character Diff
