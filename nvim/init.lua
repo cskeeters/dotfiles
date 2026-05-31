@@ -418,6 +418,17 @@ vim.keymap.set('n', '<LocalLeader><LocalLeader>c0', '<Cmd>set conceallevel=0<Cr>
 vim.keymap.set('n', '<LocalLeader><LocalLeader>c2', '<Cmd>set conceallevel=2<Cr>', { desc='Conceal: Replace with cchar (set list-style)' })
 vim.keymap.set('n', '<LocalLeader><LocalLeader>c3', '<Cmd>set conceallevel=3<Cr>', { desc='Conceal: Hide' })
 
+
+vim.keymap.set('n', '<Leader>R', function()
+  local current_ft = vim.bo.filetype
+  if current_ft ~= "" then
+    vim.bo.filetype = ""
+    vim.bo.filetype = current_ft
+    vim.notify("Reloaded ftplugin for " .. current_ft, vim.log.levels.INFO)
+  end
+end, { desc = "Reload current filetype plugins" })
+
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
