@@ -46,19 +46,19 @@ gui:
 
 customCommands:
   # LESS="RX" removes F from LESS defaults so that we don't return
-  - key: "<C-a>"
+  - key: "<c+a>"
     command: 'LESS="RX" git gla || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     context: "global"
     loadingText: "Running git gla"
     description: "View git gla in a popup"
     output: terminal
-  - key: "<C-k>"
+  - key: "<c+k>"
     command: 'LESS="RX" git lsf || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     context: "global"
     loadingText: "Running git gla"
     description: "View git lsf in a popup"
     output: terminal
-  - key: "<C-f>"
+  - key: "<c+f>"
     description: 'Show diff against first parent'
     context: "commits"
     command: 'LESS="RX" git show --first-parent {{.SelectedLocalCommit.Hash}} || true' # "|| true" prevents SIGPIPE (141) error and confirmation
