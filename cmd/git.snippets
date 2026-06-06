@@ -17,6 +17,10 @@ snippet git_branch_track git: Create local branch that tracks remote
 	git checkout -b ${1:branch_name} --track ${2:git_remote_branches()}
 snippet git_branch_push git: Push a branch
 	git push -u origin ${1:feature_name}
+snippet git_pull git: Pull (from default upstream)
+	git pull
+snippet git_pull_rebase git: Pull Rebasing local commits
+	git pull --rebase
 snippet git_switch git: Switch
 	git switch ${1:git_branches()}
 snippet git_branch_clean git: Create a clean (orphan) branch
