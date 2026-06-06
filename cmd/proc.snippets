@@ -1,0 +1,35 @@
+snippet proc_kernel_parameters proc: Show Kernel Parameters
+	cat /proc/cmdline
+
+snippet proc_cpuinfo proc: CPU Info
+	cat /proc/cpuinfo
+
+snippet proc_meminfo proc: Memory Info
+	cat /proc/meminfo
+
+snippet proc_loadavg proc: Load Avg
+	cat /proc/loadavg
+
+snippet proc_uptime proc: Uptime
+	cat /proc/uptime
+
+snippet proc_version proc: Kernel Version
+	cat /proc/version
+
+snippet proc_process_environ proc: Mounts
+	cat /proc/mounts
+
+snippet proc_ip_forward proc: IP Forward (enable/disable)
+	cat /proc/sys/net/ipv4/ip_forward
+
+snippet proc_process_cmdline proc: Process Command Line
+	cat /proc/${1:select_pid()}/cmdline
+
+snippet proc_process_exe proc: Process Executable
+	cat /proc/${1:select_pid()}/exe
+
+snippet proc_process_environ proc: Environment Variables
+	cat /proc/${1:select_pid()}/environ
+
+snippet proc_process_environ proc: Status
+	cat /proc/${1:select_pid()}/status

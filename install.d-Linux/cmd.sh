@@ -25,6 +25,7 @@ link cmd/fail2ban.snippets                  .config/cmd
 link cmd/grub2.snippets                     .config/cmd
 link cmd/iptables.snippets                  .config/cmd
 link cmd/mdadm.snippets                     .config/cmd
+link cmd/proc.snippets                      .config/cmd
 link cmd/systemctl.snippets                 .config/cmd
 link cmd/systemctl.sh                       .config/cmd
 link cmd/tshark.snippets                    .config/cmd
