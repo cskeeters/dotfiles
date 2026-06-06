@@ -39,3 +39,6 @@ snippet rpm_verify_package rpm: Verify files for package
 
 snippet rpm_extract rpm: Extract files from rpm to CWD
 	rpm2cpio ${1:rpm_files()} | cpio -idv
+
+snippet rpm_verify_file rpm: Verify File
+	rpm -Vf ${1:find_files()}
