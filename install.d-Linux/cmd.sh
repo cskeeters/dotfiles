@@ -22,6 +22,7 @@ link cmd/btrfs.sh                           .config/cmd
 link cmd/dmidecode.snippets                 .config/cmd
 link cmd/ethtool.sh                         .config/cmd
 link cmd/fail2ban.snippets                  .config/cmd
+link cmd/grub2.snippets                     .config/cmd
 link cmd/iptables.snippets                  .config/cmd
 link cmd/mdadm.snippets                     .config/cmd
 link cmd/systemctl.snippets                 .config/cmd
