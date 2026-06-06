@@ -42,3 +42,6 @@ snippet rpm_extract rpm: Extract files from rpm to CWD
 
 snippet rpm_verify_file rpm: Verify File
 	rpm -Vf ${1:find_files()}
+
+snippet rpm_restore_mtime rpm: Restore Modification Time of installed file
+	sudo touch -d "@$(rpm -q --qf '%{FILEMTIMES}\n' -f ${1:/etc/ssh/sshd_config})" ${1}
