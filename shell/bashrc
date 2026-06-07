@@ -73,8 +73,8 @@ alias lm='ls -lhtr'
 alias vi='vim'
 
 alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
-alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
-alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
+alias fgrep="grep -F --color --exclude-dir=.hg --exclude-dir=.git"
+alias egrep="grep -E --color --exclude-dir=.hg --exclude-dir=.git"
 
 #### env.d
 
