@@ -33,8 +33,7 @@ return {
         vim.keymap.set('n', '<Leader>op', ':Files! ~/.local/share/'..NVIM_APPNAME..'<cr>',       { desc="Open plugin from .local (fzf)" })
         vim.keymap.set('n', '<Leader>ou', ':Files! '..runtime_path..'<cr>',                      { desc="Open neovim runtime file (fzf)" })
 
-        vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>',    { desc="Open note (fzf)" })
-        vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                      { desc="Open bcst-doc file (fzf)" })
+        vim.keymap.set('n', '<Leader>od', ':Files! /opt/AMS2/net/doc/bcst-doc<cr>',              { desc="Open bcst-doc file (fzf)" })
 
         vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                       { desc="Open Buffer (fzf)" })
         vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                       { desc="Open Old file from history (fzf)" })
