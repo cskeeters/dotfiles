@@ -14,6 +14,15 @@
           },
           "enabled": true
       }
+      // , "markdownify": {
+          // "type": "local",
+          // "command": ["node", "/Users/chad/src/markdownify-mcp/dist/index.js"],
+          // // has to run ahead of time: source /Users/chad/src/markdownify-mcp/.venv/bin/activate
+          // // or have this setting
+          // "env": {
+              // "UV_PATH": "/Users/chad/src/markdownify-mcp"
+          // }
+      // }
   },
   "provider": {
     "hyde": {

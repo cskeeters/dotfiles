@@ -1,0 +1,21 @@
+#!/bin/bash
+
+source "$(dirname $0)/helper.sh"
+
+# Ask BFM to refresh no matter what
+echo "deselect all" >> "$CMD_FILE"
+echo "refresh" >> "$CMD_FILE"
+
+PDF_RE='(.*)\.[pP][dD][fF]$'
+
+for P in "${PATHS[@]}"; do
+    P_MD="${P%.*}.md"
+
+    if [[ "$P" =~ $PDF_RE ]]; then
+        markitdown "$P" -o "$P_MD"
+    else
+        echo "error $P does not have a .pdf extension" >> "$CMD_FILE"
+    fi
+done
+
+exit 0

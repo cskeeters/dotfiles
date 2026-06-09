@@ -15,13 +15,17 @@ if command -v apt >/dev/null 2>&1; then
     link cmd/apt.sh                         .config/cmd
 fi
 
+link cmd/aide.snippets                      .config/cmd
 link cmd/alternatives.snippets              .config/cmd
 link cmd/btrfs.snippets                     .config/cmd
 link cmd/btrfs.sh                           .config/cmd
+link cmd/dmidecode.snippets                 .config/cmd
 link cmd/ethtool.sh                         .config/cmd
 link cmd/fail2ban.snippets                  .config/cmd
+link cmd/grub2.snippets                     .config/cmd
 link cmd/iptables.snippets                  .config/cmd
 link cmd/mdadm.snippets                     .config/cmd
+link cmd/proc.snippets                      .config/cmd
 link cmd/systemctl.snippets                 .config/cmd
 link cmd/systemctl.sh                       .config/cmd
 link cmd/tshark.snippets                    .config/cmd

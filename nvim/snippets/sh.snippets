@@ -166,6 +166,9 @@ snippet pf
 
 ## I/O
 
+snippet echo_stderr Output to stderr
+	echo "ERROR: foo" >&2
+
 snippet stderr_to_stdout Redirect stderr to stdout
 	2>&1
 
@@ -213,6 +216,11 @@ snippet re
 	if [[ 'Chad is good' =~ $re ]]; then
 		echo ${BASH_REMATCH[1]}
 	fi
+
+snippet trap trap: Run a function on exit
+	${1:foo}() {
+	}
+	trap '${1}' SIGINT SIGTERM EXIT
 
 snippet coproc coproc start a process with stdin/stdout handles
 	# Auto assigns $CALC_PID

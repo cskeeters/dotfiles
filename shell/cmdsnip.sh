@@ -27,7 +27,7 @@ fi
 getsnippet() {
     TRIGGER="$1"
     while IFS= read -r -d $'\0' file; do
-        if egrep "^snippet $TRIGGER" "$file" > /dev/null; then
+        if grep -E "^snippet $TRIGGER" "$file" > /dev/null; then
             $GSED -nre "/snippet $TRIGGER/{:again; n; s/\t(.*)/\1/p;t again;q;}" "$file"
         fi
     done < <(find ~/.config/cmd -name \*.snippets -print0)
@@ -70,7 +70,7 @@ runsnippet() {
     VALUES=()
 
     for ((i=1;i<10;i++)); do
-        if echo $SNIPPET | egrep '\$\{'"$i"'.*\}' > /dev/null; then
+        if echo $SNIPPET | grep -E '\$\{'"$i"'.*\}' > /dev/null; then
             DEFAULT=$(echo $SNIPPET | $GSED -nre 's/.*\$\{'"$i"':([^}]*)\}.*/\1/p') || {
                 echo "Error extracting default"
                 return
