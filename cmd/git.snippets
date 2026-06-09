@@ -7,6 +7,10 @@ snippet git_gc git: Garbage Collect
 ## LOG
 snippet git_log_signatures git: Log with signatures
 	git log --show-signature
+snippet git_log_right_only git: Log commits unique to the branch (Right Only)
+	git gl master...${1:git_branches()} --right-only
+snippet git_log_left_right git: Log commits unique either branch (Left, Right)
+	git gl master...${1:git_branches()} --right-only
 
 ## BRANCH
 snippet git_branch git: Create a Branch
