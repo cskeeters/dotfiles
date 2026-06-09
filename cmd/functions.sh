@@ -208,3 +208,7 @@ cmd_network_interfaces() {
     ip link | sed -nre 's/^[[:digit:]]+: ([^:]+).*/\1/p' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "INTERFACE> "
 }
+
+history_id() {
+    history | fzf | awk '{ print $1 }'
+}

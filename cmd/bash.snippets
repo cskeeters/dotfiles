@@ -1,2 +1,4 @@
 snippet bash_history_append bash: Append Command History
 	history -a
+snippet bash_history_rm bash: Remove History Entry
+	history -d ${1:history_id()}
