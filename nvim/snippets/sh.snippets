@@ -217,6 +217,11 @@ snippet re
 		echo ${BASH_REMATCH[1]}
 	fi
 
+snippet trap trap: Run a function on exit
+	${1:foo}() {
+	}
+	trap '${1}' SIGINT SIGTERM EXIT
+
 snippet coproc coproc start a process with stdin/stdout handles
 	# Auto assigns $CALC_PID
 	coproc CALC { bc; }

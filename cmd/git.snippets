@@ -7,6 +7,10 @@ snippet git_gc git: Garbage Collect
 ## LOG
 snippet git_log_signatures git: Log with signatures
 	git log --show-signature
+snippet git_log_right_only git: Log commits unique to the branch (Right Only)
+	git gl master...${1:git_branches()} --right-only
+snippet git_log_left_right git: Log commits unique either branch (Left, Right)
+	git gl master...${1:git_branches()} --right-only
 
 ## BRANCH
 snippet git_branch git: Create a Branch
@@ -17,6 +21,10 @@ snippet git_branch_track git: Create local branch that tracks remote
 	git checkout -b ${1:branch_name} --track ${2:git_remote_branches()}
 snippet git_branch_push git: Push a branch
 	git push -u origin ${1:feature_name}
+snippet git_pull git: Pull (from default upstream)
+	git pull
+snippet git_pull_rebase git: Pull Rebasing local commits
+	git pull --rebase
 snippet git_switch git: Switch
 	git switch ${1:git_branches()}
 snippet git_branch_clean git: Create a clean (orphan) branch
@@ -34,6 +42,10 @@ snippet git_tag_delete git: Delete a Tag
 	git tag -d ${1:git_tags()}
 
 ## DIFF
+snippet git_diff git: Diff
+	git diff
+snippet git_diff_staged git: Diff Staged
+	git diff --staged
 snippet git_show_first git: Show Diff (1st parent for merges)
 	git show -m --first-parent HEAD
 snippet git_diff_char git: Character Diff
