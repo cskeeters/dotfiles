@@ -766,7 +766,7 @@ endfunction
 """"""""""""""""""""""""""""""""" Configuration: colorscheme
 
 set background=dark
-colorscheme habamax
+colorscheme elflord
 
 if g:speed < 1
     " Load matchit.vim, but only if the user hasn't installed a newer version.
