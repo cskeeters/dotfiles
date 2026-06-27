@@ -67,8 +67,10 @@ export -f parse_hg_status
 
 # get current branch in git repo
 set_git_vars() {
+    NFS=$(stat -f -c '%T' . 2>/dev/null)
+
     GIT_BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-    if [ ! "$GIT_BRANCH" == "" ]; then
+    if [[ "$GIT_BRANCH" != "" && "$NFS" != "nfs" ]]; then
 
         GIT_MODIFIED=0
         GIT_UNTRACKED=0
@@ -139,13 +141,18 @@ set_hg_colors() {
 export -f set_hg_colors
 
 set_git_colors() {
-    GIT_WF_COLOR=5
-    [[ $GIT_UNTRACKED == 1 ]] && GIT_WF_COLOR=3
-    [[ $GIT_AHEAD == 1 ]] && GIT_WF_COLOR=3
-    [[ $GIT_NEWFILE == 1 ]] && GIT_WF_COLOR=1
-    [[ $GIT_RENAMED == 1 ]] && GIT_WF_COLOR=1
-    [[ $GIT_DELETED == 1 ]] && GIT_WF_COLOR=1
-    [[ $GIT_MODIFIED == 1 ]] && GIT_WF_COLOR=1
+
+    if [[ "$(stat -f -c '%T' . 2>/dev/null)" == "nfs" ]]; then
+        GIT_WF_COLOR=7
+    else
+        GIT_WF_COLOR=5
+        [[ $GIT_UNTRACKED == 1 ]] && GIT_WF_COLOR=3
+        [[ $GIT_AHEAD == 1 ]] && GIT_WF_COLOR=3
+        [[ $GIT_NEWFILE == 1 ]] && GIT_WF_COLOR=1
+        [[ $GIT_RENAMED == 1 ]] && GIT_WF_COLOR=1
+        [[ $GIT_DELETED == 1 ]] && GIT_WF_COLOR=1
+        [[ $GIT_MODIFIED == 1 ]] && GIT_WF_COLOR=1
+    fi
 }
 export -f set_git_colors
 
