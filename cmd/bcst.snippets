@@ -34,7 +34,10 @@ snippet bcst_aces_install_run bcst: Remote AMS Install
 	sudo ssh console05 /home/chad/bcst/ams/install
 
 
-snippet bcst_reinstall_bcst bcst: Remote Reinstall BCS-T
+snippet bcst_reinstall_bcst bcst: Reinstall BCS-T
+	REL=4.1 /opt/AMS2/net/scripts/reinstall_bcst aces
+
+snippet bcst_remote_reinstall_bcst bcst: Remote Reinstall BCS-T
 	crun -s console04 REL=4.1 /opt/AMS2/net/scripts/reinstall_bcst aces
 
 snippet bcst_start_integrated bcst: Start Integrated
