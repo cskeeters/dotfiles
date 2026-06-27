@@ -35,7 +35,7 @@ snippet bcst_aces_install_run bcst: Remote AMS Install
 
 
 snippet bcst_reinstall_bcst bcst: Remote Reinstall BCS-T
-	crun -s console04,console05 reinstall_bcst aces
+	crun -s console04 REL=4.1 /opt/AMS2/net/scripts/reinstall_bcst aces
 
 snippet bcst_start_integrated bcst: Start Integrated
 	/home/chad/bcst/uams/CTL/sc_setup ATP-2_Integrated     4 3 0
