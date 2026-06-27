@@ -1,2 +1,47 @@
-snippet md_gen bcst: Generate static markdown documenation
-	gen_bcst-doc
+snippet bcst_view_status bcst: Set AMS_AUTOJOIN so that TDF will auto join an exercise
+	export AMS_AUTOJOIN=$(~/bcst/uams/STAT/view_status | sed -nre '"'"'/Current Ex.*/,$s/Index.*Exercise Name ([^,]*),.*/\1/p'"'"' | uniq | fzf -1); echo AMS_AUTOJOIN: $AMS_AUTOJOIN
+
+snippet bcst_make_clean bcst: Make clean
+	make -j12 -s clean
+
+snippet bcst_fconfig bcst: System Wide luckyCM/fconfig
+	sudo crun REL=9999 /opt/AMS2/net/luckyCM/fconfig
+
+snippet bcst_student_tdf bcst: Student TDF
+	sudo crun REL=9999 /opt/AMS2/net/luckyCM/fconfig
+
+snippet bcst_loginctl_student bcst: LoginCtl Student
+	sudo chmod 666 /dev/mixer /dev/dsp /dev/snd/controlC*
+	xhost +
+	sudo -Eu student /opt/AMS2/local/bin/loginctl
+snippet bcst_loginctl_instructor bcst: LoginCtl Instructor
+	xhost +
+	sudo -Eu instructor /opt/AMS2/local/bin/loginctl
+snippet bcst_loginctl_scenario bcst: LoginCtl Scenario
+	xhost +
+	sudo -Eu scenario /opt/AMS2/local/bin/loginctl
+snippet bcst_loginctl_simdriver bcst: LoginCtl Sim-Driver
+	xhost +
+	sudo -Eu simdriver /opt/AMS2/local/bin/loginctl
+
+snippet bcst_aces_install_run bcst: Aces Install Run
+	sudo ./install && ant run
+
+snippet bcst_aces_install_run bcst: Remote Aces Install
+	sudo ssh console05 /home/chad/bcst/aces/install
+
+snippet bcst_aces_install_run bcst: Remote AMS Install
+	sudo ssh console05 /home/chad/bcst/ams/install
+
+
+snippet bcst_reinstall_bcst bcst: Remote Reinstall BCS-T
+	crun -s console04,console05 reinstall_bcst aces
+
+snippet bcst_start_integrated bcst: Start Integrated
+	/home/chad/bcst/uams/CTL/sc_setup ATP-2_Integrated     4 3 0
+snippet bcst_start_combined bcst: Start Combined
+	/home/chad/bcst/uams/CTL/sc_setup ATP-3_Combined       0 2 0
+snippet bcst_start_multicombined bcst: Start Multi-Combined
+	/home/chad/bcst/uams/CTL/sc_setup ATP-4_Multi-Combined 0 8 0
+
+
