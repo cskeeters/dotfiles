@@ -13,6 +13,7 @@ history -s 'crun -s console04,console05 reinstall_bcst aces'
 history -s '/home/chad/bcst/uams/CTL/sc_setup ATP-2_Integrated     4 3 0'
 history -s '/home/chad/bcst/uams/CTL/sc_setup ATP-3_Combined       0 2 0'
 history -s '/home/chad/bcst/uams/CTL/sc_setup ATP-4_Multi-Combined 0 8 0'
+history -s 'sudo chmod 666 /dev/mixer /dev/dsp /dev/snd/controlC*'
 history -a
 
 export PATH=$PATH:/opt/AMS2/local/bin:/opt/AMS2/net/scripts
