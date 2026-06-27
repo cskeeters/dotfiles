@@ -110,17 +110,6 @@ vim.o.winborder = "rounded"
 vim.opt.encoding = 'utf8'            -- String encoding to use
 vim.opt.fileencoding = 'utf8'        -- File encoding to use
 
----- Theme
-vim.opt.syntax = "ON"                -- Allow syntax highlighting
---This needs to be turned off for ttyd/vhs
-vim.opt.termguicolors = true         -- If term supports ui color then enable
-if os.getenv("TERM") == "linux" then
-    -- We're on the console, elflord doesn't look terrible
-    vim.cmd([[colorscheme elflord]])
-else
-    vim.cmd([[colorscheme habamax]])
-end
-
 ---- Search
 vim.opt.incsearch = true             -- Use incremental search
 vim.opt.hlsearch = true              -- Highlight search matches
@@ -495,6 +484,19 @@ vim.cmd("source "..config_path.."/netrw-trash.vim")
 -- To disable netrw
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
+
+
+---- Theme
+-- vim.opt.syntax = "OFF"                -- Allow syntax highlighting
+vim.cmd.syntax 'on'                      -- This has to be last so all settings have been established first before ftplugin code runs for the buffer
+--This needs to be turned off for ttyd/vhs
+vim.opt.termguicolors = true         -- If term supports ui color then enable
+if os.getenv("TERM") == "linux" then
+    -- We're on the console, elflord doesn't look terrible
+    vim.cmd([[colorscheme elflord]])
+else
+    vim.cmd([[colorscheme habamax]])
+end
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "mail",
