@@ -212,3 +212,15 @@ cmd_network_interfaces() {
 history_id() {
     history | fzf | awk '{ print $1 }'
 }
+
+## Linux
+
+linux_users() {
+    getent passwd | awk -F: '$3 >= 1000 && $3 <= 65530' | sed -nre 's/([^:]+).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "USER> "
+}
+
+linux_groups() {
+    getent group | sed -nre 's/([^:]+).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "GROUP> "
+}
