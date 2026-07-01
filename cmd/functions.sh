@@ -125,9 +125,9 @@ find_files_shallow() {
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
     if [[ $2 != "" ]]; then
-        gfind -H -L $LOCATIONS -maxdepth 1 -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
+        find -H -L $LOCATIONS -maxdepth 1 -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
     else
-        gfind -H -L $LOCATIONS -maxdepth 1 -type f | fzf -1 --height="90%" --prompt "$1> "
+        find -H -L $LOCATIONS -maxdepth 1 -type f | fzf -1 --height="90%" --prompt "$1> "
     fi
 }
 
