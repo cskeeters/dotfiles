@@ -623,3 +623,11 @@ snippet for_range For Range
 	}
 snippet unicode from-unicode (char)
 	#text(font: "Symbol", " "+str.from-unicode(i))
+snippet template Template (generic typst example)
+	#let ${1:i}(it) = {
+		it
+	}
+snippet show Show rule
+	#show ${1:element}: it => {
+		it
+	}
