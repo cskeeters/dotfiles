@@ -439,7 +439,25 @@ snippet soft-hyphen Soft Hyphen (Tell where to break)
 	#sym.hyph-soft; or -?
 snippet zero-width-space Zero Width Space
 	#sym.zws;
-snippet format_enum Format Enumerated (Bulleted) Lists
+snippet enum Format Numbered (enum) Lists
+	#set enum(numbering: "i)") // 1. a. A.
+	#set enum(numbering: "1.1)", full: true)
+	#set enum(indent:1em)
+	#show enum: block.with(above: 1.2em, below: 1.3em)
+	#show enum.where(tight:true): set enum(spacing: 0.7em)
+	#show enum.where(tight:false): set enum(spacing: 1.3em)
+	#set enum(number-align: end+horizon)
+
+	// No hanging indent for paragraphs
+	#import "@preview/itemize:0.2.0" as itemize
+	#show enum: itemize.paragraph-enum-list
+
+	#import "@preview/numbly:0.1.0": numbly
+
+	+ Chad
+	+ David
+
+snippet format_list Format Bulleted Lists
 	#import "@local/format-enum:0.3.0": *
 	#show: format_enum_diamonds
 	// #show: format_enum_word.with(body-indent: 1.5em)
