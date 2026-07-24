@@ -173,10 +173,10 @@ export BAT_THEME=kanagawa
 #### eza
 
 if exists eza; then
-    alias l='eza -lg --icons'
-    alias la='eza -lag --icons'
-    alias ll='eza -lg --icons'
-    alias lm='eza -lg --icons -s modified'
+    alias l='eza -lg'
+    alias la='eza -lag'
+    alias ll='eza -lg'
+    alias lm='eza -lg -s modified'
 fi
 
 #### neomutt
