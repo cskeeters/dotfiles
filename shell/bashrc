@@ -127,6 +127,9 @@ if [[ -t 1 ]]; then
         if [[ -f ~/.cmdsnip.sh ]]; then
             export CMDSNIP_LOG_LEVEL=6
             source ~/.cmdsnip.sh
+
+            bind -x '"\C-x\C-j": select_run_snippet'
+            bind -x '"\C-x\C-k": rerun_snipet'
         fi
     else
         echo "cmdsnip will not load because fzf is not installed"
