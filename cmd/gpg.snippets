@@ -63,8 +63,11 @@ snippet gpg_generate_key gpg: Generate Key
 
 # Refresh
 
-snippet gpg_refresh_keys gpg: Refresh (download/import) keys
+snippet gpg_refresh_keys gpg: Refresh (download/import) All keys
 	gpg --refresh-keys
+
+snippet gpg_refresh_keys gpg: Refresh (download/import) key
+	gpg --refresh-keys ${1:gpg_keys()}
 
 snippet gpg_import_github gpg: Import GitHub's PGP Key(s)
 	curl https://github.com/web-flow.gpg | gpg --import
