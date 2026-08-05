@@ -682,3 +682,7 @@ snippet is_odd Is Page Odd?
 		}
 	}
 
+snippet is_page_level1_heading Chapter (Heading Level 1) Start Page?
+	let current-headings = query(heading.where(level: 1)).filter(h => h.location().page() == here().page())
+	if current-headings.len() == 0 {
+
