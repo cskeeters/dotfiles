@@ -65,10 +65,10 @@ growisofs_devices() {
 
     # whatever is output is set in the placeholder
     # you can use fzf to allow the user to select an option
-    cat << EOF | fzf
-/dev/cdrom
-/dev/sr1
-EOF
+    cat <<- EOF | fzf
+	/dev/cdrom
+	/dev/sr1
+	EOF
 }
 ```
 
