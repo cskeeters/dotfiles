@@ -673,3 +673,12 @@ snippet show Show rule
 	#show ${1:element}: it => {
 		it
 	}
+snippet is_odd Is Page Odd?
+	#counter(page).update(1)
+	#context {
+		// Page number resets don't change this
+		if calc.odd(here().page()) {
+			[odd]
+		}
+	}
+
