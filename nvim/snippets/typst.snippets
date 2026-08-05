@@ -21,6 +21,13 @@ snippet page-setup-demo Page Setup (demo)
 		height: 2in,
 	)
 
+snippet terms Terms (Definitions)
+	#set terms(separator: [: ])
+	#set terms(separator: [ -- ])
+	#set terms(separator: [ \ ])
+
+	/ Term: description
+
 snippet page-setup Page Setup
 	#set page(
 		paper: "us-letter",
