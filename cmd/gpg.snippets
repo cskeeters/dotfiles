@@ -97,7 +97,7 @@ snippet gpg_export_secret_key: gpg: Export Secret Primary and All Sub Keys
 	gpg --armor --export-secret-keys ${1:gpg_secret_keys()}
 
 snippet gpg_export_secret_subkeys: gpg: Export Secret Sub Keys
-	gpg --export-secret-subkeys ${1:gpg_secret_keys()} > secret-subkeys.gpg
+	gpg --armor --export-secret-subkeys ${1:gpg_secret_keys()} > secret-subkeys.gpg
 
 snippet gpg_send_key: gpg: Send Key
 	gpg --send-key ${1:gpg_secret_keys()}
