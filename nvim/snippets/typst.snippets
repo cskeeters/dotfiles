@@ -106,15 +106,17 @@ snippet setup_raw Setup for raw (Fenced Code Block)
 			//text(size:.9em, weight:550, it.text)
 		)
 	}
-snippet raw_synhi Custom Syntax Highlighting fro raw
+snippet raw_synhi Custom Syntax Highlighting for raw
 	#let conditionalColor = rgb("#001f3f")
 	#show raw.where (lang: "spade") it => [
 		#show regex("(if|else|match)"): set text(color: conditionalColor)
 	]
 	// https://gitlab.com/TheZoq2/typst-common/-/blob/main/highlight.typ
-snippet swoop Swoop
+
+snippet swoop Swoop (Visual Element for Title Page)
 	#import "@local/page-util:0.1.0": *
 	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
+
 snippet school_paper_main Template for school paper
 	#import "@local/school-paper:0.1.0": *
 
