@@ -372,6 +372,12 @@ return {
             t([[pagebreak(weak: true)]]),
         }
     ),
+    s({trig = "pbo", desc=[[Page Break to Odd]]},
+        {
+            f(smart_pound),
+            t([[pagebreak(to: "odd")]]),
+        }
+    ),
     s({trig = "import_local", desc=[[Import Local]]},
         {
             -- return dynamic_node so it's evaluated when expanded
