@@ -285,16 +285,99 @@ local function font_features(jump_index)
 end
 
 return {
-    -- simple utilities
+    -- ## BASIC SYNTAX
 
-    s(
-        {trig = "i", desc="Italic (text attribute)"},
-        {t([[style: "italic"]])}
+    s({trig = "i", desc="Italic"},
+        {
+            f(smart_pound),
+            t('text(style:"Italic", '),
+            i(1),
+            t(")"),
+        }
     ),
 
-    s(
-        {trig = "b", desc="Bold (text attribute)"},
-        {t([[weight: 700]])}
+    s({trig = "b", desc="Bold"},
+        {
+            f(smart_pound),
+            t("text(weight:700, "),
+            i(1),
+            t(")"),
+        }
+    ),
+
+    s({trig = "tracking", desc="Letter Spacing (tracking)"},
+        {
+            f(smart_pound),
+            t("text(tracking: 1.0pt, "),
+            i(1),
+            t(")"),
+        }
+    ),
+
+    s({trig = "link", desc="Link"},
+        {
+            f(smart_pound),
+            t("link("),
+            i(1, "http://www.google.com"),
+            t(")"),
+            t("["),
+            i(2, "Google"),
+            t("]"),
+        }
+    ),
+
+    s({trig = "ul", desc="Underline"},
+        {
+            f(smart_pound),
+            t("underline("),
+            i(1),
+            t(")"),
+        }
+    ),
+
+    s({trig = "up", desc="Uppercase"},
+        {
+            f(smart_pound),
+            t("upper("),
+            i(1),
+            t(")"),
+        }
+    ),
+
+    s({trig = "lo", desc="Lowercase"},
+        {
+            f(smart_pound),
+            t("lowercase("),
+            i(1),
+            t(")"),
+        }
+    ),
+
+    s({trig = "sc", desc="Smallcaps"},
+        {
+            f(smart_pound),
+            t("smallcaps["),
+            i(1),
+            t("]"),
+        }
+    ),
+
+    s({trig = "fn", desc="Footnote"},
+        {
+            f(smart_pound),
+            t("footnote["),
+            i(1),
+            t("]"),
+        }
+    ),
+
+    s({trig = "hi", desc="highlight"},
+        {
+            f(smart_pound),
+            t("highlight["),
+            i(1),
+            t("]"),
+        }
     ),
 
     s(

@@ -1,190 +1,101 @@
-snippet lorem_ipsum Lorem Ipsum
-	#lorem(40)
-snippet show_nbsp All nobreak (nbsp)
-	show " ": it => sym.space.nobreak
-snippet pdf PDF Metadata
-	#set document(
-		title: title,
-		author: author,
-		keywords: "chemistry",
-	)
-snippet page-setup Page Setup (basic, us-letter)
-	#set page(
-		paper: "us-letter",
-		margin: 1in
-		// flipped: true, // Landscape
-	)
+## FONTS
 
-snippet page-setup-demo Page Setup (demo)
-	#set page(
-		width: 4in,
-		height: 2in,
-	)
+snippet vollkorn Vollkorn Font
+	#set text(font:"Vollkorn", features: ("ss11", "ss14", "ss17", "zero"))
+snippet novela Novela Font
+	//lnum gets rid of the sideways zero
+	#set text(font:"Novela", features: ("lnum"))
+
+## BASIC SYNTAX
+
+snippet include Include directive
+	#include "${1:file}.typ"
+
+snippet for_range For Range
+	for i in range(0, 255) {
+		par[#i: ]
+	}
+
+snippet template Template (generic typst example)
+	#let ${1:i}(it) = {
+		it
+	}
+
+snippet show Show rule
+	#show ${1:element}: it => {
+		it
+	}
+
+snippet acronym Acronym (Custom)
+	*${1:text}*: _${2:description}_\
 
 snippet terms Terms (Definitions)
+	// https://typst.app/docs/reference/model/terms/
 	#set terms(separator: [: ])
 	#set terms(separator: [ -- ])
 	#set terms(separator: [ \ ])
 
 	/ Term: description
 
-snippet page-setup Page Setup
-	#set page(
-		paper: "us-letter",
-		margin: (top: 1in, bottom: 1in, x:1in),
-		// margin: (y:1in, x:1in),
-		// flipped: true, // Landscape
-		header: context {
-			if not hardcopy or calc.odd(here().page()) {
-				align(right, {
-					text(features: ("c2sc", "smcp"), title)
-					h(1mm)
-					[$|$]
-					h(1mm)
-					counter(page).display("1")
-				})
-			} else { // even
-				align(left, {
-					counter(page).display("1")
-					h(1mm)
-					[$|$]
-					h(1mm)
-					text(features: ("c2sc", "smcp"), title)
-				})
-			}
-		},
-		numbering: "1",
-	)
-snippet page_number Page Number
-	#set page(numbering: "(i)")
-	#set page(numbering: "1")
-	#counter(page).display()
-snippet multi_column Change to Multi-Column Layout (Mid page)
-	#show: it => columns(2, it)
-snippet markdown_table Markdown Table
-	#import "@preview/tablem:0.3.0": tablem
 
-	#tablem[
-		| *Name* | *Location* | *Height* | *Score* |
-		| ------ | ---------- | -------- | ------- |
-		| John   | Second St. | 180 cm   |  5      |
-		| Wally  | Third Av.  | 160 cm   |  10     |
-	]
-    return c(1, to_text_nodes(markers))
-snippet table_bold_header Bolds the table header
-	show table.cell.where(y: 0): set text(weight: "bold")
-snippet full_width_img Full Width Image
-	full-width(spacing:20pt, image("bg.jpg", width:100%))
-snippet raw Raw (Fensed Code Block)
-	```html
-	<html>
-		<div class="hi">
-			hi
-		</div>
-	</html>
-	```
+snippet regex Regex with captures
+	#let input = "Package: typst-cli-0.12.0"
+	#let pattern = regex("Package: ([a-zA-Z-]+)-([\\d.]+)")
 
-snippet setup_raw Setup for raw (Fenced Code Block)
-	//wget https://raw.githubusercontent.com/chriskempson/base16-textmate/master/Themes/base16-default-light.tmTheme
-	//#set raw(theme:"base16-default-light.tmTheme")
+	#let result = input.match(pattern)
 
-	#show raw: it => {
-		let fonts = (
-			"SF Mono",
-			"Hack Nerd Font Mono",
-			"DejaVu Sans Mono",
-			"Consolas",
-			"Courier",
-			"Courier New",
-		)
-
-		block(
-			// Make black with it.text
-			//text(size:.9em, weight:700, it)
-			text(font: fonts, size:.9em, weight:600, it)
-			//text(size:.9em, weight:700, it)
-			//text(size:.9em, weight:550, it.text)
-		)
+	#if result != none {
+		#let captures = result.captures
+		#let full-match = captures.at(0)
+		#let package-name = captures.at(1)
+		#let version = captures.at(2)
+	} else {
+		[No match found.]
 	}
-snippet raw_synhi Custom Syntax Highlighting for raw
-	#let conditionalColor = rgb("#001f3f")
-	#show raw.where (lang: "spade") it => [
-		#show regex("(if|else|match)"): set text(color: conditionalColor)
-	]
-	// https://gitlab.com/TheZoq2/typst-common/-/blob/main/highlight.typ
 
-snippet swoop Swoop (Visual Element for Title Page)
-	#import "@local/page-util:0.1.0": *
-	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
+snippet link_cross_reference Cross reference (#ref)
+	... as discussed in #ref(<intro>, form: "normal", supplement: "Chapter").
 
-snippet school_paper_main Template for school paper
-	#import "@local/school-paper:0.1.0": *
+	... as discussed on #ref(<intro>, form: "page", supplement: "Page").
 
-	#let title = "Test Document"
-	#let author = "Chad Skeeters"
+	... as discussed in the chapter titled, #link(<intro>)[Introduction].
 
-	#set document(
-		title: title,
-		author: author,
-		keywords: "Chemistry",
-	)
+	= Purpose <purpose>
+	= Introduction <intro>
 
-	#show: setup
+## HEADING STYLING
 
-	#maketitle(
-		title: title
-	)
+snippet heading Heading Styling
+	// Numbering
+	#set heading(numbering: "1.1")
 
-	= Introduction <introduction>
-	#lorem(60)
+	// Text to prepend to reference numbering (@intro)
+	#show heading.where(level:1): set heading(supplement: "Chapter")
+	#show heading.where(level:2): set heading(supplement: "Section")
+	#show heading.where(level:3): set heading(supplement: "Subsection")
 
-	#pagebreak(weak: true)
-	= Chapter One <chapter-one>
-	#lorem(60)
 
-snippet doc_main Template for doc
-	#import "@local/doc:0.1.0": *
+	// Font Styling Per Level
+	#show heading.where(level:1): it => { text(weight: 800, it) }
+	#show heading.where(level:2): it => { text(weight: 600, style: "italic", it) }
+	#show heading.where(level:3): it => { text(weight: 600, it) }
 
-	#let title = "Test Document"
-	#let hardcopy = true
+	// Set Page break Before Heading.  This has to be last
+	#show heading.where(level:1): it => { pagebreak(to: "odd", weak: true); it }
 
-	#let metadata = (
-	title: title,
-	)
 
-	#set page(
-	paper: "us-letter",
-	margin: (y:1in, x:1in),
-	)
 
-	#show: setup.with(hardcopy: hardcopy)
+	#import "@local/format-headings:0.1.0": *
+	// Set Heading Spacing
+	#show: format_headings_spacing
 
-	#set heading(numbering: "1.", supplement: [Section])
+	// Set Heading Underline
+	#show heading.where(level:1): it => heading_underline(it)
+	// #show heading.where(level:2): it => heading_underline(it)
+	// #show heading.where(level:3): it => heading_underline(it)
 
-	#titlepage(metadata:metadata)
 
-	#set page(
-	header: context {
-		if not hardcopy or calc.odd(here().page()) {
-		align(center, {
-			text(features: ("c2sc", "smcp"), title)
-		})
-		} else { // even
-		align(center, {
-			text(features: ("c2sc", "smcp"), title)
-		})
-		}
-	},
-	numbering: "1",
-	)
-
-	= Introduction <introduction>
-	#lorem(60)
-
-	#pagebreak(weak: true)
-	= Chapter One <chapter-one>
-	#lorem(60)
-snippet format-heading Formats Headings
+snippet heading_show Headings Show Rules
 	// Simpler
 	//#show heading.where(level:1): it => block(
 	//  above:1.3em,
@@ -198,6 +109,13 @@ snippet format-heading Formats Headings
 	//    smallcaps(it.body)
 	//  }
 	//)
+
+	// Set Heading Fonts
+	#show heading: it => {
+		// https://beautifulwebtype.com/vollkorn/
+		set text(font: "Vollkorn", number-width: "proportional", features: ("pnum", "lnum"))
+		it
+	}
 
 	#show heading: it => {
 		// Defaults
@@ -224,6 +142,57 @@ snippet format-heading Formats Headings
 		)
 	}
 
+snippet toc Table of Contents
+	#heading("Table of Contents", outlined: false, bookmarked:true)
+	#outline(title: none, indent:auto)
+
+### TOC STYLING
+
+snippet toc_styling Table of Contents -- Styling
+	// This allows for outline formatting without the outrageous package
+	// set outline.entry(fill: repeat([.~~])) // Optional
+	// set outline.entry(fill: repeat([\_]))  // Optional
+	#show outline.entry: it => link(
+		it.element.location(),
+
+		if (it.level == 1) {
+			v(4pt)
+			// it.indented(it.prefix(), text(rcc_red, weight:700, it.inner()))
+			it.indented(it.prefix(), text(black, weight:700, it.inner()))
+		} else {
+			it.indented(it.prefix(), it.inner())
+		}
+	)
+
+## LISTS
+
+snippet format_list Format Bulleted Lists
+	#import "@local/format-list:0.3.0": *
+	// #show: format_enum_unicode.with(indent: 1em)
+	// #show: format_enum_word.with(body-indent: 1.5em)
+	// #show: format_enum_diamonds
+
+snippet enum Numbered (enum) Lists (with formatting)
+	#set enum(numbering: "i)") // 1. a. A.
+	#set enum(numbering: "1.1)", full: true)
+	#set enum(indent:1em)
+	#show enum: block.with(above: 1.2em, below: 1.3em)
+	#show enum.where(tight:true): set enum(spacing: 0.7em)
+	#show enum.where(tight:false): set enum(spacing: 1.3em)
+	#set enum(number-align: end+horizon)
+
+	// No hanging indent for paragraphs
+	#import "@preview/itemize:0.2.0" as itemize
+	#show enum: itemize.paragraph-enum-list
+
+	#import "@preview/numbly:0.1.0": numbly
+
+	+ Chad
+	+ David
+
+
+## TABLES
+
 snippet table-figure Adds table as figure
 	#figure(
 		table(
@@ -237,6 +206,7 @@ snippet table-figure Adds table as figure
 		),
 		caption: [BCS-T Applications],
 	)
+
 snippet table-figure-local Adds a table with local/format-table
 	#figure(
 		table(
@@ -246,6 +216,7 @@ snippet table-figure-local Adds a table with local/format-table
 		),
 		caption: [BCS-T Applications],
 	)
+
 snippet table-complex Example of multi-row table
 	#figure(
 		table(
@@ -267,166 +238,24 @@ snippet table-complex Example of multi-row table
 		),
 		caption: [System Engineers],
 	)
-snippet bold
-	*${1:text}*
-snippet italic
-	_${1:text}_
-snippet underline
-	#underline[${1:link}]
-snippet upper
-	#upper[${1:text}]
-snippet lower
-	#lower[${1:text}]
-snippet sc Smallcaps
-	#smallcaps[${1:text}]
-snippet inline-code
-	`code`
-snippet fenced-code
-	\`\`\`bash
-	echo hi
-	\`\`\`
-snippet h_space Horizantal Space
-	#h(1fr)
-	#h(1in, weak:false)
-snippet v_space Vertical Space
-	#v(1fr)
-	#v(1in, weak:false)
-snippet landscape
-	#page(flipped: true)[
-		= Landscape Page Title
-		Page Text
-	]
-snippet footnote
-	#footnote[https://typst.app/docs]
-snippet color
-	#set text(red)
-snippet highlight
-	#highlight[${1:important}]
-snippet lower
-	#lower[${1:Lowercase}]
-snippet quote
-	#quote(
-		block: true,
-		attribution: [JFK]
-	)[
-		Ich bin ein Berliner.
-	]
-snippet link
-	#link("${1:http://www.google.com}")[${2:Google}]
-snippet link_cross_reference Cross reference (#ref)
-	see #ref(<intro>, form: "page", supplement: "Page")
-	= Introduction <intro>
-snippet link_cross_reference_link Cross reference (link)
-	#link(<intro>)
-	#link(<intro>)[Introduction]
-	= Introduction <intro>
-snippet columns
-	#set page(columns: 2, height: 150pt)
-snippet acronym
-	*${1:text}*: _${2:description}_\
-snippet gls Reference glossary entry (or use @TERM)
-	#gls("${1:SPP}")
-snippet glsl Reference glossary entry (long)
-	#gls("${1:SPP}", long=true)
-snippet glspl Reference glossary entry (plurl)
-	#glspl("${1:SPP}")
-snippet setup-glossaries Glossaries for Typst (glossarium)
-	// See https://github.com/typst/packages/tree/main/packages/preview/glossarium/0.4.1
-	#import "afigloss.typ": make-glossary, print-glossary, gls, glspl
-	#show: make-glossary // Required to be just below import
 
-	// Put at the end
-	#generate-glossaries(acronyms:acronyms)
-snippet toc Table of Contents
+snippet markdown_table Markdown Table
+	#import "@preview/tablem:0.3.0": tablem
 
-
-	// This allows for outline formatting without the outrageous package
-	// set outline.entry(fill: repeat([.~~])) // Optional
-	// set outline.entry(fill: repeat([\_]))  // Optional
-	#show outline.entry: it => link(
-		it.element.location(),
-
-		if (it.level == 1) {
-			v(4pt)
-			// it.indented(it.prefix(), text(rcc_red, weight:700, it.inner()))
-			it.indented(it.prefix(), text(black, weight:700, it.inner()))
-		} else {
-			it.indented(it.prefix(), it.inner())
-		}
-	)
-
-	// Use outrageous
-	#import "@preview/outrageous:0.1.0"
-
-	#show outline.entry: outrageous.show-entry.with(
-		// the typst preset retains the normal Typst appearance
-		..outrageous.presets.typst,
-		// we only override a few things:
-		// level-1 entries are italic, all others keep their font style
-		font-weight: (900, 400),
-		// no fill for level-1 entries, a thin gray line for all deeper levels
-		fill: (repeat[~~.], repeat[~~.], repeat[~~.]),
-		// Has to be none due to issue #1 https://github.com/RubixDev/typst-outrageous/issues/1
-		vspace: (1.2em, none),
-	)
-
-
-	#outline(title: "Table of Contents", indent:auto)
-
-	// Or keep the heading separate
-	#heading("Table of Contents", outlined: false, bookmarked:true)
-	#outline(title: none, indent:auto)
-
-snippet index Index
-	#import "@preview/in-dexter:0.7.0": *
-
-	// The word in index is not emitted
-	Ethernet #index[Ethernet]
-
-	#pagebreak()
-	// Use a separate heading to control outlined AND bookmarked
-	#heading("Index", outlined: false, bookmarked:true)
-	#columns(2)[
-	#make-index(
-		use-bang-grouping: false,
-		sort-order: upper,
-	)
+	#tablem[
+		| *Name* | *Location* | *Height* | *Score* |
+		| ------ | ---------- | -------- | ------- |
+		| John   | Second St. | 180 cm   |  5      |
+		| Wally  | Third Av.  | 160 cm   |  10     |
 	]
 
-snippet glossaries Glossaries/Acronyms
-	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl
-	#show: make-glossary // Required just below import
+### TABLE STYLING
 
-	#pagebreak(weak: true)
-	#print-glossary(
-		disable-back-references: false,
-		(
-			(
-				key: "ISSM",
-				short: "ISSM",
-				long: "Information System Security Manager",
-				group: "Acronyms",
-			),
-			(
-				key: "oidc",
-				short: "OIDC",
-				long: "OpenID Connect",
-				desc: [OpenID is an open standard and decentralized authentication protocol promoted by the non-profit
-				#link("https://en.wikipedia.org/wiki/OpenID#OpenID_Foundation")[OpenID Foundation].],
-				group: "Acronyms",
-			),
-		)
-	)
-snippet secret Secret Stamps
-  place(dy:0in, dx:2in, rotate(-8deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
-  place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
-snippet block Block
-	#block(
-		fill: luma(230),
-		inset: 8pt,
-		radius: 4pt,
-		${1:lorem(30)}
-	)
+snippet table_bold_header Bolds the table header
+	show table.cell.where(y: 0): set text(weight: "bold")
+
+## IMAGES
+
 snippet img Image
 	#image("${1:molecular.jpg}", width: 80%)
 
@@ -439,15 +268,151 @@ snippet fimg Image with caption
 		],
 	)
 
-snippet link_universe
-	#link("https://typst.app/universe/package/${1:cetz}")[$1]
+snippet pan_crop Pan and Crop Image
+	block(
+		width: 100%,
+		height: 100%,
+		clip: true,
+		// stroke: black, // Enable when customizing
+		inset: (top:-0mm, left:-0pt), // adjust top/left and height for zoom/pan
+		image("img.jpg", height: 100%)
+	),
 
-snippet letter_spacing_tracking Letter Spacing (tracking)
-	text(tracking: 1.0pt)
+snippet full_width_img Full Width Image
+	// What template is this from?
+	full-width(spacing:20pt, image("bg.jpg", width:100%))
 
-snippet qr QR Code
-	#import "@preview/tiaoma:0.2.1"
-	#qrcode("${1:http://www.google.com}", width: 2in)
+## SHAPES
+
+snippet swoop Swoop (Visual Element for Title Page)
+	#import "@local/page-util:0.1.0": *
+	full-width-bg(spacing:50pt, swoop(color:rcc_grey))
+
+## RAW
+
+snippet fcb Raw (Fensed Code Block)
+	\`\`\`${1:bash}
+	echo hi
+	\`\`\`
+
+snippet sh Raw (sh)
+	\`\`\`sh
+	echo hi
+	\`\`\`
+
+### FENSED CODEBLOCK (RAW) STYLING
+
+snippet base16 Base16 (Raw, Fensed Code Block)
+	//wget https://raw.githubusercontent.com/chriskempson/base16-textmate/master/Themes/base16-default-light.tmTheme
+	//#set raw(theme:"base16-default-light.tmTheme")
+
+	#show raw: it => {
+		let fonts = (
+			"SF Mono",
+			"Hack Nerd Font Mono",
+			"DejaVu Sans Mono",
+			"Consolas",
+			"Courier",
+			"Courier New",
+		)
+
+		block(
+			// Make black with it.text
+			//text(size:.9em, weight:700, it)
+			text(font: fonts, size:.9em, weight:600, it)
+			//text(size:.9em, weight:700, it)
+			//text(size:.9em, weight:550, it.text)
+		)
+	}
+
+snippet raw_synhi Custom Syntax Highlighting for raw
+	#let conditionalColor = rgb("#001f3f")
+	#show raw.where (lang: "spade") it => [
+		#show regex("(if|else|match)"): set text(color: conditionalColor)
+	]
+	// https://gitlab.com/TheZoq2/typst-common/-/blob/main/highlight.typ
+
+### Quote
+
+snippet quote
+	#quote(
+		block: true,
+		attribution: [JFK]
+	)[
+		Ich bin ein Berliner.
+	]
+
+## SYMBOLS/CHARACTERS
+
+snippet unicode from-unicode (char)
+	#text(font: "Symbol", " "+str.from-unicode(i))
+
+snippet nbsp Non-breaking Space
+	#sym.space.nobreak;
+
+snippet word-joiner Word Joiner
+	#sym.wj;
+
+snippet soft-hyphen Soft Hyphen (Tell where to break)
+	#sym.hyph-soft; or -?
+
+snippet zero-width-space Zero Width Space
+	#sym.zws;
+
+## UTILITIES
+
+snippet today Today (datetime)
+	datetime.today()
+snippet date datetime (Specify)
+	datetime(
+		year: 2026,
+		month: 10,
+		day: 1,
+	)
+
+snippet date_format datetime Format
+	d.display("[day padding:zero]-[month repr:short]-[year]")
+
+	d.display("[year]-[month padding:zero]-[day padding:zero]")
+	d.display("[year]-[month repr:short]-[day]")
+
+	d.display("[month]/[day]/[year]")
+	datetime.today().display("[month repr:long] [day], [year]")
+
+snippet lorem_ipsum Lorem Ipsum
+	#lorem(40)
+
+snippet pdf_attach PDF Attachment
+	#pdf.attach(
+		"grades.yml",
+		relationship: "supplement",
+		mime-type: "text/yaml",
+		description: "Grades data",
+	)
+
+## LAYOUT
+
+snippet block Block
+	#block(
+		fill: luma(230),
+		inset: 8pt,
+		radius: 4pt,
+		${1:lorem(30)}
+	)
+
+snippet h_space Horizantal Space
+	#h(1fr)
+	#h(1in, weak:false) // Collapse all but largest space
+
+snippet v_space Vertical Space
+	#v(1fr) // fraction of available space
+	#v(1pt) // specific amount
+
+	// Kill paragraph spacing
+	para 1
+	#v(1pt, weak: true)
+	#v(2pt, weak: true) // Only larger applies
+	para 2
 
 snippet line Line with specific spacing above and below
 	#{
@@ -455,81 +420,211 @@ snippet line Line with specific spacing above and below
 		line(stroke: 1pt, length: 100%)
 	}
 
-snippet nbsp Non-breaking Space
-	#sym.space.nobreak;
-snippet word-joiner Word Joiner
-	#sym.wj;
-snippet soft-hyphen Soft Hyphen (Tell where to break)
-	#sym.hyph-soft; or -?
-snippet zero-width-space Zero Width Space
-	#sym.zws;
-snippet enum Format Numbered (enum) Lists
-	#set enum(numbering: "i)") // 1. a. A.
-	#set enum(numbering: "1.1)", full: true)
-	#set enum(indent:1em)
-	#show enum: block.with(above: 1.2em, below: 1.3em)
-	#show enum.where(tight:true): set enum(spacing: 0.7em)
-	#show enum.where(tight:false): set enum(spacing: 1.3em)
-	#set enum(number-align: end+horizon)
+### PAGE LAYOUT
 
-	// No hanging indent for paragraphs
-	#import "@preview/itemize:0.2.0" as itemize
-	#show enum: itemize.paragraph-enum-list
+snippet Portrait Portrait
+	#set page(flipped: false) // Portrait
 
-	#import "@preview/numbly:0.1.0": numbly
+snippet landscape Landscape
+	#set page(flipped: true) // Landscape
 
-	+ Chad
-	+ David
+	#page(flipped: true)[
+		= Landscape Page Title
+		Page Text
+	]
 
-snippet format_list Format Bulleted Lists
-	#import "@local/format-enum:0.3.0": *
-	#show: format_enum_diamonds
-	// #show: format_enum_word.with(body-indent: 1.5em)
-	// #show: format_enum_unicode.with(indent: 1em)
-snippet heading Heading Styling
-	#import "@local/format-headings:0.1.0": *
+snippet page-setup-demo Page Setup (demo)
+	#set page(
+		width: 4in,
+		height: 2in,
+	)
 
-	// Numbering
-	#set heading(numbering: "1.1")
+snippet page_numbering Page Numbering
+	#set page(numbering: "i")
 
-	// Text to prepend to reference numbering (@intro)
-	#show heading.where(level:1): set heading(supplement: "Chapter")
-	#show heading.where(level:2): set heading(supplement: "Section")
-	#show heading.where(level:3): set heading(supplement: "Subsection")
+	#pagebreak(to: "odd")
+	#counter(page).update(1)
+	#set page(numbering: "1")
 
+snippet columns Columns
+	#set page(columns: 2, height: 150pt)
 
-	// Font Styling Per Level
-	#show heading.where(level:1): it => { text(weight: 800, it) }
-	#show heading.where(level:2): it => { text(weight: 600, style: "italic", it) }
-	#show heading.where(level:3): it => { text(weight: 600, it) }
+	// Change to Multi-Column Layout (Mid page)
+	#show: it => columns(3, it)
 
-	// Set Heading Fonts
-	#show heading: it => {
-	// https://beautifulwebtype.com/vollkorn/
-	set text(font: "Vollkorn", number-width: "proportional", features: ("pnum", "lnum"))
-	it
+snippet is_odd Is Page Odd?
+	#counter(page).update(1)
+	#context {
+		// Page number resets don't change this
+		if calc.odd(here().page()) {
+			[odd]
+		}
 	}
 
-	// Set Heading Spacing
-	#show: format_headings_spacing
+### HEADER/FOOTER
 
-	// Set Heading Underline
-	#show heading.where(level:1): it => heading_underline(it)
-	// #show heading.where(level:2): it => heading_underline(it)
-	// #show heading.where(level:3): it => heading_underline(it)
+snippet header Header (frontback)
+	#set page(
+		numbering: "1",
 
-	// Set Page break Before Heading.  This has to be last
-	#show heading.where(level:1): it => { pagebreak(weak: true); it }
-snippet cdate Current Date
-	datetime.today().display("[year]-[month]-[day]")
-	datetime.today().display("[year]-[month repr:short]-[day]")
-	datetime.today().display("[month repr:long] [day], [year]")
-	datetime.today().display("[month]/[day]/[year]")
+		header: context {
+			if not frontback or calc.odd(here().page()) {
+				align(right, {
+					text(features: ("c2sc", "smcp"), title)
+					h(1mm)
+					[$|$]
+					h(1mm)
+					counter(page).display("1")
+				})
+			} else { // even
+				align(left, {
+					counter(page).display("1")
+					h(1mm)
+					[$|$]
+					h(1mm)
+					text(features: ("c2sc", "smcp"), title)
+				})
+			}
+		},
 
-snippet include Include directive
-	#include "${1:file}.typ"
+		footer: context {
+			set text(1em, style: "italic")
+			align(center)[#counter(page).display()]
+		},
+	)
 
-snippet template_sfnet Template: RCH sfnet
+snippet is_page_level1_heading Chapter (Heading Level 1) Start Page?
+	let current-headings = query(heading.where(level: 1)).filter(h => h.location().page() == here().page())
+	if current-headings.len() == 0 {
+
+snippet chapter_details Chapter (Heading Level 1) Details
+	let current-heading = headings.last()
+	let chapter_num = counter(heading).display(at: current-heading.location())
+	let chapter_text = current-heading.body
+
+snippet page_number Page Number
+	#counter(page).display
+
+## TEMPLATES
+
+snippet main Basic Template
+	#let title = "Title"
+	#let author = "Chad Skeeters"
+
+	#set document(
+		title: title,
+		author: author,
+		keywords: ("test",),
+	)
+
+	#set page(
+		paper: "us-letter",
+		margin: 1in
+		// flipped: true, // Landscape
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+snippet main_school_paper Template for school paper
+	#import "@local/school-paper:0.1.0": *
+
+	#let title = "Test Document"
+	#let author = "Chad Skeeters"
+
+	#set document(
+		title: title,
+		author: author,
+		keywords: "Chemistry",
+	)
+
+	#show: setup
+
+	#maketitle(
+		title: title
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
+	#lorem(60)
+
+snippet main_doc Template for doc
+	#import "@local/doc:0.1.0": *
+
+	#let title = "Test Document"
+	#let hardcopy = true
+
+	#let metadata = (
+		title: "",
+		project: "",
+		contractor_url: "",
+		contractor: "",
+		address: [
+		],
+		contract: "",
+		task_order: "",
+		keywords: "",
+	)
+
+	// Set PDF properties https://typst.app/docs/reference/model/document/
+	#set document(
+		title: metadata.title,
+		author: metadata.contractor,
+		keywords: metadata.keywords,
+	)
+
+	#set page(
+		paper: "us-letter",
+		margin: (y:1in, x:1in),
+	)
+
+	#show: make-glossary // Required just below import.  Enables @TERM syntax via show ref:
+	//#show: glossary-autoref
+
+	#show: setup.with(hardcopy: hardcopy)
+
+	#show: colored_links
+
+	// Q: Should this move into the body with shortcodes of some sort?
+	#titlepage(metadata:metadata)
+
+	#show: frontmatter.with(hardcopy:hardcopy)
+
+	#show: toc.with(hardcopy:hardcopy)
+
+	#show: mainmatter.with(metadata:metadata, hardcopy:hardcopy)
+
+	#set heading(numbering: "1.", supplement: [Section])
+
+	#titlepage(metadata:metadata)
+
+	#set page(
+		numbering: "1",
+
+		header: context {
+			if not hardcopy or calc.odd(here().page()) {
+				align(center, {
+					text(features: ("c2sc", "smcp"), title)
+				})
+			} else { // even
+				align(center, {
+					text(features: ("c2sc", "smcp"), title)
+				})
+			}
+		},
+	)
+
+	= Introduction <introduction>
+	#lorem(60)
+
+	#pagebreak(weak: true)
+	= Chapter One <chapter-one>
+	#lorem(60)
+
+snippet main_sfnet Template: RCH sfnet
 	#import "@local/contract-util:0.2.0": *
 	#import "@local/rch:0.1.0": *
 	#import "@local/sfnet:0.1.0": *
@@ -570,49 +665,95 @@ snippet template_sfnet Template: RCH sfnet
 	#include "ch3.typ"
 	#include "ch4.typ"
 
-snippet template_doc Template: doc
-	#import "@local/doc:0.1.0": *
 
-	#let metadata = (
-		title: "",
-		project: "",
-		contractor_url: "",
-		contractor: "",
-		address: [
-		],
-		contract: "",
-		task_order: "",
-		keywords: "",
+## SOLUTIONS
+
+## BASIC SOLUTIONS
+
+## CORNER-CASE SOLUTIONS
+
+snippet secret Secret Stamps
+	place(dy:0in, dx:2in, rotate(-8deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+	place(dy:9in, dx:3in, rotate(9deg, text(20pt, fill: rgb("FF4030"))[*SECRET*]))
+
+snippet show_nbsp All nobreak (nbsp)
+	show " ": it => sym.space.nobreak
+
+## PACKAGES
+
+### PACKAGE afigloss
+
+snippet setup-glossaries Glossaries for Typst (glossarium)
+	// See https://github.com/typst/packages/tree/main/packages/preview/glossarium/0.4.1
+	#import "afigloss.typ": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required to be just below import
+
+	// Put at the end
+	#generate-glossaries(acronyms:acronyms)
+
+snippet gls afigloss: Reference glossary entry (or use @TERM)
+	#gls("${1:SPP}")
+
+snippet glsl afigloss: Reference glossary entry (long)
+	#gls("${1:SPP}", long=true)
+
+snippet glspl afigloss: Reference glossary entry (plurl)
+	#glspl("${1:SPP}")
+
+### PACKAGE in-dexter
+snippet index in-dexter: Index
+	#import "@preview/in-dexter:0.7.0": *
+
+	// The word in index is not emitted
+	Ethernet #index[Ethernet]
+
+	#pagebreak()
+	// Use a separate heading to control outlined AND bookmarked
+	#heading("Index", outlined: false, bookmarked:true)
+	#columns(2)[
+	#make-index(
+		use-bang-grouping: false,
+		sort-order: upper,
+	)
+	]
+
+### PACKAGE glossaries
+snippet glossaries glossarium: Glossaries/Acronyms
+	#import "@preview/glossarium:0.4.1": make-glossary, print-glossary, gls, glspl
+	#show: make-glossary // Required just below import
+
+	#pagebreak(weak: true)
+	#print-glossary(
+		disable-back-references: false,
+		(
+			(
+				key: "ISSM",
+				short: "ISSM",
+				long: "Information System Security Manager",
+				group: "Acronyms",
+			),
+			(
+				key: "oidc",
+				short: "OIDC",
+				long: "OpenID Connect",
+				desc: [OpenID is an open standard and decentralized authentication protocol promoted by the non-profit
+				#link("https://en.wikipedia.org/wiki/OpenID#OpenID_Foundation")[OpenID Foundation].],
+				group: "Acronyms",
+			),
+		)
 	)
 
-	// Set PDF properties https://typst.app/docs/reference/model/document/
-	#set document(
-		title: metadata.title,
-		author: metadata.contractor,
-		keywords: metadata.keywords,
-	)
+### PACKAGE tiaoma
 
-	#show: make-glossary // Required just below import.  Enables @TERM syntax via show ref:
-	//#show: glossary-autoref
+snippet qr QR Code (tiaoma)
+	#import "@preview/tiaoma:0.2.1"
+	#qrcode("${1:http://www.google.com}", width: 2in)
 
-	#show: setup.with(
-		hardcopy: true,
-		typst_version: typst_version,
-	)
+### PACKAGE lilaq
 
-	#show: colored_links
-
-	// Q: Should this move into the body with shortcodes of some sort?
-	#titlepage(metadata:metadata)
-
-	#show: frontmatter.with(hardcopy:hardcopy)
-
-	#show: toc.with(hardcopy:hardcopy)
-
-	#show: mainmatter.with(metadata:metadata,
-	                       hardcopy:hardcopy,
-	                       typst_version:typst_version)
 snippet graph_lilaq
+	#import "@preview/lilaq:0.6.0" as lq
+
 	#let pairs = ((1, 2), (2, 4), (3, 1), (4, 5))
 
 	#let x-values = pairs.map(p => p.at(0)) // (1, 2, 3, 4)
@@ -621,75 +762,3 @@ snippet graph_lilaq
 	#lq.diagram(
 		lq.plot(x-values, y-values)
 	)
-
-
-snippet vollkorn Vollkorn Font
-	#set text(font:"Vollkorn", features: ("ss11", "ss14", "ss17", "zero"))
-snippet novela Novela Font
-	//lnum gets rid of the sideways zero
-	#set text(font:"Novela", features: ("lnum"))
-
-snippet pdf_attach PDF Attachment
-	#pdf.attach(
-		"grades.yml",
-		relationship: "supplement",
-		mime-type: "text/yaml",
-		description: "Grades data",
-	)
-snippet regex_captures Regex with captures
-	#let input = "Package: typst-cli-0.12.0"
-	#let pattern = regex("Package: ([a-zA-Z-]+)-([\\d.]+)")
-
-	#let result = input.match(pattern)
-
-	#if result != none {
-		#let captures = result.captures
-		#let full-match = captures.at(0)
-		#let package-name = captures.at(1)
-		#let version = captures.at(2)
-	} else {
-		[No match found.]
-	}
-snippet pan_crop Pan and Crop Image
-	block(
-		width: 100%,
-		height: 100%,
-		clip: true,
-		// stroke: black, // Enable when customizing
-		inset: (top:-0mm, left:-0pt), // adjust top/left and height for zoom/pan
-		image("img.jpg", height: 100%)
-	),
-snippet for_range For Range
-	for i in range(0, 255) {
-		par[#i: ]
-	}
-snippet unicode from-unicode (char)
-	#text(font: "Symbol", " "+str.from-unicode(i))
-snippet template Template (generic typst example)
-	#let ${1:i}(it) = {
-		it
-	}
-snippet show Show rule
-	#show ${1:element}: it => {
-		it
-	}
-snippet is_odd Is Page Odd?
-	#counter(page).update(1)
-	#context {
-		// Page number resets don't change this
-		if calc.odd(here().page()) {
-			[odd]
-		}
-	}
-
-snippet is_page_level1_heading Chapter (Heading Level 1) Start Page?
-	let current-headings = query(heading.where(level: 1)).filter(h => h.location().page() == here().page())
-	if current-headings.len() == 0 {
-
-snippet chapter_details Chapter (Heading Level 1) Details
-	let current-heading = headings.last()
-	let chapter_num = counter(heading).display(at: current-heading.location())
-	let chapter_text = current-heading.body
-
-snippet page_number Page Number
-	#counter(page).display()
