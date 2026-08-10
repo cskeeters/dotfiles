@@ -191,4 +191,12 @@ if [[ $- == *i* ]]; then
     bind -x '"\C-x\C-e": _edit_and_return_command'
 fi
 
+
+# Load custom user completions
+if [[ -d ~/.config/bash_completion.d ]]; then
+    for bc in ~/.config/bash_completion.d/*; do
+        [[ -r "$bc" ]] && source "$bc"
+    done
+fi
+
 # vim:ft=sh
