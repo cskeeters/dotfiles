@@ -222,7 +222,7 @@ linkdot shell/completions
 linkdot shell/inputrc
 linkdot shell/dir_colors
 linkdot shell/iterm2_shell_integration.bash
-linkdot shell/cmdsnip.sh
+linkdot shell/cmdsnip/cmdsnip.sh
 linkdot mailcap
 linkdot mbsyncrc
 
@@ -260,6 +260,8 @@ link cmd/notmuch.snippets                   .config/cmd
 link cmd/notmuch.sh                         .config/cmd
 link cmd/nvim.snippets                      .config/cmd
 link cmd/nvim.sh                            .config/cmd
+link cmd/pass.snippets                      .config/cmd
+link cmd/pass.sh                            .config/cmd
 link cmd/pimsync.snippets                   .config/cmd
 link cmd/python.snippets                    .config/cmd
 link cmd/pyvenv.snippets                    .config/cmd

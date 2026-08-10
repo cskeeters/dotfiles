@@ -1,8 +1,11 @@
 snippet taskwarrior_add task: Add with Due Date
 	task add due:${1:tw_date()}+17h
 
-snippet taskwarrior_search task: Search Tasks
-	task ${1:tw_task(TASK status:pending)} next
+snippet taskwarrior_next task: Next Tasks
+	task next
+
+snippet taskwarrior_sync task: Sync Tasks
+	task sync
 
 snippet taskwarrior_list_waiting task: List Waiting by Due
 	task rc.report.all.sort=due+ status:waiting all
@@ -33,6 +36,9 @@ snippet taskwarrior_edit task: Edit Task
 
 snippet taskwarrior_edit_any task: Edit Any Task
 	task ${1:tw_task(TASK)} edit
+
+snippet taskwarrior_done task: Mark task done
+	task ${1:tw_task(TASK status:pending)} done
 
 snippet taskwarrior_delete task: Delete Task
 	task delete ${1:tw_task(DELETE status.not:deleted)}

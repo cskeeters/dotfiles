@@ -125,9 +125,9 @@ find_files_shallow() {
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
     if [[ $2 != "" ]]; then
-        gfind -H -L $LOCATIONS -maxdepth 1 -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
+        find -H -L $LOCATIONS -maxdepth 1 -type f -name "$2" | fzf -1 --height="90%" --prompt "$1> "
     else
-        gfind -H -L $LOCATIONS -maxdepth 1 -type f | fzf -1 --height="90%" --prompt "$1> "
+        find -H -L $LOCATIONS -maxdepth 1 -type f | fzf -1 --height="90%" --prompt "$1> "
     fi
 }
 
@@ -211,4 +211,16 @@ cmd_network_interfaces() {
 
 history_id() {
     history | fzf | awk '{ print $1 }'
+}
+
+## Linux
+
+linux_users() {
+    getent passwd | awk -F: '$3 >= 1000 && $3 <= 65530' | sed -nre 's/([^:]+).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "USER> "
+}
+
+linux_groups() {
+    getent group | sed -nre 's/([^:]+).*/\1/p' | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "GROUP> "
 }
