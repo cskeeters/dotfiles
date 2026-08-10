@@ -134,30 +134,14 @@ if [[ -t 1 ]]; then
         if [[ -f ~/.cmdsnip.sh ]]; then
             export CMDSNIP_LOG_LEVEL=6
             source ~/.cmdsnip.sh
+
+            bind -x '"\C-x\C-j": select_run_snippet'
+            bind -x '"\C-x\C-k": rerun_snipet'
         fi
     else
         echo "cmdsnip will not load because fzf is not installed"
     fi
 fi
-
-#### git
-
-alias G='git'
-
-if exists git; then
-    function gd() {
-        git diff ${1}~ ${1}
-    }
-
-    _gd()
-    {
-        local REFS=$(git log --pretty=format:'%h' --abbrev-commit --date=relative --all)
-        local CUR=${COMP_WORDS[COMP_CWORD]}
-        COMPREPLY=( $(compgen -W "$REFS" -- $CUR) )
-    }
-    complete -F _gd gd
-fi
-
 
 #### dua
 
@@ -180,10 +164,10 @@ export BAT_THEME=kanagawa
 #### eza
 
 if exists eza; then
-    alias l='eza -lg --icons'
-    alias la='eza -lag --icons'
-    alias ll='eza -lg --icons'
-    alias lm='eza -lg --icons -s modified'
+    alias l='eza -lg'
+    alias la='eza -lag'
+    alias ll='eza -lg'
+    alias lm='eza -lg -s modified'
 fi
 
 #### neomutt
@@ -212,6 +196,14 @@ _edit_and_return_command() {
 if [[ $- == *i* ]]; then
     # Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
     bind -x '"\C-x\C-e": _edit_and_return_command'
+fi
+
+
+# Load custom user completions
+if [[ -d ~/.config/bash_completion.d ]]; then
+    for bc in ~/.config/bash_completion.d/*; do
+        [[ -r "$bc" ]] && source "$bc"
+    done
 fi
 
 # vim:ft=sh

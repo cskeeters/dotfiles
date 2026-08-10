@@ -10,6 +10,8 @@ link cmd/llama.sh                           .config/cmd
 link cmd/magick.snippets                    .config/cmd
 link cmd/ollama.snippets                    .config/cmd
 link cmd/ollama.sh                          .config/cmd
+link cmd/opencode.snippets                  .config/cmd
+link cmd/opencode.sh                        .config/cmd
 link cmd/server.snippets                    .config/cmd
 link cmd/taskwarrior.snippets               .config/cmd
 link cmd/taskwarrior.sh                     .config/cmd

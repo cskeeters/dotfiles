@@ -63,8 +63,11 @@ snippet gpg_generate_key gpg: Generate Key
 
 # Refresh
 
-snippet gpg_refresh_keys gpg: Refresh (download/import) keys
+snippet gpg_refresh_keys gpg: Refresh (download/import) All keys
 	gpg --refresh-keys
+
+snippet gpg_refresh_keys gpg: Refresh (download/import) key
+	gpg --refresh-keys ${1:gpg_keys()}
 
 snippet gpg_import_github gpg: Import GitHub's PGP Key(s)
 	curl https://github.com/web-flow.gpg | gpg --import
@@ -94,7 +97,7 @@ snippet gpg_export_secret_key: gpg: Export Secret Primary and All Sub Keys
 	gpg --armor --export-secret-keys ${1:gpg_secret_keys()}
 
 snippet gpg_export_secret_subkeys: gpg: Export Secret Sub Keys
-	gpg --export-secret-subkeys ${1:gpg_secret_keys()} > secret-subkeys.gpg
+	gpg --armor --export-secret-subkeys ${1:gpg_secret_keys()} > secret-subkeys.gpg
 
 snippet gpg_send_key: gpg: Send Key
 	gpg --send-key ${1:gpg_secret_keys()}
