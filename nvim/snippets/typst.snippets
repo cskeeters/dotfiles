@@ -787,3 +787,39 @@ snippet graph_lilaq
 	#lq.diagram(
 		lq.plot(x-values, y-values)
 	)
+
+### PACKAGE fillable/tyaf
+
+snippet pdf_text fillable: PDF Text field
+	#import "@local/typst-fillable:1.0.0": *
+	First: #text_field("first", width: 150pt, height: 1em)
+
+
+snippet pdf_checkbox fillable: PDF Checkbox field
+	U.S Citizen: #checkbox_field("citizen")
+
+snippet pdf_radio fillable: PDF Radio field
+	#import "@local/typst-fillable:1.0.0": *
+	Employment Type:
+	#radio_field("contractor", "employment_type", selected: false) Contractor
+	#radio_field("full-time", "employment_type", selected: false) Full-Time
+	#radio_field("part-time", "employment_type", selected: false) Part-Time
+
+snippet pdf_textarea fillable: PDF TextArea field
+	#import "@local/typst-fillable:1.0.0": *
+	Description: #textarea_field("description", height: 4em)
+
+snippet pdf_signature fillable: PDF Digital Signature Block
+	#import "@local/typst-fillable:1.0.0": *
+	#grid(
+		columns: (1fr, 1fr),
+		[],
+		{
+			signature_field("SIG_ISSM")
+			{
+				set block(above: 3pt, below: 3pt)
+				line(stroke: 1pt, length: 100%)
+			}
+			[CHAD SKEETERS, BCS-T ISSM]
+		}
+	)
