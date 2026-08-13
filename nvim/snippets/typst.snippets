@@ -526,6 +526,31 @@ snippet main Basic Template
 	= Introduction <introduction>
 	#lorem(60)
 
+snippet main_rch_cdrl Template for RCH CDRL
+	#import "@local/rch-cdrl:0.2.0": *
+
+	#let title = "<FIXME: Title>"
+	#let author = "Red Cedar Harmonia (RCH)"
+	#set document(
+		title: title,
+		author: author,
+		keywords: "",
+	)
+
+	#show: setup_frontmatter.with(
+		title: title,
+		reporting_period: "2026-Aug-11",
+		project: "Battle Control System - Tyndall",
+		contract: "SBEAS (FA8771-20-D-0014)",
+		order: "BCS-T (FA4819-22-F-0003)",
+		cdrl: "A803",
+		keywords: "SBEAS BCST SCCB Minutes",
+	)
+
+	#show heading.where(level:1): it => { text(weight: 800, tracking: 1pt, upper(it)) }
+	#show heading.where(level:2): it => { text(weight: 600, style: "italic", it) }
+	#show heading.where(level:3): it => { text(weight: 600, it) }
+
 snippet main_school_paper Template for school paper
 	#import "@local/school-paper:0.1.0": *
 
@@ -761,4 +786,40 @@ snippet graph_lilaq
 
 	#lq.diagram(
 		lq.plot(x-values, y-values)
+	)
+
+### PACKAGE fillable/tyaf
+
+snippet pdf_text fillable: PDF Text field
+	#import "@local/typst-fillable:1.0.0": *
+	First: #text_field("first", width: 150pt, height: 1em)
+
+
+snippet pdf_checkbox fillable: PDF Checkbox field
+	U.S Citizen: #checkbox_field("citizen")
+
+snippet pdf_radio fillable: PDF Radio field
+	#import "@local/typst-fillable:1.0.0": *
+	Employment Type:
+	#radio_field("contractor", "employment_type", selected: false) Contractor
+	#radio_field("full-time", "employment_type", selected: false) Full-Time
+	#radio_field("part-time", "employment_type", selected: false) Part-Time
+
+snippet pdf_textarea fillable: PDF TextArea field
+	#import "@local/typst-fillable:1.0.0": *
+	Description: #textarea_field("description", height: 4em)
+
+snippet pdf_signature fillable: PDF Digital Signature Block
+	#import "@local/typst-fillable:1.0.0": *
+	#grid(
+		columns: (1fr, 1fr),
+		[],
+		{
+			signature_field("SIG_ISSM")
+			{
+				set block(above: 3pt, below: 3pt)
+				line(stroke: 1pt, length: 100%)
+			}
+			[CHAD SKEETERS, BCS-T ISSM]
+		}
 	)
