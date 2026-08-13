@@ -270,6 +270,8 @@ link cmd/restic.sh                          .config/cmd
 link cmd/rg.snippets                        .config/cmd
 link cmd/rsync.snippets                     .config/cmd
 link cmd/tar.snippets                       .config/cmd
+link cmd/taskwarrior.snippets               .config/cmd
+link cmd/taskwarrior.sh                     .config/cmd
 link cmd/tmux.snippets                      .config/cmd
 link cmd/tmux.sh                            .config/cmd
 link cmd/uv.snippets                        .config/cmd
