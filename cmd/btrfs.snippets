@@ -26,15 +26,17 @@ snippet btrfs_sub_create btrfs: Create Subvolume
 snippet btrfs_sub_list btrfs: List Subvolumes
 	btrfs subvolume list ${1:btrfs_devices()}
 
+snippet btrfs_sub_delete btrfs: Delete Subvolume
+	# btrfs subvolume delete ${1:btrfs_subvol_mount()}
+
 snippet btrfs_mount btrfs: Mount Subvolume
 	mount -o subvol=/@rootfs ${1:btrfs_devices()} /
 
 snippet btrfs_snap_create btrfs: Create snapshot
-	btrfs subvolume snapshot ${1:btrfs_subvol_mount()} /mnt/btrfs/${2:cmd_today()}_snapshot
+	btrfs subvolume snapshot ${1:btrfs_subvol_mount()} /mnt/btrfs/storage_snapshots/${2:cmd_today()}
 
-snippet btrfs_snap_create btrfs: Delete Subvolume (or Snapshot)
-	btrfs subvolume delete ${1:SNAPSHOT PATH:/mnt/btrfs/}
-
+snippet btrfs_snap_delete btrfs: Delete Snapshot
+	btrfs subvolume delete ${1:find_dir_shallow(SNAPSHOT)}
 
 snippet btrfs_raid1_create btrfs: Create RAID 1 (Mirrored) Volume
 	mkfs.btrfs -m raid1 -d raid1 ${1:cmd_dev_sd()} ${2:cmd_dev_sd()}
