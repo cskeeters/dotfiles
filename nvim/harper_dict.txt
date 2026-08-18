@@ -55,6 +55,7 @@ D1C
 DASR
 DCE
 DCSA
+DHCP
 DISA
 DITMAC
 DNS
@@ -126,6 +127,7 @@ MPLS
 MPS1000
 MRTG
 Makefile
+Minicom
 Multiprotocol
 NACI
 NFG
@@ -192,6 +194,7 @@ RSH
 RTP
 RX
 Releasability
+Restic
 Robinhood
 RxD
 SAH
@@ -259,6 +262,7 @@ bfm
 bootable
 callsign
 consortiums
+copyparty
 cybersecurity
 decrypted
 deliverables
