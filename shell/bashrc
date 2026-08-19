@@ -168,6 +168,8 @@ fi
 export ESCDELAY=50
 if exists neomutt; then
     alias m='ACCT="local" neomutt'
+    alias mutt='ACCT="local" neomutt'
+    alias neomutt='ACCT="local" neomutt'
 fi
 
 #### Override edit-and-execute-command
