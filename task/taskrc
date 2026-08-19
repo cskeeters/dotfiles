@@ -1,6 +1,6 @@
 data.location=~/.task
 confirmation=off
-news.version=3.4.2
+news.version=3.5.0
 
 search.case.sensitive=no
 
