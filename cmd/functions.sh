@@ -140,7 +140,7 @@ find_dir_shallow() {
     fi
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
-    find $LOCATIONS -depth 1 -type d | fzf -1 --height="90%" --prompt "$1> "
+    find $LOCATIONS -maxdepth 1 -type d | fzf -1 --height="90%" --prompt "$1> "
 }
 
 # $1 - Prompt
