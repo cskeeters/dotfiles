@@ -33,6 +33,18 @@
         "timeout": 60000000
       },
       "models": {
+        "qwen3.8:27b": {
+          "variants": {
+            // "xhigh": {
+              // "reasoningEffort": "xhigh",
+              // // "textVerbosity": "low",
+            // },
+            "fast": {
+              // "disabled": true,
+              "reasoningEffort": "low",
+            },
+          },
+        },
         "qwen3.5:35b": {
             "name": "qwen3.5:35b"
         },
