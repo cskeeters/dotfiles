@@ -15,3 +15,9 @@ snippet virsh_destroy virsh: Hard Power Off VM (destroy)
 
 snippet virsh_undefine virsh: Undefine VM (Leaves disk image)
 	sudo virsh undefine ${1:virsh_get_VMs(ALL)}
+
+snippet virsh_enable virsh: Enable Start on Boot (autostart)
+    virsh autostart ${1:virsh_get_VMs(ALL)}
+
+snippet virsh_disable virsh: Disable Start on Boot (autostart)
+    virsh autostart ${1:virsh_get_VMs(ALL)} --disable
