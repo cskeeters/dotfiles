@@ -1,0 +1,17 @@
+snippet virsh_root virsh: Operate at root-level (LIBVIRT_DEFAULT_URI)
+	export LIBVIRT_DEFAULT_URI="qemu:///system"
+
+snippet virsh_list virsh: List VMs
+	sudo virsh list --all
+
+snippet virsh_start virsh: Start VM
+	sudo virsh start ${1:virsh_get_VMs(ALL)}
+
+snippet virsh_shutdown virsh: Shutdown VM
+	sudo virsh shutdown ${1:virsh_get_VMs()}
+
+snippet virsh_destroy virsh: Hard Power Off VM (destroy)
+	sudo virsh destroy ${1:virsh_get_VMs()}
+
+snippet virsh_undefine virsh: Undefine VM (Leaves disk image)
+	sudo virsh undefine ${1:virsh_get_VMs(ALL)}
