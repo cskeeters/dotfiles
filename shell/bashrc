@@ -39,6 +39,11 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 #### Personal Binaries
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
 
+# Homebrew/linuxbrew
+if [[ -d /home/linuxbrew/ ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 load_all()
 {
     if [[ -d "$1" ]]; then
