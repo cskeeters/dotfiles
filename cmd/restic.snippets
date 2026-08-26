@@ -13,7 +13,7 @@ snippet restic_backup restic: Backup
 
 
 snippet restic_restore restic: Restore Snapshot
-	restic restore latest --path "${2:restic_backedup_path()}" --target /tmp/restore
+	restic restore latest --host $(hostname) --path "${2:restic_backedup_path()}" --target /tmp/restore
 
 snippet restic_restore_file restic: Restore File or Directory
 	restic_restore
