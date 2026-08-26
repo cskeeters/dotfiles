@@ -1,0 +1,2 @@
+snippet rsvg_convert rsvg: Converts svg to png
+	rsvg-convert -w 2048 "${1:find_files_shallow(SVG *.svg)}" -f png -o "${2:cmd_remove_ext(1)}.png"

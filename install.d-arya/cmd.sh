@@ -12,5 +12,6 @@ link cmd/ollama.snippets                    .config/cmd
 link cmd/ollama.sh                          .config/cmd
 link cmd/opencode.snippets                  .config/cmd
 link cmd/opencode.sh                        .config/cmd
+link cmd/rsvg.snippets                      .config/cmd
 link cmd/server.snippets                    .config/cmd
 link cmd/yaml_finance.snippets              .config/cmd
