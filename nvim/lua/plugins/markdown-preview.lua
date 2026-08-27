@@ -1,7 +1,7 @@
 return {
     enabled = true,
     "iamcco/markdown-preview.nvim",
-    lazy = true,
+    lazy = false, -- false seems to be a requirement now
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown", "quarto", "markdown.mail" },
     build = function(plugin)

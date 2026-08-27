@@ -186,5 +186,5 @@ rerun_snipet() {
     runsnippet
 }
 
-bind -x '"\C-x\C-j": select_run_snippet'
-bind -x '"\C-x\C-k": rerun_snipet'
+# bind -x '"\C-x\C-j": select_run_snippet'
+# bind -x '"\C-x\C-k": rerun_snipet'

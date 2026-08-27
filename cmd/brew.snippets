@@ -24,3 +24,5 @@ snippet brew_cleanup brew: Scrub Cache (Leave bottles for installed packages)
 	brew cleanup -s
 snippet brew_wipe_cache brew: Wipe Cache
 	rm -rf "$(brew --cache)"
+snippet brew_installed_by_tap brew: Installed by Tap
+	brew tap-info --installed
