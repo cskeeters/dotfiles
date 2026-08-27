@@ -21,6 +21,7 @@ link cmd/bcst.snippets                      .config/cmd
 link cmd/btrfs.snippets                     .config/cmd
 link cmd/btrfs.sh                           .config/cmd
 link cmd/dmidecode.snippets                 .config/cmd
+link cmd/ehm.snippets                       .config/cmd
 link cmd/ethtool.sh                         .config/cmd
 link cmd/facl.snippets                      .config/cmd
 link cmd/facl.sh                            .config/cmd
