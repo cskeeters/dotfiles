@@ -165,3 +165,5 @@
 	allowedSignersFile = /Users/chad/.ssh/git_allowed_signers
 
 # vim:ft=gitconfig:noexpandtab
+[safe]
+	directory = /opt/AMS2/net/cm
