@@ -67,4 +67,16 @@ customCommands:
     description: 'Pull and Rebase onto Remote'
     context: "localBranches"
     command: 'git pull --rebase'
+  - key: '<c-p>'  # Ctrl+P (or change to any key you prefer)
+    description: 'Push to a specific remote'
+    context: 'global'
+    loadingText: 'Pushing...'
+    prompts:
+      - type: 'menuFromCommand'
+        title: 'Which remote repository do you want to push to?'
+        command: 'git remote'
+        filter: '(?P<remote>.*)'
+        valueFormat: '{{ .remote }}'
+        labelFormat: '{{ .remote | green }}'
+    command: 'git push {{index .PromptResponses 0}} {{.CheckedOutBranch.Name}}'
     output: log
