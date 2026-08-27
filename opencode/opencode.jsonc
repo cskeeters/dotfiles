@@ -33,6 +33,18 @@
         "timeout": 60000000
       },
       "models": {
+        "qwen3.8:27b": {
+          "variants": {
+            // "xhigh": {
+              // "reasoningEffort": "xhigh",
+              // // "textVerbosity": "low",
+            // },
+            "fast": {
+              // "disabled": true,
+              "reasoningEffort": "low",
+            },
+          },
+        },
         "qwen3.5:35b": {
             "name": "qwen3.5:35b"
         },
@@ -44,6 +56,9 @@
         },
         "qwen3.6:35b-a3b-q8_0": {
             "name": "qwen3.6:35b-a3b-q8_0"
+        },
+        "muse-glimmer:latest": {
+            "name": "muse-glimmer:latest"
         },
         "glm-4.7-flash:latest": {
             "name": "glm-4.7-flash:latest"
@@ -92,6 +107,9 @@
         "timeout": 60000000
       },
       "models": {
+        "muse-glimmer:30b-mlx": {
+            "name": "muse-glimmer:30b-mlx"
+        },
         "qwen3-coder-next:latest": {
             "name": "qwen3-coder-next:latest"
         },

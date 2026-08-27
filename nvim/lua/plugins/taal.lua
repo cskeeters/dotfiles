@@ -214,19 +214,19 @@ return {
                 -- Optional: If auth is enabled on your Ollama server
                 -- headers = { Authorization = "Bearer your-token" }
             },
-            hyde = {
+            openai_responses = {
                 url = "http://192.168.20.11:11434",  -- Ollama on HYDE
-                --
-                -- Optional: If auth is enabled on your Ollama server
-                -- headers = { Authorization = "Bearer your-token" }
             },
             apfel = {
                 url = "http://localhost:11434",
+                --
+                -- Optional: If auth is enabled on your Ollama server
+                -- headers = { Authorization = "Bearer your-token" }
             }
         },
 
 
-        adapter = "hyde",
+        adapter = "openai_responses",
 
         -- model = "apple-foundationmodel",
         -- Local Models
@@ -253,6 +253,10 @@ return {
         -- Optional: Per-command overrides (nil uses global defaults)
         commands = {
             grammar = {
+                adapter = nil,
+                model = nil,
+            },
+            setspelllang = {
                 adapter = nil,
                 model = nil,
             },

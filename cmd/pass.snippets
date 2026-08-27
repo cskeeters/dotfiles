@@ -1,0 +1,19 @@
+snippet pass_ls pass: List Entries
+	(cd ~/.password-store; find * -type f)
+# pass
+# pass ls
+
+snippet pass_copy pass: Copy Password
+	pass -c ${1:pass_entries()}
+
+snippet pass_edit pass: Edit Entry
+	pass edit ${1:pass_entries()}
+
+snippet pass_delete pass: Delete (Rm) Entry
+	pass rm ${1:pass_entries()}
+
+snippet pass_find pass: Search (find) Entries
+	pass find ${1:FILE_NAME_NEEDLE}
+
+snippet pass_insert pass: New (insert) Entry
+	pass insert ${1:pass_dirs(DIR)}/${2:NAME:}

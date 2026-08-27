@@ -63,3 +63,8 @@ customCommands:
     context: "commits"
     command: 'LESS="RX" git show --first-parent {{.SelectedLocalCommit.Hash}} || true' # "|| true" prevents SIGPIPE (141) error and confirmation
     output: terminal
+  - key: "<c+b>"
+    description: 'Pull and Rebase onto Remote'
+    context: "localBranches"
+    command: 'git pull --rebase'
+    output: log

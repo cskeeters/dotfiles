@@ -91,7 +91,9 @@ snippet git_tag_push git: Push a Tag
 snippet git_archive_zip git: Archive
 	git archive --format=${1:cmd_choose(FORMAT tgz tar.gz zip tar)} --output=${2:git_repo_name()}.${1} master
 snippet git_fast_export git: Fast Export
-	git fast-export --reference-excluded-parents bundle_${1}..${1:master} --refspec "refs/heads/*:refs/heads/ty_*" > fe_${1}.txt
+	git fast-export --reference-excluded-parents ${1}~${2::5}..${1:master} > fe_${1}.txt
+snippet git_fast_export_feature git: Fast Export Feature Branch
+	git fast-export --reference-excluded-parents bundle_${1}..${1:master} --not bundle_${1} --refspec "refs/heads/*:refs/heads/ty_*" > fe_${1}.txt
 snippet git_fast_import git: Fast Import
 	git fast-import < efe_master.txt
 

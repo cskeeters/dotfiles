@@ -103,6 +103,22 @@ local spelling_words = function()
     return words
 end
 
+
+local get_max_severity = function()
+    -- Get all diagnostics for the current buffer
+    local diagnostics = vim.diagnostic.get(0)
+    if #diagnostics == 0 then
+        return
+    end
+
+    -- Find the highest severity present (ERROR = 1, WARN = 2, INFO = 3, HINT = 4)
+    local max_severity = vim.diagnostic.severity.HINT
+    for _, d in ipairs(diagnostics) do
+        if d.severity < max_severity then
+            max_severity = d.severity
+        end
+    end
+end
 return {
     enabled = true,
     'williamboman/mason.nvim',
@@ -123,16 +139,19 @@ return {
             vim.diagnostic.jump({
                 count=-1,
                 wrap=true,
-                severity=vim.diagnostic.severity.ERROR,
+                -- severity=vim.diagnostic.severity.ERROR,
+                severity=get_max_severity(),
                 -- float=true,
             })
         end,  { noremap=true, silent=true })
 
         vim.keymap.set('n', ']d', function()
+
             vim.diagnostic.jump({
                 count=1,
                 wrap=true,
-                severity=vim.diagnostic.severity.ERROR,
+                -- severity=vim.diagnostic.severity.ERROR,
+                severity=get_max_severity(),
                 -- float=true,
             })
         end,  { noremap=true, silent=true })

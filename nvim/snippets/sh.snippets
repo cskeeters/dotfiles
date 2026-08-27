@@ -157,9 +157,9 @@ snippet whileread
 
 ## COMMANDS
 
-snippet cd Change Directory
-	cd "${0%/*}"
-	cd "$(dirname "\$0")"
+snippet cd_to cd to script's directory
+	# Change directory to where the script is run
+	CDPATH="" cd "$(dirname "\$0")"
 
 snippet pf
 	printf "${0}\n"
