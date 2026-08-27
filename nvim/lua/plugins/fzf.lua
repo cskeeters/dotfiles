@@ -35,6 +35,7 @@ return {
 
         vim.keymap.set('n', '<Leader>ot', ':Files! ~/dotfiles<cr>',                              { desc="Open dotfiles file (fzf)" })
         vim.keymap.set('n', '<Leader>od', ':Files! /opt/AMS2/net/doc/bcst-doc<cr>',              { desc="Open bcst-doc file (fzf)" })
+        vim.keymap.set('n', '<Leader>ol', ':Files! /opt/AMS2/net/luckyCM<cr>',                   { desc="Open luckyCM file (fzf)" })
 
         vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                       { desc="Open Buffer (fzf)" })
         vim.keymap.set('n', '<Leader>oo', ':History!<cr>',                                       { desc="Open Old file from history (fzf)" })
