@@ -39,7 +39,7 @@ snippet tutorial_indexed_array Tutorial Indexed Array
 	FOO=() #clear
 
 	echo Count: ${#FOO[@]}
-	for F in "${#FOO[@]}"; do
+	for F in "${FOO[@]}"; do
 		echo "$F"
 	done
 
