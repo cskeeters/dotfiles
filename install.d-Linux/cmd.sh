@@ -33,4 +33,6 @@ link cmd/systemctl.snippets                 .config/cmd
 link cmd/systemctl.sh                       .config/cmd
 link cmd/timedatectl.snippets               .config/cmd
 link cmd/tshark.snippets                    .config/cmd
+link cmd/virsh.snippets                     .config/cmd
+link cmd/virsh.sh                           .config/cmd
 link cmd/wireguard-server.snippets          .config/cmd

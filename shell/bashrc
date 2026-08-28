@@ -44,6 +44,13 @@ if [[ -d /home/linuxbrew/ ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Homebrew (MacOS)
+if [[ -d /opt/homebrew ]]; then
+    export BREW_PREFIX=/opt/homebrew
+    export PATH="$BREW_PREFIX/bin:$PATH"
+    export PATH="$BREW_PREFIX/sbin:$PATH"
+fi
+
 if exists vim; then
     export VISUAL='vim'
     export EDITOR=$VISUAL
@@ -186,6 +193,12 @@ if exists neomutt; then
     alias m='ACCT="local" neomutt'
     alias mutt='ACCT="local" neomutt'
     alias neomutt='ACCT="local" neomutt'
+fi
+
+#### mise
+
+if exists mise; then
+    eval "$(mise activate bash)"
 fi
 
 #### Override edit-and-execute-command
