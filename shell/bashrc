@@ -200,6 +200,12 @@ if exists neomutt; then
     alias m='ACCT="yahoo" neomutt'
 fi
 
+#### mise
+
+if exists mise; then
+    eval "$(mise activate bash)"
+fi
+
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt
