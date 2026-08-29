@@ -20,6 +20,8 @@ neovim() {
     nvim.chad $@
 }
 
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+
 if [[ $(hostname -s) != "server" ]]; then
     # echo "using custom nvim"
     alias vi='neovim'
