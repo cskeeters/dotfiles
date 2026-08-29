@@ -57,7 +57,7 @@ if exists vim; then
     alias vi='vim'
 fi
 
-if exists nvim; then
+if exists /opt/neovim/bin/nvim; then
     export VISUAL='nvim'
     export EDITOR=$VISUAL
     alias vi='nvim'
