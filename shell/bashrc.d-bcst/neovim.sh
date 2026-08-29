@@ -20,11 +20,19 @@ neovim() {
     nvim.chad $@
 }
 
-export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
-
 if [[ $(hostname -s) != "server" ]]; then
-    # echo "using custom nvim"
-    alias vi='neovim'
-    alias vim='neovim'
-    # alias nvim='neovim'
+    if exists nvim.chad; then
+        export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+
+        # echo "using custom nvim"
+        alias vi='neovim'
+        alias vim='neovim'
+        alias nvim='neovim'
+
+        # VISUAL may not be a function or alias
+        # If the user launches the editor from betty file manager before it's
+        # initialized, it will error.  Good enough.
+        export VISUAL='nvim.chad'
+        export EDITOR=$VISUAL
+    fi
 fi
