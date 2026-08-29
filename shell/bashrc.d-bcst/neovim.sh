@@ -1,33 +1,13 @@
-neovim_install_good() {
-    [[ -f /opt/neovim/bin/nvim ]] || return 1
-
-    VERSION=$(/opt/neovim/bin/nvim --version | grep NVIM)
-
-    [[ "$VERSION" == "NVIM v0.12.3" ]] || return 2
-
-    return 0
-}
-
-neovim() {
-    if ! neovim_install_good; then
-        echo "neovim is not current. syncing..."
-        sudo rsync -av --delete --progress root@server:/opt/neovim /opt
-        REAL_PATH=$(realpath /opt/neovim)
-        sudo rsync -av --delete --progress "root@server:$REAL_PATH" /opt
-        PATH=/opt/neovim/bin:$PATH
-    fi
-
-    nvim.chad $@
-}
-
 if [[ $(hostname -s) != "server" ]]; then
     if exists nvim.chad; then
+        # set this to a fixed location so that when nvim.chad changes HOME,
+        # xsel can still find .Xauthority and write to the clipboard
         export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
 
         # echo "using custom nvim"
-        alias vi='neovim'
-        alias vim='neovim'
-        alias nvim='neovim'
+        alias vi='nvim.chad'
+        alias vim='nvim.chad'
+        alias nvim='nvim.chad'
 
         # VISUAL may not be a function or alias
         # If the user launches the editor from betty file manager before it's
