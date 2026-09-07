@@ -134,7 +134,7 @@ fi
 
 #### FZF
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     if exists fzf; then
         if [[ -f ~/.fzf.sh ]]; then
             source ~/.fzf.sh
@@ -144,7 +144,7 @@ fi
 
 #### Command Line Snippets
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     # cmdsnip requires fzf
     if exists fzf; then
         if [[ -f ~/.cmdsnip.sh ]]; then
