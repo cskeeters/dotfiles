@@ -49,41 +49,15 @@ gitupdate() {
         die "hg not installed"
     fi
 }
-hgclone() {
-    if exists hg; then
-        (cd offline && hg clone "$1" || die "Error downloading $1")
-    else
-        die "hg not installed"
-    fi
-}
-hgupdate() {
-    if exists hg; then
-        (cd offline/"$1" && hg pull -u || die "Error updating $1")
-    else
-        die "hg not installed"
-    fi
-}
-clone() {
+clone_or_update() {
     mkdir -p offline
     if [[ ! -e "offline/$(basename $1)" ]]; then
         info "Cloning $1..."
-        if [[ $1 =~ github ]]; then
-            gitclone "$1"
-        elif [[ $1 =~ bitbucket ]]; then
-            hgclone "$1"
-        else
-            die "Don't know how to clone $1"
-        fi
+        gitclone "$1"
     else
         if [[ $UPDATE -eq 1 ]]; then
             info "Updating $1..."
-            if [[ $1 =~ github ]]; then
-                gitupdate $(basename "$1")
-            elif [[ $1 =~ bitbucket ]]; then
-                hgupdate $(basename "$1")
-            else
-                die "Don't know how to update $1"
-            fi
+            gitupdate $(basename "$1")
         fi
     fi
 }
@@ -206,7 +180,7 @@ chmod a+x offline/tabsplice
 cache https://raw.githubusercontent.com/cskeeters/myvim/master/myvim
 chmod a+x offline/myvim
 
-clone https://github.com/chriskempson/base16-shell
+clone_or_update https://github.com/chriskempson/base16-shell
 
 if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
     echo "Finished Downloading.  Exiting"
