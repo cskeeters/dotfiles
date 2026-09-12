@@ -281,6 +281,15 @@ snippet main_shell_daemon Shell daemon
 
 	echo "Daemon started with PID $!"
 
+snippet semantic_version_check Semantic Version Check
+	VERSION_MIN="0.60"
+	VERSION_CUR="0.74.3" # Dynamically set
+
+	# Returns OLDEST version.  If OLDEST is not the min, then the CUR is oldest
+	if [[ "$(printf '%s\n%s' "$VERSION_CUR" "$VERSION_MIN" | sort -V | head -n1)" != "$VERSION_MIN" ]]; then
+		echo "App is too old"
+	fi
+
 ## log.sh
 
 snippet die Die
