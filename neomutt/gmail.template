@@ -116,7 +116,7 @@ macro index,pager ,I "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profi
 macro index,pager ,E "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox<enter><enter><change-folder>^<enter>" "Archive"
 macro index,pager ,D "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +trash<enter><change-folder>^<enter>" "Trash"
 
-# Reenable next fro these commands
+# Reenable next for these commands
 macro index,pager t "<tag-entry><next-entry>"    "Tag Entry"
 macro index,pager N "<mark-as-new><next-entry>"    "Toggle New (read/unread)"
 # We must apply trash and let gmail remove the email after 30 days
