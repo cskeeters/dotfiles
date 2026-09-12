@@ -110,6 +110,8 @@ macro pager ,h "<enter-command>unalternative_order *; alternative_order text/htm
 bind attach <return> view-mailcap
 # bind attach l view-mailcap
 
+macro compose \CA "<shell-escape>bfm<enter><enter-command>source /tmp/mutt_attach_cmd<enter>" "Select File Attachment"
+
 ### Markdown
 
 macro compose Y "<pipe-entry>~/bin/mutt_markdown.sh<Enter>\
