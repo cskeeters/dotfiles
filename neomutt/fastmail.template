@@ -52,7 +52,7 @@ set spool_file = "notmuch://?query=tag:inbox"    # Renamed from spoolfile
 
 # Tell neomutt where the notmuch DB is for this account
 # set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
-set nm_exclude_tags = "spam,trash"
+set nm_exclude_tags = "spam,deleted"
 
 
 ### SMTP
@@ -83,14 +83,14 @@ macro index,pager gp "<enter-command>set use_threads=no<Enter><vfolder-from-quer
 macro index,pager ga "<enter-command>set use_threads=no<Enter><vfolder-from-query>*<Enter>" "Go All (notmuch)"
 macro index,pager gt "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:sent<Enter>" "Go Sent (notmuch)"
 macro index,pager gs "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:spam<Enter>" "Go SPAM (notmuch Bulk)"
-macro index,pager gd "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:trash<Enter>" "Go Trash"
+macro index,pager gd "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:deleted<Enter>" "Go Trash (deleted)"
 macro index,pager gl "<enter-command>set use_threads=no<Enter><shell-escape>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-view-tag.sh<Enter><enter-command>source /tmp/neomutt_fzf_cmd<Enter>"
 macro index,pager \CT "<enter-command>set use_threads=no<Enter><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-thread.sh<Enter><enter-command>source /tmp/neomutt_thread_cmd<Enter>" "Find full thread for current message"
 
 # Thread Views
-macro index,pager gI "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:inbox&type=threads<Enter>" "Go Inbox (notmuch)"
-macro index,pager gA "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=*&type=threads<Enter>" "Go Archive (notmuch)"
-macro index,pager gR "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:trash&type=threads<Enter>" "Go All (notmuch)"
+macro index,pager gI "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:inbox&type=threads<Enter>" "Go Inbox (threads)"
+macro index,pager gA "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=*&type=threads<Enter>" "Go Archive (threads)"
+macro index,pager gD "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:deleted&type=threads<Enter>" "Go Trash (deleted) (threads)"
 
 # Map '/' to Notmuch Global Search
 bind index / vfolder-from-query
@@ -103,18 +103,18 @@ bind index / vfolder-from-query
 #<mark-message>z<enter><change-folder>^<enter>'z<next-entry>
 #<next-entry>
 macro index,pager E "<modify-labels-then-hide>-inbox<enter><enter><next-entry>" "Archive"
-macro index,pager D "<modify-labels-then-hide>-inbox +trash<enter><next-entry>" "Trash" # Don't have to remove all tags, just inbox
+macro index,pager D "<modify-labels-then-hide>-inbox +deleted<enter><next-entry>" "Trash" # Don't have to remove all tags, just inbox
 macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><next-entry>" "Mark as Spam"
-macro index,pager I "<modify-labels-then-hide>-spam -archive -trash +inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
+macro index,pager I "<modify-labels-then-hide>-spam -archive -deleted +inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 
 bind index,pager "d" noop # Do not allow delete
 bind index,pager "u" noop # Do not allow undelete
 
 # Commands that operate on multiple messages use , leader and refresh the view
 macro index,pager ,! "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +spam<enter><change-folder>^<enter>" "Mark as Spam"
-macro index,pager ,I "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -spam -archive -trash +inbox<enter><change-folder>^<enter>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
+macro index,pager ,I "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -spam -archive -deleted +inbox<enter><change-folder>^<enter>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 macro index,pager ,E "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox<enter><enter><change-folder>^<enter>" "Archive"
-macro index,pager ,D "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +trash<enter><change-folder>^<enter>" "Trash"
+macro index,pager ,D "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -t -inbox +deleted<enter><change-folder>^<enter>" "Trash"
 
 # Reenable next for these commands
 macro index,pager t "<tag-entry><next-entry>"    "Tag Entry"
