@@ -8,7 +8,11 @@ die() {
 [[ -x "$1" ]] || die "pass in the plugin you want to test"
 
 # Testing with spaces in CWD and paths is a good idea.
-#
+
+mkdir -p "/tmp/my files"
+echo hi1 > "/tmp/my files/foo bar1"
+echo hi2 > "/tmp/my files/foo bar2"
+
 # State file has:
 #   CWD of active Tab
 #   Path1
