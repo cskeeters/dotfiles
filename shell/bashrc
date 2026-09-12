@@ -214,6 +214,7 @@ export BAT_THEME=kanagawa
 export ESCDELAY=50
 if exists neomutt; then
     alias m='ACCT="yahoo" neomutt'
+    alias fm='ACCT="chad-fastmail" neomutt'
 fi
 
 #### mise
