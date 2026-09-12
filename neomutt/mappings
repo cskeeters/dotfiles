@@ -71,6 +71,7 @@ macro index,pager U "<undelete-message><next-entry>" "Undelete and move next" # 
 # bind index <tab> sync-mailbox
 
 # Quickly open w3m
+macro index,pager \CE "<view-attachments><search>text/plain<enter><view-mailcap><exit>" "Open text/plain in neovim"
 macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>" "Open HTML Alternative"
 
 
