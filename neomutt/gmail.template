@@ -140,7 +140,7 @@ macro index,pager \Cd "<untag-pattern>.<enter>" "Deselect All"
 # "Search Notmuch threads with FZF and open as vfolder"
 
 # macro index ,l "<enter-command>source /tmp/neomutt_fzf_cmd<enter>"
-macro index,pager ,l "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-search-all.sh tdf<enter><enter-command>source /tmp/neomutt_fzf_cmd<enter>"
+macro index,pager ,l "<shell-escape>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-search-all.sh<enter><enter-command>source /tmp/neomutt_fzf_cmd<enter>"
 
 
 ### Sync
