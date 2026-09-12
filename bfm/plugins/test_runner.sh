@@ -18,7 +18,6 @@ cat <<EOF > /tmp/BFM_STATE_TEST
 /tmp/my files
 /tmp/my files/foo bar1
 /tmp/my files/foo bar2
-
 EOF
 
 $1 /tmp/BFM_STATE_TEST /tmp/BFM_CMD_TEST
