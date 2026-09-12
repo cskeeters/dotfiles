@@ -211,6 +211,11 @@ snippet source_sd Source from script's dir
 snippet cmd_exists Executable exists in the path
 	command -v ${1} > /dev/null
 
+snippet fn_exists exists Function
+	exists() {
+		command -v $1 >/dev/null 2>&1
+	}
+
 snippet re
 	re='Chad is (.*)'
 	if [[ 'Chad is good' =~ $re ]]; then
