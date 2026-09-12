@@ -222,8 +222,13 @@ snippet re
 		echo ${BASH_REMATCH[1]}
 	fi
 
+snippet trap_int Trap CTRL+C
+	trap 'echo "Script interrupted by user."; exit 130' INT
+
 snippet trap trap: Run a function on exit
 	${1:foo}() {
+		echo "Script interrupted by user."
+		exit 130
 	}
 	trap '${1}' SIGINT SIGTERM EXIT
 
