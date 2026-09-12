@@ -133,7 +133,8 @@ macro index,pager L "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profil
 macro index,pager M "<tag-prefix><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-tag -m<enter><untag-pattern>.<enter><mark-message>z<enter><change-folder>^<enter>'z" "Set Labels with FZF"
 
 macro index,pager \Ca "<tag-pattern>.<enter>" "Select All"
-macro index,pager \Cd "<untag-pattern>.<enter>" "Deselect All"
+# Use ^T and . to deselect all
+# macro index,pager \Cs "<untag-pattern>.<enter>" "Deselect All" # don't conflict with half-down.  `.<enter>` doesn't work.
 
 # macro index ,l "<shell-escape>~/bin/notmuch-search.sh > /tmp/neomutt_fzf_result<enter>\
 # <vfolder-from-query>thread:$(cat /tmp/neomutt_fzf_result)<enter>" \
