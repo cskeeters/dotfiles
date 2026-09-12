@@ -102,10 +102,10 @@ bind index / vfolder-from-query
 #<change-folder>^<enter>
 #<mark-message>z<enter><change-folder>^<enter>'z<next-entry>
 #<next-entry>
-macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><next-entry>" "Mark as Spam"
-macro index,pager I "<modify-labels-then-hide>-spam -archive -trash +inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 macro index,pager E "<modify-labels-then-hide>-inbox<enter><enter><next-entry>" "Archive"
 macro index,pager D "<modify-labels-then-hide>-inbox +trash<enter><next-entry>" "Trash" # Don't have to remove all tags, just inbox
+macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><next-entry>" "Mark as Spam"
+macro index,pager I "<modify-labels-then-hide>-spam -archive -trash +inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 
 bind index,pager "d" noop # Do no allow delete
 bind index,pager "u" noop # Do no allow undelete
