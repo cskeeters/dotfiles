@@ -133,6 +133,7 @@ set attribution_intro = "On %d, %n wrote:\n" # format of quoting header, Add new
 ## SENDING
 
 set fcc_attach                       # save attachments with the body
+set attach_format = "%u%D%I %t%4c %-60.60d %> [%.40s]"
 
 ## IMAP
 
