@@ -78,19 +78,19 @@ set sendmail = "env NOTMUCH_PROFILE=$nm_config_profile gmi send -t -C $folder"
 set nm_query_type = messages
 set use_threads = no
 
-macro index,pager gi "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:inbox<Enter>" "Go Inbox (notmuch)"
-macro index,pager gp "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:important<Enter>" "Go Important (notmuch)"
-macro index,pager ga "<enter-command>set use_threads=no<Enter><vfolder-from-query>*<Enter>" "Go All (notmuch)"
-macro index,pager gt "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:sent<Enter>" "Go Sent (notmuch)"
-macro index,pager gs "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:spam<Enter>" "Go SPAM (notmuch Bulk)"
+macro index,pager gi "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:inbox<Enter>" "Go Inbox"
+macro index,pager gp "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:important<Enter>" "Go Important"
+macro index,pager ga "<enter-command>set use_threads=no<Enter><vfolder-from-query>*<Enter>" "Go All"
+macro index,pager gt "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:sent<Enter>" "Go Sent"
+macro index,pager gs "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:spam<Enter>" "Go SPAM (spam)"
 macro index,pager gd "<enter-command>set use_threads=no<Enter><vfolder-from-query>tag:trash<Enter>" "Go Trash"
 macro index,pager gl "<enter-command>set use_threads=no<Enter><shell-escape>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-view-tag.sh<Enter><enter-command>source /tmp/neomutt_fzf_cmd<Enter>"
 macro index,pager \CT "<enter-command>set use_threads=no<Enter><pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-thread.sh<Enter><enter-command>source /tmp/neomutt_thread_cmd<Enter>" "Find full thread for current message"
 
 # Thread Views
-macro index,pager gI "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:inbox&type=threads<Enter>" "Go Inbox (notmuch)"
-macro index,pager gA "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=*&type=threads<Enter>" "Go Archive (notmuch)"
-macro index,pager gR "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:trash&type=threads<Enter>" "Go All (notmuch)"
+macro index,pager gI "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:inbox&type=threads<Enter>" "Go Inbox (threads)"
+macro index,pager gA "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=*&type=threads<Enter>" "Go Archive (threads)"
+macro index,pager gD "<enter-command>set use_threads=yes<Enter><change-folder>notmuch://?query=tag:trash&type=threads<Enter>" "Go Trash (threads)"
 
 # Map '/' to Notmuch Global Search
 bind index / vfolder-from-query
