@@ -16,6 +16,7 @@ macro index,pager ,aw '<sync-mailbox><enter-command>source ~/.config/neomutt/acc
 macro index,pager ,ak '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/gmail.karta<enter><change-folder>!<enter>'
 macro index,pager ,ao  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/outlook-personal<enter><change-folder>!<enter>'
 macro index,pager ,ay  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/yahoo<enter><change-folder>!<enter>'
+macro index,pager ,af  '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/chad-fastmail<enter><change-folder>!<enter>'
 # macro index,pager ,al '<sync-mailbox><enter-command>source ~/.config/neomutt/accounts/local<enter><change-folder>!<enter>'
 
 ## NAVIGATION
@@ -70,6 +71,7 @@ macro index,pager U "<undelete-message><next-entry>" "Undelete and move next" # 
 # bind index <tab> sync-mailbox
 
 # Quickly open w3m
+macro index,pager \CE "<view-attachments><search>text/plain<enter><view-mailcap><exit>" "Open text/plain in neovim"
 macro index,pager V "<view-attachments><search>html<enter><view-mailcap><exit>" "Open HTML Alternative"
 
 
@@ -107,6 +109,8 @@ macro pager ,h "<enter-command>unalternative_order *; alternative_order text/htm
 
 bind attach <return> view-mailcap
 # bind attach l view-mailcap
+
+macro compose \CA "<shell-escape>bfm<enter><enter-command>source /tmp/mutt_attach_cmd<enter>" "Select File Attachment"
 
 ### Markdown
 

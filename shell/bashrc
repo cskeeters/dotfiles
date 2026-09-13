@@ -9,6 +9,9 @@ exists() {
 
 DOTFILES=$(dirname $(dirname $(realpath ~/.bashrc)))
 
+# Don't display ^C characters
+stty -echoctl
+
 #### Common Shell tools
 umask 002
 
@@ -90,10 +93,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias l='ls -lh'
-alias la='ls -lAh'
-alias ll='ls -lh'
-alias lm='ls -lhtr'
+alias l='ls -lh --color=auto'
+alias la='ls -lAh --color=auto'
+alias ll='ls -lh --color=auto'
+alias lm='ls -lhtr --color=auto'
 
 alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
 alias fgrep="grep -F --color --exclude-dir=.hg --exclude-dir=.git"
@@ -109,6 +112,35 @@ if [ -d "$HOME/.config/env.d" ]; then
         source "$f"
         set +a
     done
+fi
+
+#### ls
+
+# See defaults with `dircolors`
+
+# Make other write (ow) more visible
+LS_COLORS='ow=1;30;42';
+
+export LS_COLORS
+
+#### eza
+
+if exists eza; then
+    alias  l='eza -lg'
+    alias la='eza -lag'
+    alias ll='eza -lg'
+    alias lm='eza -lg -s modified'
+fi
+
+#### lsd
+
+if exists lsd; then
+    alias ll=`lsd -l`
+
+    alias  l='lsd -l'
+    alias ll='lsd -l'
+    alias la='lsd -la'
+    alias lm='lsd -lhtr'
 fi
 
 #### neovim
@@ -134,7 +166,7 @@ fi
 
 #### FZF
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     if exists fzf; then
         if [[ -f ~/.fzf.sh ]]; then
             source ~/.fzf.sh
@@ -144,7 +176,7 @@ fi
 
 #### Command Line Snippets
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     # cmdsnip requires fzf
     if exists fzf; then
         if [[ -f ~/.cmdsnip.sh ]]; then
@@ -176,15 +208,6 @@ fi
 # May need to run `bat cache --build` to make theme visible
 
 export BAT_THEME=kanagawa
-
-#### eza
-
-if exists eza; then
-    alias l='eza -lg'
-    alias la='eza -lag'
-    alias ll='eza -lg'
-    alias lm='eza -lg -s modified'
-fi
 
 #### neomutt
 
@@ -232,3 +255,5 @@ fi
 # Homebrew/linuxbrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # vim:ft=sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

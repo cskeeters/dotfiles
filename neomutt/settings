@@ -49,7 +49,7 @@ set arrow_string = "➜"
 
 set delete = yes        # Automatically delete messages marked 'D' when closing a mailbox
 
-set use_threads = yes                       # Must be above sort to avoid warning
+set use_threads = no                       # Show links between messages.  Must be above sort to avoid warning.
 # set sort = threads
 set sort = reverse-last-date-received   # This puts the newest thread at the top
 # set sort_aux = last-date-received       # This keeps replies in order inside the thread
@@ -133,6 +133,7 @@ set attribution_intro = "On %d, %n wrote:\n" # format of quoting header, Add new
 ## SENDING
 
 set fcc_attach                       # save attachments with the body
+set attach_format = "%u%D%I %t%4c %-60.60d %> [%.40s]"
 
 ## IMAP
 
