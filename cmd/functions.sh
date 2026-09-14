@@ -82,6 +82,16 @@ cmd_choose() {
     echo "$*" | tr ' ' '\n' | fzf --prompt "$PROMPT> "
 }
 
+safe_expand() {
+    S="$1"
+    S="${S/#\$HOME/$HOME}"
+    S="${S/#\$XDG_RUNTIME_DIR/$XDG_RUNTIME_DIR}"
+    S="${S/#\$TMPDIR/$TMPDIR}"
+    S="${S/#\$XDG_CONFIG_HOME/$XDG_CONFIG_HOME}"
+    S="${S/#\~/$HOME}"
+    echo "$S"
+}
+
 ## File names/paths
 
 # $1 - Prompt
@@ -90,7 +100,7 @@ cmd_choose() {
 find_files() {
     LOCATIONS="."
     if [[ "$3" != "" ]]; then
-        LOCATIONS=$3
+        LOCATIONS=$(safe_expand "$3")
     fi
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
@@ -106,7 +116,7 @@ find_files() {
 find_dir() {
     LOCATIONS="."
     if [[ "$2" != "" ]]; then
-        LOCATIONS=$2
+        LOCATIONS=$(safe_expand "$2")
     fi
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
@@ -120,7 +130,7 @@ find_dir() {
 find_files_shallow() {
     LOCATIONS="."
     if [[ "$3" != "" ]]; then
-        LOCATIONS=$3
+        LOCATIONS=$(safe_expand "$3")
     fi
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
@@ -136,7 +146,7 @@ find_files_shallow() {
 find_dir_shallow() {
     LOCATIONS="."
     if [[ "$2" != "" ]]; then
-        LOCATIONS=$2
+        LOCATIONS=$(safe_expand "$2")
     fi
 
     # No quotes around LOCATIONS so there can be multiple arguments to find
@@ -147,7 +157,10 @@ find_dir_shallow() {
 # $2 - Pattern (Regular expression)
 # $3 - Path(s)
 fd_files() {
-    LOCATIONS=$3
+    # Fine for this to be empty
+    LOCATIONS=$(safe_expand "$3")
+
+    cmd_error "LOCATIONS: $LOCATIONS"
 
     # No quotes around LOCATIONS so there can be multiple arguments to fd
     fd "$2" $LOCATIONS | fzf -1 --height="90%" --prompt "$1> "
@@ -158,7 +171,7 @@ fd_files() {
 # $3 - Path(s)
 fd_files_shallow() {
     # Fine for this to be empty
-    LOCATIONS=$3
+    LOCATIONS=$(safe_expand "$3")
 
     FILTER=""
     if [[ "$2" != "" ]]; then

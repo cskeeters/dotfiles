@@ -1,0 +1,14 @@
+snippet ssh_agent_load ssh-agent: Load Default Key
+	ssh-add
+
+snippet ssh_agent_load_key ssh-agent: Load Key
+	ssh-add "${1:fd_files(KEY "^id_" $HOME/.ssh/)}"
+
+snippet ssh_agent_list ssh-agent: List Loaded Keys
+	ssh-add -l
+
+snippet ssh_agent_unload_all ssh_agent: Unload All Keys
+	ssh-add -D
+
+snippet ssh_agent_unload_key ssh-agent: Unload Key
+	ssh-add -d "${1:fd_files(KEY "id_.*pub$" $HOME/.ssh/)}"
