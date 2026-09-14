@@ -123,6 +123,13 @@ LS_COLORS='ow=1;30;42';
 
 export LS_COLORS
 
+#### tmp
+
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+    export XDG_RUNTIME_DIR="$TMPDIR/xdg-runtime-$UID"
+    mkdir -p -m 0700 "$XDG_RUNTIME_DIR"
+fi
+
 #### eza
 
 if exists eza; then
