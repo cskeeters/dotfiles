@@ -94,10 +94,10 @@ bind index / vfolder-from-query
 
 ### Process
 
-macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Junk<enter><next-entry>" "Mark as Spam"
-macro index,pager I "<modify-labels-then-hide>-trash -spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 macro index,pager E "<modify-labels-then-hide>+archive -inbox<enter><save-message>+Archive<enter><next-entry>" "Archive"
 macro index,pager D "<modify-labels-then-hide>-inbox -spam -archive +trash<enter><save-message>+Deleted<enter><purge-message><next-entry>" "Trash"
+macro index,pager ! "<modify-labels-then-hide>-inbox +spam<enter><save-message>+Junk<enter><next-entry>" "Mark as Spam"
+macro index,pager I "<modify-labels-then-hide>-trash -spam -archive +inbox<enter><save-message>+Inbox<enter><next-entry>" "Move to Inbox"  # One could use folder-hook to make this smarter, but this works
 bind index "X" noop # Unbind the default first
 macro index,pager X "<pipe-message>NOTMUCH_PROFILE=$nm_config_profile ~/bin/notmuch-rm<enter><refresh>" "Remove from MailDir(s) with FZF"
 

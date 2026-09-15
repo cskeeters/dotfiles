@@ -34,35 +34,42 @@
         "timeout": 60000000
       },
       "models": {
-        "qwen3.8:27b-mtp-q8_0": {
+        "qwen3.8:27b-mtp-bf16": {
           "variants": {
-            // "xhigh": {
-              // "reasoningEffort": "xhigh",
-              // // "textVerbosity": "low",
-            // },
             "fast": {
-              // "disabled": true,
               "reasoningEffort": "low",
             },
           },
         },
-        "qwen3.5:35b": {},
-        "qwen3.5:latest": {},
-        "qwen3.6:35b-a3b-bf16": {},
-        "qwen3.6:35b-a3b-q8_0": {},
-        "muse-glimmer:latest": {},
-        "glm-4.7-flash:latest": {},
-        "nemotron-3-super:latest": {},
-        "nemotron-cascade-2:latest": {},
+        // "qwen3.8:27b-mtp-q8_0": {
+        //   "variants": {
+        //     // "xhigh": {
+        //       // "reasoningEffort": "xhigh",
+        //       // // "textVerbosity": "low",
+        //     // },
+        //     "fast": {
+        //       // "disabled": true,
+        //       "reasoningEffort": "low",
+        //     },
+        //   },
+        // },
         "gpt-oss:120b": {},
-        "gpt-oss:20b": {},
-        "omnicoder-2-9b:latest": {},
-        "phi4:latest": {},
-        "phi4-reasoning:latest": {},
-        "llama3.3:latest": {},
-        "deepseek-r1:70b": {},
-        "gemma3:27b": {},
-        "mistral-small3.2:latest": {},
+        // "qwen3.5:35b": {},
+        // "qwen3.5:latest": {},
+        // "qwen3.6:35b-a3b-bf16": {},
+        // "qwen3.6:35b-a3b-q8_0": {},
+        // "muse-glimmer:latest": {},
+        // "glm-4.7-flash:latest": {},
+        // "nemotron-3-super:latest": {},
+        // "nemotron-cascade-2:latest": {},
+        // "gpt-oss:20b": {},
+        // "omnicoder-2-9b:latest": {},
+        // "phi4:latest": {},
+        // "phi4-reasoning:latest": {},
+        // "llama3.3:latest": {},
+        // "deepseek-r1:70b": {},
+        // "gemma3:27b": {},
+        // "mistral-small3.2:latest": {},
       }
     },
     "ollama": {
@@ -88,46 +95,45 @@
             },
           },
         },
-        "muse-glimmer:30b-mlx": {},
-        "qwen3-coder-next:latest": {},
-        "Qwen3-Coder:30b": {},
         "gpt-oss:20b": {},
-        "llama3.3:latest": {},
+        "ndavat/Nanbeige4.2-3B:latest": {}
+        // "muse-glimmer:30b-mlx": {},
+        //"llama3.3:latest": {},
       }
     },
-    "llama.cpp": {
-        "npm": "@ai-sdk/openai-compatible",
-        "name": "llama.cpp",
-        "options": {
-            "baseURL": "http://localhost:11534/v1",
-            "timeout": 60000000
-        },
-        "models": {
-            "Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL": {
-                "name": "Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL"
-            }
-        }
-    },
-    "mlx": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "MLX (local)",
-      "options": {
-        "baseURL": "http://127.0.0.1:11634/v1"
-      },
-      "models": {
-        "Qwen3-Coder-30B-A3B-Instruct-4bit": {
-          "name": "Qwen3-Coder-30B-A3B-Instruct-4bit"
-        },
-        "Qwen3-Coder-30B-A3B-Instruct-6bit": {
-          "name": "Qwen3-Coder-30B-A3B-Instruct-6bit"
-        },
-        "Qwen3-Coder-Next-4bit": {
-          "name": "Qwen3-Coder-Next-4bit"
-        }
-      }
-    }
+    // "llama.cpp": {
+    //     "npm": "@ai-sdk/openai-compatible",
+    //     "name": "llama.cpp",
+    //     "options": {
+    //         "baseURL": "http://localhost:11534/v1",
+    //         "timeout": 60000000
+    //     },
+    //     "models": {
+    //         "Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL": {
+    //             "name": "Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL"
+    //         }
+    //     }
+    // },
+    // "mlx": {
+    //   "npm": "@ai-sdk/openai-compatible",
+    //   "name": "MLX (local)",
+    //   "options": {
+    //     "baseURL": "http://127.0.0.1:11634/v1"
+    //   },
+    //   "models": {
+    //     "Qwen3-Coder-30B-A3B-Instruct-4bit": {
+    //       "name": "Qwen3-Coder-30B-A3B-Instruct-4bit"
+    //     },
+    //     "Qwen3-Coder-30B-A3B-Instruct-6bit": {
+    //       "name": "Qwen3-Coder-30B-A3B-Instruct-6bit"
+    //     },
+    //     "Qwen3-Coder-Next-4bit": {
+    //       "name": "Qwen3-Coder-Next-4bit"
+    //     }
+    //   }
+    // }
   },
-  "model": "ollama/qwen3-coder",
+  "model": "hyde/qwen3.8:27b-mtp-q8_0",
   "permission": {
     "websearch": "allow",
     "websearch_cited": "allow", // depending on the plugin's tool name
