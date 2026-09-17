@@ -2,3 +2,10 @@ snippet bash_history_append bash: Append Command History
 	history -a
 snippet bash_history_rm bash: Remove History Entry
 	history -d ${1:history_id()}
+
+snippet bash_options_show bash: Show Options
+	set -o
+snippet bash_options_vi bash: vi mode
+	set -o vi
+snippet bash_options_emacs bash: emacs mode
+	set -o emacs
