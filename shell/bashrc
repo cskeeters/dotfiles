@@ -209,6 +209,31 @@ if [[ $- == *i* ]]; then
     fi
 fi
 
+
+#### bfm
+
+if exists bfm; then
+    b() {
+        TMUX_VERSION=$(tmux -V 2> /dev/null | awk '{print $2}')
+        VERSION_MIN="3.5"
+
+        # Returns OLDEST version.  If OLDEST is not the min, then the CUR is oldest
+        if [[ "$(printf '%s\n%s' "$TMUX_VERSION" "$VERSION_MIN" | sort -V | head -n1)" != "$VERSION_MIN" ]]; then
+            bfm $*
+        else
+            tmux new-session -n BFM bfm $*
+        fi
+
+        LASTD="$HOME/.local/state/bfm.lastd"
+
+        if [ -f "$LASTD" ]; then
+            dir=$(cat "$LASTD")
+            cd "$dir"
+        fi
+    }
+fi
+
+
 #### dua
 
 if exists git; then
