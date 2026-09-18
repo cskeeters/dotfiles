@@ -241,6 +241,18 @@ if exists mise; then
     eval "$(mise activate bash)"
 fi
 
+
+#### Backblaze B2
+
+if [[ -r ~/.backblaze ]]; then
+    # Load secret key for Backblaze B2
+    # export B2_ACCOUNT_ID=...
+    # export B2_ACCOUNT_KEY=...
+
+    source ~/.backblaze
+fi
+
+
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt
