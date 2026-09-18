@@ -50,3 +50,16 @@ snippet btrfs_balance btrfs: Balance Discs
 
 snippet btrfs_balance_status btrfs: Balance Discs
 	btrfs balance status ${1:btrfs_devices()}
+
+
+snippet btrfs_scrub_start btrfs: Start Scrub
+	btrfs scrub start ${1:btrfs_devices()}
+
+snippet btrfs_scrub_status btrfs: Scrub Status
+	btrfs scrub status ${1:btrfs_devices()}
+
+snippet btrfs_scrub_cancel btrfs: Cancel Scrub
+	btrfs scrub cancel ${1:btrfs_devices()}
+
+snippet btrfs_scrub_resume btrfs: Resume Scrub
+	btrfs scrub resume ${1:btrfs_devices()}
