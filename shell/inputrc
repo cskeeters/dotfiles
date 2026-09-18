@@ -40,6 +40,7 @@ $if mode=vi
   "\C-a": beginning-of-line
   "\C-e": end-of-line
   # "\C-w": vi-unix-word-rubout
+  # "\C-w": backward-kill-word
   "\C-w": unix-word-rubout
   "\C-k": kill-line
   "\C-u": unix-line-discard
@@ -47,6 +48,5 @@ $if mode=vi
   "\C-n": next-history
   "\C-r": reverse-search-history
   "\e.": yank-last-arg
-  # "\C-w": backward-kill-word
   "\e\C-e": shell-expand-line
 $endif
