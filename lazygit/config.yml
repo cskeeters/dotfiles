@@ -1,5 +1,6 @@
 promptToReturnFromSubprocess: false
 disableStartupPopups: true
+notARepository: quit
 
 os:
   # I usually use lazygit embedded in nvim. For this, I use
@@ -67,7 +68,7 @@ customCommands:
     description: 'Pull and Rebase onto Remote'
     context: "localBranches"
     command: 'git pull --rebase'
-  - key: '<c-p>'  # Ctrl+P (or change to any key you prefer)
+  - key: '<c+p>'  # Ctrl+P (or change to any key you prefer)
     description: 'Push to a specific remote'
     context: 'global'
     loadingText: 'Pushing...'

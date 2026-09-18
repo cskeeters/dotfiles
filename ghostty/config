@@ -1,3 +1,5 @@
 font-family = "Hack Nerd Font Mono"
 font-size = 15
 copy-on-select = clipboard
+
+shell-integration-features = no-cursor

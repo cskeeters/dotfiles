@@ -1,3 +1,5 @@
+set keyseq-timeout 20
+
 set bell-style none
 
 # Trailing slashes on folder complete
@@ -12,3 +14,38 @@ set show-all-if-ambiguous on
 set menu-complete-display-prefix on
 set colored-completion-prefix on
 set colored-stats on
+
+set editing-mode vi
+
+set show-mode-in-prompt on
+
+set emacs-mode-string ""
+
+# Use a blinking block cursor for command mode
+set vi-cmd-mode-string \1\e[1m\e[34m\2CMD \1\e[2 q\2
+
+# Use a blinking vertical bar cursor for insert mode
+set vi-ins-mode-string \1\e[1m\e[32m\2INS \1\e[6 q\2
+
+$if mode=vi
+
+  # with this, all furture maps will be added to vi-command
+  set keymap vi-command
+  "\e\C-e": shell-expand-line
+
+  # with this, all furture maps will be added to vi-insert
+  set keymap vi-insert
+
+  "\C-a": beginning-of-line
+  "\C-e": end-of-line
+  # "\C-w": vi-unix-word-rubout
+  "\C-w": unix-word-rubout
+  "\C-k": kill-line
+  "\C-u": unix-line-discard
+  "\C-p": previous-history
+  "\C-n": next-history
+  "\C-r": reverse-search-history
+  "\e.": yank-last-arg
+  # "\C-w": backward-kill-word
+  "\e\C-e": shell-expand-line
+$endif

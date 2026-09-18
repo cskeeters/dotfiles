@@ -9,3 +9,12 @@ text/html; open -a "Google Chrome" %s; test=test \"$(uname)\" = \"Darwin\"; name
 
 # For viewing text/html in pager
 text/html; w3m -I %{charset} -T text/html -dump; copiousoutput
+
+application/pdf; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.pdf
+
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.docx
+application/msword; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.doc
+
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.xlsx
+application/vnd.ms-excel; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.xls
+application/vnd.ms-excel.sheet.macroEnabled.12; open %s; test=test \"$(uname)\" = \"Darwin\"; nametemplate=%s.xlsm

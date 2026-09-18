@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+IFS="$(printf '\n\r')"
+
+source "$(dirname $0)/helper.sh"
+
+rm -f /tmp/mutt_attach_cmd
+
+for FILE_PATH in "${PATHS[@]}"; do
+    echo "push ':exec attach-file<Enter>${FILE_PATH}<Enter>'" >> /tmp/mutt_attach_cmd
+done
+
+echo "quit" > "$CMD_FILE"
