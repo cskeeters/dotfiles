@@ -49,4 +49,7 @@ $if mode=vi
   "\C-r": reverse-search-history
   "\e.": yank-last-arg
   "\e\C-e": shell-expand-line
+  # C-h is legacy for backspace legacy
+  "\e\C-h": backward-kill-word
+  "\e\C-?": backward-kill-word
 $endif
