@@ -66,6 +66,8 @@ snippet git_restore git: Restore file to commit
 	git restore ${1:fd_files()}
 snippet git_restore_all git: Restore All to commit
 	git restore .
+snippet git_cat git: Cat File at Revision
+	git show ${1:git_select_hash()}:${2:git_select_tracked()}
 
 ## INDEX/STAGING
 snippet git_unstage git: Unstage file

@@ -133,7 +133,7 @@
     //   }
     // }
   },
-  "model": "hyde/qwen3.8:27b-mtp-q8_0",
+  "model": "hyde/qwen3.8:27b-mtp-bf16",
   "permission": {
     "websearch": "allow",
     "websearch_cited": "allow", // depending on the plugin's tool name
