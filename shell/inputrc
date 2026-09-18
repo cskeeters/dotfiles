@@ -15,7 +15,7 @@ set menu-complete-display-prefix on
 set colored-completion-prefix on
 set colored-stats on
 
-set editing-mode vi
+# set editing-mode vi
 
 set show-mode-in-prompt on
 
