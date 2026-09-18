@@ -30,6 +30,10 @@ set vi-ins-mode-string \1\e[1m\e[32m\2INS \1\e[6 q\2
 
 $if mode=vi
 
+  # with this, all furture maps will be added to vi-command
+  set keymap vi-command
+  "\e\C-e": shell-expand-line
+
   # with this, all furture maps will be added to vi-insert
   set keymap vi-insert
 
@@ -44,4 +48,5 @@ $if mode=vi
   "\C-r": reverse-search-history
   "\e.": yank-last-arg
   # "\C-w": backward-kill-word
+  "\e\C-e": shell-expand-line
 $endif
