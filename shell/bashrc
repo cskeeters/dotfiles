@@ -299,6 +299,7 @@ if [[ $- == *i* ]]; then
     bind -m emacs -x '"\C-x\C-e": _edit_and_return_command'
     bind -m vi-insert -x '"\C-x\C-e": _edit_and_return_command'
     bind -m vi-command -x '"\C-x\C-e": _edit_and_return_command'
+    bind -m vi-command -x '"v": _edit_and_return_command'
 fi
 
 # Load custom user completions
