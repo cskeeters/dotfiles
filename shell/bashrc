@@ -272,8 +272,4 @@ if [[ -d ~/.config/bash_completion.d ]]; then
     done
 fi
 
-# Homebrew/linuxbrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # vim:ft=sh
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
