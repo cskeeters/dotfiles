@@ -11,32 +11,17 @@ local conditions = require("luasnip.extras.conditions")
 
 function rcc()
     return fmt([=[```{{=html}}
-<div style="font-family: Arial, sans-serif; color:#595959; line-height: 1.1em; letter-spacing: 0.2pt;">
-
-    <div style="font-size: 11pt">
-
-        <div style="font-weight:700; margin: 0">
-            Chad Skeeters
-        </div>
-        <div style="margin: 0">
-            BCS-T Program Manager
-        </div>
-        <div style="margin: 0">
-            (210) 538-4779
-        </div>
-        <div style="color: #C00000; font-weight:700; margin: 0">
-            Red Cedar Consultancy, LLC
-        </div>
-        <div style="font-family: Arial, sans-serif; line-height: 1.1em; font-size:9pt; color:#C00000; margin: 0">
-            8201 Greensboro Dr, Suite 500, McLean, VA 22102
-            <!-- 11835 IH 10 West Suite 301, San Antonio, TX 78230 -->
-        </div>
-        <div style="font-weight: bold; margin: 0">
-            <b>SBA Certified 8(a) and HUBZone Small Business</b>
-        </div>
-    </div>
-    <div style="font-size: 9pt; font-family: Arial Narrow, sans-serif; line-height: 1.1em;">
-        <div style="margin: 0">
+<span style="font-family: Arial, sans-serif; color:#595959; line-height: 1.1em; letter-spacing: 0.2pt;">
+    <span style="font-size: 11pt">
+        <span style="font-weight:700; margin: 0">Chad Skeeters</span><br>
+        <span style="margin: 0">BCS-T Program Manager</span><br>
+        <span style="margin: 0">(210) 538-4779</span><br>
+        <span style="color: #C00000; font-weight:700; margin: 0">Red Cedar Consultancy, LLC</span><br>
+        <span style="font-family: Arial, sans-serif; line-height: 1.1em; font-size:9pt; color:#C00000; margin: 0">8201 Greensboro Dr, Suite 500, McLean, VA 22102</span><br>
+        <span style="font-weight: bold; margin: 0"><b>SBA Certified 8(a) and HUBZone Small Business</b></span><br>
+    </span>
+    <span style="font-size: 9pt; font-family: Arial Narrow, sans-serif; line-height: 1.1em;">
+        <span style="margin: 0">
             NITAAC CIO-SP3 <span style="color:#C00000">|</span>
             GSA MAS <span style="color:#C00000">|</span>
             Air Force SBEAS <span style="color:#C00000">|</span>
@@ -45,20 +30,12 @@ function rcc()
             JETS 2.0 <span style="color:#C00000">|</span>
             SEC OneIT <span style="color:#C00000">|</span>
             MDA SHIELD
-        </div>
-        <div style="margin:0">
-            ISO 9001:2015     <span style="color:#C00000">|</span>
-                20000-1:2018  <span style="color:#C00000">|</span>
-                27001:2022
-        </div>
-        <div style="margin:0">
-            CMMI DEV/3 <span style="color:#C00000">|</span> SVC/3
-        </div>
-        <div style="margin:0">
-            SALED AGILE PARTNER - SILVER
-        </div>
-    </div>
-</div>
+        </span><br>
+        <span style="margin:0">ISO 9001:2015 <span style="color:#C00000">|</span> 20000-1:2018 <span style="color:#C00000">|</span> 27001:2022</span><br>
+        <span style="margin:0">CMMI DEV/3 <span style="color:#C00000">|</span> SVC/3</span><br>
+        <span style="margin:0">SCALED AGILE FRAMEWORK (SAFe) PARTNER - SILVER</span><br>
+    </span>
+</span>
 ```]=],
         {},
         {
@@ -170,6 +147,13 @@ return {
         {trig = "chad", desc="Chad (RCC)"},
         {
             t('"Chad Skeeters" <chad.skeeters@redcedarconsultancy.com>')
+        }
+    ),
+
+    s(
+        {trig = "fm", desc="Chad (fastmail)"},
+        {
+            t('"Chad Skeeters" <chadskeeters@fastmail.com>')
         }
     ),
 }

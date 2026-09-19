@@ -53,7 +53,7 @@
       keep_years: 2
 
       # BCST Task Order: CDRLs
-    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Contract - Delivery Team
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - SBEAS (1)/Task Orders/BCS-T/SHARE_Client/CDRLs
       keep_days: 14
       keep_months: 12
       keep_years: 2
@@ -64,14 +64,8 @@
       keep_months: 12
       keep_years: 2
 
-      # NBD files for Air Force/SBEAS/BCST (ALSO?)
-    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Portfolio - Program Management/Air Force - HQ SAF_AAI
-      keep_days: 14
-      keep_months: 12
-      keep_years: 2
-
       # Resumes for BCS-T
-    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Current Employees/BCS-T
+    - path: /Users/chad/Library/CloudStorage/OneDrive-SharedLibraries-RedCedarConsultancy,LLC/Sharad - Current Employees/BCS-T (DOD)
       keep_days: 14
       keep_months: 12
       keep_years: 2
@@ -108,7 +102,3 @@
       keep_days: 14
       keep_months: 12
       keep_years: 2
-    - path: /Users/chad/.task   ### TaskWarrior DB
-      keep_days: 14
-      keep_months: 4
-      keep_years: 0

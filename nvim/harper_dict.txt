@@ -194,7 +194,6 @@ RSH
 RTP
 RX
 Releasability
-Restic
 Robinhood
 RxD
 SAH
@@ -298,9 +297,11 @@ rebase
 renderer
 repurpose
 requestor
+restic
 retransmit
 selectable
 subfolder
+subvolumes
 symlink
 symlinks
 tty
