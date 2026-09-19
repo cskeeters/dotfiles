@@ -9,6 +9,9 @@ exists() {
 
 DOTFILES=$(dirname $(dirname $(realpath ~/.bashrc)))
 
+# Don't display ^C characters
+stty -echoctl
+
 #### Common Shell tools
 umask 002
 
@@ -17,7 +20,7 @@ export LANG=en_US.UTF-8
 # Turn on colors for ls
 export CLICOLOR=1
 
-export VISUAL='nvim'
+export VISUAL='vi'
 export EDITOR=$VISUAL
 
 export HISTCONTROL=erasedups
@@ -38,6 +41,31 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 #### Personal Binaries
 [[ -d ~/bin ]] && export PATH=~/bin:$PATH
+
+# Homebrew/linuxbrew
+if [[ -d /home/linuxbrew/ ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Homebrew (MacOS)
+if [[ -d /opt/homebrew ]]; then
+    export BREW_PREFIX=/opt/homebrew
+    export PATH="$BREW_PREFIX/bin:$PATH"
+    export PATH="$BREW_PREFIX/sbin:$PATH"
+fi
+
+if exists vim; then
+    export VISUAL='vim'
+    export EDITOR=$VISUAL
+    alias vi='vim'
+fi
+
+if exists nvim; then
+    export VISUAL='nvim'
+    export EDITOR=$VISUAL
+    alias vi='nvim'
+    alias vim='nvim'
+fi
 
 load_all()
 {
@@ -65,16 +93,62 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-alias l='ls -lh'
-alias la='ls -lAh'
-alias ll='ls -lh'
-alias lm='ls -lhtr'
-
-alias vi='vim'
+alias l='ls -lh --color=auto'
+alias la='ls -lAh --color=auto'
+alias ll='ls -lh --color=auto'
+alias lm='ls -lhtr --color=auto'
 
 alias grep="grep --color --exclude-dir=.hg --exclude-dir=.git"
-alias fgrep="fgrep --color --exclude-dir=.hg --exclude-dir=.git"
-alias egrep="egrep --color --exclude-dir=.hg --exclude-dir=.git"
+alias fgrep="grep -F --color --exclude-dir=.hg --exclude-dir=.git"
+alias egrep="grep -E --color --exclude-dir=.hg --exclude-dir=.git"
+
+#### env.d
+
+if [ -d "$HOME/.config/env.d" ]; then
+    for f in "$HOME/.config/env.d/"*; do
+        # Load the file and export variables
+        # Using 'set -a' exports all variables defined until 'set +a'
+        set -a
+        source "$f"
+        set +a
+    done
+fi
+
+#### ls
+
+# See defaults with `dircolors`
+
+# Make other write (ow) more visible
+LS_COLORS='ow=1;30;42';
+
+export LS_COLORS
+
+#### tmp
+
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+    export XDG_RUNTIME_DIR="$TMPDIR/xdg-runtime-$UID"
+    mkdir -p -m 0700 "$XDG_RUNTIME_DIR"
+fi
+
+#### eza
+
+if exists eza; then
+    alias  l='eza -lg'
+    alias la='eza -lag'
+    alias ll='eza -lg'
+    alias lm='eza -lg -s modified'
+fi
+
+#### lsd
+
+if exists lsd; then
+    alias ll=`lsd -l`
+
+    alias  l='lsd -l'
+    alias ll='lsd -l'
+    alias la='lsd -la'
+    alias lm='lsd -lhtr'
+fi
 
 #### neovim
 
@@ -99,7 +173,7 @@ fi
 
 #### FZF
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     if exists fzf; then
         if [[ -f ~/.fzf.sh ]]; then
             source ~/.fzf.sh
@@ -109,32 +183,54 @@ fi
 
 #### Command Line Snippets
 
-if [[ -t 1 ]]; then
+if [[ $- == *i* ]]; then
     # cmdsnip requires fzf
     if exists fzf; then
         if [[ -f ~/.cmdsnip.sh ]]; then
             export CMDSNIP_LOG_LEVEL=6
             source ~/.cmdsnip.sh
+
+            bind -m emacs -x '"\C-x\C-j": select_run_snippet'
+            bind -m emacs -x '"\C-x\C-k": rerun_snipet'
+
+            bind -m vi-insert -r '\C-x'
+
+            # Available in Vi Insert Mode
+            bind -m vi-insert -x '"\C-x\C-j": select_run_snippet'
+            bind -m vi-insert -x '"\C-x\C-k": rerun_snipet'
+
+            # Available in Vi Normal Mode
+            bind -m vi-command -x '"\C-x\C-j": select_run_snippet'
+            bind -m vi-command -x '"\C-x\C-k": rerun_snipet'
+
         fi
+    else
+        echo "cmdsnip will not load because fzf is not installed"
     fi
 fi
 
-#### git
 
-alias G='git'
+#### bfm
 
-if exists git; then
-    function gd() {
-        git diff ${1}~ ${1}
+if exists bfm; then
+    b() {
+        TMUX_VERSION=$(tmux -V 2> /dev/null | awk '{print $2}')
+        VERSION_MIN="3.5"
+
+        # Returns OLDEST version.  If OLDEST is not the min, then the CUR is oldest
+        if [[ "$(printf '%s\n%s' "$TMUX_VERSION" "$VERSION_MIN" | sort -V | head -n1)" != "$VERSION_MIN" ]]; then
+            bfm $*
+        else
+            tmux new-session -n BFM bfm $*
+        fi
+
+        LASTD="$HOME/.local/state/bfm.lastd"
+
+        if [ -f "$LASTD" ]; then
+            dir=$(cat "$LASTD")
+            cd "$dir"
+        fi
     }
-
-    _gd()
-    {
-        local REFS=$(git log --pretty=format:'%h' --abbrev-commit --date=relative --all)
-        local CUR=${COMP_WORDS[COMP_CWORD]}
-        COMPREPLY=( $(compgen -W "$REFS" -- $CUR) )
-    }
-    complete -F _gd gd
 fi
 
 
@@ -156,21 +252,30 @@ fi
 
 export BAT_THEME=kanagawa
 
-#### eza
-
-if exists eza; then
-    alias l='eza -lg --icons'
-    alias la='eza -lag --icons'
-    alias ll='eza -lg --icons'
-    alias lm='eza -lg --icons -s modified'
-fi
-
 #### neomutt
 
 export ESCDELAY=50
 if exists neomutt; then
     alias m='ACCT="local" neomutt'
 fi
+
+#### mise
+
+if exists mise; then
+    eval "$(mise activate bash)"
+fi
+
+
+#### Backblaze B2
+
+if [[ -r ~/.backblaze ]]; then
+    # Load secret key for Backblaze B2
+    # export B2_ACCOUNT_ID=...
+    # export B2_ACCOUNT_KEY=...
+
+    source ~/.backblaze
+fi
+
 
 #### Override edit-and-execute-command
 
@@ -188,7 +293,19 @@ _edit_and_return_command() {
     rm "$tmpfile"
 }
 
-# Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
-bind -x '"\C-x\C-e": _edit_and_return_command'
+if [[ $- == *i* ]]; then
+    # Bind it to a shortcut (e.g., Ctrl-x Ctrl-v)
+    bind -m emacs -x '"\C-x\C-e": _edit_and_return_command'
+    bind -m vi-insert -x '"\C-x\C-e": _edit_and_return_command'
+    bind -m vi-command -x '"\C-x\C-e": _edit_and_return_command'
+    bind -m vi-command -x '"v": _edit_and_return_command'
+fi
+
+# Load custom user completions
+if [[ -d ~/.config/bash_completion.d ]]; then
+    for bc in ~/.config/bash_completion.d/*; do
+        [[ -r "$bc" ]] && source "$bc"
+    done
+fi
 
 # vim:ft=sh

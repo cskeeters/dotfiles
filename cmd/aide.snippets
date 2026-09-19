@@ -1,0 +1,17 @@
+snippet aide_init aide: Init (Scan and write aide.db.new)
+	aide --config /etc/aide/aide.conf --init
+
+snippet aide_init aide: Check (Check files against Baseline)
+	aide --config /etc/aide/aide.conf --check
+
+snippet aide_init aide: Update (Check files against Baseline and write aide.db.new)
+	aide --config /etc/aide/aide.conf --check
+
+snippet aide_save aide: Move aide.db.new to aide.db (Baseline)
+	mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
+
+snippet aide_daily_check_log aide: Daily Check Log
+	cat /var/log/aide/aide.log
+
+snippet aide_daily_check aide: Daily Check Status
+	journalctl -u dailyaidecheck.service

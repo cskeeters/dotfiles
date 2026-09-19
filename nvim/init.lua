@@ -51,9 +51,9 @@ vim.opt.wildignore={
     '*.class',
     '*.pyc'}
 
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+vim.scriptencoding = 'utf-8'      -- For neovim configuration scripts.
+vim.opt.encoding = 'utf-8'        -- Internal encoding.  This should always be "utf-8".
+-- vim.opt.encoding = 'iso-8859-5'  -- When using /dev/console
 
 ---- Context
 vim.opt.colorcolumn = '80'           -- Show col for max line length
@@ -109,18 +109,6 @@ vim.o.winborder = "rounded"
 ---- Filetypes
 vim.opt.encoding = 'utf8'            -- String encoding to use
 vim.opt.fileencoding = 'utf8'        -- File encoding to use
-
----- Theme
-vim.opt.syntax = "ON"                -- Allow syntax highlighting
-vim.opt.termguicolors = true         -- Used for terminal emulator or console
---This needs to be turned off for ttyd/vhs
-vim.opt.termguicolors = true         -- If term supports ui color then enable
-if os.getenv("TERM") == "linux" then
-    -- We're on the console, elflord doesn't look terrible
-    vim.cmd([[colorscheme elflord]])
-else
-    vim.cmd([[colorscheme habamax]])
-end
 
 ---- Search
 vim.opt.incsearch = true             -- Use incremental search
@@ -419,6 +407,17 @@ vim.keymap.set('n', '<LocalLeader><LocalLeader>c0', '<Cmd>set conceallevel=0<Cr>
 vim.keymap.set('n', '<LocalLeader><LocalLeader>c2', '<Cmd>set conceallevel=2<Cr>', { desc='Conceal: Replace with cchar (set list-style)' })
 vim.keymap.set('n', '<LocalLeader><LocalLeader>c3', '<Cmd>set conceallevel=3<Cr>', { desc='Conceal: Hide' })
 
+
+vim.keymap.set('n', '<Leader>R', function()
+  local current_ft = vim.bo.filetype
+  if current_ft ~= "" then
+    vim.bo.filetype = ""
+    vim.bo.filetype = current_ft
+    vim.notify("Reloaded ftplugin for " .. current_ft, vim.log.levels.INFO)
+  end
+end, { desc = "Reload current filetype plugins" })
+
+
 function Hardcopy()
     vim.cmd([[w !lp - ]])
 end
@@ -485,6 +484,19 @@ vim.cmd("source "..config_path.."/netrw-trash.vim")
 -- To disable netrw
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
+
+
+---- Theme
+-- vim.opt.syntax = "OFF"                -- Allow syntax highlighting
+vim.cmd.syntax 'on'                      -- This has to be last so all settings have been established first before ftplugin code runs for the buffer
+--This needs to be turned off for ttyd/vhs
+vim.opt.termguicolors = true         -- If term supports ui color then enable
+if os.getenv("TERM") == "linux" then
+    -- We're on the console, elflord doesn't look terrible
+    vim.cmd([[colorscheme elflord]])
+else
+    vim.cmd([[colorscheme habamax]])
+end
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "mail",

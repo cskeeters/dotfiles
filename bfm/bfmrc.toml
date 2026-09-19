@@ -6,9 +6,22 @@ section = "Operations"
 command =  "iplugin restic_restore"
 help = "Restore from restic"
 
+[[plugins]]
+section = "Operations"
+command =  "plugin md"
+help = "Convert to Markdown"
+
 [[bindings]]
 key = "B"
 command = "iplugin restic_restore"
+
+[[bindings]]
+key = "M"
+command = "plugin md"
+
+[[bindings]]
+key = "ctrl+a"
+command = "plugin mutt_attach"
 
 [[wd_replacements]]
 real = "Library/CloudStorage/OneDrive-RedCedarConsultancy,LLC"

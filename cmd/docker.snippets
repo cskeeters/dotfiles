@@ -1,4 +1,38 @@
+snippet docker_system_disk_usage docker: Disk Usage
+	docker system df
+snippet docker_system_prune docker: Prune System (Images, Volumes, and Containers)
+	docker system prune --volumes
+
+snippet docker_container_ls docker: List Containers
+	docker container ls -a --format "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.Status}}"
+snippet docker_container_stop docker: Stop Container
+	docker container stop ${1:docker_container_names()}
+snippet docker_container_start docker: Start Container
+	docker container start ${1:docker_container_names_with_state(exited)}
+snippet docker_container_pause docker: Pause Container
+	docker container pause ${1:docker_container_names()}
+snippet docker_container_unpause docker: Unpause Container
+	docker container unpause ${1:docker_container_names_with_state(paused)}
+snippet docker_container_ports docker: List ports used by containers
+	docker container ls --format "table {{.Names}}\t{{.Ports}}"
+
+snippet docker_image_ls docker: List Images
+	docker image ls
+snippet docker_image_tag docker: Tag Image as Stable
+	docker image tag ${1:docker_image_tags()} ${2:docker_tag_repository(1)}:stable
+snippet docker_image_rm docker: Remove Tag (and dangling image)
+	docker rmi ${1:docker_image_tags()}
+
+snippet docker_volume_create docker: Create Volume
+	docker volume create ${1:foo}
+snippet docker_volume_ls docker: List Volumes
+	docker volume ls
+snippet docker_volume_rm docker: Remove Volume
+	docker volume rm ${1:docker_volume()}
+
+
 snippet docker_exec docker: Start a process on a running container
-	docker exec ${1:docker_containers()} ${2:/bin/bash}
+	docker exec ${1:docker_container_names()} ${2:/bin/bash}
+
 snippet docker_cp docker: Copy files from docker container (no -r required)
-	docker cp ${1:docker_containers()}:${1:PATH:/var/log/messages} .
+	docker cp ${1:docker_container_names()}:${1:PATH:/var/log/messages} .

@@ -1,0 +1,14 @@
+snippet facl_get facl: Get ACL
+	getfacl file.txt
+snippet facl_modify facl: Set/Modify File ACL (User)
+	setfacl -m u:${2:linux_users()}:rw ${1:find_files_shallow(FILE)}
+snippet facl_modify facl: Set/Modify File ACL (Group)
+	setfacl -m g:users:rw ${1:find_files_shallow(FILE)}
+snippet facl_remove facl: Remove an ACL entry
+	setfacl -x ${2:acl_entry()} ${1:find_files_shallow(FILE)}
+snippet facl_remove_all facl: Clear/Remove all ACL
+	setfacl -b ${1:find_files_shallow(FILE)}
+snippet facl_mask_set facl: Set Mask
+	setfacl -m m::r-- ${1:find_files_shallow(FILE)}
+snippet find_facl find: All files with ACLs
+	find /path/to/search -acl

@@ -1,7 +1,7 @@
 return {
     enabled = true,
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
         'nvim-lua/plenary.nvim',
         'benfowler/telescope-luasnip.nvim',

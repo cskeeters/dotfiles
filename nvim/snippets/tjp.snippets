@@ -1,10 +1,40 @@
-snippet ts
+snippet task Task
 	task ${1:task_id} "Setup/Test ${2:Description}" {
 		effort ${3:1}d
 		allocate chad
 		complete 0
 	}
-snippet d
+
+snippet dep Depends (relative)
 	depends !${1}
-snippet dp
-	depends ${1}
+
+snippet limit Task Limit (Max Hours)
+	limits {
+		dailymax 1h {
+			resources A
+		}
+	}
+
+
+snippet resource Resource
+	resource chad "Chad" {
+		# vacation 2026-07-01
+		# workinghours 2026-10-16 off
+
+		# 1/4 time to other duties
+		efficiency .75
+	}
+
+snippet leaves Leaves Federal Holidays
+	leaves holiday "New Year"      2027-01-01,
+	       holiday "MLK Jr."       2027-01-18,
+	       holiday "Presidents"    2027-02-15,
+	       holiday "Memorial"      2027-05-31,
+	       holiday "Juneteenth"    2027-06-18,
+	       holiday "Independence"  2027-07-05,
+	       holiday "Labor"         2027-09-06,
+	       holiday "Columbus"      2027-10-11,
+	       holiday "Veteran"       2027-11-11,
+	       holiday "Thanksgiving"  2027-11-25,
+	       holiday "Christmas"     2027-12-25,
+

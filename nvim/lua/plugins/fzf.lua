@@ -34,6 +34,7 @@ return {
         vim.keymap.set('n', '<Leader>ou', ':Files! '..runtime_path..'<cr>',                      { desc="Open neovim runtime file (fzf)" })
 
         vim.keymap.set('n', '<Leader>on', ':Files! ~/Library/CloudStorage/Dropbox/notes<cr>',    { desc="Open note (fzf)" })
+        vim.keymap.set('n', '<Leader>ot', ':Files! ~/dotfiles<cr>',                              { desc="Open dotfiles file (fzf)" })
         vim.keymap.set('n', '<Leader>od', ':Files! ~/working/bcst-doc<cr>',                      { desc="Open bcst-doc file (fzf)" })
 
         vim.keymap.set('n', '<Leader>ob', ':Buffers!<cr>',                                       { desc="Open Buffer (fzf)" })

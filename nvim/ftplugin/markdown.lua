@@ -7,9 +7,7 @@ vim.opt_local.briopt="list:-1"
 vim.opt_local.formatlistpat="^\\s*\\d\\+\\.\\s\\+\\|^\\s*[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:\\&^.\\{4\\}\\|^[>[:space:]]\\+\\s\\+"
 vim.g.table_mode_corner='|'
 
-if vim.fn.has("patch-7.4-353") == 0 then
-    vim.bo.list = false
-end
+vim.opt_local.list = false
 
 vim.opt_local.conceallevel=0
 vim.bo.commentstring=[[<!-- %s -->]]
@@ -49,7 +47,7 @@ vim.keymap.set('n', '<LocalLeader>a', [[lBi<<Esc>Ea><Esc>]],          { buffer=t
 
 
 vim.keymap.set('v', '<LocalLeader>[', [[s[<C-r>"]()<Esc>i]], { buffer=true, desc='Makes selected text a [link](url)' })
-vim.keymap.set('v', '<LocalLeader>l', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
+vim.keymap.set('v', '<LocalLeader>a', [[s<<C-r>"><Esc>]],    { buffer=true, desc='Makes selected text a <link>' })
 
 vim.keymap.set('n', '<C-k>v', '<Cmd>MarkdownPreviewToggle<Cr>', { buffer=true, silent=true, desc="Toggle Markdown Preview" })
 

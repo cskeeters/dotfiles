@@ -2,10 +2,10 @@ vim.bo.textwidth=80
 vim.wo.wrap=true
 
 -- Setext style headers
-vim.keymap.set('n', '<LocalLeader>h', 'yypVr=', { buffer=true, desc='Make Header 1'})
-vim.keymap.set('n', '<LocalLeader>j', 'yypVr-', { buffer=true, desc='Make Header 2'})
-vim.keymap.set('n', '<LocalLeader>k', 'yypVr^', { buffer=true, desc='Make Header 3'})
-vim.keymap.set('n', '<LocalLeader>l', 'yypVr~', { buffer=true, desc='Make Header 4'})
+vim.keymap.set('n', '<LocalLeader>1', 'yypVr=', { buffer=true, desc='Make Header 1'})
+vim.keymap.set('n', '<LocalLeader>2', 'yypVr-', { buffer=true, desc='Make Header 2'})
+vim.keymap.set('n', '<LocalLeader>3', 'yypVr^', { buffer=true, desc='Make Header 3'})
+vim.keymap.set('n', '<LocalLeader>4', 'yypVr~', { buffer=true, desc='Make Header 4'})
 
 -- Make underlines for headings in reStructuredText format
 vim.keymap.set('n', '<LocalLeader>b', '_yiWi**<Esc>lEa**<Esc>', { buffer=true, desc='Bold word'})

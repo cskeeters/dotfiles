@@ -1,3 +1,4 @@
+link cmd/anylinuxfs.snippets                .config/cmd
 link cmd/apple_container.snippets           .config/cmd
 link cmd/apple_container.sh                 .config/cmd
 link cmd/brew.snippets                      .config/cmd

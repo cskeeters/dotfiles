@@ -49,11 +49,13 @@ Cappex
 Carrabelle
 Cetz
 Common
+Crownridge
 Ctrl
 D1C
 DASR
 DCE
 DCSA
+DHCP
 DISA
 DITMAC
 DNS
@@ -125,6 +127,7 @@ MPLS
 MPS1000
 MRTG
 Makefile
+Minicom
 Multiprotocol
 NACI
 NFG
@@ -179,6 +182,7 @@ QMK
 R6S
 RAPCON
 RCC
+RCH
 RCK
 RFPs
 RHEL
@@ -209,6 +213,7 @@ Scholarshipowl
 Sensis
 Sherm
 Sneakernet
+SnipMate
 Southmaster
 Sunhillo
 SwRI
@@ -256,6 +261,7 @@ bfm
 bootable
 callsign
 consortiums
+copyparty
 cybersecurity
 decrypted
 deliverables
@@ -291,9 +297,11 @@ rebase
 renderer
 repurpose
 requestor
+restic
 retransmit
 selectable
 subfolder
+subvolumes
 symlink
 symlinks
 tty

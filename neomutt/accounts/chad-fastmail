@@ -1,0 +1,28 @@
+# vim: filetype=neomuttrc
+# This is a test account that is not actively used
+
+## SETTINGS
+
+
+### User
+
+set real_name = "Chad Skeeters"
+# set signature = "~/.signature-yahoo"
+set signature = ""
+
+set from = "chadskeeters@fastmail.com"
+
+set my_account_name = "chad-fastmail" # for status_format
+
+### Maildir
+
+# Setup for `y` Navigation
+set folder = "~/.mail/chad-fastmail"
+
+### Notmuch
+
+# Tell neomutt where the notmuch DB is for this account
+# set nm_default_url = "notmuch:///Users/chad/.mail/yahoo"
+set nm_config_profile = "chad-fastmail"
+
+source ~/.config/neomutt/fastmail.template

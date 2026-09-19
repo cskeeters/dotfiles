@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 
 
 if vim.fn.has("patch-7.4-353") == 0 then
-    vim.bo.list = false
+    vim.opt_local.list = false
 end
 
 -- Atx style Headers (I don't really need these)
@@ -112,3 +112,4 @@ end
 vim.keymap.set('n', '<localleader>p', choose_pdf_standard,             { buffer=true, desc='Choose PDF/A Standard' })
 vim.keymap.set('n', '<C-k>d', typst_compile_open("Adobe Acrobat.app"), { buffer=true, desc='Build/Compile to PDF, open in Acrobat.app' })
 vim.keymap.set('n', '<C-k>p', typst_compile_open("Preview.app"),       { buffer=true, desc='Build/Compile to PDF, open in Preview.app' })
+vim.keymap.set('n', '<C-k>t', [[<Cmd>update<cr>:!tyaf '%' && open -a "Adobe Acrobat.app" '%:r.pdf'<cr>]], { buffer=true, desc='Compile with tyaf' })

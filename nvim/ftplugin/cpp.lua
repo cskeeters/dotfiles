@@ -4,6 +4,9 @@ vim.b.did_ftplugin = 1
 -- vim.bo.formatprg='astyle -s4pb'
 vim.bo.commentstring = '// %s'
 
+-- limit man pages to section 2 (System Calls) and 3 (Library Functions)
+vim.bo.keywordprg = "man -s 2:3"
+
 vim.bo.makeprg="gcc -std=c++11 -o %< %"
 vim.keymap.set('n', '<C-k>', '<cmd>make | cwindow<cr>', { buffer=true, desc='Compile' })
 

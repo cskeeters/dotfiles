@@ -6,7 +6,7 @@ btrfs_devices() {
 }
 
 btrfs_subvol_mount() {
-    mount | egrep 'btrfs.*subvol' | \
+    mount | grep -E 'btrfs.*subvol' | \
         sed -nre 's/.* on ([^[:space:]]*).*/\1/p' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf
 }

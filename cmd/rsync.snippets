@@ -1,4 +1,8 @@
 # Trailing slash to send contents
 # Remote path is relative to home direcotry without leading slash
-snippet rsync rsync: Sync directory To server
+snippet rsync rsync: Sync to central server
 	rsync -av --delete --partial --progress ${1:find_dir_shallow(DIR)} root@server:
+snippet rsync rsync: Sync to storage on Joffrey
+	rsync -av --delete --partial --progress ${1:find_dir_shallow(DIR)} chad@joffrey:/storage
+snippet rsync rsync: Sync, check Size Only and fix mtime
+	rsync -avt --size-only --delete --partial --progress foo chad@joffrey:/storage/

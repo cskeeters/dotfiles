@@ -13,7 +13,7 @@ snippet restic_backup restic: Backup
 
 
 snippet restic_restore restic: Restore Snapshot
-	restic restore latest --path "${2:restic_backedup_path()}" --target /tmp/restore
+	restic restore latest --host $(hostname) --path "${2:restic_backedup_path()}" --target /tmp/restore
 
 snippet restic_restore_file restic: Restore File or Directory
 	restic_restore
@@ -28,9 +28,12 @@ snippet restic_forget restic: Forget all but N snapshots
 snippet restic_forget_path restic: Forget all but N snapshots of Path
 	restic forget --keep-last ${1:COUNT;1} --prune --path $(pwd) --dry-run
 
-
 snippet restic_forget_keep restic: Forget Keep 14/24/2
 	restic forget --keep-daily 14 --keep-monthly 24 --keep-yearly 2 --path $(pwd) --dry-run
+
+snippet restic_forget_host restic: Forget Host
+	restic forget $(restic snapshots --host ${1} --json | jq -r '.[].id') --prune --dry-run
+
 
 snippet restic_stats restic: Stats (repo Size)
 	restic stats --mode raw-data

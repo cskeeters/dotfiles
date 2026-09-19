@@ -49,41 +49,15 @@ gitupdate() {
         die "hg not installed"
     fi
 }
-hgclone() {
-    if exists hg; then
-        (cd offline && hg clone "$1" || die "Error downloading $1")
-    else
-        die "hg not installed"
-    fi
-}
-hgupdate() {
-    if exists hg; then
-        (cd offline/"$1" && hg pull -u || die "Error updating $1")
-    else
-        die "hg not installed"
-    fi
-}
-clone() {
+clone_or_update() {
     mkdir -p offline
     if [[ ! -e "offline/$(basename $1)" ]]; then
         info "Cloning $1..."
-        if [[ $1 =~ github ]]; then
-            gitclone "$1"
-        elif [[ $1 =~ bitbucket ]]; then
-            hgclone "$1"
-        else
-            die "Don't know how to clone $1"
-        fi
+        gitclone "$1"
     else
         if [[ $UPDATE -eq 1 ]]; then
             info "Updating $1..."
-            if [[ $1 =~ github ]]; then
-                gitupdate $(basename "$1")
-            elif [[ $1 =~ bitbucket ]]; then
-                hgupdate $(basename "$1")
-            else
-                die "Don't know how to update $1"
-            fi
+            gitupdate $(basename "$1")
         fi
     fi
 }
@@ -206,7 +180,7 @@ chmod a+x offline/tabsplice
 cache https://raw.githubusercontent.com/cskeeters/myvim/master/myvim
 chmod a+x offline/myvim
 
-clone https://github.com/chriskempson/base16-shell
+clone_or_update https://github.com/chriskempson/base16-shell
 
 if [[ $DOWNLOAD_ONLY -eq 1 ]]; then
     echo "Finished Downloading.  Exiting"
@@ -222,7 +196,7 @@ linkdot shell/completions
 linkdot shell/inputrc
 linkdot shell/dir_colors
 linkdot shell/iterm2_shell_integration.bash
-linkdot shell/cmdsnip.sh
+linkdot shell/cmdsnip/cmdsnip.sh
 linkdot mailcap
 linkdot mbsyncrc
 
@@ -230,11 +204,13 @@ link cmd/functions.sh                       .config/cmd
 
 link cmd/ag.snippets                        .config/cmd
 link cmd/autojump.snippets                  .config/cmd
+link cmd/bash.snippets                      .config/cmd
 link cmd/beancount.snippets                 .config/cmd
 link cmd/bind.snippets                      .config/cmd
 link cmd/beet.snippets                      .config/cmd
 link cmd/cargo.snippets                     .config/cmd
 link cmd/curl.snippets                      .config/cmd
+link cmd/docker.sh                          .config/cmd
 link cmd/docker.snippets                    .config/cmd
 link cmd/faketime.snippets                  .config/cmd
 link cmd/find.snippets                      .config/cmd
@@ -258,6 +234,8 @@ link cmd/notmuch.snippets                   .config/cmd
 link cmd/notmuch.sh                         .config/cmd
 link cmd/nvim.snippets                      .config/cmd
 link cmd/nvim.sh                            .config/cmd
+link cmd/pass.snippets                      .config/cmd
+link cmd/pass.sh                            .config/cmd
 link cmd/pimsync.snippets                   .config/cmd
 link cmd/python.snippets                    .config/cmd
 link cmd/pyvenv.snippets                    .config/cmd
@@ -265,6 +243,7 @@ link cmd/restic.snippets                    .config/cmd
 link cmd/restic.sh                          .config/cmd
 link cmd/rg.snippets                        .config/cmd
 link cmd/rsync.snippets                     .config/cmd
+link cmd/ssh-agent.snippets                 .config/cmd
 link cmd/tar.snippets                       .config/cmd
 link cmd/tmux.snippets                      .config/cmd
 link cmd/tmux.sh                            .config/cmd
@@ -297,6 +276,8 @@ link neomutt .config
 link notmuch .config
 link pimsync .config
 link vdirsyncer .config
+link opencode/opencode.jsonc .config/opencode
+link urlscan .config
 
 link w3m/keymap .w3m
 link w3m/config .w3m
