@@ -89,6 +89,14 @@ link() {
 
     INSTALL_PATH="$INSTALL_DIR/${DOT}${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
+
+    if [[ -L $INSTALL_PATH ]]; then
+        if [[ $(readlink "$INSTALL_PATH") == "$SOURCE_PATH" ]]; then
+            # echo "$INSTALL_PATH is already installed "
+            return
+        fi
+    fi
+
     mkdir -p "$INSTALL_DIR"
     backup_clear
     ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
@@ -103,6 +111,14 @@ linkbin() {
     # Remove everything before last slash
     INSTALL_PATH="${2:-$HOME/bin}/${1##*/}"
     SOURCE_PATH="$dotfiles/$1"
+
+    if [[ -L $INSTALL_PATH ]]; then
+        if [[ $(readlink "$INSTALL_PATH") == "$SOURCE_PATH" ]]; then
+            # echo "$INSTALL_PATH is already installed "
+            return
+        fi
+    fi
+
     backup_clear
     ln -sf "$SOURCE_PATH" "$INSTALL_PATH" || die "Error linking $INSTALL_PATH"
 }
