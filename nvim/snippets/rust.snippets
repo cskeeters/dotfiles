@@ -23,6 +23,11 @@ snippet if_let if let
 		${3:println!("i is {}", i)}
 	}
 
+snippet let_else let else
+	let Ok(${1:v}) = ${2:e} else {
+		${3}
+	};
+
 #### Strings
 
 snippet String String from string slice (str)
