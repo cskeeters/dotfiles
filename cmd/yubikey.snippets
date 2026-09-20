@@ -1,0 +1,21 @@
+snippet ykman_list ykman: List YubiKeys
+	ykman list
+
+snippet ykman_info ykman: Info for YubiKey
+	ykman info
+
+snippet ykman_fido_mode ykman: Switch to FIDO2
+	ykman config usb --enable fido2
+
+
+snippet ykman_fido_info ykman: FIDO2 Info for YubiKey
+	ykman fido info
+
+snippet ykman_fido_reset ykman: Factory Reset (WIPE Keys and PIN)
+	ykman fido reset
+
+snippet ykman_fido_change_pin ykman: Change PIN
+	ykman fido access change-pin
+
+snippet ykman_fido_list ykman: List Passkeys (fido)
+	ykman fido credentials list
