@@ -216,6 +216,31 @@ if [[ $- == *i* ]]; then
     fi
 fi
 
+
+#### bfm
+
+if exists bfm; then
+    b() {
+        TMUX_VERSION=$(tmux -V 2> /dev/null | awk '{print $2}')
+        VERSION_MIN="3.5"
+
+        # Returns OLDEST version.  If OLDEST is not the min, then the CUR is oldest
+        if [[ "$(printf '%s\n%s' "$TMUX_VERSION" "$VERSION_MIN" | sort -V | head -n1)" != "$VERSION_MIN" ]]; then
+            bfm $*
+        else
+            tmux new-session -n BFM bfm $*
+        fi
+
+        LASTD="$HOME/.local/state/bfm.lastd"
+
+        if [ -f "$LASTD" ]; then
+            dir=$(cat "$LASTD")
+            cd "$dir"
+        fi
+    }
+fi
+
+
 #### dua
 
 if exists git; then
@@ -259,7 +284,6 @@ if [[ -r ~/.backblaze ]]; then
     source ~/.backblaze
 fi
 
-
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt
@@ -281,6 +305,7 @@ if [[ $- == *i* ]]; then
     bind -m emacs -x '"\C-x\C-e": _edit_and_return_command'
     bind -m vi-insert -x '"\C-x\C-e": _edit_and_return_command'
     bind -m vi-command -x '"\C-x\C-e": _edit_and_return_command'
+    bind -m vi-command -x '"v": _edit_and_return_command'
 fi
 
 # Load custom user completions
