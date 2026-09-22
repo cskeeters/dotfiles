@@ -208,21 +208,10 @@ return {
     },
     opts = {
         adapters = {
-            local_ollama = {
-                url = "http://127.0.0.1:11434",  -- Ollama's OpenAI-compatible endpoint or apfel
-                --
-                -- Optional: If auth is enabled on your Ollama server
-                -- headers = { Authorization = "Bearer your-token" }
-            },
             openai_responses = {
-                url = "http://192.168.20.11:11434",  -- Ollama on HYDE
+                -- url = "http://192.168.20.11:11434",  -- Ollama on HYDE
+                url = "http://127.0.0.1:11434",  -- Ollama on localhost
             },
-            apfel = {
-                url = "http://localhost:11434",
-                --
-                -- Optional: If auth is enabled on your Ollama server
-                -- headers = { Authorization = "Bearer your-token" }
-            }
         },
 
 
