@@ -219,6 +219,9 @@ return {
 
         -- model = "apple-foundationmodel",
         -- Local Models
+        model = "phi4:latest",
+        -- model = "phi4-mini:3.8b-q8_0",
+        -- model = "phi4-mini",
         -- model = "mistral-small3.2", -- Very good, fast enough
         -- model = "llama3.3:latest",    -- Very Good, slow
         -- model = "deepseek-r1:latest", -- Good, very slow
@@ -228,10 +231,10 @@ return {
         -- model = "command-r:latest", -- BAD, detects the wrong language
         --
         -- HYDE
-        model = "phi4:latest",   -- FAST, uses indeed alot.  Very corporate.
+        -- model = "phi4:14b-q8_0",             -- FAST, uses indeed alot.  Very corporate.
+        -- model = "qwen3:8b-q8_0",          -- FAST
+        -- model = "qwen3.8:27b-mtp-bf16",
         -- model = "llama3.3:latest",
-        -- model = "deepseek-r1:70b",
-        -- model = "gemma3:27b",
         -- model = "gemma4:31b",
 
         -- Overall I think for writing/rewriting llama3.1 is overall better baseline model in under 10b scope.
