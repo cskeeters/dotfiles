@@ -195,7 +195,7 @@ end
 
 return {
     enabled = true,
-    "bennorichters/taal.nvim",
+    "https://codeberg.org/BennoRichters/taal.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
         { "<leader>tg", "<Cmd>TaalGrammar<cr>", desc="Grammar check (taal)" },
