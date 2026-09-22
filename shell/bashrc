@@ -278,7 +278,6 @@ if [[ -r ~/.backblaze ]]; then
     source ~/.backblaze
 fi
 
-
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt

@@ -1,0 +1,7 @@
+{
+  "provider": "ollama",
+  "model": "qwen3.8:27b-mtp-bf16",
+  "reasoning": "",
+  "theme": "",
+  "last_changelog_shown": "0.3.84"
+}
