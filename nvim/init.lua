@@ -528,6 +528,9 @@ if vim.g.neovide then
     vim.keymap.set('v', '<D-c>', '"+y', { desc="macOS Copy (Visual)" })
 end
 
+-- Enable built-in plugins
+vim.cmd([[packadd nvim.tohtml]])
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
