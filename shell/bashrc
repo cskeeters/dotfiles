@@ -281,6 +281,10 @@ fi
 
 export PINENTRY_PROGRAM=pinentry-tty
 
+#### passage(rage)
+
+export PASSAGE_AGE=rage
+
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt
