@@ -1,0 +1,20 @@
+snippet yum_search yum: Install (Package)
+	sudo yum install ${1}
+
+snippet yum_search yum: Info (Package)
+	yum info ${1}
+
+snippet yum_search yum: Search (Package)
+	yum search ${1}
+
+snippet yum_provides yum: What Provides
+	yum provides ${1}
+
+snippet yumdownloader yumdownloader: Download Package
+	mkdir ${1:PACKAGE:}
+	cd ${1}
+	yumdownloader --resolve ${1}
+
+snippet yumdownloader_save yumdownloader: Save packages to yum-el7
+	cp -rp * /opt/AMS2/net/yum-el7/x86_64/
+	createrepo /opt/AMS2/net/yum-el7/x86_64/
