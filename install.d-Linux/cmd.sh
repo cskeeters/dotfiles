@@ -5,6 +5,10 @@ if command -v rpm >/dev/null 2>&1; then
     link cmd/rpmbuild.snippets              .config/cmd
 fi
 
+if command -v yum >/dev/null 2>&1; then
+    link cmd/yum.snippets                   .config/cmd
+fi
+
 if command -v dnf >/dev/null 2>&1; then
     link cmd/dnf.snippets                   .config/cmd
 fi
