@@ -277,6 +277,10 @@ if [[ -r ~/.backblaze ]]; then
     source ~/.backblaze
 fi
 
+#### pinentry
+
+export PINENTRY_PROGRAM=pinentry-tty
+
 #### Override edit-and-execute-command
 
 # Custom function to edit command and return it to the prompt
