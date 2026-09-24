@@ -1,0 +1,8 @@
+snippet rage_encrypt_file_ssh rage: Encrypt File (SSH Key)
+	rage -R ~/.ssh/id_ed25519.pub -o ${1}.age ${1:find_files_shallow(FILE)}
+
+snippet rage_encrypt_file_ssh_pem rage: Encrypt File (SSH Key, PEM)
+	rage -aR ~/.ssh/id_ed25519.pub -o ${1}.age ${1:find_files_shallow(FILE)}
+
+snippet rage_decrypt_file_ssh rage: Decrypt File (SSH Key)
+	rage -d -i ~/.ssh/id_ed25519 -o ${2:cmd_remove_ext(1)} ${1:find_files_shallow(FILE *.age)}

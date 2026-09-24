@@ -256,6 +256,7 @@ link cmd/pass.sh                            .config/cmd
 link cmd/pimsync.snippets                   .config/cmd
 link cmd/python.snippets                    .config/cmd
 link cmd/pyvenv.snippets                    .config/cmd
+link cmd/rage.snippets                      .config/cmd
 link cmd/restic.snippets                    .config/cmd
 link cmd/restic.sh                          .config/cmd
 link cmd/rg.snippets                        .config/cmd
