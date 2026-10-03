@@ -26,6 +26,23 @@
       // }
   },
   "provider": {
+    "Strata": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Hyde (Strata)",
+      "options": {
+        "baseURL": "http://192.168.20.11:8080/v1",
+        "timeout": 60000000
+      },
+      "models": {
+        "qwen3.8:27b-mtp-bf16": {
+          "variants": {
+            "fast": {
+              "reasoningEffort": "low",
+            },
+          },
+        },
+      },
+    },
     "hyde": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "Hyde (Ollama)",
