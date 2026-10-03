@@ -1,2 +1,4 @@
 snippet opencode_oneshot opencode: Run Command (OneShot)
 	opencode run --model "${1:opencode_provider_models()}" --agent build "${2}"
+snippet opencode_delete_session opencode: Delete Session
+	opencode session delete "${1:opencode_sessions()}"

@@ -8,3 +8,12 @@ opencode_provider_models() {
         jq -r '.provider | to_entries[] | .key as $P | .value.models | to_entries[] | "\($P)/\(.key)"' | \
         FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --accept-nth 1 --prompt "$PROMPT> "
 }
+opencode_sessions() {
+    PROMPT="SESSION"
+    if [[ $1 != "" ]]; then
+        PROMPT=$1
+    fi
+
+    opencode session list | \
+        FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --accept-nth 1 --with-nth 2.. --prompt "$PROMPT> "
+}
