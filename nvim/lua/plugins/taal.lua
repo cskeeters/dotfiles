@@ -229,16 +229,13 @@ return {
 
         -- model = "apple-foundationmodel",
         -- Local Models
-        model = "phi4:latest",
-        -- model = "phi4-mini:3.8b-q8_0",
-        -- model = "phi4-mini",
+        model = "gemma4:e4b-mlx", -- Very fast, very good
+        -- model = "gemma4:e2b-mlx", -- Very fast, but missing things
+        -- model = "phi4:latest",
         -- model = "mistral-small3.2", -- Very good, fast enough
         -- model = "llama3.3:latest",    -- Very Good, slow
-        -- model = "deepseek-r1:latest", -- Good, very slow
-        -- model = "phi4-mini:latest",   -- FAST, uses indeed alot.  Very corporate.
         -- model = "gemma3n:latest", -- OK, fast, doesn't understand markdown.  Designed for laptops
         -- model = "qwen3.5:latest", -- Very good, but too slow on the M1
-        -- model = "command-r:latest", -- BAD, detects the wrong language
         --
         -- HYDE
         -- model = "phi4:14b-q8_0",             -- FAST, uses indeed alot.  Very corporate.
