@@ -317,9 +317,9 @@ return {
     s({trig = "link", desc="Link"},
         {
             f(smart_pound),
-            t("link("),
+            t('link("'),
             i(1, "http://www.google.com"),
-            t(")"),
+            t('")'),
             t("["),
             i(2, "Google"),
             t("]"),
