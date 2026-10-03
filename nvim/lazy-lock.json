@@ -47,6 +47,7 @@
   "qalc.nvim": { "branch": "main", "commit": "33198ba0533d6a514f9a48cb472e40407c2ea9f6" },
   "quarto-nvim": { "branch": "main", "commit": "17f1e5d664bc615478230dc0240666329efacf9b" },
   "rainbow_parentheses.vim": { "branch": "master", "commit": "27e7cd73fec9d1162169180399ff8ea9fa28b003" },
+  "refine.nvim": { "branch": "main", "commit": "101404b46f5bdd16346c9d41a0d1168d6d6e7311" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "soulver3.vim": { "branch": "master", "commit": "0285c5f88edfbc0ca52b6f8fb001a8b7f778e218" },
   "taal.nvim": { "branch": "main", "commit": "99f243cedadad4c9e2dbb1e76afefa69cf0f94d5" },
