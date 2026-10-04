@@ -43,6 +43,11 @@ snippet tutorial_indexed_array Tutorial Indexed Array
 		echo "$F"
 	done
 
+	for I in "${!FOO[@]}"; do
+		F=${FOO[$I]
+		echo "$F"
+	done
+
 snippet iarray_contains iarray_contains:
 	iarray_contains() {
 		local search="$1"
