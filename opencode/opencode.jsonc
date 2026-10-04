@@ -35,6 +35,10 @@
       },
       "models": {
         "qwen3.8-flash-next-iq3_s": {
+          "limit": {
+            "context": 131072,
+            "output": 65536,
+          },
           "variants": {
             "fast": {
               "reasoningEffort": "low",
@@ -51,7 +55,22 @@
         "timeout": 60000000
       },
       "models": {
-        "qwen3.8:27b-mtp-bf16": {
+        "qwen3.8:27b-mtp-bf16 (32768)": {
+          "limit": {
+            "context": 32768,
+            "output": 65536,
+          }
+          "variants": {
+            "fast": {
+              "reasoningEffort": "low",
+            },
+          },
+        },
+        "qwen3.8:27b-mtp-bf16 (262144)": {
+          "limit": {
+            "context": 262144, // Requires manual load
+            "output": 65536,
+          }
           "variants": {
             "fast": {
               "reasoningEffort": "low",
