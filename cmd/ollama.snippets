@@ -4,6 +4,10 @@ snippet ollama_list ollama: List Models
 	ollama list
 snippet ollama_run ollama: Run Model (Chat)
 	ollama run ${1:ollama_local_models()}
+snippet ollama_load ollama: Load Model
+	curl -s http://localhost:11434/api/generate -d '{"model": "${1:ollama_local_models()}", "options": {"num_ctx": ${2:ollama_select_context_limit(1)}}}'
+snippet ollama_unload ollama: Unload Model
+	curl http://localhost:11434/api/generate -d '{ "model": "${1:ollama_running_models()}", "keep_alive": 0 }'
 snippet ollama_stop ollama: Stop Model
 	ollama stop ${1:ollama_running_models()}
 snippet ollama_ps ollama: List Running Models
