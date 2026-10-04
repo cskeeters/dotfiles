@@ -32,6 +32,16 @@ snippet heredoc Heredoc variable assignment
 snippet var_default Variable with Default
 	${1:V}=\${${1}:-${2:default}}
 
+
+snippet tutorial_nameref Tutorial Name Reference
+	target="Hello, World!"
+	local -n ref=target
+
+	echo "$ref"        # Outputs: Hello, World!
+
+	ref="New Value"    # Modifies 'target' directly
+	echo "$target"     # Outputs: New Value
+
 snippet tutorial_indexed_array Tutorial Indexed Array
 	declare -a FOO #define
 	FOO=("hello" "world") #init
