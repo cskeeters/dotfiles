@@ -8,14 +8,27 @@ ollama_local_models() {
     fi
 }
 
+ollama_remote_models() {
+    HOST=$1
+    OLLAMA_LIST=$(curl -s $HOST/api/tags | jq -r '.models[] | .name')
+    if [[ $? -ne 0 ]]; then
+        cmd_error "Error getting list of models running on ollama at $HOST."
+        cmd_error "Is the ollama server running?"
+    else
+        echo "$OLLAMA_LIST" | grep -v "NAME" | cut -d " " -f 1 | \
+            FZF_DEFAULT_OPTS="$FZF_NO_PREVIEW_OPTS" fzf --prompt "MODEL> "
+    fi
+}
+
 # $1 must be the position of the model name
 ollama_context_limit() {
     local MODEL
     local CONTEXT_LENGTH
     MODEL="${VALUES[$1]}"
+    HOST="${2:-http://localhost}"
 
     cmd_info "Looking up context length for $MODEL"
-    CONTEXT_LENGTH=$(curl -s http://localhost:11434/api/ps | jq '.models[] | select(.name == "'"$MODEL"'") | .context_length')
+    CONTEXT_LENGTH=$(curl -s $HOST/api/show -d '{ "model": "'$MODEL'" }' | jq '.model_info' | grep context_length | sed -nre 's/.*: ([^,]*).*/\1/' -e '1p')
 
     if [[ $CONTEXT_LENGTH == "" ]]; then
         cmd_warn "Could not detect context length for $MODEL"
@@ -30,9 +43,10 @@ ollama_trained_context_limit() {
     local MODEL
     local CONTEXT_LENGTH
     MODEL="${VALUES[$1]}"
+    HOST="${2:-http://localhost}"
 
     cmd_info "Looking up trained context length for $MODEL"
-    CONTEXT_LENGTH=$(curl -s http://localhost:11434/api/show -d '{ "model": "'$MODEL'" }' | jq '.model_info' | grep context_length | sed -nre 's/.*: ([^,]*).*/\1/' -e '1p')
+    CONTEXT_LENGTH=$(curl -s $HOST/api/show -d '{ "model": "'$MODEL'" }' | jq '.model_info' | grep context_length | sed -nre 's/.*: ([^,]*).*/\1/' -e '1p')
 
     if [[ $CONTEXT_LENGTH == "" ]]; then
         cmd_warn "Could not detect context length for $MODEL"
@@ -45,7 +59,7 @@ ollama_trained_context_limit() {
 
 # $1 must be the model name
 ollama_select_context_limit() {
-    MAX_NUM_CTX=$(ollama_context_limit $1)
+    MAX_NUM_CTX=$(ollama_context_limit "$1" "$2")
 
     CUR=2048
     declare -a OPTIONS
