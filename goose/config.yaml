@@ -92,7 +92,7 @@ extensions:
     display_name: Orchestrator
     bundled: true
   computercontroller:
-    enabled: false
+    enabled: true
     type: builtin
     name: computercontroller
     description: General computer control tools that don't require you to be a developer or engineer.

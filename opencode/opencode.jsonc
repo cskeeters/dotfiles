@@ -34,7 +34,7 @@
         "timeout": 60000000
       },
       "models": {
-        "qwen3.8:27b-mtp-bf16": {
+        "qwen3.8-flash-next-iq3_s": {
           "variants": {
             "fast": {
               "reasoningEffort": "low",
