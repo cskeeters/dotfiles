@@ -35,6 +35,7 @@ link cmd/mdadm.snippets                     .config/cmd
 link cmd/ionice.snippets                    .config/cmd
 link cmd/nvidia.snippets                    .config/cmd
 link cmd/proc.snippets                      .config/cmd
+link cmd/ss.snippets                        .config/cmd
 link cmd/systemctl.snippets                 .config/cmd
 link cmd/systemctl.sh                       .config/cmd
 link cmd/timedatectl.snippets               .config/cmd
