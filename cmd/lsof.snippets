@@ -13,6 +13,9 @@ snippet lsof_files_mount lsof: Find processes keeping a Device from unmounting
 snippet lsof_port lsof: Find the process with open Port
 	lsof -i :${1:PORT:80}
 
+snippet lsof_processes_listening lsof: Show Processes Listening for TCP/UDP Connections
+	sudo lsof -i -P -n | grep LISTEN
+
 snippet lsof_files_user lsof: Files Open by User
 	lsof -u ${1:cmd_usernames()}
 
