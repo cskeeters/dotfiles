@@ -92,7 +92,7 @@
         "gpt-oss:120b": {},
       }
     },
-    "ollama": {
+    "local": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama (localhost)",
       "options": {
