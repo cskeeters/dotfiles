@@ -14,7 +14,7 @@
               "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
           },
           "enabled": true
-      }
+      },
       // , "markdownify": {
           // "type": "local",
           // "command": ["node", "/Users/chad/src/markdownify-mcp/dist/index.js"],
@@ -59,7 +59,7 @@
           "limit": {
             "context": 32768,
             "output": 65536,
-          }
+          },
           "variants": {
             "fast": {
               "reasoningEffort": "low",
@@ -70,7 +70,7 @@
           "limit": {
             "context": 262144, // Requires manual load
             "output": 65536,
-          }
+          },
           "variants": {
             "fast": {
               "reasoningEffort": "low",
@@ -90,7 +90,7 @@
         //   },
         // },
         "gpt-oss:120b": {},
-      }
+      },
     },
     "local": {
       "npm": "@ai-sdk/openai-compatible",
@@ -126,6 +126,6 @@
     "external_directory": {
       "/tmp/**": "allow",
       "/private/tmp/**": "allow"
-    }
-  }
+    },
+  },
 }
