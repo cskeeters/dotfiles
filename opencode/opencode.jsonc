@@ -1,36 +1,38 @@
 {
-  // This is the v1 config.
+  // v2 config
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
+  "plugins": [
     // "opencode-websearch-cited@1.2.0",
     // "opencode-ralph-loop"
   ],
   // "formatter": false,
   // "lsp": false,
   "mcp": {
+    "servers": {
       "context7": {
-          "type": "remote",
-          "url": "https://mcp.context7.com/mcp",
-          "headers": {
-              "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
-          },
-          "enabled": true
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+        },
+        "disabled": false
       },
       // , "markdownify": {
           // "type": "local",
           // "command": ["node", "/Users/chad/src/markdownify-mcp/dist/index.js"],
           // // has to run ahead of time: source /Users/chad/src/markdownify-mcp/.venv/bin/activate
           // // or have this setting
-          // "env": {
+          // "environment": {
               // "UV_PATH": "/Users/chad/src/markdownify-mcp"
-          // }
-      // }
+          // },
+      // },
+    },
   },
-  "provider": {
+  "providers": {
     "Strata": {
-      "npm": "@ai-sdk/openai-compatible",
+      "package": "@ai-sdk/openai-compatible",
       "name": "Strata (Hyde)",
-      "options": {
+      "settings": {
         "baseURL": "http://192.168.20.11:8080/v1",
         "timeout": 60000000
       },
@@ -38,99 +40,106 @@
         "qwen3.8-flash-next-iq3_s": {
           "limit": {
             "context": 131072,
-            "output": 65536,
+            "output": 65536
           },
-          "variants": {
-            "fast": {
-              "reasoningEffort": "low",
+          "variants": [
+            {
+              "id": "fast",
+              "settings": {
+                "reasoningEffort": "low"
+              },
             },
-          },
+          ]
         },
       },
     },
     "hyde": {
-      "npm": "@ai-sdk/openai-compatible",
+      "package": "@ai-sdk/openai-compatible",
       "name": "Ollama (Hyde)",
-      "options": {
+      "settings": {
         "baseURL": "http://hyde:11434/v1",
         "timeout": 60000000
       },
       "models": {
         "qwen3.8:27b-mtp-bf16-262144": {
           "name": "qwen3.8:27b-mtp-bf16 (262144)",
-          "id": "qwen3.8:27b-mtp-bf16", // model name passed to provider
+          "modelID": "qwen3.8:27b-mtp-bf16", // model name passed to provider
           "limit": {
             "context": 262144, // Requires manual load
-            "output": 65536,
+            "output": 65536
           },
-          "variants": {
-            "fast": {
-              "reasoningEffort": "low",
+          "variants": [
+            {
+              "id": "fast",
+              "settings": {
+                "reasoningEffort": "low"
+              },
             },
-          },
+          ]
         },
         "qwen3.8:27b-mtp-bf16-32768": {
           "name": "qwen3.8:27b-mtp-bf16 (32768)",
-          "id": "qwen3.8:27b-mtp-bf16", // model name passed to provider
+          "modelID": "qwen3.8:27b-mtp-bf16", // model name passed to provider
           "limit": {
             "context": 32768,
-            "output": 65536,
+            "output": 65536
           },
-          "variants": {
-            "fast": {
-              "reasoningEffort": "low",
+          "variants": [
+            {
+              "id": "fast",
+              "settings": {
+                "reasoningEffort": "low"
+              },
             },
-          },
+          ]
         },
         // "qwen3.8:27b-mtp-q8_0": {
-        //   "variants": {
-        //     // "xhigh": {
-        //       // "reasoningEffort": "xhigh",
-        //       // // "textVerbosity": "low",
-        //     // },
-        //     "fast": {
-        //       // "disabled": true,
-        //       "reasoningEffort": "low",
-        //     },
-        //   },
+        //   "variants": [
+        //     // { "id": "xhigh", "settings": { "reasoningEffort": "xhigh", /* "textVerbosity": "low" */ } },
+        //     { "id": "fast", "settings": { "reasoningEffort": "low" } }
+        //   ]
         // },
         "gpt-oss:120b": {},
       },
     },
     "local": {
-      "npm": "@ai-sdk/openai-compatible",
+      "package": "@ai-sdk/openai-compatible",
       "name": "Ollama (localhost)",
-      "options": {
+      "settings": {
         "baseURL": "http://localhost:11434/v1",
         // "baseURL": "http://localhost:8888/v1",
-        "timeout": 60000000,
+        "timeout": 60000000
       },
       "models": {
         "qwen3.8:27b-mlx": {
-          "variants": {
-            "fast": {
-              "reasoningEffort": "low",
+          "variants": [
+            {
+              "id": "fast",
+              "settings": {
+                "reasoningEffort": "low"
+              },
             },
-          },
+          ]
         },
         "qwen3.8:27b-mxfp8": {
-          "variants": {
-            "fast": {
-              "reasoningEffort": "low"
+          "variants": [
+            {
+              "id": "fast",
+              "settings": {
+                "reasoningEffort": "low"
+              },
             },
-          },
+          ]
         },
-        "gpt-oss:20b": {},
-      }
+        "gpt-oss:20b": {}
+      },
     },
   },
   "model": "hyde/qwen3.8:27b-mtp-bf16-262144",
-  "permission": {
-    "websearch": "allow",
-    "websearch_cited": "allow", // depending on the plugin's tool name
-    "external_directory": {
-      "/tmp/**": "allow",
-      "/private/tmp/**": "allow"
-    },
-  },
+  "permissions": [
+    { "action": "websearch", "resource": "*", "effect": "allow" },
+    { "action": "websearch_cited", "resource": "*", "effect": "allow" }, // depending on the plugin's tool name
+    { "action": "external_directory", "resource": "/tmp/**", "effect": "allow" },
+    { "action": "external_directory", "resource": "/private/tmp/**", "effect": "allow" },
+  ]
 }
