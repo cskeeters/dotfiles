@@ -1,4 +1,5 @@
 {
+  // This is the v1 config.
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     // "opencode-websearch-cited@1.2.0",
@@ -55,9 +56,11 @@
         "timeout": 60000000
       },
       "models": {
-        "qwen3.8:27b-mtp-bf16 (32768)": {
+        "qwen3.8:27b-mtp-bf16-262144": {
+          "name": "qwen3.8:27b-mtp-bf16 (262144)",
+          "id": "qwen3.8:27b-mtp-bf16", // model name passed to provider
           "limit": {
-            "context": 32768,
+            "context": 262144, // Requires manual load
             "output": 65536,
           },
           "variants": {
@@ -66,9 +69,11 @@
             },
           },
         },
-        "qwen3.8:27b-mtp-bf16 (262144)": {
+        "qwen3.8:27b-mtp-bf16-32768": {
+          "name": "qwen3.8:27b-mtp-bf16 (32768)",
+          "id": "qwen3.8:27b-mtp-bf16", // model name passed to provider
           "limit": {
-            "context": 262144, // Requires manual load
+            "context": 32768,
             "output": 65536,
           },
           "variants": {
@@ -119,7 +124,7 @@
       }
     },
   },
-  "model": "hyde/qwen3.8:27b-mtp-bf16",
+  "model": "hyde/qwen3.8:27b-mtp-bf16-262144",
   "permission": {
     "websearch": "allow",
     "websearch_cited": "allow", // depending on the plugin's tool name
