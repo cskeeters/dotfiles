@@ -28,7 +28,7 @@
   "provider": {
     "Strata": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Hyde (Strata)",
+      "name": "Strata (Hyde)",
       "options": {
         "baseURL": "http://192.168.20.11:8080/v1",
         "timeout": 60000000
@@ -49,7 +49,7 @@
     },
     "hyde": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Hyde (Ollama)",
+      "name": "Ollama (Hyde)",
       "options": {
         "baseURL": "http://192.168.20.11:11434/v1",
         "timeout": 60000000
@@ -94,7 +94,7 @@
     },
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
+      "name": "Ollama (localhost)",
       "options": {
         "baseURL": "http://localhost:11434/v1",
         // "baseURL": "http://localhost:8888/v1",
