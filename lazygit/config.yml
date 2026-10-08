@@ -1,7 +1,6 @@
 promptToReturnFromSubprocess: false
 disableStartupPopups: true
 notARepository: quit
-
 os:
   # I usually use lazygit embedded in nvim. For this, I use
   # https://github.com/willothy/flatten.nvim to simplify the setup without the
@@ -10,17 +9,13 @@ os:
   edit: "nvim {{filename}}"
   editAtLine: "nvim +{{line}} {{filename}}"
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
-
 git:
   # autoFetch: false
   fetchAll: false
-
 gui:
   mouseEvents: false
-
   # skipDiscardChangeWarning: true
   skipSwitchWorktreeOnCheckoutWarning: true
-
   theme:
     activeBorderColor:
       - '#f2cdcd'
@@ -41,10 +36,8 @@ gui:
       - '#cdd6f4'
     searchingActiveBorderColor:
       - '#f9e2af'
-
-  authorColors:
-    '*': '#b4befe'
-
+    authorColors:
+      '*': '#b4befe'
 customCommands:
   # LESS="RX" removes F from LESS defaults so that we don't return
   - key: "<c+a>"
