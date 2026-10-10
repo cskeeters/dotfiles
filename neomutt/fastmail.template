@@ -63,7 +63,7 @@ unset smtp_authenticators
 unset smtp_user
 unset smtp_pass
 
-set sendmail = "env NOTMUCH_PROFILE=$nm_config_profile /usr/local/bin/mujmap send"
+set sendmail = "env NOTMUCH_PROFILE=$nm_config_profile /usr/local/bin/mujmap -C $folder/mail send"
 
 
 ## MAPPINGS
