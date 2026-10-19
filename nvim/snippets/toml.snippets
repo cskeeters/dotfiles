@@ -6,3 +6,8 @@ snippet typst_package
 	authors = ["Chad Skeeters"]
 	license = ""
 	description = "${2}"
+
+snippet clippy_return Clippy: Allow any return or no return keyword
+	[lints.clippy]
+	implicit_return = "allow"
+	needless_return = "allow"
