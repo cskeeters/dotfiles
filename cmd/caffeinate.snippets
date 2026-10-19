@@ -1,11 +1,8 @@
-snippet caffeinate_display caffeinate: Prevent System Sleep (until ctrl+c, display can sleep)
+snippet caffeinate_system caffeinate: Prevent System Sleep (until ctrl+c, display can sleep)
 	caffeinate -i
 
-snippet caffeinate_display caffeinate: Prevent System Sleep (until ctrl+c or timeout, display can sleep)
-	caffeinate -i -t $((8 * 3600))
-
-snippet caffeinate_display caffeinate: Prevent System and Display Sleep  (until ctrl+c)
-	caffeinate -d
+# snippet caffeinate_display caffeinate: Prevent System and Display Sleep (until ctrl+c)
+# caffeinate -d
 
 snippet caffeinate_do caffeinate: Prevent System Sleep for Command
 	caffeinate -i ${1:make}
