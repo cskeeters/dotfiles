@@ -187,6 +187,9 @@ snippet echo_stderr Output to stderr
 snippet stderr_to_stdout Redirect stderr to stdout
 	2>&1
 
+snippet stderr_and_stdout Redirect stderr and stdout
+	&>
+
 snippet mod_fd Modifiy stdout
 	exec 1> logfile.txt
 	echo "hi"
