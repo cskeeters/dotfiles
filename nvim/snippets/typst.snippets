@@ -1,7 +1,11 @@
 ## FONTS
 
+snippet eb_garamond EB Garamond Font
+	#set text(font: "EB Garamond", features: ("swsh",))
+
 snippet vollkorn Vollkorn Font
 	#set text(font:"Vollkorn", features: ("ss11", "ss14", "ss17", "zero"))
+
 snippet novela Novela Font
 	//lnum gets rid of the sideways zero
 	#set text(font:"Novela", features: ("lnum"))
@@ -21,10 +25,24 @@ snippet template Template (generic typst example)
 		it
 	}
 
+snippet show_set show: set rule
+	#show ${1:selector}: set ${2:element}(${3:parameter}: ${4:value})
+
 snippet show Show rule
 	#show ${1:element}: it => {
 		it
 	}
+
+snippet fn_show Function for Show
+	// `it` will be the contents of the rest of the scope
+	#let ${1:mainmatter}(it, font:"Helvetica") => {
+		set text(font:font)
+		it
+	}
+	show: mainmatter.with(font:"Figtree")
+
+snippet text Text Style (Full)
+	#set text(fill:gray.darken(40%), size: 8pt, font:"Figtree", tracking: .3pt, style: "italic", weight: 700, features: ("swsh",))
 
 snippet acronym Acronym (Custom)
 	*${1:text}*: _${2:description}_\
@@ -36,7 +54,6 @@ snippet terms Terms (Definitions)
 	#set terms(separator: [ \ ])
 
 	/ Term: description
-
 
 snippet regex Regex with captures
 	#let input = "Package: typst-cli-0.12.0"
@@ -431,7 +448,12 @@ snippet landscape Landscape
 		Page Text
 	]
 
-snippet page-setup-demo Page Setup (demo)
+snippet page-letter Page Setup: us-letter
+	#set page(
+		paper: "us-letter",
+	)
+
+snippet page-setup-demo Page Setup: Demo Size
 	#set page(
 		width: 4in,
 		height: 2in,
@@ -787,6 +809,25 @@ snippet graph_lilaq
 	)
 
 ### PACKAGE fillable/tyaf
+
+snippet rcc RCC Color and Logo
+	#import "@local/rcc:0.1.0": rcc_red, rcc_grey, rcc_logo
+
+
+snippet dropcap Dropcap from droplet
+	#import "@preview/droplet:0.3.1": dropcap
+	dropcap(
+		height: 3,     // number of lines to span (2 or 3)
+		justify: true, // Justify paragraph text
+		gap: 4pt,      // Space between dropcap and normal text
+		overhang: 2pt, // Amount to position dropcap into the left margin
+		transform: it => {
+			text(fill: rcc_red, it)
+		}
+	)[
+		paragraph
+	],
+
 
 snippet pdf_text fillable: PDF Text field
 	#import "@local/typst-fillable:1.0.0": *
