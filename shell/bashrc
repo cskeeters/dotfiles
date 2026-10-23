@@ -10,7 +10,9 @@ exists() {
 DOTFILES=$(dirname $(dirname $(realpath ~/.bashrc)))
 
 # Don't display ^C characters
-stty -echoctl
+if [[ $- == *i* ]]; then
+    stty -echoctl
+fi
 
 #### Common Shell tools
 umask 002
