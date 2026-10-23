@@ -106,9 +106,6 @@
 
 	sf = show --first-parent
 
-[format]
-	pretty = %C(red)%>|(15)%h%C(reset) %C(green)%<(16,trunc)%ah%C(reset) %s %C(yellow)%D%C(reset)
-
 [pull]
 	ff = only
 	autoStash = true
