@@ -5,18 +5,23 @@
     // "opencode-websearch-cited@1.2.0",
     // "opencode-ralph-loop"
   ],
+
+  "websearch": {
+    "provider": "tavily" // Options: "tavily", "exa", "tinyfish", "random", etc.
+  },
+
   // "formatter": false,
   // "lsp": false,
   "mcp": {
     "servers": {
-      "context7": {
-        "type": "remote",
-        "url": "https://mcp.context7.com/mcp",
-        "headers": {
-          "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
-        },
-        "disabled": false
-      },
+      // "context7": {
+      //   "type": "remote",
+      //   "url": "https://mcp.context7.com/mcp",
+      //   "headers": {
+      //     "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      //   },
+      //   "disabled": false
+      // },
       // , "markdownify": {
           // "type": "local",
           // "command": ["node", "/Users/chad/src/markdownify-mcp/dist/index.js"],
